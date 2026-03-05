@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--Hospital-->
+    <menuitem id="hospital"
+              name="Hospital"
+              sequence="0"
+              web_icon="hospital,static/description/hospital-building-icon.png"/>
+
+
+<!--Patient-->
+    <menuitem id="patient"
+              name="Patient"
+              parent="hospital"
+              sequence="0"/>
+
+    <menuitem id="patient_details"
+              name="Patient Details"
+              parent="patient"
+              action="action_hospital_patient"
+              sequence="0"/>
+
+
+<!--Doctor-->
+    <menuitem id="doctor"
+              name="Doctors"
+              action="action_hospital_doctor"
+              parent="hospital"
+              sequence="1"/>
+
+    <menuitem id="doctor_details"
+              name="Doctors Details"
+              parent="doctor"
+              action="action_hospital_doctor"
+              sequence="0"/>
+
+
+<!--Medicament-->
+    <menuitem id="medicaments"
+              name="Medicaments"
+              parent="hospital"
+              sequence="2"/>
+
+    <menuitem id="medicaments_details"
+              name="Medicaments Details"
+              parent="medicaments"
+              action="action_hospital_medicaments"
+              sequence="0"/>
+
+
+<!--Appointment-->
+    <menuitem id="appointments"
+              name="Appointments"
+              parent="hospital"
+              sequence="3"/>
+
+    <menuitem id="appointments_detail"
+              name="Appointments Details"
+              parent="appointments"
+              action="action_hospital_appointment"
+              sequence="0"/>
+
+
+</odoo>
