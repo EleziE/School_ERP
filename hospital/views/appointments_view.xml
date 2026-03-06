@@ -8,7 +8,16 @@
             <field name="name">hospital.appointment.form</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <field name="state" widget="statusbar" nolabel="True" options="{'clickable':'True'}"
+                               statusbar_visible="personal_info,date_time,recheck"/>
+                    </header>
                     <sheet>
+                        <div class="oe_title">
+                            <h3>
+                                <field name="priority" widget="priority"/>
+                            </h3>
+                        </div>
                         <group>
                             <group>
                                 <field name="patient_id"/>
@@ -17,6 +26,8 @@
                             <group>
                                 <field name="appointment_date"/>
                                 <field name="appointment_time"/>
+                                <button name="action_test" string="Delete button" type="object"
+                                        class="btn-secondary text-nowrap"/>
                             </group>
                         </group>
                     </sheet>
@@ -34,13 +45,28 @@
             <field name="name">hospital.appointments.tree</field>
             <field name="arch" type="xml">
                 <tree sample="1">
-                    <field name="patient_id"/>
-                    <field name="doctor_id"/>
-                    <field name="appointment_date" widget="date"/>
-                    <field name="appointment_time"/>
+                    <field name="priority" widget="priority" readonly="True"/>
+                    <field name="patient_id" readonly="True"/>
+                    <field name="doctor_id" readonly="True"/>
+                    <field name="appointment_date" widget="date" readonly="True"/>
+                    <field name="appointment_time" readonly="True"/>
                 </tree>
             </field>
         </record>
+        <record id="view_hospital_appointments_search" model="ir.ui.view">
+            <field name="name">ciew.hospital.appointments.search</field>
+            <field name="model">hospital.appointments</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group expand="0" string="Group By">
+                        <filter name="sate" string="State" context="{'group_by':'state'}"/>
+                        <filter name="priority" string="Priority" context="{'group_by':'priority'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
         <!--Action-->
         <record id="action_hospital_appointment" model="ir.actions.act_window">
             <field name="name">Appointment</field>

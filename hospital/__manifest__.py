@@ -6,9 +6,6 @@
     'author': 'Enes',
     'data': [
         # Security
-
-
-
         'security/ir.model.access.csv',
 
         # Views
