@@ -70,6 +70,7 @@
     </record>
 
     <menuitem id="menu_library_member"
+              parent="root_library"
               name="Members"
               action="action_library_member"
               sequence="2"/>

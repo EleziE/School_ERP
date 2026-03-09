@@ -17,7 +17,7 @@ class LibraryBooks(models.Model):
     state = fields.Selection(selection=[('available', 'Available'),
                                         ('partially_available', 'Partially Available'),
                                         ('unavailable', 'Unavailable')],
-                             string='State',compute='_compute_copy_state')
+                             string='State',compute='_compute_copy_state',store=True)
     description = fields.Text(string='Description')
     cover_image = fields.Binary(string='Cover Image')
     publisher = fields.Char(string='Publisher')

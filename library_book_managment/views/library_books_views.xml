@@ -65,6 +65,7 @@
     </record>
 
     <menuitem id="menu_library_books"
+              parent="root_library"
               name="Books"
               action="action_library_books"
               sequence="1"/>

@@ -64,6 +64,7 @@
     </record>
 
     <menuitem id="menu_library_borrow"
+              parent="root_library"
               name="Borrow"
               action="action_library_borrow"
               sequence="1"/>

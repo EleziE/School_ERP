@@ -8,8 +8,8 @@ class LibraryCategory(models.Model):
     description = fields.Text(string='Description')
     book_ids = fields.One2many(comodel_name='library.books',
                                inverse_name='category_id',
-                               string='Books')
-    book_count = fields.Integer(string='Book Count',compute='_compute_book_count')
+                               string='Books',store=True)
+    book_count = fields.Integer(string='Book Count',compute='_compute_book_count',store=True)
 
 
     @api.depends('book_ids')
