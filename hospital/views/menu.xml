@@ -4,7 +4,7 @@
     <menuitem id="hospital"
               name="Hospital"
               sequence="0"
-              web_icon="hospital,../static/description/hospital-web.png"/>
+              web_icon="hospital,static/description/hospital-web.png"/>
 
 
     <!--Patient-->
