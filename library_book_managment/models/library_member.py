@@ -35,3 +35,8 @@ class LibraryMember(models.Model):
                 rec.state = 'suspended'
             else:
                 rec.state = 'active'
+    @api.model
+    def create(self, vals):
+        if not vals.get('member_code'):
+            vals['member_code']= self.env['ir.sequence'].next_by_code('library.member')
+        return super().create(vals)
