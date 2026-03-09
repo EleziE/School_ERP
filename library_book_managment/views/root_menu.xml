@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <menuitem id="root_library"
-              name="Library"/>
+              name="Library"
+    web_icon="library_book_managment,static/description/icon.png"/>
 </odoo>

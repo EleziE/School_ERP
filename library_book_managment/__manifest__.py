@@ -14,4 +14,5 @@
         'views/library_member_views.xml', ],
     'installable': True,
     'application': True,
+    'sequence':1,
 }
