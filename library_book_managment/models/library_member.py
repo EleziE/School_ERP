@@ -13,12 +13,12 @@ class LibraryMember(models.Model):
     borrow_ids = fields.One2many(string='Borrows',
                                  comodel_name='library.borrow',
                                  inverse_name='member_id')
-    borrow_count = fields.Integer(string='Borrow Count',compute='_compute_borrow_count')
+    borrow_count = fields.Integer(string='Borrow Count',compute='_compute_borrow_count',store=True)
     state = fields.Selection(selection=[
         ('active', 'Active'),
         ('expired', 'Expired'),
         ('suspended', 'Suspended'),
-    ], string='Status',compute='_compute_state')
+    ], string='Status',compute='_compute_state',store=True)
 
     @api.depends('borrow_ids')
     def _compute_borrow_count(self):

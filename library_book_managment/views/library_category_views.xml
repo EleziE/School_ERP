@@ -20,14 +20,14 @@
     </record>
     <!--Tree-->
 
-    <record id="library_category_list_view" model="ir.ui.view">
-        <field name="name">library.category.list.view</field>
+    <record id="library_category_tree_view" model="ir.ui.view">
+        <field name="name">library.category.tree.view</field>
         <field name="model">library.category</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="name"/>
                 <field name="book_count"/>
-            </list>
+            </tree>
         </field>
     </record>
     <!--Search-->
@@ -50,6 +50,7 @@
     </record>
 
     <menuitem id="menu_library_category"
+              parent="root_library"
               name="Category"
               action="action_library_category"
               sequence="0"/>

@@ -10,7 +10,7 @@ class LibraryBorrow(models.Model):
     state = fields.Selection([('draft', 'Draft'),
                               ('borrowed', 'Borrowed'),
                               ('returned', 'Returned')],
-                             string='State')
+                             string='State',store=True)
     borrow_date = fields.Date(string='Borrow Date')
     due_date = fields.Date(string='Due Date')
     return_date = fields.Date(string='Return Date')
