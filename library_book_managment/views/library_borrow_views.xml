@@ -27,18 +27,18 @@
     </record>
     <!--List-->
 
-    <record id="library_borrow_list_view" model="ir.ui.view">
-        <field name="name">library.borrow.list.view</field>
+    <record id="library_borrow_tree_view" model="ir.ui.view">
+        <field name="name">library.borrow.tree.view</field>
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="book_id"/>
                 <field name="member_id"/>
                 <field name="borrow_date"/>
                 <field name="due_date"/>
                 <field name="return_date"/>
                 <field name="state"/>
-            </list>
+            </tree>
         </field>
     </record>
     <!--Search-->

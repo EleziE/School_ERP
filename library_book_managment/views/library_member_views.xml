@@ -34,17 +34,17 @@
         </field>
     </record>
     <!--List-->
-    <record id="library_member_list_view" model="ir.ui.view">
-        <field name="name">library.member.list.view</field>
+    <record id="library_member_tree_view" model="ir.ui.view">
+        <field name="name">library.member.tree.view</field>
         <field name="model">library.member</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="partner_id"/>
                 <field name="member_code"/>
                 <field name="join_date"/>
                 <field name="expiry_date"/>
                 <field name="state"/>
-            </list>
+            </tree>
         </field>
     </record>
     <!--Search-->
