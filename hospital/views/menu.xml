@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<!--Hospital-->
+    <!--Hospital-->
     <menuitem id="hospital"
               name="Hospital"
               sequence="0"
-              web_icon="hospital,static/description/hospital-building-icon.png"/>
+              web_icon="hospital,../static/description/hospital-web.png"/>
 
 
-<!--Patient-->
+    <!--Patient-->
     <menuitem id="patient"
               name="Patient"
               parent="hospital"
@@ -20,7 +20,7 @@
               sequence="0"/>
 
 
-<!--Doctor-->
+    <!--Doctor-->
     <menuitem id="doctor"
               name="Doctors"
               action="action_hospital_doctor"
@@ -34,7 +34,7 @@
               sequence="0"/>
 
 
-<!--Medicament-->
+    <!--Medicament-->
     <menuitem id="medicaments"
               name="Medicaments"
               parent="hospital"
@@ -47,7 +47,7 @@
               sequence="0"/>
 
 
-<!--Appointment-->
+    <!--Appointment-->
     <menuitem id="appointments"
               name="Appointments"
               parent="hospital"

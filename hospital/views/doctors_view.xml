@@ -35,14 +35,10 @@
             <field name="arch" type="xml">
                 <tree sample="1" duplicate="false" export_xlsx='false' delete="false">
                     <field name="name"/>
-                    <field name="surname"
-                           optional="show"/>
-                    <field name="specialisation"
-                           optional="show"/>
-                    <field name='gender'
-                           optional="show"/>
-                    <field name="age"
-                           optional="show"/>
+                    <field name="surname" optional="show"/>
+                    <field name="specialisation" optional="show"/>
+                    <field name='gender' optional="show"/>
+                    <field name="age" optional="show"/>
                 </tree>
             </field>
         </record>
@@ -57,13 +53,12 @@
                     <filter name="gender_male" string="Male" domain="[('gender','=','male')]"/>
                     <group expand="0" string="Group By">
                         <filter name="surname" string="Surname" context="{'group_by':'surname'}"/>
-                        <separator/>
                         <filter name="gender"   string="Gender" context="{'group_by':'gender'}"/>
+                        <filter name="specialisation"   string="Specialisation" context="{'group_by':'specialisation'}"/>
                     </group>
                 </search>
             </field>
         </record>
-
         <!--ACTION-->
         <record id="action_hospital_doctor" model="ir.actions.act_window">
             <field name="name">Doctor</field>

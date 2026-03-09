@@ -11,6 +11,18 @@ class HospitalPerson(models.Model):
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], string='Gender',tracking=True)
     dob = fields.Date(string='Date of Birth',tracking=True)
     age = fields.Integer(string='Age', compute='_compute_age')
+    blood_type = fields.Selection([
+        ('o_positive', 'O+'),
+        ('o_negative', 'O-'),
+        ('a_positive', 'A+'),
+        ('a_negative', 'A-'),
+        ('b_positive', 'B+'),
+        ('b_negative', 'B-'),
+        ('ab_positive', 'AB+'),
+        ('ab_negative', 'AB-'),
+        ('unknown', 'Unknown'),
+        ('other', 'Other')
+    ], string='Blood Type', default='unknown')
 
 
 
@@ -26,7 +38,6 @@ class HospitalPerson(models.Model):
                 record.age = years
             else:
                 record.age = 0
-
 
 class HospitalDoctors(models.Model):
     _name = 'hospital.doctors'

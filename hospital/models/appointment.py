@@ -28,6 +28,35 @@ class Appointments(models.Model):
         ('done', 'Done'),
         ('submit', 'Submit')], string="State", default='personal_info', required=True)
 
+    def action_go_to_date_time(self):
+        for rec in self:
+            if not rec.name:
+                raise ValidationError("Please fill in the First Name before proceeding!")
+            if not rec.surname:
+                raise ValidationError("Please fill in the Last Name before proceeding!")
+            if not rec.dob:
+                raise ValidationError("Please fill in the Date of Birth before proceeding!")
+            rec.state = 'date_time'
+
+    def action_go_to_recheck(self):
+        for rec in self:
+            if not rec.appointment_date:
+                raise ValidationError("Please fill in the Appointment Date before proceeding!")
+            rec.state = 'recheck'
+
+    def action_go_to_done(self):
+        for rec in self:
+            rec.state = 'done'
+
+    def action_go_back(self):
+        for rec in self:
+            if rec.state == 'date_time':
+                rec.state = 'personal_info'
+            elif rec.state == 'recheck':
+                rec.state = 'date_time'
+            elif rec.state == 'done':
+                rec.state = 'recheck'
+
     @api.depends('appointment_date')
     # From the appointment_date gets only the time
     def _compute_appointment_time(self):
@@ -47,7 +76,7 @@ class Appointments(models.Model):
             if rec.appointment_date:
                 appointment_date = rec.appointment_date.date()
                 if appointment_date < today:
-                    raise ValidationError("Appointment Date can't be in the past")
+                    raise ValidationError("Appointment date can't be in the past")
 
     def action_test(self):
         print('test')
