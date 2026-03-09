@@ -9,8 +9,11 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" nolabel="True" options="{'clickable':'True'}"
-                               statusbar_visible="personal_info,date_time,recheck"/>
+                        <field name="state" widget="statusbar" nolabel="True" options="{'clickable':'False'}"
+                               statusbar_visible="personal_info,date_time,recheck,submit"/>
+                        <button name="action_go_to_date_time" string="Next" type="object" class="btn-primary" invisible="state != 'personal_info'"/>
+                        <button name="action_go_to_recheck" string="Next: Recheck" type="object" class="btn-primary" invisible="state != 'date_time'"/>
+                        <button name="action_go_back" string="Back" type="object" class="btn-secondary" invisible="state == 'personal_info'"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -26,7 +29,7 @@
                             <group>
                                 <field name="appointment_date"/>
                                 <field name="appointment_time"/>
-                                <button name="action_test" string="Delete button" type="object"
+                                <button name="action_test" string="Object button" type="object"
                                         class="btn-secondary text-nowrap"/>
                             </group>
                         </group>
@@ -53,8 +56,9 @@
                 </tree>
             </field>
         </record>
+        <!--Search-->
         <record id="view_hospital_appointments_search" model="ir.ui.view">
-            <field name="name">ciew.hospital.appointments.search</field>
+            <field name="name">view.hospital.appointments.search</field>
             <field name="model">hospital.appointments</field>
             <field name="arch" type="xml">
                 <search>
@@ -65,8 +69,6 @@
                 </search>
             </field>
         </record>
-
-
         <!--Action-->
         <record id="action_hospital_appointment" model="ir.actions.act_window">
             <field name="name">Appointment</field>

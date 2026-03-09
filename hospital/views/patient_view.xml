@@ -13,20 +13,22 @@
                             <group>
                                 <field name="name"/>
                                 <field name="surname"/>
-                                <field name="doctor_id"
-                                       string="Doctor"
-                                       widget="many2one_avatar"
-                                       options="{'no_create':True}"/>
+                                <field name="doctor_id" string="Doctor" widget="many2one_avatar" options="{'no_create':True}"/>
                             </group>
                             <group>
                                 <field name='gender'/>
                                 <field name="dob"/>
+                                <field name="age" readonly="True"/>
                                 <field name="medicaments_ids" widget="many2many_tags" options="{'no_create':True}"/>
                             </group>
                             <group>
-                                <field name="prescription"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Notes" name="notes" autofocus="0">
+                                <field name="prescription" placeholder="Notes for the patient..." />
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"/>
@@ -43,15 +45,10 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
-                    <field name="surname"
-                           optional="show" />
-                    <field name='gender'
-                           optional="show"/>
-                    <field name="doctor_id"
-                           widget="many2one_avatar_user"
-                           optional="show"/>
-                    <field name="age"
-                           optional="show"/>
+                    <field name="surname" optional="show" />
+                    <field name='gender' optional="show"/>
+                    <field name="doctor_id" widget="many2one_avatar_user" optional="show"/>
+                    <field name="age" optional="show"/>
                 </tree>
             </field>
         </record>
