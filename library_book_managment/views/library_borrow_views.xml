@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="library_borrow_form_view" model="ir.ui.view">
+        <field name="name">library.borrow.form.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id"/>
+                            <field name="member_id"/>
+                        </group>
+                        <group>
+                            <field name="borrow_date"/>
+                            <field name="due_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--List-->
+
+    <record id="library_borrow_list_view" model="ir.ui.view">
+        <field name="name">library.borrow.list.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="borrow_date"/>
+                <field name="due_date"/>
+                <field name="return_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <!--Search-->
+    <record id="library_borrow_search_view" model="ir.ui.view">
+        <field name="name">library.borrow.search.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="borrowed" string="Borrowed" domain="[('state','=','borrowed')]"/>
+                <filter name="returned" string="Returned" domain="[('state','=','returned')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Action-->
+    <record id="action_library_borrow" model="ir.actions.act_window">
+        <field name="name">Library Borrow</field>
+        <field name="res_model">library.borrow</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_library_borrow"
+              name="Borrow"
+              action="action_library_borrow"
+              sequence="1"/>
+</odoo>

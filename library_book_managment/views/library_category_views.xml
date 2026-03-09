@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="library_category_form_view" model="ir.ui.view">
+        <field name="name">library.category.form.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="About book">
+                            <field name="book_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Tree-->
+
+    <record id="library_category_list_view" model="ir.ui.view">
+        <field name="name">library.category.list.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="book_count"/>
+            </list>
+        </field>
+    </record>
+    <!--Search-->
+    <record id="library_category_search_view" model="ir.ui.view">
+        <field name="name">library.category.search.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Action-->
+    <record id="action_library_category" model="ir.actions.act_window">
+        <field name="name">Category's</field>
+        <field name="res_model">library.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_library_category"
+              name="Category"
+              action="action_library_category"
+              sequence="0"/>
+</odoo>
