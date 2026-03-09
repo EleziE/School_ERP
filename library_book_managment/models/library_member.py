@@ -1,5 +1,5 @@
 from odoo import fields, models,api
-
+from datetime import date
 
 class LibraryMember(models.Model):
     _name = 'library.member'
@@ -29,9 +29,9 @@ class LibraryMember(models.Model):
     def _compute_state(self):
         for rec in self:
             today = fields.Date.today()
-            if rec.expiry_date < today:
+            if rec.expiry_date and isinstance(rec.expiry_date, date) < today:
                 rec.state = 'expired'
-            elif rec.is_active != False:
+            elif rec.is_active == False:
                 rec.state = 'suspended'
             else:
                 rec.state = 'active'
