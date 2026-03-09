@@ -31,7 +31,7 @@ class LibraryBooks(models.Model):
         for rec in self:
             rec.available_copies = rec.total_copies - len(rec.borrow_ids)
 
-    @api.depends('total_copies','available_copies','borrow_ids')
+    @api.depends('total_copies','available_copies')
     def _compute_copy_state(self):
         for rec in self:
             if rec.available_copies == 0:
