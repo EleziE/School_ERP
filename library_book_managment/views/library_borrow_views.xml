@@ -55,7 +55,6 @@
             </search>
         </field>
     </record>
-
     <!--Action-->
     <record id="action_library_borrow" model="ir.actions.act_window">
         <field name="name">Library Borrow</field>
