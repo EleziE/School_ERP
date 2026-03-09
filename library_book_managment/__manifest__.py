@@ -5,8 +5,9 @@
     'author': 'Enes',
     'depends': ['base'],
     'data': [
-        'views/root_menu.xml',
         'security/ir.model.access.csv',
+        'data/sequence.xml',
+        'views/root_menu.xml',
         'views/library_category_views.xml',
         'views/library_books_views.xml',
         'views/library_borrow_views.xml',
