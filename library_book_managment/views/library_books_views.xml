@@ -10,14 +10,16 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <field name="name"/>
-                    <field name="author_id"/>
-                    <field name="category_id"/>
-                    <field name="isbn"/>
-                    <field name="publisher"/>
-                    <field name="publish_date"/>
-                    <field name="total_copies"/>
-                    <field name="available_copies"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="author_id"/>
+                        <field name="category_id"/>
+                        <field name="isbn"/>
+                        <field name="publisher"/>
+                        <field name="publish_date"/>
+                        <field name="total_copies"/>
+                        <field name="available_copies"/>
+                    </group>
                     <notebook>
                         <page string="Borrow">
                             <field name="borrow_ids"/>
@@ -50,7 +52,8 @@
             <search>
                 <field name="name"/>
                 <filter name="available" string="Available" domain="[('state','=','available')]"/>
-                <filter name="partially_available" string="Partially Available" domain="[('state','=','partially_available')]"/>
+                <filter name="partially_available" string="Partially Available"
+                        domain="[('state','=','partially_available')]"/>
                 <filter name="unavailable" string="Unavailable" domain="[('state','=','unavailable')]"/>
             </search>
         </field>

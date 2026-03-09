@@ -10,7 +10,19 @@ class LibraryBorrow(models.Model):
     state = fields.Selection([('draft', 'Draft'),
                               ('borrowed', 'Borrowed'),
                               ('returned', 'Returned')],
-                             string='State',store=True)
+                             string='State',default='draft')
     borrow_date = fields.Date(string='Borrow Date')
     due_date = fields.Date(string='Due Date')
     return_date = fields.Date(string='Return Date')
+
+
+
+    def action_borrow(self):
+        self.state = 'borrowed'
+
+    def action_return(self):
+        self.state = 'returned'
+        self.return_date = fields.Date.today()
+
+    def action_reset(self):
+        self.state = 'draft'
