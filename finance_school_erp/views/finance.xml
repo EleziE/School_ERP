@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Tree-->
+    <record id="finance_tree_view" model="ir.ui.view">
+        <field name="name">finance.tree.view</field>
+        <field name="model">finance.finance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--Form-->
+    <record id="finance_form_view" model="ir.ui.view">
+        <field name="name">finance.form.view</field>
+        <field name="model">finance.finance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="pay_finance" string="Pay" type="object" invisible="state == 'paid'"/>
+                    <button name="unpaid_finance" string="Unpaid" type="object" invisible="state == 'unpaid'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid,unpaid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="amount"/>
+                        <field name="student_id"/>
+                        <field name="create_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_finance" model="ir.actions.act_window">
+        <field name="name">Finance</field>
+        <field name="res_model">finance.finance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--menuitem-->
+    <menuitem name="Finance"
+              id="finance"
+              action="action_finance"/>
+</odoo>

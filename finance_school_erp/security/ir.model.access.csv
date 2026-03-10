@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+finance_school_erp.access_finance_finance,access_finance_finance,finance_school_erp.model_finance_finance,base.group_user,1,1,1,1
