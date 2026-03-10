@@ -1,4 +1,6 @@
 <odoo>
+
+<!--Auto-generate the prefix of member id-->
     <data noupdate="1">
         <record id="sequence_library_member" model="ir.sequence">
             <field name="name">Library Member Sequence</field>

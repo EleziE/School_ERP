@@ -10,16 +10,16 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <group>
-                        <group>
+                    <group name="main_group">
+                        <group name="group_1">
                             <field name="member_code"/>
                             <field name="partner_id"/>
                         </group>
-                        <group>
+                        <group name="group_2">
                             <field name="join_date"/>
                             <field name="expiry_date"/>
                         </group>
-                        <group>
+                        <group name="group_3">
                             <field name="is_active"/>
                             <field name="borrow_count"/>
                         </group>
