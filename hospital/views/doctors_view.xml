@@ -8,7 +8,7 @@
             <field name="name">hospital.doctors.form</field>
             <field name="arch" type="xml">
                 <form>
-                    <sheet name="view_hospital_doctors_form_sheet">
+                    <sheet name="main_sheet">
                         <group>
                             <group>
                                 <field name="name"/>

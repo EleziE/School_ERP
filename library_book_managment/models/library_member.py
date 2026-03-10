@@ -19,6 +19,9 @@ class LibraryMember(models.Model):
         ('expired', 'Expired'),
         ('suspended', 'Suspended'),
     ], string='Status',compute='_compute_state',store=True)
+    phone = fields.Char(string='Phone')
+
+
 
     @api.depends('borrow_ids')
     def _compute_borrow_count(self):

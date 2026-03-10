@@ -5,14 +5,25 @@
     'author': 'Enes',
     'depends': ['base'],
     'data': [
+        # security
         'security/ir.model.access.csv',
+        # data
         'data/sequence.xml',
-        'views/root_menu.xml',
-        'views/library_category_views.xml',
-        'views/library_books_views.xml',
-        'views/library_borrow_views.xml',
-        'views/library_member_views.xml', ],
+        # main views
+        'views/root_views/root_menu.xml',
+        'views/root_views/library_category_views.xml',
+        'views/root_views/library_books_views.xml',
+        'views/root_views/library_borrow_views.xml',
+        'views/root_views/library_member_views.xml',
+        # inherited views
+        'views/inherited_views/library_books_extended_views.xml',
+        'views/inherited_views/library_member_extended_views.xml',
+        'views/inherited_views/library_borrow_extended_views.xml',
+        'views/inherited_views/library_category_extended_views.xml',
+        ],
     'installable': True,
     'application': True,
     'sequence':1,
 }
+
+

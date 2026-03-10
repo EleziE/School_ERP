@@ -25,6 +25,17 @@ class LibraryBooks(models.Model):
     borrow_ids = fields.One2many(string='Borrow',
                                 comodel_name='library.borrow',
                                  inverse_name='book_id')
+    language = fields.Char(string='Language')
+    pages = fields.Integer(string='Pages')
+
+
+
+
+
+
+
+
+
 
     @api.depends('total_copies', 'borrow_ids')
     def _compute_available_copies(self):

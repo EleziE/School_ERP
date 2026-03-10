@@ -7,10 +7,12 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <field name="name"/>
-                    <field name="description"/>
+                    <group name="main_group">
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
                     <notebook>
-                        <page string="About book">
+                        <page string="About book" name="page_books">
                             <field name="book_ids"/>
                         </page>
                     </notebook>

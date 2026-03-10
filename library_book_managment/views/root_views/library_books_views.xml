@@ -10,15 +10,19 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="author_id"/>
-                        <field name="category_id"/>
-                        <field name="isbn"/>
-                        <field name="publisher"/>
-                        <field name="publish_date"/>
-                        <field name="total_copies"/>
-                        <field name="available_copies"/>
+                    <group name="main_group">
+                        <group name="left_side">
+                            <field name="name"/>
+                            <field name="author_id"/>
+                            <field name="category_id"/>
+                            <field name="isbn"/>
+                        </group>
+                        <group name="right_side">
+                            <field name="publisher"/>
+                            <field name="publish_date"/>
+                            <field name="total_copies"/>
+                            <field name="available_copies"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Borrow">

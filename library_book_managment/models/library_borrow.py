@@ -14,7 +14,7 @@ class LibraryBorrow(models.Model):
     borrow_date = fields.Date(string='Borrow Date')
     due_date = fields.Date(string='Due Date')
     return_date = fields.Date(string='Return Date')
-
+    notes = fields.Text(string='Notes')
 
 
     def action_borrow(self):

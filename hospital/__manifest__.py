@@ -23,4 +23,5 @@
     'installable': True,
     'auto_install': True,
     'sequence': 0,
+    'application': True,
 }
