@@ -9,7 +9,13 @@
                     <group>
                         <field name="book_count"/>
                     </group>
-                    <field name="book_ids"/>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='page_books']" position="after">
+                <page string="Description" name="page_description">
+                    <group>
+                        <field name="description"/>
+                    </group>
                 </page>
             </xpath>
         </field>

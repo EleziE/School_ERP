@@ -23,7 +23,7 @@
         ],
     'installable': True,
     'application': True,
-    'sequence':1,
+    'sequence':0,
 }
 
 

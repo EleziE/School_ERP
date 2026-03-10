@@ -43,3 +43,7 @@ class LibraryMember(models.Model):
         if not vals.get('member_code'):
             vals['member_code']= self.env['ir.sequence'].next_by_code('library.member')
         return super().create(vals)
+
+    _sql_constraints = [
+        ('member_code_uniq', 'UNIQUE (member_code)','Member code is unique'),
+    ]
