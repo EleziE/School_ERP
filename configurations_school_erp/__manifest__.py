@@ -5,5 +5,6 @@
         'views/menu.xml',
         'views/holidays.xml',
         'views/classroom.xml',
-        'views/subjects.xml', ]
+        'views/subjects.xml',
+        'views/exam_views.xml', ]
 }

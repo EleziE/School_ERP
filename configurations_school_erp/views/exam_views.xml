@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Tree-->
+    <record id="exam_tree_view" model="ir.ui.view">
+        <field name="model">exams</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_of_exam"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_exam" model="ir.actions.act_window">
+        <field name="name">Exam</field>
+        <field name="res_model">exams</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--menuitem-->
+    <menuitem name="Exam"
+              id="exam"
+              parent='configuration'
+              action="action_exam"/>
+</odoo>
