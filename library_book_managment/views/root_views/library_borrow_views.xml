@@ -19,6 +19,7 @@
                             <field name="member_id"/>
                         </group>
                         <group name="right_group">
+                            <field name="borrow_code"/>
                             <field name="borrow_date"/>
                             <field name="due_date"/>
                             <field name="return_date"/>
