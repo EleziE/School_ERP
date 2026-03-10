@@ -5,6 +5,8 @@ from datetime import timedelta
 class LibraryBorrow(models.Model):
     _name = 'library.borrow'
     _description = 'Library Borrow'
+    _rec_name = 'book_id'
+
 
     book_id = fields.Many2one(string='Book', comodel_name='library.books')
     member_id = fields.Many2one(comodel_name='library.member', string='Member')
@@ -16,7 +18,7 @@ class LibraryBorrow(models.Model):
     due_date = fields.Date(string='Due Date')
     return_date = fields.Date(string='Return Date')
     notes = fields.Text(string='Notes')
-    borrow_code = fields.Char(string='Borrow Code',copy=False)
+    borrow_code = fields.Char(string='Borrow Code',copy=False,readonly=True)
     def action_borrow(self):
         self.state = 'borrowed'
 

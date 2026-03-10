@@ -1,15 +1,16 @@
 from odoo import fields, models, api
-from datetime import date,timedelta
+from datetime import date, timedelta
 
 
 class LibraryMember(models.Model):
     _name = 'library.member'
     _description = 'Library Member'
+    _rec_name = 'partner_id'
 
     partner_id = fields.Many2one(comodel_name='res.partner')
-    member_code = fields.Char(string='Member Code', copy=False)
-    join_date = fields.Date(string='Joined Date',help='Date of joining the library')
-    expiry_date = fields.Date(string='Expiry Date',help='Date of expiry if not updated')
+    member_code = fields.Char(string='Member Code', copy=False, readonly=True)
+    join_date = fields.Date(string='Joined Date', help='Date of joining the library')
+    expiry_date = fields.Date(string='Expiry Date', help='Date of expiry if not updated')
     is_active = fields.Boolean(string='Active')
     borrow_ids = fields.One2many(string='Borrows',
                                  comodel_name='library.borrow',
@@ -33,7 +34,7 @@ class LibraryMember(models.Model):
             today = fields.Date.today()
             if rec.expiry_date and isinstance(rec.expiry_date, date) and rec.expiry_date < today:
                 rec.state = 'expired'
-            elif rec.is_active == False:
+            elif not rec.is_active:
                 rec.state = 'suspended'
             else:
                 rec.state = 'active'
@@ -54,3 +55,8 @@ class LibraryMember(models.Model):
             self.phone = self.partner_id.phone
         else:
             self.phone = False
+
+    @api.onchange('join_date')
+    def _onchange_expiry_date(self):
+        if self.join_date:
+            self.expiry_date = self.join_date + timedelta(days=365)
