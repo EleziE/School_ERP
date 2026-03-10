@@ -40,7 +40,7 @@ class LibraryBooks(models.Model):
     @api.constrains('total_copies')
     def _total_copies_constraint(self):
         for rec in self:
-            if self.total_copies <= 0:
+            if rec.total_copies <= 0:
                 raise exceptions.ValidationError('Total copies must be positive')
 
 
