@@ -1,4 +1,4 @@
-from odoo import fields,models,api
+from odoo import fields, models
 
 
 class Teacher(models.Model):
@@ -10,9 +10,18 @@ class Teacher(models.Model):
 
     subject_id = fields.Many2many(comodel_name='subject.subject')
     class_room_id = fields.Many2many(comodel_name='class.rooms')
-    student_id = fields.Many2one(comodel_name='students.students')
+
 
 class Student(models.Model):
     _inherit = 'students.students'
 
-    teacher_id = fields.One2many(comodel_name='teacher.teacher', inverse_name='student_id')
+    teacher_id = fields.Many2many(comodel_name='teacher.teacher',
+                                  relation='teacher_student',
+                                  column1='student',
+                                  column2='teacher',
+                                  compute='_compute_teacher',
+                                  readonly=True)
+
+    def _compute_teacher(self):
+        teachers = self.env['teacher.teacher'].search([('class_room_id', 'in', self.classroom_id.id)])
+        self.teacher_id = teachers

@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='finance']" position="after">
                 <page string="Teacher">
-                    <field name="teacher_id" readonly="True"/>
+                    <field name="teacher_id"/>
                 </page>
             </xpath>
         </field>
