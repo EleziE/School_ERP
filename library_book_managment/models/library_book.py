@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, exceptions
 
 
 class LibraryBooks(models.Model):
@@ -33,7 +33,15 @@ class LibraryBooks(models.Model):
 
 
 
+    _sql_constraints = [
+        ('unique_isbn','UNIQUE (isbn)','ISBN must be unique'),
+    ]
 
+    @api.constrains('total_copies')
+    def _total_copies_constraint(self):
+        for rec in self:
+            if rec.total_copies <= 0:
+                raise exceptions.ValidationError('Total copies must be positive')
 
 
 
