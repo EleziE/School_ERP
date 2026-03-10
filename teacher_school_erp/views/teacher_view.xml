@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Tree-->
+    <record id="teacher_tree_view" model="ir.ui.view">
+        <field name="name">teacher.tree.view</field>
+        <field name="model">teacher.teacher</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="surname"/>
+                <field name="dob"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--Form-->
+    <record id="teacher_form_view" model="ir.ui.view">
+        <field name="name">teacher.form.view</field>
+        <field name="model">teacher.teacher</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="surname"/>
+                        </group>
+                        <group>
+                            <field name="dob"/>
+                            <field name="subject_id" widget="many2many_tags"/>
+                            <field name="class_room_id" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_teacher" model="ir.actions.act_window">
+        <field name="name">Teacher</field>
+        <field name="res_model">teacher.teacher</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--menuitem-->
+    <menuitem name="Teacher"
+              id="teacher"
+              action="action_teacher"/>
+</odoo>

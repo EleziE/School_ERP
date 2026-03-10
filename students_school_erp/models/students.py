@@ -15,3 +15,4 @@ class Student(models.Model):
 
     subject_ids = fields.Many2many(comodel_name='subject.subject')
 
+
