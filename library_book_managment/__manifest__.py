@@ -3,7 +3,7 @@
     'version': '17.0.1.0.0',
     'category': 'Services',
     'author': 'Enes',
-    'depends': ['base','sale'],
+    'depends': ['base','sale','hr'],
     'data': [
         # security
         'security/ir.model.access.csv',
@@ -22,6 +22,7 @@
         'views/inherited_views/library_category_extended_views.xml',
         'views/inherited_views/res_partner_views.xml',
         'views/inherited_views/sale_order_views.xml',
+        'views/inherited_views/hr_employee_inherited.xml',
         ],
     'installable': True,
     'application': True,
