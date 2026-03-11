@@ -8,6 +8,12 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar"/>
+                    <button name="action_state_active" string="Active" type="object" invisible="state != 'expired'"
+                            class="btn-primary"/>
+                    <button name="action_state_suspended" string="Suspended" type="object" invisible="state != 'active'"
+                            class="btn-primary"/>
+                    <button name="action_state_expired" string="Expired" type="object" invisible="state != 'suspended'"
+                            class="btn-primary"/>
                 </header>
                 <sheet>
                     <group name="main_group">
@@ -20,7 +26,7 @@
                             <field name="expiry_date"/>
                         </group>
                         <group name="group_3">
-                            <field name="is_active"/>
+                            <field name="state"/>
                             <field name="borrow_count"/>
                         </group>
                     </group>
@@ -57,6 +63,9 @@
                 <filter name="active" string="Active" domain="[('state','=','active')]"/>
                 <filter name="expired" string="Expired" domain="[('state','=','expired')]"/>
                 <filter name="suspended" string="Suspended" domain="[('state','=','suspended')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="state" string="State" context="{'group_by':'state'}"/>
+                </group>
             </search>
         </field>
     </record>

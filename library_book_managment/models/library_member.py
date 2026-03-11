@@ -11,7 +11,7 @@ class LibraryMember(models.Model):
     member_code = fields.Char(string='Member Code', copy=False, readonly=True)
     join_date = fields.Date(string='Joined Date', help='Date of joining the library')
     expiry_date = fields.Date(string='Expiry Date', help='Date of expiry if not updated')
-    is_active = fields.Boolean(string='Active')
+    is_active = fields.Boolean(string='Active', readonly=True)
     borrow_ids = fields.One2many(string='Borrows',
                                  comodel_name='library.borrow',
                                  inverse_name='member_id')
@@ -20,8 +20,11 @@ class LibraryMember(models.Model):
         ('active', 'Active'),
         ('expired', 'Expired'),
         ('suspended', 'Suspended'),
-    ], string='Status', compute='_compute_state', store=True)
-    phone = fields.Char(string='Phone')
+    ], string='Status',
+        compute='_compute_state',
+        store=True,
+        default='active')
+    phone = fields.Char(string='Phone', related='partner_id.phone')
 
     @api.depends('borrow_ids')
     def _compute_borrow_count(self):
@@ -60,3 +63,15 @@ class LibraryMember(models.Model):
     def _onchange_expiry_date(self):
         if self.join_date:
             self.expiry_date = self.join_date + timedelta(days=365)
+
+    def action_state_active(self):
+        for rec in self:
+            rec.is_active = 'active'
+
+    def action_state_expired(self):
+        for rec in self:
+            rec.state = 'expired'
+
+    def action_state_suspended(self):
+        for rec in self:
+            rec.state = 'suspended'

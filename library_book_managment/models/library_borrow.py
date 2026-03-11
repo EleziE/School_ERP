@@ -19,6 +19,7 @@ class LibraryBorrow(models.Model):
     return_date = fields.Date(string='Return Date')
     notes = fields.Text(string='Notes')
     borrow_code = fields.Char(string='Borrow Code',copy=False,readonly=True)
+
     def action_borrow(self):
         self.state = 'borrowed'
 
