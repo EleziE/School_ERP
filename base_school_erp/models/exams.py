@@ -1,5 +1,4 @@
-from odoo import fields,models,api
-from odoo.exceptions import ValidationError, UserError
+from odoo import fields,models,api,exceptions
 
 
 class Exams(models.Model):
@@ -15,4 +14,4 @@ class Exams(models.Model):
                 ('date', '=', rec.date_of_exam)
             ])
             if holiday:
-                raise ValidationError("Exam day is a holiday, it can't be scheduled.")
+                raise exceptions.ValidationError("Exam day is a holiday, it can't be scheduled.")

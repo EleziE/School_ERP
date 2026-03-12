@@ -20,6 +20,6 @@
     <!--menuitem-->
     <menuitem name="Classroom"
               id="class_room"
-              parent='configuration'
+              parent='school_erp'
               action="action_class_room"/>
 </odoo>

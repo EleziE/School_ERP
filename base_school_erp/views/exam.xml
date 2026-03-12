@@ -21,6 +21,6 @@
     <!--menuitem-->
     <menuitem name="Exam"
               id="exam"
-              parent='configuration'
+              parent='school_erp'
               action="action_exam"/>
 </odoo>

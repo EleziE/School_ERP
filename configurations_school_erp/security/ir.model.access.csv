@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-configurations_school_erp.access_holiday_holiday,access_holiday_holiday,configurations_school_erp.model_holiday_holiday,base.group_user,1,1,1,1
-configurations_school_erp.access_subject_subject,access_subject_subject,configurations_school_erp.model_subject_subject,base.group_user,1,1,1,1
-configurations_school_erp.access_class_rooms,access_class_rooms,configurations_school_erp.model_class_rooms,base.group_user,1,1,1,1
-configurations_school_erp.access_exams,access_exams,configurations_school_erp.model_exams,base.group_user,1,1,1,1

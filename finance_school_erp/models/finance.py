@@ -12,13 +12,13 @@ class Finance(models.Model):
 
     def pay_finance(self):
         self.state = 'paid'
-        print(self)
-        print(self.student_id)
-        print(self.student_id.name)
         print(f'Hello {self.student_id.name} have paid you payment of {self.amount}!')
 
     def unpaid_finance(self):
         self.state = 'unpaid'
+
+
+
 
 
 class Student(models.Model):

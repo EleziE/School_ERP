@@ -22,6 +22,6 @@
     <!--menuitem-->
     <menuitem name="Subject"
               id="subject"
-              parent='configuration'
+              parent='school_erp'
               action="action_subject"/>
 </odoo>

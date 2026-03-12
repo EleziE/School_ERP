@@ -21,6 +21,6 @@
     <!--menuitem-->
     <menuitem name="holidays"
               id="Holidays"
-              parent='configuration'
+              parent='school_erp'
               action="action_holidays"/>
 </odoo>
