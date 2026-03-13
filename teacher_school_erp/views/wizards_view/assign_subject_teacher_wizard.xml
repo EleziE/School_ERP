@@ -7,7 +7,7 @@
             <form string="Assign Subject to Teacher">
                 <group>
                     <field name="teacher_id"/>
-                    <field name="subject_id"/>
+                    <field name="subject_ids" widget="many2many_tags"/>
                 </group>
                 <footer>
                     <button name="action_assign"

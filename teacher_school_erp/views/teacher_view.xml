@@ -17,6 +17,12 @@
         <field name="model">teacher.teacher</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_open_subject_wizard"
+                            string="Assign Subject"
+                            type="object"
+                            class="btn-primary"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -25,6 +31,8 @@
                         </group>
                         <group>
                             <field name="dob"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
                         </group>
                     </group>
                     <notebook>
@@ -34,7 +42,7 @@
                                     <field name="class_room_id"></field>
                                 </group>
                                 <group name="left">
-                                    <field name="subject_id" />
+                                    <field name="subject_id"/>
                                 </group>
                             </group>
                         </page>
