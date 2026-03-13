@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="assign_subject_teacher_wizard_view" model="ir.ui.view">
+        <field name="name">subject.teacher.wizard.form</field>
+        <field name="model">subject.teacher.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Subject to Teacher">
+                <group>
+                    <field name="teacher_id"/>
+                    <field name="subject_id"/>
+                </group>
+                <footer>
+                    <button name="action_assign"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
