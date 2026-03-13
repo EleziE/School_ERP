@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="students_form_view_inherit" model="ir.ui.view">
+        <field name="name">students.form.view.inherit</field>
+        <field name="model">students.students</field>
+        <field name="inherit_id" ref="students_school_erp.students_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='finance']" position="inside">
+                <field name="finance_ids"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

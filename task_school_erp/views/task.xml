@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Tree-->
+    <record id="task_tree_view" model="ir.ui.view">
+        <field name="model">task</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="created_by"/>
+                <field name="created_for"/>
+                <field name="starting_date"/>
+                <field name="finish_date"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form-->
+    <record id="task_form_view" model="ir.ui.view">
+        <field name="model">task</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" readonly="True"/>
+                    <button name="action_draft" string="Draft" type="object" invisible="status != 'completed'"/>
+                    <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'draft'"/>
+                    <button name="action_published" string="Published" type="object" invisible="status != 'in_progres'"/>
+                    <button name="action_completed" string="Completed" type="object" invisible="status != 'published'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="created_by" options="{'no_open': True}"/>
+                        <field name="created_for" options="{'no_open': True}"/>
+                        <field name="starting_date"/>
+                        <field name="finish_date"/>
+                        <field name="description" placeholder="Information about the task..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Kanban-->
+    <record id="task_kanban_view" model="ir.ui.view">
+        <field name="name">task.kanban.view</field>
+        <field name="model">task</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status">
+                <field name="status"/>
+                <field name="created_by"/>
+                <field name="created_for"/>
+                <field name="starting_date"/>
+                <field name="finish_date"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+
+                                    <strong>
+                                        <field name="description"/>
+                                    </strong>
+
+                                    <div>
+                                        <b>Created By : </b>
+                                        <field name="created_by"/>
+                                    </div>
+
+                                    <div>
+                                        <b>Assigned To : </b>
+                                        <field name="created_for"/>
+                                    </div>
+
+                                    <div>
+                                        <b>Start : </b>
+                                        <field name="starting_date"/>
+                                    </div>
+
+                                    <div>
+                                        <b>Finish : </b>
+                                        <field name="finish_date"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!--Calendar-->
+    <record id="task_calendar_view" model="ir.ui.view">
+        <field name="name">task.calendar.view</field>
+        <field name="model">task</field>
+        <field name="arch" type="xml">
+            <calendar string="Tasks"
+                      date_start="starting_date"
+                      date_stop="finish_date"
+                      color="created_for">
+
+                <field name="description"/>
+                <field name="created_by"/>
+                <field name="created_for"/>
+                <field name="status"/>
+
+            </calendar>
+        </field>
+    </record>
+    <!--Action-->
+    <record id="action_task_room" model="ir.actions.act_window">
+        <field name="name">Task</field>
+        <field name="res_model">task</field>
+        <field name="view_mode">kanban,tree,calendar,pivot,graph,form</field>
+    </record>
+    <!--menuitem-->
+    <menuitem id="task"
+              name="Task"
+              action="action_task_room"/>
+</odoo>

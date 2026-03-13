@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="students_form_inherit_view" model="ir.ui.view">
+        <field name="name">students.form.view.inherit</field>
+        <field name="model">students.students</field>
+        <field name="inherit_id" ref="students_school_erp.students_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='teacher']" position="inside">
+                <field name="teacher_id" readonly="True" options="{'no_open':True}" >
+                    <tree>
+                        <field name="user_id" readonly="True"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//page[@name='subject']" position="inside">
+                <field name="subject_id" readonly="True"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
