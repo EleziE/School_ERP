@@ -24,7 +24,7 @@
         </field>
     </record>
 
-    <!-- The action that OPENS the wizard -->
+
     <record id="action_assign_classroom_wizard" model="ir.actions.act_window">
         <field name="name">Assign Classroom</field>
         <field name="res_model">assign.classroom.wizard</field>
