@@ -104,33 +104,6 @@
             </calendar>
         </field>
     </record>
-
-    <record id="task_pivot_view" model="ir.ui.view">
-        <field name="name">task.pivot.view</field>
-        <field name="model">task</field>
-        <field name="arch" type="xml">
-            <pivot string="Task Analysis">
-
-                <field name="status" type="row"/>
-                <field name="created_for" type="col"/>
-                <field name="id" type="measure"/>
-
-            </pivot>
-        </field>
-    </record>
-
-
-    <record id="task_graph_view" model="ir.ui.view">
-        <field name="name">task.graph.view</field>
-        <field name="model">task</field>
-        <field name="arch" type="xml">
-            <graph string="Tasks by Status" type="bar">
-                <field name="status"/>
-                <field name="id" type="measure" operator="count"/>
-            </graph>
-        </field>
-    </record>
-
     <!--Action-->
     <record id="action_task_room" model="ir.actions.act_window">
         <field name="name">Task</field>
