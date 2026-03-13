@@ -36,7 +36,7 @@
             </form>
         </field>
     </record>
-<!--Kanban-->
+    <!--Kanban-->
     <record id="task_kanban_view" model="ir.ui.view">
         <field name="name">task.kanban.view</field>
         <field name="model">task</field>
@@ -86,7 +86,7 @@
             </kanban>
         </field>
     </record>
-<!--Calendar-->
+    <!--Calendar-->
     <record id="task_calendar_view" model="ir.ui.view">
         <field name="name">task.calendar.view</field>
         <field name="model">task</field>
