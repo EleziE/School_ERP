@@ -6,45 +6,51 @@
         <field name="model">students.students</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="user_id"/>
                 <field name="name"/>
-                <field name="surname"/>
                 <field name="gender"/>
                 <field name="dob"/>
             </tree>
         </field>
     </record>
-
-
     <!--Form-->
     <record id="students_form_view" model="ir.ui.view">
         <field name="name">students.form.view</field>
         <field name="model">students.students</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="%(action_assign_classroom_wizard)d"
+                            string="Assign Classroom"
+                            type="action"
+                            class="btn-primary"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
+                            <field name="user_id"/>
                             <field name="name"/>
-                            <field name="surname"/>
                             <field name="gender"/>
                         </group>
                         <group>
                             <field name="dob"/>
                             <field name="classroom_id"/>
-                            <field name="subject_ids" widget="many2many_tags"/>
+                            <field name="subject_id" widget="many2many_tags"/>
                             <field name="email"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Finance" name="finance">
                         </page>
+                        <page string="Teacher" name="teacher">
+                        </page>
+                        <page string="Subjects" name="subject">
+                        </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
-
-
     <!--Action-->
     <record id="action_students" model="ir.actions.act_window">
         <field name="name">Students</field>

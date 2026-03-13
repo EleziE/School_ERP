@@ -13,8 +13,7 @@ class Teacher(models.Model):
     class_room_id = fields.Many2many(comodel_name='class.rooms')
 
     _sql_constraints = [
-        ('user_id', 'UNIQUE(user_id)', 'The name must be unique'),
-    ]
+        ('user_id', 'UNIQUE(user_id)', 'The name must be unique'),]
 
 
 
