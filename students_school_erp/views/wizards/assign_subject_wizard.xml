@@ -1,0 +1,32 @@
+<odoo>
+    <!-- The popup form -->
+    <record id="assign_subject_wizard_view" model="ir.ui.view">
+        <field name="name">assign.subject.wizard.form</field>
+        <field name="model">assign.subject.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Subject to Student">
+                <group>
+                    <field name="subject_id"/>
+                    <field name="student_ids"/>
+                </group>
+                <footer>
+                    <button name="action_assign_subject"
+                            string="Assign"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_assign_subject_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Subject</field>
+        <field name="res_model">assign.subject.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

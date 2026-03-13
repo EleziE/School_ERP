@@ -20,9 +20,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="%(action_assign_classroom_wizard)d"
+                    <button name="action_open_wizard"
                             string="Assign Classroom"
-                            type="action"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_open_subject_wizard"
+                            string="Assign Subject"
+                            type="object"
                             class="btn-primary"/>
                 </header>
                 <sheet>

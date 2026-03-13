@@ -1,11 +1,15 @@
 {
     'name': 'Students',
     'data': [
+        # Security
         'security/ir.model.access.csv',
-        'views/assign_classroom_wizard.xml',
+        # Wizards
+        'views/wizards/assign_classroom_wizard.xml',
+        'views/wizards/assign_subject_wizard.xml',
+        # Views
         'views/students.xml',
     ],
     'depends': [
-        'base_school_erp', ]
+        'base_school_erp',]
 
 }
