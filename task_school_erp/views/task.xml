@@ -86,7 +86,7 @@
             </kanban>
         </field>
     </record>
-
+<!--Calendar-->
     <record id="task_calendar_view" model="ir.ui.view">
         <field name="name">task.calendar.view</field>
         <field name="model">task</field>
