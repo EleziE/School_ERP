@@ -18,8 +18,8 @@
         <field name="view_mode">tree</field>
     </record>
     <!--menuitem-->
-    <menuitem name="Classroom"
-              id="class_room"
+    <menuitem id="class_room"
+              name="Classroom"
               parent='school_erp'
               action="action_class_room"/>
 </odoo>

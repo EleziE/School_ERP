@@ -20,8 +20,8 @@
         <field name="view_mode">tree</field>
     </record>
     <!--menuitem-->
-    <menuitem name="Subject"
-              id="subject"
+    <menuitem id="subject"
+              name="Subject"
               parent='school_erp'
               action="action_subject"/>
 </odoo>

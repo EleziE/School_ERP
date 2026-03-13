@@ -18,9 +18,10 @@
         <field name="res_model">exams</field>
         <field name="view_mode">tree,form</field>
     </record>
+
     <!--menuitem-->
-    <menuitem name="Exam"
-              id="exam"
+    <menuitem id="exam"
+              name="Exam"
               parent='school_erp'
               action="action_exam"/>
 </odoo>

@@ -52,7 +52,7 @@
         <field name="view_mode">tree,form</field>
     </record>
     <!--menuitem-->
-    <menuitem name="students"
-              id="Students"
+    <menuitem id="students"
+              name="Students"
               action="action_students"/>
 </odoo>

@@ -6,5 +6,6 @@
         'views/holidays.xml',
         'views/classroom.xml',
         'views/subjects.xml',
-        'views/exam.xml', ]
+        'views/exam.xml', ],
+    # 'depends': ['resource.calendar.leaves']
 }
