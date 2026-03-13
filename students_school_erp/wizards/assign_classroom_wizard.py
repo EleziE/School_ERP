@@ -4,7 +4,9 @@ class AssignClassroomWizard(models.TransientModel):
     _name = 'assign.classroom.wizard'
     _description = 'Assign Students to Classroom'
 
-    classroom_id = fields.Many2one(comodel_name='class.rooms',string='Classroom',required=True)
+    classroom_id = fields.Many2one(comodel_name='class.rooms',
+                                   string='Classroom',
+                                   required=True)
     student_ids = fields.Many2many(comodel_name='students.students')
 
     def action_assign(self):
