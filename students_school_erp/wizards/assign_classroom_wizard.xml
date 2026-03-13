@@ -9,8 +9,6 @@
                     <field name="classroom_id"/>
                     <field name="student_ids" widget="many2many_tags"/>
                 </group>
-
-                <!-- Buttons at the bottom of the popup -->
                 <footer>
                     <button name="action_assign"
                             string="Confirm"
