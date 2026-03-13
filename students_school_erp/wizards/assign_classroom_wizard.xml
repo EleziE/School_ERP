@@ -29,6 +29,6 @@
         <field name="name">Assign Classroom</field>
         <field name="res_model">assign.classroom.wizard</field>
         <field name="view_mode">form</field>
-        <field name="target">new</field>   <!-- "new" = opens as popup -->
+        <field name="target">new</field>
     </record>
 </odoo>
