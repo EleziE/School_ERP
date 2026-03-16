@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-students.access_students_students,access_students_students,model_students_students,base.group_user,1,1,1,1
+access_students_students,access_students_students,model_students_students,base.group_user,1,1,1,1
+access_suspend_reason_wizard,access_suspend_reason_wizard,model_suspend_reason_wizard,base.group_user,1,1,1,1

@@ -1,5 +1,5 @@
 {
-    'name': 'finance',
+    'name': 'Finance',
     'data': [
         'security/ir.model.access.csv',
         'views/finance.xml',

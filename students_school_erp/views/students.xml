@@ -2,7 +2,7 @@
 <odoo>
     <!--Tree-->
     <record id="students_tree_view" model="ir.ui.view">
-        <field name="name">studnets.tree.view</field>
+        <field name="name">students.tree.view</field>
         <field name="model">students.students</field>
         <field name="arch" type="xml">
             <tree>
@@ -13,24 +13,31 @@
             </tree>
         </field>
     </record>
+
     <!--Form-->
     <record id="students_form_view" model="ir.ui.view">
         <field name="name">students.form.view</field>
         <field name="model">students.students</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,inactive, suspended, graduated" invisible="state == 'draft'" />
+                    <button name="action_active" type="object" string="Active" invisible="state != 'inactive'"/>
+                    <button name="action_inactive" type="object" string="Inactive" invisible="state != 'active'"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="user_id"/>
-                            <field name="name"/>
-                            <field name="gender"/>
+                            <field name="name" invisible=" not user_id"/>
+                            <field name="gender" placeholder="Select..."/>
                         </group>
                         <group>
                             <field name="dob"/>
                             <field name="classroom_id"/>
                             <field name="subject_id" widget="many2many_tags"/>
-                            <field name="email"/>
+                            <field name="email" invisible=" not user_id"/>
+                            <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                         </group>
                     </group>
                     <notebook>
@@ -45,12 +52,14 @@
             </form>
         </field>
     </record>
+
     <!--Action-->
     <record id="action_students" model="ir.actions.act_window">
         <field name="name">Students</field>
         <field name="res_model">students.students</field>
         <field name="view_mode">tree,form</field>
     </record>
+
     <!--menuitem-->
     <menuitem id="students"
               name="Students"
