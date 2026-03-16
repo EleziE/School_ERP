@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 teacher_school_erp.access_teacher_teacher,access_teacher_teacher,teacher_school_erp.model_teacher_teacher,base.group_user,1,1,1,1
-teacher_school_erp.access_subject_teacher_wizard,access_subject_teacher_wizard,teacher_school_erp.model_subject_teacher_wizard,base.group_user,1,1,1,1
