@@ -6,20 +6,13 @@ class Student(models.Model):
     _description = 'Students'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    name = fields.Char(string='Name',
-                       related='user_id.name',
-                       readonly=True)
+    name = fields.Char(string='Name',related='user_id.name',readonly=True)
     gender = fields.Selection(string='Gender', related='user_id.gender',readonly=False)
-    dob = fields.Date(string='Date of birth',
-                      related='user_id.dob')
-    blood_type = fields.Selection(string='Blood type',
-                                  related='user_id.blood_type')
-    email = fields.Char(string='Email',
-                        related='user_id.email',
-                        readonly=True)
+    dob = fields.Date(string='Date of birth',related='user_id.dob',readonly=True)
+    blood_type = fields.Selection(string='Blood type',related='user_id.blood_type',readonly=True)
+    email = fields.Char(string='Email',related='user_id.email',readonly=True)
     classroom_id = fields.Many2one(comodel_name='class.rooms', string='Class')
     subject_id = fields.Many2many(comodel_name='subject.subject')
-
     state = fields.Selection(selection=[('active', 'Active'),
                                         ('inactive', 'Not Active'),
                                         ('suspended', 'Suspended'),
@@ -28,9 +21,7 @@ class Student(models.Model):
                                         ('rejected', 'Rejected'), ],
                              string='Status',
                              default='draft')
-
     suspend_reason = fields.Text(string='Suspension Reason')
-
     phone = fields.Char(string='Phone no ', related='user_id.phone')
 
     def action_open_suspend_wizard(self):

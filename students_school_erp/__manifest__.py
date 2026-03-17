@@ -5,9 +5,6 @@
         'security/ir.model.access.csv',
         # Wizards
         'wizards/suspend_reason_wizard.xml',
-        # Inherited
-        'views/student_user_form_view_inherited.xml',
-        'views/students_user_form_base_inherited.xml',
         # Views
         'views/students.xml',
     ],
