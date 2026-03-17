@@ -8,5 +8,5 @@
         'views/subjects.xml',
         'views/exam.xml', ],
     'icon': 'base_school_erp/static/description/icon.png',
-    'website': 'base_school_erp,static/description/icon.png',
+
 }

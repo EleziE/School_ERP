@@ -61,6 +61,7 @@
         <!--menuitem-->
         <menuitem id="students"
                   name="Students"
-                  action="action_students"/>
+                  action="action_students"
+                  web_icon='students_school_erp,static/description/icon.png'/>
     </data>
 </odoo>
