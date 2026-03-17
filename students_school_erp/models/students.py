@@ -33,26 +33,18 @@ class Student(models.Model):
             'target': 'new',
             'context': {'active_id': self.id},
         }
-
     def action_draft(self):
         self.state = 'draft'
-
     def action_rejected(self):
         self.state = 'rejected'
-
     def action_graduated(self):
         self.state = 'graduated'
-
     def action_active(self):
         self.state = 'active'
-
     def action_inactive(self):
         self.state = 'inactive'
-
     def action_suspended(self):
         self.state = 'suspended'
-
-
 class User(models.Model):
     _inherit = 'res.users'
 
