@@ -6,6 +6,7 @@
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="student_id"/>
                 <field name="state"/>
                 <field name="create_date"/>
                 <field name="amount"/>
