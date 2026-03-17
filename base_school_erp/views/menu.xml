@@ -2,6 +2,7 @@
 <odoo>
     <menuitem id="school_erp"
               name="School Base"
-              sequence="0"/>
+              sequence="0"
+              web_icon='base_school_erp,static/description/icon.png'/>
 
 </odoo>

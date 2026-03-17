@@ -8,7 +8,7 @@ class Teacher(models.Model):
     user_id = fields.Many2one(comodel_name='res.users', required=True)
     name = fields.Char(string='Name', related="user_id.name", readonly=True)
     phone = fields.Char(string='Phone', related="user_id.phone", readonly=True)
-    mobile = fields.Char(string='Mobile', related="user_id.mobile", readonly=True)
+    mobile = fields.Char(string='Mobile', related="user_id.phone", readonly=True)
     dob = fields.Date(string='Date of birth', related="user_id.dob", readonly=True)
 
     subject_id = fields.Many2many(comodel_name='subject.subject')
@@ -16,19 +16,6 @@ class Teacher(models.Model):
 
     _sql_constraints = [
         ('user_id', 'UNIQUE(user_id)', 'The name must be unique'), ]
-
-    def action_open_subject_wizard(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Assign Subject',
-            'res_model': 'subject.teacher.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {
-                'default_teacher_id': self.id  # ← pre-fills current teacher
-            }
-        }
-
 
 class Student(models.Model):
     _inherit = 'students.students'

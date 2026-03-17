@@ -21,7 +21,8 @@
                     <field name="status" widget="statusbar" readonly="True"/>
                     <button name="action_draft" string="Draft" type="object" invisible="status != 'completed'"/>
                     <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'draft'"/>
-                    <button name="action_published" string="Published" type="object" invisible="status != 'in_progres'"/>
+                    <button name="action_published" string="Published" type="object"
+                            invisible="status != 'in_progres'"/>
                     <button name="action_completed" string="Completed" type="object" invisible="status != 'published'"/>
                 </header>
                 <sheet>
@@ -113,5 +114,6 @@
     <!--menuitem-->
     <menuitem id="task"
               name="Task"
-              action="action_task_room"/>
+              action="action_task_room"
+              web_icon="task_school_erp,static/description/icon.png"/>
 </odoo>

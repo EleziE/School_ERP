@@ -17,12 +17,6 @@
         <field name="model">teacher.teacher</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="action_open_subject_wizard"
-                            string="Assign Subject"
-                            type="object"
-                            class="btn-primary"/>
-                </header>
                 <sheet>
                     <group>
                         <group>
@@ -62,5 +56,6 @@
     <!--Menuitem-->
     <menuitem name="Teacher"
               id="teacher"
-              action="action_teacher"/>
+              action="action_teacher"
+              web_icon="teacher_school_erp,static/description/icon.png"/>
 </odoo>

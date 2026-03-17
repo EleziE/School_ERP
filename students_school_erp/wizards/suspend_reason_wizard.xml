@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_suspend_reason_wizard_form" model="ir.ui.view">
+            <field name="name">suspend.reason.wizard.form</field>
+            <field name="model">suspend_reason_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Suspend Student">
+                    <group>
+                        <field name="student_id"/>
+                        <field name="reason"
+                               placeholder="Write the reason for suspension..."
+                               options="{'rows': 5}"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_suspend"
+                                string="Confirm Suspend"
+                                type="object"
+                                class="btn-danger"/>
+                        <button string="Cancel"
+                                class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

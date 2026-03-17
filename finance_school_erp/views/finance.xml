@@ -6,9 +6,9 @@
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="amount"/>
                 <field name="state"/>
                 <field name="create_date"/>
+                <field name="amount"/>
             </tree>
         </field>
     </record>
@@ -25,9 +25,9 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="amount"/>
                         <field name="student_id"/>
                         <field name="create_date"/>
+                        <field name="amount"/>
                     </group>
                 </sheet>
             </form>
@@ -42,5 +42,6 @@
     <!--menuitem-->
     <menuitem name="Finance"
               id="finance"
-              action="action_finance"/>
+              action="action_finance"
+              web_icon='finance_school_erp,static/description/icon.png'/>
 </odoo>

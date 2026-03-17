@@ -1,14 +1,16 @@
-from odoo import fields,models
+from odoo import fields, models
 
 
 class Finance(models.Model):
     _name = 'finance.finance'
 
-
     amount = fields.Float(string='Amount')
-    state = fields.Selection(string='State',selection=[('draft','Draft'),('paid','Paid'),('unpaid','Unpaid')])
+    state = fields.Selection(string='State', selection=[('draft', 'Draft'),
+                                                        ('paid', 'Paid'),
+                                                        ('unpaid', 'Unpaid')],
+                             default='draft')
 
-    student_id = fields.Many2one(comodel_name='students.students',string='Student')
+    student_id = fields.Many2one(comodel_name='students.students', string='Student')
 
     def pay_finance(self):
         self.state = 'paid'
@@ -18,10 +20,8 @@ class Finance(models.Model):
         self.state = 'unpaid'
 
 
-
-
-
 class Student(models.Model):
     _inherit = 'students.students'
 
-    finance_ids = fields.One2many(comodel_name='finance.finance',inverse_name='student_id',string='Finances',readonly=True)
+    finance_ids = fields.One2many(comodel_name='finance.finance', inverse_name='student_id', string='Finances',
+                                  readonly=True)
