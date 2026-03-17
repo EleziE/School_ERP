@@ -7,5 +7,6 @@
         'views/classroom.xml',
         'views/subjects.xml',
         'views/exam.xml', ],
-    # 'depends': ['resource.calendar.leaves']
+    'icon': 'base_school_erp/static/description/icon.png',
+    'website': 'base_school_erp,static/description/icon.png',
 }
