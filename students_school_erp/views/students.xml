@@ -8,10 +8,13 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="active,inactive, suspended, graduated"
+                        <field name="state" widget="statusbar" statusbar_visible="active,inactive, graduated"
                                invisible="state == 'draft'"/>
                         <button name="action_active" type="object" string="Active" invisible="state != 'inactive'"/>
+                        <button name="action_active" type="object" string="Active" invisible="state != 'suspended'"/>
                         <button name="action_inactive" type="object" string="Inactive" invisible="state != 'active'"/>
+                        <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
+                                invisible="state == 'suspended'"/>
                     </header>
                     <sheet>
                         <group>
@@ -25,6 +28,7 @@
                                 <field name="classroom_id"/>
                                 <field name="subject_id" widget="many2many_tags"/>
                                 <field name="email" invisible=" not user_id"/>
+                                <field name="blood_type" invisible=" not user_id"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
@@ -50,6 +54,20 @@
                     <field name="gender"/>
                     <field name="dob"/>
                 </tree>
+            </field>
+        </record>
+        <!--Search-->
+        <record id="student_view_search" model="ir.ui.view">
+            <field name="name">student.view.search</field>
+            <field name="model">students.students</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <group>
+                        <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                        <filter string="Grade" name="classroom_id" context="{'group_by':'classroom_id'}"/>
+                    </group>
+                </search>
             </field>
         </record>
         <!--Action-->
