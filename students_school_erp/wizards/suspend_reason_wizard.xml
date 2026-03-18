@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Suspend Student">
                     <group>
-                        <field name="student_id"/>
+                        <field name="student_id" options="{'no_open':'True'}"/>
                         <field name="reason"
                                placeholder="Write the reason for suspension..."
                                options="{'rows': 5}"/>

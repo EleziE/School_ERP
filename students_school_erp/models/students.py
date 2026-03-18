@@ -7,7 +7,7 @@ class Student(models.Model):
 
     user_id = fields.Many2one(comodel_name='res.users')
     name = fields.Char(string='Name',related='user_id.name',readonly=True)
-    gender = fields.Selection(string='Gender', related='user_id.gender',readonly=False)
+    gender = fields.Selection(string='Gender', related='user_id.gender',readonly=True,store=True)
     dob = fields.Date(string='Date of birth',related='user_id.dob',readonly=True)
     blood_type = fields.Selection(string='Blood type',related='user_id.blood_type',readonly=True)
     email = fields.Char(string='Email',related='user_id.email',readonly=True)
@@ -45,13 +45,17 @@ class Student(models.Model):
         self.state = 'inactive'
     def action_suspended(self):
         self.state = 'suspended'
+
+
+
 class User(models.Model):
     _inherit = 'res.users'
 
     dob = fields.Date(string='Date of birth')
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
-                                         ('male', 'Male')])
+                                         ('male', 'Male')],
+                              required=True)
     blood_type = fields.Selection(selection=[('a+', 'A+'),
                                              ('a-', 'A-'),
                                              ('b+', 'B+'),
@@ -61,4 +65,5 @@ class User(models.Model):
                                              ('o+', 'O+'),
                                              ('o-', 'O-'),
                                              ],
-                                  string='Blood Type')
+                                  string='Blood Type',
+                                  required=True)
