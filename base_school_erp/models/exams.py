@@ -3,6 +3,7 @@ from odoo import fields,models,api,exceptions
 
 class Exams(models.Model):
     _name = 'exams'
+    _description = 'Exams'
 
     name = fields.Char(string='Exam')
     date_of_exam = fields.Date(string='Date of exam')

@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class Finance(models.Model):
     _name = 'finance.finance'
+    _description = 'Finance'
     _rec_name = 'student_id'
 
     amount = fields.Float(string='Amount')
