@@ -3,6 +3,7 @@ from odoo import fields, models, api
 
 class Teacher(models.Model):
     _name = 'teacher.teacher'
+    _description = 'Teacher'
 
 
     user_id = fields.Many2one(comodel_name='res.users', required=True)
