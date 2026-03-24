@@ -8,16 +8,24 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="active,inactive, graduated"
-                               invisible="state == 'draft'"/>
-                        <button name="action_active" type="object" string="Active" invisible="state != 'inactive'"/>
-                        <button name="action_active" type="object" string="Active" invisible="state != 'suspended'"/>
-                        <button name="action_inactive" type="object" string="Inactive" invisible="state != 'active'"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected"
+                               clickable="1" invisible="state == 'draft'"/>
+                        <button name="action_active" type="object" string="Activate"
+                                invisible="state not in ('inactive', 'suspended')"/>
+                        <button name="action_inactive" type="object" string="Deactivate"
+                                invisible="state != 'active'"/>
                         <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
-                                invisible="state == 'suspended','graduated'"/>
-                        <button name="action_graduated" type="object" string="Graduated" invisible="state == 'graduated'"/>
+                                invisible="state not in ('active', 'inactive')"/>
+                        <button name="action_graduated" type="object" string="Graduated"
+                                invisible="state not in ('active', 'inactive', 'suspended')"/>
                     </header>
                     <sheet>
+                        <div class="oe_title">
+                            <h3>
+                                <field name="sequence" readonly="1"/>
+                            </h3>
+                        </div>
                         <group>
                             <group>
                                 <field name="user_id"/>
@@ -34,11 +42,11 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Finance" name="finance">
+                            <page string="Finance" name="finance" invisible=" not user_id">
                             </page>
-                            <page string="Teacher" name="teacher">
+                            <page string="Teacher" name="teacher" invisible=" not user_id">
                             </page>
-                            <page string="Subjects" name="subject">
+                            <page string="Subjects" name="subject" invisible=" not user_id">
                             </page>
                         </notebook>
                     </sheet>
