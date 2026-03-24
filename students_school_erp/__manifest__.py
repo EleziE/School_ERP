@@ -5,13 +5,15 @@
         'security/ir.model.access.csv',
         # Wizards
         'wizards/suspend_reason_wizard.xml',
+        # Sequence
+        'data/seq_student.xml',
         # Inherited
-        'views/inherited/useres_simplified_form_inherited.xml',
+        'views/inherited/student_inherited.xml',
         # Views
         'views/students.xml',
     ],
     'depends': [
-        'base_school_erp',],
-    'icon':'students_school_erp/static/description/icon.png',
-    'web_icon':'students_school_erp,static/description/icon.png',
+        'base_school_erp','base' ],
+    'icon': 'students_school_erp/static/description/icon.png',
+    'web_icon': 'students_school_erp,static/description/icon.png',
 }

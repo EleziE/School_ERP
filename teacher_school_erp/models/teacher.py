@@ -6,11 +6,22 @@ class Teacher(models.Model):
     _description = 'Teacher'
 
 
-    user_id = fields.Many2one(comodel_name='res.users', required=True)
-    name = fields.Char(string='Name', related="user_id.name", readonly=True)
-    phone = fields.Char(string='Phone', related="user_id.phone", readonly=True)
-    mobile = fields.Char(string='Mobile', related="user_id.phone", readonly=True)
-    dob = fields.Date(string='Date of birth', related="user_id.dob", readonly=True)
+    user_id = fields.Many2one(comodel_name='res.users',
+                              required=True)
+    name = fields.Char(string='Name',
+                       related="user_id.name",
+                       readonly=True)
+    phone = fields.Char(string='Phone',
+                        related="user_id.phone",
+                        readonly=True)
+    mobile = fields.Char(string='Mobile',
+                         related="user_id.phone",
+                         readonly=True)
+    dob = fields.Date(string='Date of birth')
+    education = fields.Selection(selection=[('bachelor', 'Bachelor'),
+                                            ('master', 'Master'),
+                                            ('doctorate', 'Doctorate')],
+                                 string='Education')
 
     subject_id = fields.Many2many(comodel_name='subject.subject')
     class_room_id = fields.Many2many(comodel_name='class.rooms')
@@ -37,9 +48,3 @@ class Student(models.Model):
 class ResUser(models.Model):
     _inherit = 'res.users'
 
-    dob = fields.Date(string='Date of birth')
-
-    education = fields.Selection(selection=[('bachelor', 'Bachelor'),
-                                            ('master', 'Master'),
-                                            ('doctorate', 'Doctorate')],
-                                 string='Education')
