@@ -51,7 +51,7 @@ class Teacher(models.Model):
 class Student(models.Model):
     _inherit = 'students.students'
 
-    teacher_id = fields.Many2many(comodel_name='teacher.teacher',
+    teacher_ids = fields.Many2many(comodel_name='teacher.teacher',
                                   relation='teacher_student',
                                   column1='student',
                                   column2='teacher',
@@ -61,7 +61,7 @@ class Student(models.Model):
     @api.onchange('classroom_id')
     def _compute_teacher(self):
         teachers = self.env['teacher.teacher'].search([('class_room_id', 'in', self.classroom_id.id)])
-        self.teacher_id = teachers
+        self.teacher_ids = teachers
 
 
 class ResUser(models.Model):
