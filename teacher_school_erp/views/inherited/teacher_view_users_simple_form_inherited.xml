@@ -7,7 +7,10 @@
             <field name="inherit_id" ref="students_school_erp.student_view_users_simple_form_inherited"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
-                    <field name="member_type"/>
+                    <field name="member_type" placeholder="Select..."/>
+                </xpath>
+                <xpath expr="//field[@name='gender']" position="before">
+                    <field name="enrollment_date"/>
                 </xpath>
                 <xpath expr="//field[@name='dob']" position="after">
                     <field name="education"/>

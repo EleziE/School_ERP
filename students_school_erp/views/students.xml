@@ -9,7 +9,7 @@
                 <form>
                     <header>
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected"/>
+                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected" options="{'clickable': True}"/>
                         <button name="action_active" type="object" string="Activate"
                                 invisible="state not in ('inactive', 'suspended','draft')"/>
                         <button name="action_inactive" type="object" string="Deactivate"
@@ -31,6 +31,7 @@
                                 <field name="name" invisible=" not user_id"/>
                                 <field name="surname" invisible=" not user_id"/>
                                 <field name="gender" placeholder="Select..." invisible=" not user_id"/>
+                                <field name="enrollment_date" invisible=" not user_id"/>
                             </group>
                             <group>
                                 <field name="dob" invisible=" not user_id"/>
@@ -38,6 +39,7 @@
                                 <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
                                 <field name="email" invisible=" not user_id"/>
                                 <field name="blood_type" invisible=" not user_id"/>
+                                <field name="enrollment_date" invisible=" not user_id"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
@@ -63,8 +65,10 @@
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname"/>
                     <field name="email"/>
-                    <field name="dob"/>
-                    <field name="state" widget="badge"/>
+                    <field name="state" widget="badge" decoration-success="state == 'active'"
+                           decoration-warning="state in ('suspended','inactive')"
+                           decoration-primary="state == 'graduated'"
+                           decoration-danger="state == 'rejected'"/>
                 </tree>
             </field>
         </record>
@@ -74,10 +78,12 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="sequence"/>
                     <field name="name"/>
-                    <group>
-                        <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
-                        <filter string="Grade" name="classroom_id" context="{'group_by':'classroom_id'}"/>
+                    <field name="surname"/>
+                    <group expand="0" string="Group By">
+                        <filter name="gender" string="Gender" context="{'group_by':'gender'}"/>
+                        <filter name="state" string="Status" context="{'group_by':'state'}"/>
                     </group>
                 </search>
             </field>

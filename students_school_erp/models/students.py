@@ -1,5 +1,7 @@
 from datetime import date
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
@@ -23,6 +25,7 @@ class Student(models.Model):
                           store=True)
     gender = fields.Selection(string='Gender',
                               related='user_id.gender',
+                              store=True,
                               readonly=True)
     dob = fields.Date(string='Date of birth',
                       related='user_id.dob',
@@ -52,7 +55,7 @@ class Student(models.Model):
                                   related='user_id.enrollment_date', )
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Role',
-                                   readonly=True,)
+                                   readonly=True, )
 
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
@@ -77,6 +80,7 @@ class Student(models.Model):
             'target': 'new',
             'context': {'active_id': self.id},
         }
+
     ############################ Buttons ###########################################
     def action_draft(self):
         self.state = 'draft'
@@ -119,7 +123,8 @@ class User(models.Model):
                                              ],
                                   string='Blood Type')
     dob = fields.Date(string='Date of birth')
-    enrollment_date = fields.Date(string='Enrollment Date')
+    enrollment_date = fields.Date(string='Enrollment Date',
+                                  default=fields.Date.today, )
     member_type = fields.Selection(selection=[('student', 'Student'),
                                               ('teacher', 'Teacher'),
                                               ('administrator', 'Administrator'), ])
@@ -139,4 +144,3 @@ class User(models.Model):
             today = date.today()
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
-

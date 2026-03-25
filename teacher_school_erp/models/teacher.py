@@ -74,7 +74,8 @@ class ResUser(models.Model):
 
     member_type = fields.Selection(selection=[('student', 'Student'),
                                               ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator'), ])
+                                              ('administrator', 'Administrator')],
+                                   required=True)
 
     @api.constrains('member_type')
     def _check_role_not_duplicate(self):
