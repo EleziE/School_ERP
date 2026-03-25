@@ -53,6 +53,21 @@ class Student(models.Model):
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Role',
                                    readonly=True,)
+
+    @api.constrains('user_id')
+    def _check_user_not_teacher(self):
+        for rec in self:
+            if rec.user_id and rec.user_id.member_type == 'teacher':
+                raise ValidationError(
+                    f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
+                )
+
+    @api.model
+    def create(self, vals):
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
+        return super().create(vals)
+
     def action_open_suspend_wizard(self):
         return {
             'type': 'ir.actions.act_window',
@@ -62,13 +77,6 @@ class Student(models.Model):
             'target': 'new',
             'context': {'active_id': self.id},
         }
-
-    @api.model
-    def create(self, vals):
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
-        return super().create(vals)
-
     ############################ Buttons ###########################################
     def action_draft(self):
         self.state = 'draft'

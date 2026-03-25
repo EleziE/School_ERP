@@ -39,6 +39,14 @@ class Teacher(models.Model):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher') or _('New')
         return super().create(vals)
 
+    @api.constrains('user_id')
+    def _check_user_not_student(self):
+        for rec in self:
+            if rec.user_id and rec.user_id.member_type == 'student':
+                raise ValidationError(
+                    f"'{rec.user_id.name}' is already a Student and cannot be a Teacher."
+                )
+
 
 class Student(models.Model):
     _inherit = 'students.students'
