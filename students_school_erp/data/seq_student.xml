@@ -4,7 +4,7 @@
         <record id="seq_students" model="ir.sequence">
             <field name="name">Student Sequence</field>
             <field name="code">students.students</field>
-            <field name="prefix">STU/</field>
+            <field name="prefix">S/</field>
             <field name="padding">6</field>
             <field name="number_increment">1</field>
         </record>

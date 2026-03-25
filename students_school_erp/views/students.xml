@@ -30,6 +30,7 @@
                             <group>
                                 <field name="user_id"/>
                                 <field name="name" invisible=" not user_id"/>
+                                <field name="surname" invisible=" not user_id"/>
                                 <field name="gender" placeholder="Select..." invisible=" not user_id"/>
                             </group>
                             <group>
@@ -59,8 +60,9 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="sequence"/>
                     <field name="user_id"/>
-                    <field name="gender"/>
+                    <field name="email"/>
                     <field name="dob"/>
                 </tree>
             </field>

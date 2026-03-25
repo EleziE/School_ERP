@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 
 
 class Teacher(models.Model):
@@ -11,23 +11,36 @@ class Teacher(models.Model):
     name = fields.Char(string='Name',
                        related="user_id.name",
                        readonly=True)
+    surname = fields.Char(string='Surname',
+                          related="user_id.surname",)
     phone = fields.Char(string='Phone',
                         related="user_id.phone",
                         readonly=True)
-    mobile = fields.Char(string='Mobile',
-                         related="user_id.phone",
-                         readonly=True)
-    dob = fields.Date(string='Date of birth')
-    education = fields.Selection(selection=[('bachelor', 'Bachelor'),
-                                            ('master', 'Master'),
-                                            ('doctorate', 'Doctorate')],
+    dob = fields.Date(string='Date of birth',
+                      readonly=True,
+                      related='user_id.dob')
+    education = fields.Selection(related='user_id.education',
                                  string='Education')
-
+    blood_type = fields.Selection(related='user_id.blood_type',)
     subject_id = fields.Many2many(comodel_name='subject.subject')
     class_room_id = fields.Many2many(comodel_name='class.rooms')
+    enrollment_date = fields.Date(string='Enrollment Date',
+                                      related='user_id.enrollment_date')
+    member_type = fields.Selection(related='user_id.member_type',)
 
-    _sql_constraints = [
-        ('user_id', 'UNIQUE(user_id)', 'The name must be unique'), ]
+    sequence = fields.Char(string='Teacher ID: ',
+                           readonly=True,
+                           default=lambda self: _('New'))
+
+
+    @api.model
+    def create(self, vals):
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher') or _('New')
+        return super().create(vals)
+
+
+
 
 class Student(models.Model):
     _inherit = 'students.students'
@@ -48,3 +61,11 @@ class Student(models.Model):
 class ResUser(models.Model):
     _inherit = 'res.users'
 
+    education = fields.Selection(selection=[('bachelor', 'Bachelor'),
+                                            ('master', 'Master'),
+                                            ('doctorate', 'Doctorate')],
+                                 string='Education')
+
+    member_type = fields.Selection(selection=[('student', 'Student'),
+                                              ('teacher', 'Teacher'),
+                                              ('administrator', 'Administrator'),])

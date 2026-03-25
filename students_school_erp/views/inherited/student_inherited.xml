@@ -6,20 +6,22 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_simple_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mobile']" position="attributes">
-                    <attribute name="invisible">True</attribute>
-                </xpath>
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="surname" string="Surname"/>
-                </xpath>
-                <xpath expr="//field[@name='surname']" position="after">
-                    <field name="dob" string="Date of Birth"/>
-                </xpath>
-                <xpath expr="//field[@name='dob']" position="after">
-                    <field name="blood_type" string="Blood Type"/>
-                </xpath>
-                <xpath expr="//field[@name='dob']" position="after">
-                    <field name="gender" string="Gender"/>
+                <xpath expr="//sheet" position="replace">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="surname"/>
+                                <field name="gender"/>
+                            </group>
+                            <group>
+                                <field name="phone" placeholder="+355XX XXX XXXX"/>
+                                <field name="login"/>
+                                <field name="blood_type"/>
+                                <field name="dob"/>
+                            </group>
+                        </group>
+                    </sheet>
                 </xpath>
             </field>
         </record>

@@ -25,5 +25,4 @@ class Finance(models.Model):
 class Student(models.Model):
     _inherit = 'students.students'
 
-    finance_ids = fields.One2many(comodel_name='finance.finance', inverse_name='student_id', string='Finances',
-                                  readonly=True)
+    finance_ids = fields.One2many(comodel_name='finance.finance', inverse_name='student_id', string='Finances')

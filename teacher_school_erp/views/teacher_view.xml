@@ -6,8 +6,12 @@
         <field name="model">teacher.teacher</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence"/>
                 <field name="name"/>
+                <field name="surname"/>
+                <field name="education"/>
                 <field name="dob"/>
+                <field name="enrollment_date"/>
             </tree>
         </field>
     </record>
@@ -20,13 +24,16 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="sequence"/>
                             <field name="user_id"/>
                             <field name="name"/>
+                            <field name="surname"/>
+                            <field name="blood_type"/>
                         </group>
                         <group>
                             <field name="dob"/>
                             <field name="phone"/>
-                            <field name="mobile"/>
+                            <field name="education"/>
                         </group>
                     </group>
                     <notebook>
