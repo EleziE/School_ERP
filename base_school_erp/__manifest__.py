@@ -1,6 +1,8 @@
 {
     'name': 'Base',
     'data': [
+        #Security
+        'security/groups.xml',
         'security/ir.model.access.csv',
         'views/menu.xml',
         'views/holidays.xml',

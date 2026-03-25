@@ -18,7 +18,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar" readonly="True"/>
+                    <field name="status" widget="statusbar" options="{'clickable':True}"/>
                     <button name="action_draft" string="Draft" type="object" invisible="status != 'completed'"/>
                     <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'draft'"/>
                     <button name="action_published" string="Published" type="object"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="teacher_students_notebook_inherited" model="ir.ui.view">
+        <field name="name">teacher.students.notebook.inherit</field>
+        <field name="model">students.students</field>
+        <field name="inherit_id" ref="students_school_erp.students_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='teacher']" position="inside">
+                <field name="teacher_ids"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
