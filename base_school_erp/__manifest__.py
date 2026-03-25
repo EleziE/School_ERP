@@ -12,3 +12,9 @@
     'icon': 'base_school_erp/static/description/icon.png',
 
 }
+
+
+
+
+
+
