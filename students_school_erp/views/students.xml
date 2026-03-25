@@ -9,10 +9,9 @@
                 <form>
                     <header>
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected"
-                               clickable="1" invisible="state == 'draft'"/>
+                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected"/>
                         <button name="action_active" type="object" string="Activate"
-                                invisible="state not in ('inactive', 'suspended')"/>
+                                invisible="state not in ('inactive', 'suspended','draft')"/>
                         <button name="action_inactive" type="object" string="Deactivate"
                                 invisible="state != 'active'"/>
                         <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
@@ -61,9 +60,11 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="sequence"/>
-                    <field name="user_id"/>
+                    <field name="user_id" string="Name"/>
+                    <field name="surname" string="Surname"/>
                     <field name="email"/>
                     <field name="dob"/>
+                    <field name="state" widget="badge"/>
                 </tree>
             </field>
         </record>
