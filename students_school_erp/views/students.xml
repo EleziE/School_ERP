@@ -9,9 +9,10 @@
                 <form>
                     <header>
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,active,inactive,suspended,graduated,rejected" options="{'clickable': True}"/>
+                               statusbar_visible="new,active,inactive,suspended,graduated,rejected"
+                               options="{'clickable': True}"/>
                         <button name="action_active" type="object" string="Activate"
-                                invisible="state not in ('inactive', 'suspended','draft')"/>
+                                invisible="state not in ('inactive', 'suspended','new')"/>
                         <button name="action_inactive" type="object" string="Deactivate"
                                 invisible="state != 'active'"/>
                         <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
@@ -27,7 +28,7 @@
                         </div>
                         <group>
                             <group>
-                                <field name="user_id"/>
+                                <field name="user_id" domain=" [('member_type','=','student')]"/>
                                 <field name="name" invisible=" not user_id"/>
                                 <field name="surname" invisible=" not user_id"/>
                                 <field name="gender" placeholder="Select..." invisible=" not user_id"/>
@@ -71,6 +72,8 @@
                            decoration-danger="state == 'rejected'"/>
                 </tree>
             </field>
+            <field name="groups_id"
+                   eval="[(4,ref('base_school_erp.group_school_admin'))]"/>
         </record>
         <!--Search-->
         <record id="student_view_search" model="ir.ui.view">
@@ -81,6 +84,9 @@
                     <field name="sequence"/>
                     <field name="name"/>
                     <field name="surname"/>
+                    <filter name="state" string="Active Student" domain="[('state','=','active')]"/>
+                    <separator/>
+                    <filter name="state" string="Graduated " domain="[('state','=','graduated')]"/>
                     <group expand="0" string="Group By">
                         <filter name="gender" string="Gender" context="{'group_by':'gender'}"/>
                         <filter name="state" string="Status" context="{'group_by':'state'}"/>
@@ -94,10 +100,5 @@
             <field name="res_model">students.students</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!--menuitem-->
-        <menuitem id="students"
-                  name="Students"
-                  action="action_students"
-                  web_icon='students_school_erp,static/description/icon.png'/>
     </data>
 </odoo>

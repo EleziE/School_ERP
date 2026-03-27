@@ -40,9 +40,5 @@
         <field name="res_model">finance.finance</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <!--menuitem-->
-    <menuitem name="Finance"
-              id="finance"
-              action="action_finance"
-              web_icon='finance_school_erp,static/description/icon.png'/>
+
 </odoo>

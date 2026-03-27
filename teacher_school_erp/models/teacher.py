@@ -52,11 +52,11 @@ class Student(models.Model):
     _inherit = 'students.students'
 
     teacher_ids = fields.Many2many(comodel_name='teacher.teacher',
-                                  relation='teacher_student',
-                                  column1='student',
-                                  column2='teacher',
-                                  compute='_compute_teacher',
-                                  readonly=True)
+                                   relation='teacher_student',
+                                   column1='student',
+                                   column2='teacher',
+                                   compute='_compute_teacher',
+                                   readonly=True)
 
     @api.onchange('classroom_id')
     def _compute_teacher(self):

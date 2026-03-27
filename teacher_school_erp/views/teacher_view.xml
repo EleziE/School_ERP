@@ -25,7 +25,7 @@
                     <group>
                         <group>
                             <field name="sequence"/>
-                            <field name="user_id"/>
+                            <field name="user_id" domain="[('member_type', '=', 'teacher')]"/>
                             <field name="name"/>
                             <field name="surname"/>
                             <field name="blood_type"/>
@@ -64,5 +64,6 @@
     <menuitem name="Teacher"
               id="teacher"
               action="action_teacher"
-              web_icon="teacher_school_erp,static/description/icon.png"/>
+              web_icon="teacher_school_erp,static/description/icon.png"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_teacher"/>
 </odoo>

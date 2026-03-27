@@ -9,6 +9,9 @@
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="finish_date"/>
+                <field name="status" widget="badge" decoration-success="status == 'completed'"
+                       decoration-warning="status == 'in_progres'"
+                       decoration-danger="status == 'completed_delayed'"/>
             </tree>
         </field>
     </record>
@@ -19,11 +22,9 @@
             <form>
                 <header>
                     <field name="status" widget="statusbar" options="{'clickable':True}"/>
-                    <button name="action_draft" string="Draft" type="object" invisible="status != 'completed'"/>
-                    <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'draft'"/>
-                    <button name="action_published" string="Published" type="object"
+                    <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
+                    <button name="action_completed" string="Completed" type="object"
                             invisible="status != 'in_progres'"/>
-                    <button name="action_completed" string="Completed" type="object" invisible="status != 'published'"/>
                 </header>
                 <sheet>
                     <group>
@@ -106,14 +107,14 @@
         </field>
     </record>
     <!--Action-->
-    <record id="action_task_room" model="ir.actions.act_window">
+    <record id="action_task" model="ir.actions.act_window">
         <field name="name">Task</field>
         <field name="res_model">task</field>
         <field name="view_mode">kanban,tree,calendar,pivot,graph,form</field>
+        <field name="view_ids" eval="[(5,0,0),
+                                (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
+                                (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),
+                                (0,0,{'view_mode': 'kanban','view_id':ref('task_kanban_view')}),
+                                ]"/>
     </record>
-    <!--menuitem-->
-    <menuitem id="task"
-              name="Task"
-              action="action_task_room"
-              web_icon="task_school_erp,static/description/icon.png"/>
 </odoo>

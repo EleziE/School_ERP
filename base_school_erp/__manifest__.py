@@ -1,9 +1,12 @@
 {
-    'name': 'Base',
+    'name': 'Base School ERP',
     'data': [
         #Security
-        'security/groups.xml',
+        'security/security_groups.xml',
         'security/ir.model.access.csv',
+        #Inherited
+        # 'views/Inherited/base_view_users_form_inherited.xml',
+        #Views
         'views/menu.xml',
         'views/holidays.xml',
         'views/classroom.xml',

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="students_profile_form_view" model="ir.ui.view">
+            <field name="name">students.profile.form.view</field>
+            <field name="model">students.students</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar"
+                                   statusbar_visible="active,suspended,graduated"/>
+                        </header>
+                        <div class="oe_title">
+                            <h3>
+                                <field name="sequence" readonly="1"/>
+                            </h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="member_type" invisible="True"/>
+                                <field name="user_id" readonly="True" domain="[('member_type','=','student')]"/>
+                                <field name="name"/>
+                                <field name="surname"/>
+                                <field name="gender" readonly="True"/>
+                                <field name="enrollment_date" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="dob"/>
+                                <field name="classroom_id" invisible="state == 'graduated'" readonly="True"/>
+                                <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
+                                <field name="email" readonly="True"/>
+                                <field name="blood_type"/>
+                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Action-->
+        <record id="action_student_profile" model="ir.actions.act_window">
+            <field name="name">Student Profile</field>
+            <field name="res_model">students.students</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

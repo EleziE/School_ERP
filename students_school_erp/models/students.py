@@ -1,7 +1,3 @@
-from datetime import date
-
-from dateutil.relativedelta import relativedelta
-
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
@@ -39,14 +35,14 @@ class Student(models.Model):
     classroom_id = fields.Many2one(comodel_name='class.rooms',
                                    string='Class')
     subject_id = fields.Many2many(comodel_name='subject.subject')
-    state = fields.Selection(selection=[('draft', 'Draft'),
+    state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
                                         ('suspended', 'Suspended'),
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='Status',
-                             default='draft')
+                             default='new')
     suspend_reason = fields.Text(string='Suspension Reason')
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
@@ -56,7 +52,8 @@ class Student(models.Model):
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Role',
                                    readonly=True, )
-
+    user_password = fields.Char(string='Password',
+                                related='user_id.new_password',)
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
         for rec in self:
@@ -82,12 +79,6 @@ class Student(models.Model):
         }
 
     ############################ Buttons ###########################################
-    def action_draft(self):
-        self.state = 'draft'
-
-    def action_rejected(self):
-        self.state = 'rejected'
-
     def action_graduated(self):
         self.state = 'graduated'
 
@@ -96,51 +87,9 @@ class Student(models.Model):
 
     def action_inactive(self):
         self.state = 'inactive'
-
     ############################ Constraints ###########################################
     _sql_constraints = [
         ('unique_student_id', 'UNIQUE (sequence)', 'This Student ID already exists.'),
         ('unique_user_id', 'UNIQUE (user_id)', 'This User ID already exists.'),
         ('dob_check', 'CHECK(dob < CURRENT_DATE)', 'Date of birth must be in the past.')
     ]
-
-
-class User(models.Model):
-    _inherit = 'res.users'
-
-    surname = fields.Char(string='Surname')
-    gender = fields.Selection(string='Gender',
-                              selection=[('female', 'Female'),
-                                         ('male', 'Male')], )
-    blood_type = fields.Selection(selection=[('a+', 'A+'),
-                                             ('a-', 'A-'),
-                                             ('b+', 'B+'),
-                                             ('b-', 'B-'),
-                                             ('ab+', 'AB+'),
-                                             ('ab-', 'AB-'),
-                                             ('o+', 'O+'),
-                                             ('o-', 'O-'),
-                                             ],
-                                  string='Blood Type')
-    dob = fields.Date(string='Date of birth')
-    enrollment_date = fields.Date(string='Enrollment Date',
-                                  default=fields.Date.today, )
-    member_type = fields.Selection(selection=[('student', 'Student'),
-                                              ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator'), ])
-
-    @api.onchange('name', 'surname')
-    def _onchange_name_set_login(self):
-        if self.name and self.surname:
-            first_initial = self.name.strip()[0].lower()
-            surname = self.surname.strip().lower().replace(' ', '')
-            self.login = f"{first_initial}.{surname}@school.com"
-        elif self.name:
-            self.login = False
-
-    @api.constrains('dob')
-    def check_dob(self):
-        for rec in self:
-            today = date.today()
-            if rec.dob and rec.dob > today:
-                raise ValidationError("Date of birth  can't be in the future")
