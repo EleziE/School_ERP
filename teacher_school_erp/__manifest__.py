@@ -6,8 +6,6 @@
         'security/ir.model.access.csv',
         # Data
         'data/teacher_seq.xml',
-        # Inherited
-        'views/inherited/teacher_view_users_simple_form_inherited.xml',
         'views/student_inherited.xml',
         # Views
         'views/teacher_view.xml',

@@ -1,5 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-base.access_holiday_holiday,access_holiday_holiday,base_school_erp.model_holiday_holiday,base.group_user,1,1,1,1
-base.access_subject_subject,access_subject_subject,base_school_erp.model_subject_subject,base.group_user,1,1,1,1
-base.access_class_rooms,access_class_rooms,base_school_erp.model_class_rooms,base.group_user,1,1,1,1
-base.access_exams,access_exams,base_school_erp.model_exams,base.group_user,1,1,1,1
+base.access_holiday_holiday,access_holiday_holiday,base_school_erp.model_holiday_holiday,,1,1,1,1
+base.access_subject_subject,access_subject_subject,base_school_erp.model_subject_subject,,1,1,1,1
+base.access_class_rooms,access_class_rooms,base_school_erp.model_class_rooms,,1,1,1,1
+base.access_exams,access_exams,base_school_erp.model_exams,,1,1,1,1
+
+
+access_res_users_user,access_res_users_user,base.model_res_users,,1,1,1,1
