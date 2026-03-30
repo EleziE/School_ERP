@@ -7,6 +7,8 @@
         #Inherited
         'views/Inherited/base_view_users_form_inherited.xml',
         'views/Inherited/view_users_simple_form_inherited.xml',
+        'views/Inherited/base_view_users_tree_inherited.xml',
+        'views/Inherited/base_view_users_search_inherited.xml',
         #Views
         'views/menu.xml',
         'views/holidays.xml',
