@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record id="view_users_simple_form_inherited" model="ir.ui.view">
-            <field name="name">view.users.simple.form.inherited</field>
+        <record id="view_users_form_inherited" model="ir.ui.view">
+            <field name="name">view.users.form.inherited</field>
             <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[@class='oe_title']" position="replace">
-                    <group>
+                    <group col="4">
                         <field name="name"/>
-<!--                        <label for="name" string="Name"/>-->
+                        <field name="surname"/>
+                        <field name="gender"/>
+                        <field name="dob"/>
+                        <field name="blood_type"/>
+                        <field name="login"/>
+                        <field name="email"/>
+                        <field name="partner_id" groups="base.group_no_one" readonly="1"/>
+                        <field name="share" invisible="1"/>
                     </group>
-                </xpath>
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="surname" string="Surname"/>
-<!--                    <label for="surname" string="Surname"/>-->
-                </xpath>
-                <xpath expr="//field[@name='surname']" position="after">
-                    <field name="gender" string="Gender"/>
-<!--                    <label for="gender" string="Gender"/>-->
-                </xpath>
-            </field>
+                </xpath></field>
         </record>
     </data>
 </odoo>

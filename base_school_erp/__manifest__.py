@@ -5,7 +5,8 @@
         'security/security_groups.xml',
         'security/ir.model.access.csv',
         #Inherited
-        # 'views/Inherited/base_view_users_form_inherited.xml',
+        'views/Inherited/base_view_users_form_inherited.xml',
+        'views/Inherited/view_users_simple_form_inherited.xml',
         #Views
         'views/menu.xml',
         'views/holidays.xml',
