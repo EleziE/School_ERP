@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="administration"
+              name="Administration"
+              sequence="1"
+              action="administration_action"
+              web_icon='administration_school_erp,static/description/icon.png'
+              groups="base_school_erp.group_school_admin"/>
+</odoo>

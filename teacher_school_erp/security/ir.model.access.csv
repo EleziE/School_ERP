@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-teacher_school_erp.access_teacher_teacher,access_teacher_teacher,teacher_school_erp.model_teacher_teacher,base.group_user,1,1,1,1
+
+access_teacher_teacher_admin,access_teacher_teacher,model_teacher_teacher,base_school_erp.group_school_admin,1,1,1,1
+access_teacher_teacher_teacher,access_teacher_teacher,model_teacher_teacher,base_school_erp.group_school_teacher,1,1,0,0
