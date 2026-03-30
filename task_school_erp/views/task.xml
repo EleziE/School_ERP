@@ -88,29 +88,11 @@
             </kanban>
         </field>
     </record>
-    <!--Calendar-->
-    <record id="task_calendar_view" model="ir.ui.view">
-        <field name="name">task.calendar.view</field>
-        <field name="model">task</field>
-        <field name="arch" type="xml">
-            <calendar string="Tasks"
-                      date_start="starting_date"
-                      date_stop="finish_date"
-                      color="created_for">
-
-                <field name="description"/>
-                <field name="created_by"/>
-                <field name="created_for"/>
-                <field name="status"/>
-
-            </calendar>
-        </field>
-    </record>
     <!--Action-->
     <record id="action_task" model="ir.actions.act_window">
         <field name="name">Task</field>
         <field name="res_model">task</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="view_ids" eval="[(5,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),
