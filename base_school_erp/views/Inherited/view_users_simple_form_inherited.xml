@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_users_simple_form_inherited" model="ir.ui.view">
+            <field name="name">view.users.simple.form.inherited</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="replace">
+                    <group>
+                        <field name="name"/>
+<!--                        <label for="name" string="Name"/>-->
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="surname" string="Surname"/>
+<!--                    <label for="surname" string="Surname"/>-->
+                </xpath>
+                <xpath expr="//field[@name='surname']" position="after">
+                    <field name="gender" string="Gender"/>
+<!--                    <label for="gender" string="Gender"/>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
