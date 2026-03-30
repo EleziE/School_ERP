@@ -24,7 +24,8 @@ class ResUsersInheritance(models.Model):
                                   default=fields.Date.today, )
     member_type = fields.Selection(selection=[('student', 'Student'),
                                               ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator'), ])
+                                              ('administrator', 'Administrator'),],
+                                   store=True)
 
     education = fields.Selection(selection=[('bachelor', 'Bachelor'),
                                             ('master', 'Master'),
