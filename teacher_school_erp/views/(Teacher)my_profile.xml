@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="my_profile_teacher" model="ir.ui.view">
+            <field name="name">my.profile.teacher</field>
+            <field name="model">teacher.teacher</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="required_group">
+                            <field name="sequence"/>
+                            <field name="user_id" string="Name" domain="[('member_type', '=', 'teacher')]"
+                                   readonly="True"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="surname" invisible="not user_id"/>
+                        </group>
+                        <group string="optional_group">
+                            <field name="blood_type" invisible="not user_id"/>
+                            <field name="dob" invisible="not user_id"/>
+                            <field name="phone" invisible="not user_id"/>
+                            <field name="education" invisible="not user_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Action-->
+        <record id="teacher_my_profile" model="ir.actions.act_window">
+            <field name="name">My Profile</field>
+            <field name="res_model">teacher.teacher</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('user_id', '=', uid)]</field>
+            <field name="context">{'default_user_id': uid}</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('my_profile_teacher')})]"/>
+        </record>
+    </data>
+</odoo>

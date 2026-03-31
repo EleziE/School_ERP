@@ -10,6 +10,7 @@ class Teacher(models.Model):
                               required=True)
     name = fields.Char(string='Name',
                        related="user_id.name",
+                       store=True,
                        readonly=True)
     surname = fields.Char(string='Surname',
                           related="user_id.surname", )
