@@ -9,6 +9,7 @@
         'views/student_inherited.xml',
         # Views
         'views/teacher_view.xml',
+        'views/(Teacher)my_profile.xml',
         'views/menu.xml',
     ],
     'depends': ['base_school_erp', 'students_school_erp'],
