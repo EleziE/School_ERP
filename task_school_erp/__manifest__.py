@@ -4,9 +4,8 @@
         # Security
         'security/ir.model.access.csv',
         # Views
-        'views/my_task.xml',
         'views/task.xml',
-        'views/teacher_inherit.xml',
+        'views/Inherited/teacher_inherit.xml',
         'views/menu.xml',
     ],
     'application': True,

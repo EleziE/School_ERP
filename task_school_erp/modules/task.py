@@ -10,35 +10,47 @@ class Task(models.Model):
                                  string='Created by')
     created_for = fields.Many2one(comodel_name='teacher.teacher',
                                   string="Created for")
-    status = fields.Selection(selection=[('new', 'New'),
-                                         ('in_progres', 'In Progress'),
-                                         ('completed', 'Completed'),
-                                         ('completed_delayed', 'Completed / Delayed')],
-                              string='Status',
-                              default='new',
-                              group_expand='_group_expand_status')
-    starting_date = fields.Date(string='Starting Date',
-                                compute='_compute_starting_date',
-                                readonly=True)
-    finish_date = fields.Date(string='Finish Date')
-    description = fields.Text(string='Description of task')
 
-    def action_new(self):
-        self.status = 'new'
+    status = fields.Selection(selection=[('new', 'New'),
+                                         ('in_progress', 'In Progress'),
+                                         ('completed', 'Completed'),
+                                         ('completed_delayed', 'Completed / Delayed'),
+                                         ('completed_early', 'Completed Early'),
+                                         ],
+                              compute='status_based_dates',
+                              store=True,
+                              group_expand='_group_expand_status'
+                              )
+
+    starting_date = fields.Date(
+        default=fields.Date.today,
+        readonly=True
+    )
+
+    planned_finish_date = fields.Date()
+    finish_date = fields.Date(store=True)
+
+    description = fields.Text()
 
     def action_in_progres(self):
-        self.status = 'in_progres'
+        self.status = 'in_progress'
 
     def action_completed(self):
         self.status = 'completed'
-
-    @api.onchange('starting_date')
-    def _compute_starting_date(self):
-        self.starting_date = fields.Date.today()
-
-    @api.model
     def _group_expand_status(self, states, domain, order):
         return [key for key, val in self._fields['status'].selection]
+
+    @api.depends('planned_finish_date', 'finish_date')
+    def status_based_dates(self):
+        for rec in self:
+            if not rec.planned_finish_date or not rec.finish_date:
+                rec.status = 'in_progress'
+            elif rec.finish_date == rec.planned_finish_date:
+                rec.status = 'completed'
+            elif rec.finish_date > rec.planned_finish_date:
+                rec.status = 'completed_delayed'
+            else:
+                rec.status = 'completed_early'
 
 
 class Teacher(models.Model):
