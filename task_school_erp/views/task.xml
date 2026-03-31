@@ -8,9 +8,11 @@
                 <field name="created_by"/>
                 <field name="created_for"/>
                 <field name="starting_date"/>
+                <field name="planned_finish_date"/>
                 <field name="finish_date"/>
-                <field name="status" widget="badge" decoration-success="status == 'completed'"
-                       decoration-warning="status == 'in_progres'"
+                <field name="status" widget="badge"
+                       decoration-success="status in ('completed','completed_early')"
+                       decoration-warning="status == 'in_progress'"
                        decoration-danger="status == 'completed_delayed'"/>
             </tree>
         </field>
@@ -24,13 +26,14 @@
                     <field name="status" widget="statusbar" options="{'clickable':True}"/>
                     <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
                     <button name="action_completed" string="Completed" type="object"
-                            invisible="status != 'in_progres'"/>
+                            invisible="status != 'in_progress'"/>
                 </header>
                 <sheet>
                     <group>
                         <field name="created_by" options="{'no_open': True}"/>
                         <field name="created_for" options="{'no_open': True}"/>
                         <field name="starting_date"/>
+                        <field name="planned_finish_date"/>
                         <field name="finish_date"/>
                         <field name="description" placeholder="Information about the task..."/>
                     </group>
