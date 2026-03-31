@@ -1,5 +1,5 @@
 from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, AccessError
 
 
 class Teacher(models.Model):
@@ -22,16 +22,16 @@ class Teacher(models.Model):
                       related='user_id.dob')
     education = fields.Selection(related='user_id.education',
                                  string='Education')
-    blood_type = fields.Selection(related='user_id.blood_type', )
+    blood_type = fields.Selection(related='user_id.blood_type')
     subject_id = fields.Many2many(comodel_name='subject.subject')
     class_room_id = fields.Many2many(comodel_name='class.rooms')
     enrollment_date = fields.Date(string='Enrollment Date',
                                   related='user_id.enrollment_date')
     member_type = fields.Selection(related='user_id.member_type',
-                                   readonly=True, )
+                                   readonly=True)
 
     sequence = fields.Char(string='Teacher ID: ',
-                           readonly=True,
+                           readonly=False,
                            default=lambda self: _('New'))
 
     @api.model
@@ -47,6 +47,23 @@ class Teacher(models.Model):
                 raise ValidationError(
                     f"'{rec.user_id.name}' is already a Student and cannot be a Teacher."
                 )
+
+    ########################### Security for field #########################
+    '''
+    Only Admins can edit this field
+    Not other groups
+    '''
+
+    def write(self, vals):
+        restricted_fields = [
+            'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
+            'enrollment_date', 'education', 'subject_id', 'class_room_id',
+            'sequence', 'member_type'
+        ]
+        if any(f in vals for f in restricted_fields):
+            if not self.env.user.has_group('base_school_erp.group_school_admin'):
+                raise AccessError("You can't edit these fields.")
+        return super().write(vals)
 
 
 class Student(models.Model):
