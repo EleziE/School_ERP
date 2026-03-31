@@ -22,15 +22,17 @@ class ResUsersInheritance(models.Model):
     dob = fields.Date(string='Date of birth')
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
-    member_type = fields.Selection(selection=[('student', 'Student'),
+    member_type = fields.Selection(selection=[('', 'None'), #or should I make it ('none','None')
+                                              ('student', 'Student'),
                                               ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator'),],
+                                              ('administrator', 'Administrator'), ],
                                    store=True)
 
     education = fields.Selection(selection=[('bachelor', 'Bachelor'),
                                             ('master', 'Master'),
                                             ('doctorate', 'Doctorate')],
                                  string='Education')
+
     @api.onchange('name', 'surname')
     def _onchange_name_set_login(self):
         if self.name and self.surname:
@@ -46,4 +48,3 @@ class ResUsersInheritance(models.Model):
             today = fields.Date.today()
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
-
