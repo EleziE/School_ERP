@@ -17,6 +17,27 @@
                 <xpath expr="//field[@name='surname']" position="after">
                     <field name="gender" string="Gender"/>
                 </xpath>
+                <xpath expr="//field[@name='gender']" position="after">
+                    <field name="login" string="Login"/>
+                </xpath>
+                <xpath expr="//field[@name='login']" position="after">
+                    <field name="member_type" string="Member Type"/>
+                </xpath>
+                <xpath expr="//field[@name='member_type']" position="after">
+                    <field name="dob" string="Date of birth"/>
+                </xpath>
+                <xpath expr="//field[@name='dob']" position="after">
+                    <field name="blood_type" string="Blood type"/>
+                </xpath>
+                <xpath expr="//field[@name='blood_type']" position="after">
+                    <field name="email" string="Email" help="External email, not the one to login"/>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="partner_id" string="Partner ID" groups="base.group_no_one" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="share" string="Share" invisible="1"/>
+                </xpath>
             </field>
         </record>
     </data>
