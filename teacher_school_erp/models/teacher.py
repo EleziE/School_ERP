@@ -29,9 +29,8 @@ class Teacher(models.Model):
                                   related='user_id.enrollment_date')
     member_type = fields.Selection(related='user_id.member_type',
                                    readonly=True)
-
     sequence = fields.Char(string='Teacher ID: ',
-                           readonly=False,
+                           readonly=True,
                            default=lambda self: _('New'))
 
     @api.model
