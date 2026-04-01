@@ -19,14 +19,13 @@
                             <group>
                                 <field name="dob" invisible="not user_id"/>
                                 <field name="phone" invisible="not user_id"/>
-                                <field name="education" invisible="not user_id"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="Subjects">
                                 <group name="main">
                                     <group name="right">
-                                        <field name="class_room_id"></field>
+                                        <field name="class_room_id"/>
                                     </group>
                                     <group name="left">
                                         <field name="subject_id"/>
@@ -51,6 +50,10 @@
                     <field name="surname"/>
                     <field name="education"/>
                     <field name="dob"/>
+                    <field name="education" widget="badge"
+                           decoration-success="education == 'bachelor'"
+                           decoration-warning="education == 'master'"
+                           decoration-primary="education == 'doctorate'"/>
                     <field name="enrollment_date"/>
                 </tree>
             </field>
