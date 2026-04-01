@@ -36,6 +36,7 @@
                                 <field name="surname" invisible=" not user_id"/>
                                 <field name="gender" placeholder="Select..." invisible=" not user_id"/>
                                 <field name="enrollment_date" invisible=" not user_id"/>
+                                <field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
                             </group>
                             <group>
                                 <field name="dob" invisible=" not user_id"/>
@@ -43,7 +44,6 @@
                                 <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
                                 <field name="email" invisible=" not user_id"/>
                                 <field name="blood_type" invisible=" not user_id"/>
-                                <field name="enrollment_date" invisible=" not user_id"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                                 <field name="state" readonly="1" invisible="not user_id"/>
                                 <field name="birthday_certificate"

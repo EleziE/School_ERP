@@ -10,7 +10,6 @@ class Student(models.Model):
     sequence = fields.Char(string='Student ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-
     user_id = fields.Many2one(comodel_name='res.users')
     name = fields.Char(string='Name',
                        related='user_id.name',
@@ -50,6 +49,10 @@ class Student(models.Model):
                         placeholder="+355XX XXX XXXX")
     enrollment_date = fields.Date(string='Enrollment Date',
                                   related='user_id.enrollment_date', )
+    graduation_date = fields.Date(string='Graduation Date',
+                                  store=True,
+                                  readonly=True,
+                                  compute='_compute_graduation_date',)
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Role',
                                    readonly=True, )
@@ -87,8 +90,16 @@ class Student(models.Model):
             'context': {'active_id': self.id},
         }
 
+    @api.depends('state')
+    def _compute_graduation_date(self):
+        for rec in self:
+            if rec.state == 'graduated':
+                rec.graduation_date = fields.Date.today()
+            else:
+                rec.graduation_date = False
+
     def action_open_my_profile(self):
-        student = self.search(['user_id', '=', self.env.uid], limit=1)
+        student = self.search([('user_id', '=', self.env.uid)], limit=1)
         return {
             'type': 'ir.actions.act_window',
             'name': 'My Profile',
@@ -96,7 +107,7 @@ class Student(models.Model):
             'view_mode': 'form',
             'target': 'current',
             'res_id': student.id,
-            'views': [(self.env.ref('students_school_erp.my_profile_student'))]
+            'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')]
         }
 
     ############################ Buttons ###########################################
