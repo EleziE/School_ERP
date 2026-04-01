@@ -10,7 +10,7 @@
                     <sheet>
                         <group>
                             <group string="required_group">
-                                <field name="sequence" readonly="True"/>
+                                <field name="sequence" readonly="True" />
                                 <field name="user_id" string="Name" domain="[('member_type', '=', 'teacher')]"
                                        readonly="True"
                                        options="{'no_create': True, 'no_open': True}"/>
@@ -32,11 +32,9 @@
             <field name="name">My Profile</field>
             <field name="res_model">teacher.teacher</field>
             <field name="view_mode">form</field>
-            <field name="domain">[('user_id', '=', uid)]</field>
-            <field name="context">{'default_user_id': uid}</field>
-            <field name="view_ids"
-                   eval="[(5, 0, 0),
-                          (0, 0, {'view_mode': 'form', 'view_id': ref('teacher_school_erp.my_profile_teacher')})]"/>
+            <field name="domain">[('user_id','=',uid)]</field>
+            <field name="views"
+                   eval="[(ref('my_profile_teacher')),'form']"/>
         </record>
     </data>
 </odoo>
