@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+        <!--
+        Just to make the first iew to be tre not kanban that is by default
+        Nothing else, for the Apps
+        -->
         <record id="base.open_module_tree" model="ir.actions.act_window" forcecreate="False">
             <field name="view_mode">tree,kanban,form</field>
         </record>
