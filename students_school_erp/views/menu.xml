@@ -6,14 +6,13 @@
                   name="Students"
                   action="action_students"
                   web_icon='students_school_erp,static/description/icon.png'
-                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_student"/>
+                  groups="base_school_erp.group_school_admin"/>
 
         <menuitem id="student_profile"
                   name="My Profile"
                   parent="students"
                   sequence="1"
                   action="action_my_profile_student"
-                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_student"
-        />
+                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_student"/>
     </data>
 </odoo>

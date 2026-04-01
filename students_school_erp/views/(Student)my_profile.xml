@@ -24,7 +24,6 @@
                 </form>
             </field>
         </record>
-
         <!--Action-->
         <record id="action_my_profile_student" model="ir.actions.act_window">
             <field name="name">Student Profile</field>

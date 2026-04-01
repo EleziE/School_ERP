@@ -10,6 +10,8 @@ class Student(models.Model):
     sequence = fields.Char(string='Student ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
+
+
     user_id = fields.Many2one(comodel_name='res.users')
     name = fields.Char(string='Name',
                        related='user_id.name',
@@ -54,6 +56,11 @@ class Student(models.Model):
                                    readonly=True, )
     user_password = fields.Char(string='Password',
                                 related='user_id.new_password',)
+
+    birthday_certificate= fields.Binary(string='Birthday Certificate')
+    birthday_certificate_name = fields.Char(string='File name')
+
+
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
         for rec in self:
