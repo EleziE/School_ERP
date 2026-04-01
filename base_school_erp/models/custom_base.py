@@ -22,7 +22,7 @@ class ResUsersInheritance(models.Model):
     dob = fields.Date(string='Date of birth')
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
-    member_type = fields.Selection(selection=[('', 'None'), #or should I make it ('none','None')
+    member_type = fields.Selection(selection=[('none', 'None'),
                                               ('student', 'Student'),
                                               ('teacher', 'Teacher'),
                                               ('administrator', 'Administrator'), ],
@@ -33,13 +33,24 @@ class ResUsersInheritance(models.Model):
                                             ('doctorate', 'Doctorate')],
                                  string='Education')
 
-    @api.onchange('name', 'surname')
+    @api.onchange('name', 'surname', 'member_type')
     def _onchange_name_set_login(self):
-        if self.name and self.surname:
-            first_initial = self.name.strip()[0].lower()
-            surname = self.surname.strip().lower().replace(' ', '')
-            self.login = f"{first_initial}.{surname}@school.com"
-        elif self.name:
+        if not self.name or not self.surname:
+            self.login = False
+            return
+
+        first_initial = self.name.strip()[0].lower()
+        surname = self.surname.strip().lower().replace(' ', '')
+        domains = {
+            'student': 'std.school.edu.com',
+            'teacher': 'tec.school.edu.com',
+            'administrator': 'adm.school.edu.com'
+        }
+
+        domain = domains.get(self.member_type)
+        if domain:
+            self.login = f"{first_initial}.{surname}@{domain}"
+        else:
             self.login = False
 
     @api.constrains('dob')
@@ -48,3 +59,25 @@ class ResUsersInheritance(models.Model):
             today = fields.Date.today()
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        domains = {
+            'student': 'std.school.edu.com',
+            'teacher': 'tec.school.edu.com',
+            'administrator': 'adm.school.edu.com'
+        }
+        for vals in vals_list:
+            name = vals.get('name', '')
+            surname = vals.get('surname', '')
+            member_type = vals.get('member_type', '')
+            domain = domains.get(member_type)
+            if name and surname and domain:
+                first_initial = name.strip()[0].lower()
+                surname_clean = surname.strip().lower().replace(' ', '')
+                vals['login'] = f"{first_initial}.{surname_clean}@{domain}"
+        return super().create(vals_list)
+
+
+
+
