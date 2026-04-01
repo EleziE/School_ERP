@@ -33,10 +33,13 @@
                     <field name="email" string="Email" help="External email, not the one to login"/>
                 </xpath>
                 <xpath expr="//field[@name='email']" position="after">
-                    <field name="partner_id" string="Partner ID" groups="base.group_no_one" readonly="1"/>
+                    <field name="partner_id" string="Partner ID"/>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="share" string="Share" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="placeholder">+355 XX XXX XXXX</attribute>
                 </xpath>
             </field>
         </record>
