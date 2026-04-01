@@ -13,7 +13,7 @@ class Student(models.Model):
     user_id = fields.Many2one(comodel_name='res.users')
     name = fields.Char(string='Name',
                        related='user_id.name',
-                       readonly=True,
+                       readonly=False,
                        store=True)
     surname = fields.Char(string='Surname',
                           related='user_id.surname',
@@ -78,6 +78,17 @@ class Student(models.Model):
             'context': {'active_id': self.id},
         }
 
+    def action_open_my_profile(self):
+        student = self.search(['user_id','=',self.env.uid], limit=1)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'My Profile',
+            'res_model': 'students.students',
+            'view_mode': 'form',
+            'target': 'current',
+            'res_id': student.id,
+            'views':[(self.env.ref('students_school_erp.my_profile_student'))]
+        }
     ############################ Buttons ###########################################
     def action_graduated(self):
         self.state = 'graduated'
