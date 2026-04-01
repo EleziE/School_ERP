@@ -10,6 +10,7 @@
         # Views
         'views/students.xml',
         'views/student_profile.xml',
+        'views/(Student)my_profile.xml',
         'views/menu.xml',
     ],
     'depends': [

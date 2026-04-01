@@ -7,7 +7,10 @@ class Task(models.Model):
     _rec_name = 'created_for'
 
     created_by = fields.Many2one(comodel_name='teacher.teacher',
-                                 string='Created by')
+                                 string='Created by',
+                                 default=lambda self: self.env['teacher.teacher'].search(
+                                     [('user_id', '=', self.env.uid)], limit=1),
+                                 readonly=True)
     created_for = fields.Many2one(comodel_name='teacher.teacher',
                                   string="Created for")
     status = fields.Selection(selection=[('new', 'New'),
@@ -21,7 +24,7 @@ class Task(models.Model):
                               group_expand='_group_expand_status')
     starting_date = fields.Date(
         default=fields.Date.today,
-        readonly=True)
+        readonly=False)
     planned_finish_date = fields.Date()
     finish_date = fields.Date(store=True)
     description = fields.Text()

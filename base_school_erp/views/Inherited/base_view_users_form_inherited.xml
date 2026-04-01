@@ -11,8 +11,8 @@
                         <group>
                             <field name="name"/>
                             <field name="surname"/>
-                            <field name="login"/>a
                             <field name="member_type"/>
+                            <field name="login"/>a
                         </group>
                         <group>
                             <field name="gender"/>

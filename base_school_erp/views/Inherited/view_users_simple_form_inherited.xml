@@ -15,15 +15,15 @@
                     <field name="surname" string="Surname"/>
                 </xpath>
                 <xpath expr="//field[@name='surname']" position="after">
-                    <field name="gender" string="Gender"/>
-                </xpath>
-                <xpath expr="//field[@name='gender']" position="after">
-                    <field name="login" string="Login"/>
-                </xpath>
-                <xpath expr="//field[@name='login']" position="after">
                     <field name="member_type" string="Member Type"/>
                 </xpath>
                 <xpath expr="//field[@name='member_type']" position="after">
+                    <field name="login" string="Login"/>
+                </xpath>
+                <xpath expr="//field[@name='login']" position="after">
+                    <field name="gender" string="Gender"/>
+                </xpath>
+                <xpath expr="//field[@name='gender']" position="after">
                     <field name="dob" string="Date of birth"/>
                 </xpath>
                 <xpath expr="//field[@name='dob']" position="after">
@@ -33,17 +33,19 @@
                     <field name="email" string="Email" help="External email, not the one to login"/>
                 </xpath>
                 <xpath expr="//field[@name='email']" position="after">
-                    <field name="partner_id" string="Partner ID"/>
-                </xpath>
-                <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="share" string="Share" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="education" string="Education"/>
                 </xpath>
                 <xpath expr="//field[@name='phone']" position="attributes">
                     <attribute name="placeholder">+355 XX XXX XXXX</attribute>
                 </xpath>
+                <xpath expr="//field[@name='education']" position="attributes">
+                    <attribute name="invisible">member_type != 'teacher'</attribute>
+                </xpath>
             </field>
         </record>
-
     </data>
 </odoo>
 

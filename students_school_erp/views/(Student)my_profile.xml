@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="my_profile_student" model="ir.ui.view">
+            <field name="name">my.profile.student</field>
+            <field name="model">students.students</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="required_group">
+                                <field name="sequence" readonly="True" />
+                                <field name="user_id" string="Name"/>
+                                <field name="surname"/>
+                            </group>
+                            <group string="optional_group">
+                                <field name="blood_type"/>
+                                <field name="dob"/>
+                                <field name="phone"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Action-->
+        <record id="action_my_profile_student" model="ir.actions.act_window">
+            <field name="name">Student Profile</field>
+            <field name="res_model">students.students</field>
+            <field name="view_mode">form</field>
+            <field name="views" eval="[(ref('my_profile_student'), 'form')]"/>
+        </record>
+    </data>
+</odoo>

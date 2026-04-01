@@ -30,8 +30,8 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="created_by" options="{'no_open': True}"/>
-                        <field name="created_for" options="{'no_open': True}"/>
+                        <field name="created_by" options="{'no_open': True, 'no_create':True}"/>
+                        <field name="created_for" options="{'no_open': True}" domain="[('id','!=',created_by)]" invisible="[('id','!=',created_for)]"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
                         <field name="finish_date"/>
@@ -64,22 +64,22 @@
                                     </strong>
 
                                     <div>
-                                        <b>Created By : </b>
+                                        <b>Created By :</b>
                                         <field name="created_by"/>
                                     </div>
 
                                     <div>
-                                        <b>Assigned To : </b>
+                                        <b>Assigned To :</b>
                                         <field name="created_for"/>
                                     </div>
 
                                     <div>
-                                        <b>Start : </b>
+                                        <b>Start :</b>
                                         <field name="starting_date"/>
                                     </div>
 
                                     <div>
-                                        <b>Finish : </b>
+                                        <b>Finish :</b>
                                         <field name="finish_date"/>
                                     </div>
 
