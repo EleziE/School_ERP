@@ -11,7 +11,6 @@ class Student(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
 
-
     user_id = fields.Many2one(comodel_name='res.users')
     name = fields.Char(string='Name',
                        related='user_id.name',
@@ -55,11 +54,14 @@ class Student(models.Model):
                                    string='Role',
                                    readonly=True, )
     user_password = fields.Char(string='Password',
-                                related='user_id.new_password',)
+                                related='user_id.new_password', )
 
-    birthday_certificate= fields.Binary(string='Birthday Certificate')
-    birthday_certificate_name = fields.Char(string='File name')
-
+    birthday_certificate = fields.Binary(string='Birthday Certificate')
+    birthday_certificate_name = fields.Char(string='File name',
+                                            default="Document",
+                                            accept="application/pdf,"
+                                                   "image/png,"
+                                                   "image/jpeg")
 
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
@@ -86,7 +88,7 @@ class Student(models.Model):
         }
 
     def action_open_my_profile(self):
-        student = self.search(['user_id','=',self.env.uid], limit=1)
+        student = self.search(['user_id', '=', self.env.uid], limit=1)
         return {
             'type': 'ir.actions.act_window',
             'name': 'My Profile',
@@ -94,8 +96,9 @@ class Student(models.Model):
             'view_mode': 'form',
             'target': 'current',
             'res_id': student.id,
-            'views':[(self.env.ref('students_school_erp.my_profile_student'))]
+            'views': [(self.env.ref('students_school_erp.my_profile_student'))]
         }
+
     ############################ Buttons ###########################################
     def action_graduated(self):
         self.state = 'graduated'
@@ -105,6 +108,7 @@ class Student(models.Model):
 
     def action_inactive(self):
         self.state = 'inactive'
+
     ############################ Constraints ###########################################
     _sql_constraints = [
         ('unique_student_id', 'UNIQUE (sequence)', 'This Student ID already exists.'),
