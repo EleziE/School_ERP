@@ -54,7 +54,6 @@
                            decoration-success="education == 'bachelor'"
                            decoration-warning="education == 'master'"
                            decoration-primary="education == 'doctorate'"/>
-                    <field name="enrollment_date"/>
                 </tree>
             </field>
         </record>

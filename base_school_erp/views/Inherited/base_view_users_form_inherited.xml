@@ -19,7 +19,7 @@
                             <field name="dob"/>
                             <field name="blood_type"/>
                             <field name="email"/>
-                            <field name="partner_id" groups="base.group_no_one" readonly="1"/>
+                            <field name="partner_id"/>
                             <field name="share" invisible="1"/>
                         </group>
                     </group>
