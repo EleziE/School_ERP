@@ -10,28 +10,27 @@ class Student(models.Model):
     sequence = fields.Char(string='Student ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-    user_id = fields.Many2one(comodel_name='res.users')
+    user_id = fields.Many2one(comodel_name='res.users',readonly=True)
     name = fields.Char(string='Name',
-                       related='user_id.name',
-                       readonly=False,
-                       store=True)
-    surname = fields.Char(string='Surname',
-                          related='user_id.surname',
-                          readonly=True,
-                          store=True)
+                       required=True)
+    surname = fields.Char(string='Surname')
+
     gender = fields.Selection(string='Gender',
-                              related='user_id.gender',
-                              store=True,
-                              readonly=True)
-    dob = fields.Date(string='Date of birth',
-                      related='user_id.dob',
-                      readonly=True)
-    blood_type = fields.Selection(related='user_id.blood_type',
-                                  string='Blood Type',
-                                  readonly=True)
-    email = fields.Char(string='Email',
-                        related='user_id.login',
-                        readonly=True)
+                              selection=[('female', 'Female'),
+                                         ('male', 'Male')], )
+    dob = fields.Date(string='Date of birth')
+    blood_type = fields.Selection(selection=[('a+', 'A+'),
+                                             ('a-', 'A-'),
+                                             ('b+', 'B+'),
+                                             ('b-', 'B-'),
+                                             ('ab+', 'AB+'),
+                                             ('ab-', 'AB-'),
+                                             ('o+', 'O+'),
+                                             ('o-', 'O-'),
+                                             ],
+                                  string='Blood Type')
+    email = fields.Char(string='Log-id Email',
+                        required=True)
     classroom_id = fields.Many2one(comodel_name='class.rooms',
                                    string='Class')
     subject_id = fields.Many2many(comodel_name='subject.subject')
@@ -48,7 +47,8 @@ class Student(models.Model):
                         related='user_id.phone',
                         placeholder="+355XX XXX XXXX")
     enrollment_date = fields.Date(string='Enrollment Date',
-                                  related='user_id.enrollment_date', )
+                                  default=fields.Date.today,
+                                  readonly=True)
     graduation_date = fields.Date(string='Graduation Date',
                                   store=True,
                                   readonly=True,
@@ -66,6 +66,14 @@ class Student(models.Model):
                                                    "image/png,"
                                                    "image/jpeg")
 
+
+    @api.constrains('dob')
+    def check_dob(self):
+        for rec in self:
+            today = fields.Date.today()
+            if rec.dob and rec.dob > today:
+                raise ValidationError("Date of birth  can't be in the future")
+
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
         for rec in self:
@@ -78,7 +86,10 @@ class Student(models.Model):
     def create(self, vals):
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
+
+        print('Member type: student')
         return super().create(vals)
+
 
     def action_open_suspend_wizard(self):
         return {
