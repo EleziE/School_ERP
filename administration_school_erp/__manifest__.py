@@ -5,6 +5,9 @@
         'views/administration.xml',
         'views/menu.xml',
     ],
-    'depends': ['base_school_erp', 'base'],
+    'depends': [
+        'base_school_erp',
+        'base',
+    ],
     'icon': 'administration_school_erp/static/description/icon.png',
 }
