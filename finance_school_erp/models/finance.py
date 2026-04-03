@@ -7,22 +7,31 @@ class Finance(models.Model):
     _rec_name = 'student_id'
 
     amount = fields.Float(string='Amount')
-    state = fields.Selection(string='State', selection=[('draft', 'Draft'),
-                                                        ('paid', 'Paid'),
-                                                        ('unpaid', 'Unpaid')],
+    reason = fields.Char(string='Reason',
+                         required=True,
+                         help='Reason for payment',
+                         default='No reason')
+    state = fields.Selection(string='State',
+                             selection=[('draft', 'Draft'),
+                                        ('paid', 'Paid'),
+                                        ('unpaid', 'Unpaid')],
                              default='draft')
 
-    student_id = fields.Many2one(comodel_name='students.students', string='Student')
+    student_id = fields.Many2one(comodel_name='students.students',
+                                 string='Student')
 
     def pay_finance(self):
         self.state = 'paid'
-        print(f'Hello {self.student_id.name} have paid you payment of {self.amount}!')
+        print(f'{self.student_id.name} paid the payment of {self.amount} LEK (te reja)!')
 
     def unpaid_finance(self):
         self.state = 'unpaid'
+        print(f'{self.student_id.name} has to make the payment of {self.amount} LEK (te reja)!')
 
 
 class Student(models.Model):
     _inherit = 'students.students'
 
-    finance_ids = fields.One2many(comodel_name='finance.finance', inverse_name='student_id', string='Finances')
+    finance_ids = fields.One2many(comodel_name='finance.finance',
+                                  inverse_name='student_id',
+                                  string='Finances')

@@ -1,9 +1,12 @@
-2.Si me ja ba per me ba automatically when selected member ot give access right to user (not manually go and select what type of rights to give)
+Prap nuk ban me e ba usersin None (access rights)
 
-3.Shiko me kujdes creat viewed (New button) ne teacher edhe student 
+============4/3/2026============
 
-5.Check if the inheritance (ResUser) in teacher.py is needed or can I add it in the costume_base.py
+1.Pse ne students_students field email duhet me e ba Readonly = False per me dal ne view normal si duhet (ose te CP ma bani ket pun).
 
-6.When creating a user (doesn't matter for student or teacher ) make a restriction or something that if you are creating from a student to automatically make the new user a student so that if you make a user from the new button but form teacher to not give you the warning this person can be a student because you have made this a teacher.
+2.Si me e parandalu kur nga state GRADUATED e qoj ne ACTIVE ose tjeter
+graduated date me u ba invisible prap (kur ndryshohet prej ne db)
 
-7.Prap nuk ban me e ba usersin None (access rights)
+RECHECK: A ka naj menyr tjeter si me e vendos ne notebook Subject perveq se me e vendos fieldin aty (m2m) .. me e ba si me financen apo duhet per me ba modul tjeter SUBJECT per me e ba ashtu.
+
+3.Rishiko si me e ba per me marr te dhanat e sakta per my profile per staudent (e njejta edhe per teacher)

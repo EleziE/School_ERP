@@ -31,33 +31,36 @@
                             </h3>
                         </div>
                         <group>
-                            <group>
-                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]"/>
-                                <field name="surname" invisible=" not user_id"/>
-                                <field name="gender" placeholder="Select..." invisible=" not user_id"/>
-                                <field name="enrollment_date" invisible=" not user_id"/>
+                            <group name="Required">
+                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]" invisible="True"/>
+                                <field name="name" required="True"/>
+                                <field name="surname" required="True"/>
+                                <field name="email" required="True"/>
+                                <field name="member_type" readonly="True"/>
+                                <field name="enrollment_date"/>
                                 <field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
                             </group>
-                            <group>
-                                <field name="dob" invisible=" not user_id"/>
+                            <group name="Optional">
+                                <field name="gender" placeholder="Select..."/>
+                                <field name="dob"/>
+                                <field name="blood_type"/>
                                 <field name="classroom_id" invisible="state == 'graduated'"/>
                                 <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
-                                <field name="email" invisible=" not user_id"/>
-                                <field name="blood_type" invisible=" not user_id"/>
-                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
-                                <field name="state" readonly="1" invisible="not user_id"/>
                                 <field name="birthday_certificate"
-                                       filename="birthday_certificate_name"
+                                filename="birthday_certificate_name"
                                        widget="binary"/>
                                 <field name="birthday_certificate_name" invisible="True"/>
+                                <field name="state" readonly="1"/>
+                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
-                        <notebook>
-                            <page string="Finance" name="finance" invisible=" not user_id">
+                        <notebook invisible="state == 'new'">
+                            <page string="Finance" name="finance">
                             </page>
-                            <page string="Teacher" name="teacher" invisible=" not user_id">
+                            <page string="Teacher" name="teacher">
                             </page>
-                            <page string="Subjects" name="subject" invisible=" not user_id">
+                            <page string="Subjects" name="subject">
+                                <field name="subject_id"/>
                             </page>
                         </notebook>
                     </sheet>
