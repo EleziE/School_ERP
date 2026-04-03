@@ -27,6 +27,7 @@ class Task(models.Model):
         readonly=False)
     planned_finish_date = fields.Date()
     finish_date = fields.Date(store=True)
+    check_user_finish_date = fields.Boolean(compute='_compute_check_user_finish_date')
     description = fields.Text()
 
     def action_in_progres(self):
@@ -50,6 +51,10 @@ class Task(models.Model):
             else:
                 rec.status = 'completed_early'
 
+    @api.depends('created_for')
+    def _compute_check_user_finish_date(self):
+        for rec in self:
+            rec.check_user_finish_date = rec.created_for.id == self.env.uid
 
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
