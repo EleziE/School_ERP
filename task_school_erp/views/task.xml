@@ -5,7 +5,7 @@
         <field name="model">task</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="created_by"/>
+                <field name="created_by" domain="[('member_type','=','administrator')]"/>
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -26,15 +26,16 @@
                     <field name="status" widget="statusbar" options="{'clickable':True}"/>
                     <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
                     <button name="action_completed" string="Completed" type="object"
-                            invisible="status != 'in_progress'"/>
+                            invisible="status != 'in_progress' or created_for != uid"/>
                 </header>
                 <sheet>
                     <group>
                         <field name="created_by" options="{'no_open': True, 'no_create':True}"/>
-                        <field name="created_for" options="{'no_open': True}" domain="[('id','!=',created_by)]" invisible="[('id','!=',created_for)]"/>
+                        <field name="created_for" domain="[('id','!=',created_by)]"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
-                        <field name="finish_date"/>
+                        <field name="check_user_finish_date" invisible="True"/>
+                        <field name="finish_date" readonly='"not check_user_finish_date"'/>
                         <field name="description" placeholder="Information about the task..."/>
                     </group>
                 </sheet>

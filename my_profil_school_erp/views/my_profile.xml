@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="my_profile" model="ir.ui.view">
+            <field name="name">my.profile</field>
+            <field name="model">my.profile</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="name"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Action-->
+        <record id="action_my_profile" model="ir.actions.act_window">
+            <field name="name">action.my.profile</field>
+            <field name="res_model">my.profile</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

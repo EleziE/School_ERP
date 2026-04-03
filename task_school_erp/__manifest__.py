@@ -5,7 +5,7 @@
         'security/ir.model.access.csv',
         # Views
         'views/task.xml',
-        'views/Inherited/teacher_inherit.xml',
+        'views/Inherited/(teacher)task_notebook.xml',
         'views/menu.xml',
     ],
     'application': True,
