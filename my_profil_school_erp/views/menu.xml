@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="my_profile_school_erp"
+                  name="My Profile"
+                  web_icon="my_profil_school_erp,static/description/icon.png"
+                  action="my_profil_school_erp.action_my_profile"
+                  sequence="0"/>
+    </data>
+</odoo>
