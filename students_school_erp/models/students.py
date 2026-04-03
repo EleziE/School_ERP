@@ -11,20 +11,20 @@ class Student(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
 
-    user_id = fields.Many2one(comodel_name='res.users')
-
+    user_id = fields.Many2one(comodel_name='res.users',
+                              invisible=True,)
     name = fields.Char(string='Name',
-                       readonly=False,
                        store=True)
-
     surname = fields.Char(string='Surname')
 
+    #Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
+    email = fields.Char(string='Email',
+                        related='user_id.login',
+                        readonly=False)
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-
     dob = fields.Date(string='Date of birth')
-
     blood_type = fields.Selection(selection=[('a+', 'A+'),
                                              ('a-', 'A-'),
                                              ('b+', 'B+'),
@@ -35,50 +35,67 @@ class Student(models.Model):
                                              ('o-', 'O-'),
                                              ],
                                   string='Blood Type')
-
-    email = fields.Char(string='Email',
-                        related='user_id.login',)
-
     classroom_id = fields.Many2one(comodel_name='class.rooms',
                                    string='Class')
-
     subject_id = fields.Many2many(comodel_name='subject.subject')
-
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
                                         ('suspended', 'Suspended'),
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
-                             string='Status',
+                             string='State',
                              default='new')
-
     suspend_reason = fields.Text(string='Suspension Reason')
-
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
                         placeholder="+355XX XXX XXXX")
-
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
-
     graduation_date = fields.Date(string='Graduation Date',
                                   store=True,
                                   readonly=True,
                                   compute='_compute_graduation_date', )
-
     member_type = fields.Selection(related='user_id.member_type',
-                                   string='Role',
+                                   string='Type',
                                    readonly=True, )
     user_password = fields.Char(string='Password',
                                 related='user_id.new_password', )
-
     birthday_certificate = fields.Binary(string='Birthday Certificate')
     birthday_certificate_name = fields.Char(string='File name',
                                             default="Document",
                                             accept="application/pdf,"
                                                    "image/png,"
                                                    "image/jpeg")
+
+
+
+
+
+    @api.model
+    def create(self, vals):
+        #=================== Per Sequence Generator ====================
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
+        #=================== Per Sequence Generator ===================
+
+        # =================== Per Access Rights Generator ===================
+        access_rights = self.env.ref('base_school_erp.group_school_student')
+        internal_user = self.env.ref('base.group_user')
+
+        user = self.env['res.users'].create({
+            'name': vals.get('name'),
+            'login': vals.get('email'),
+            'member_type':'student',
+            'groups_id': [
+                (4,access_rights.id),
+                (4,internal_user.id),]
+        })
+        vals['user_id'] = user.id
+        print('A student was created')
+        # =================== Per Access Rights Generator ===================
+
+        return super().create(vals)
 
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
@@ -87,20 +104,13 @@ class Student(models.Model):
                 raise ValidationError(
                     f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
                 )
+
     @api.constrains('dob')
     def check_dob(self):
         for rec in self:
             today = fields.Date.today()
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
-
-
-
-    @api.model
-    def create(self, vals):
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
-        return super().create(vals)
 
     def action_open_suspend_wizard(self):
         return {
@@ -120,18 +130,19 @@ class Student(models.Model):
             else:
                 rec.graduation_date = False
 
-    def action_open_my_profile(self):
-        student = self.search([('user_id', '=', self.env.uid)], limit=1)
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'My Profile',
-            'res_model': 'students.students',
-            'view_mode': 'form',
-            'target': 'current',
-            'res_id': student.id,
-            'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')]
-        }
-
+    # TO-DO Recheck it (understand it)
+    #Open My profile with right records
+    # def action_open_my_profile(self):
+    #     student = self.search([('user_id', '=', self.env.uid)], limit=1)
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'My Profile',
+    #         'res_model': 'students.students',
+    #         'view_mode': 'form',
+    #         'res_id': student.id,
+    #         'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')],
+    #         'target': 'current',
+    #     }
     ############################ Buttons ###########################################
     def action_graduated(self):
         self.state = 'graduated'

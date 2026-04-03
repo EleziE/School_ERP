@@ -11,7 +11,7 @@
                         <group>
                             <group name="Required">
                                 <field name="sequence"/>
-                                <field name="user_id" domain="[('member_type', '=', 'teacher')]" options="{'no_open':True, 'no_create':True}"/>
+                                <field name="user_id" domain="[('member_type', '=', 'teacher')]" options="{'no_open':True, 'no_create':True}" invisible="True"/>
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="email"/>

@@ -46,9 +46,17 @@ class Teacher(models.Model):
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher') or _('New')
 
+        access_rights = self.env.ref('base_school_erp.group_school_teacher')
+        internal_user = self.env.ref('base.group_user')
+
+
         user = self.env['res.users'].create({
             'name': vals.get('name'),
             'login':vals.get('email'),
+            'member_type':'teacher',
+            'groups_id':[
+                (4,access_rights.id),
+                (4,internal_user.id),]
         })
         vals ['user_id'] = user.id
         print('A teacher was created')
@@ -75,7 +83,6 @@ class Teacher(models.Model):
     Only Admins can edit this field
     Not other groups
     '''
-
     def write(self, vals):
         restricted_fields = [
             'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
@@ -123,21 +130,13 @@ class Student(models.Model):
         self.teacher_ids = teachers
 
 
-class ResUser(models.Model):
-    _inherit = 'res.users'
-
-    member_type = fields.Selection(selection=[('student', 'Student'),
-                                              ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator')],
-                                   required=True)
-
     @api.constrains('member_type')
     def _check_role_not_duplicate(self):
         for rec in self:
             if rec.member_type == 'teacher':
                 student = self.env['students.students'].search([
-                    ('user_id', '=', rec.id)
-                ])
+                ('user_id', '=', rec.id)
+            ])
                 if student:
                     raise ValidationError(
                         f"'{rec.name}' is already registered as a Student and cannot be a Teacher."
@@ -149,3 +148,4 @@ class ResUser(models.Model):
                     raise ValidationError(
                         f"'{rec.name}' is already registered as a Teacher and cannot be a Student."
                     )
+
