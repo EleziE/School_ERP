@@ -10,7 +10,7 @@
                     <header>
                         <field name="state" widget="statusbar"
                                statusbar_visible="new,active,inactive,suspended,graduated,rejected"
-                               options="{'clickable': False}" invisible="state =='graduated'"/>
+                               options="{'clickable': False}"/>
                         <button name="action_active" type="object" string="Activate"
                                 invisible="state not in ('inactive', 'suspended','new')"
                                 groups="base_school_erp.group_school_admin"/>
@@ -31,34 +31,36 @@
                             </h3>
                         </div>
                         <group>
-                            <group>
-                                <field name="user_id" string="User ID" domain=" [('member_type','=','student')]"/>
-                                <field name="name"/>
-                                <field name="surname"/>
-                                <field name="gender" placeholder="Select..."/>
+                            <group name="Required">
+                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]" invisible="True"/>
+                                <field name="name" required="True"/>
+                                <field name="surname" required="True"/>
+                                <field name="email" required="True"/>
+                                <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
-                                <field name="graduation_date" invisible="state != 'graduated'"/>
+                                <field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
                             </group>
-                            <group>
+                            <group name="Optional">
+                                <field name="gender" placeholder="Select..."/>
                                 <field name="dob"/>
+                                <field name="blood_type"/>
                                 <field name="classroom_id" invisible="state == 'graduated'"/>
                                 <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
-                                <field name="email" string="Log-in Email"/>
-                                <field name="blood_type"/>
-                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
-                                <field name="state" readonly="1" invisible="not user_id and state =='graduated'"/>
                                 <field name="birthday_certificate"
-                                       filename="birthday_certificate_name"
-                                       widget="binary" invisible="state =='graduated'"/>
+                                filename="birthday_certificate_name"
+                                       widget="binary"/>
                                 <field name="birthday_certificate_name" invisible="True"/>
+                                <field name="state" readonly="1"/>
+                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
-                        <notebook invisible="state =='graduated'">
+                        <notebook invisible="state == 'new'">
                             <page string="Finance" name="finance">
                             </page>
                             <page string="Teacher" name="teacher">
                             </page>
                             <page string="Subjects" name="subject">
+                                <field name="subject_id"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -74,6 +76,7 @@
                     <field name="sequence"/>
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname"/>
+                    <field name="email"/>
                     <field name="state" widget="badge" decoration-success="state == 'active'"
                            decoration-warning="state in ('suspended','inactive')"
                            decoration-primary="state == 'graduated'"
@@ -107,7 +110,7 @@
             <field name="name">Students</field>
             <field name="res_model">students.students</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'default_member_type': 'student', 'force_member_type': 'student'}</field>
+            <field name="context">{'default_member_type':'student','force_member_type':'student'}</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('students_tree_view')}),

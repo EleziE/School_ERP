@@ -26,9 +26,12 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="student_id"/>
+                        <field name="student_id" options="{'no_open':True, 'no_create':True}"
+                               domain="[('member_type','=','student')]"/>
                         <field name="create_date"/>
                         <field name="amount"/>
+                        <field name="reason" placeholder="Write the reason for suspension..."
+                               options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
                     </group>
                 </sheet>
             </form>

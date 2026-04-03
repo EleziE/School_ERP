@@ -1,5 +1,4 @@
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 
 class ResUsersInheritance(models.Model):
@@ -10,8 +9,3 @@ class ResUsersInheritance(models.Model):
                                               ('teacher', 'Teacher'),
                                               ('administrator', 'Administrator'), ],
                                    store=True)
-
-
-
-
-

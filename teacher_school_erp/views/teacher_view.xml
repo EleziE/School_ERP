@@ -9,16 +9,17 @@
                 <form>
                     <sheet>
                         <group>
-                            <group>
+                            <group name="Required">
                                 <field name="sequence"/>
-                                <field name="user_id" domain="[('member_type', '=', 'teacher')]"/>
-                                <field name="name" invisible="not user_id"/>
-                                <field name="surname" invisible="not user_id"/>
-                                <field name="blood_type" invisible="not user_id"/>
+                                <field name="user_id" domain="[('member_type', '=', 'teacher')]" options="{'no_open':True, 'no_create':True}" invisible="True"/>
+                                <field name="name"/>
+                                <field name="surname"/>
+                                <field name="email"/>
                             </group>
-                            <group>
-                                <field name="dob" invisible="not user_id"/>
-                                <field name="phone" invisible="not user_id"/>
+                            <group name="Optional">
+                                <field name="blood_type"/>
+                                <field name="dob"/>
+                                <field name="phone"/>
                             </group>
                         </group>
                         <notebook>
