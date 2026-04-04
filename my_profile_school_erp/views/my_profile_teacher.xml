@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="my_profile_teacher_form" model="ir.ui.view">
+            <field name="name">my.profile.teacher</field>
+            <field name="model">my.profile.teacher</field>
+            <field name="arch" type="xml">
+                <form create="False" delete="False" edit="False">
+                    <sheet>
+                        <group>
+                            <group string="required_group">
+                                <field name="sequence"  />
+                                <field name="user_id" />
+                                <field name="surname" />
+                            </group>
+                            <group string="optional_group">
+                                <field name="blood_type"/>
+                                <field name="dob"/>
+                                <field name="phone"/>
+                                <field name="education"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Action-->
+        <record id="action_my_profile_teacher" model="ir.actions.act_window">
+            <field name="name">My Profile</field>
+            <field name="res_model">my.profile.teacher</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('user_id','=',uid)]</field>
+            <field name="views"
+                   eval="[(ref('my_profile_teacher_form')),'form']"/>
+        </record>
+    </data>
+</odoo>
