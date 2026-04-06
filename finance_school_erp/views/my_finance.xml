@@ -27,6 +27,7 @@
             <field name="name">My Finance</field>
             <field name="res_model">finance.finance</field>
             <field name="view_mode">form</field>
+            <field name="context">{'default_user_id':uid}</field>
         </record>
     </data>
 </odoo>
