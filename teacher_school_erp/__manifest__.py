@@ -9,7 +9,6 @@
         'views/teacher_notebook.xml',
         # Views
         'views/teacher_view.xml',
-        'views/(Teacher)my_profile.xml',
         'views/menu.xml',
     ],
     'depends': [

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="my_profile_student"
+                  name="My Profile"
+                  action="action_my_profile_student"
+                  web_icon="my_profile_school_erp,static/decription/icon.png"
+                  groups="base_school_erp.group_school_student"/>
+
+        <menuitem id="my_profile_teacher"
+                  name="My Profile"
+                  action="action_my_profile_teacher"
+                  web_icon="my_profile_school_erp,static/decription/icon.png"
+                  groups="base_school_erp.group_school_teacher"/>
+    </data>
+</odoo>
