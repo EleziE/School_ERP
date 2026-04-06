@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <button name="%(finance_report_wizard)d"
+                            type="action"
+                            string="Finance Report"/>
                         <button name="pay_finance" string="Pay" type="object" invisible="state == 'paid'"/>
                         <button name="unpaid_finance" string="Unpaid" type="object" invisible="state == 'unpaid'"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,paid,unpaid"/>

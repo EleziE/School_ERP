@@ -5,7 +5,7 @@ class MyProfileStudent(models.Model):
     _name = 'my.profile.student'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students')
+    student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id')
 
     name = fields.Char(related='student_id.name')
     surname = fields.Char(related='student_id.surname')
@@ -22,3 +22,11 @@ class MyProfileStudent(models.Model):
     suspend_reason = fields.Text(related='student_id.suspend_reason')
     enrollment_date = fields.Date(related='student_id.enrollment_date')
     graduation_date = fields.Date(related='student_id.graduation_date')
+
+
+    # Autofill the fields
+    @api.onchange('user_id')
+    def _compute_student_id(self):
+        logged_user = self.env.user.id
+        for rec in self:
+             rec.student_id = self.env['students.students'].search([('user_id', '=', logged_user)], limit=1).id
