@@ -34,6 +34,11 @@
                                options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
                     </group>
                 </sheet>
+                <footer>
+                    <button name="%(finance_report_wizard)d"
+                            type="action"
+                            string="Finance Report"/>
+                </footer>
             </form>
         </field>
     </record>

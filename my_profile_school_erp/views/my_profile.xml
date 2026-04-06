@@ -38,9 +38,12 @@
             <field name="arch" type="xml">
                 <form create="False" delete="False" edit="False">
                     <sheet>
+                        <header>
+                            <button name="print_subjects" type="object" string="Print Sub"/>
+                        </header>
                         <group>
                             <group string="required_group">
-                                <field name="sequence"/>
+                                <field name="sequence" />
                                 <field name="user_id"/>
                                 <field name="surname"/>
                             </group>
@@ -72,7 +75,7 @@
             <field name="name">My Profile</field>
             <field name="res_model">my.profile.teacher</field>
             <field name="view_mode">form</field>
-            <field name="context">{'create':False,'duplicate':False,'delete':False}</field>
+            <field name="context">{'default_user_id': uid}</field>
             <field name="domain">[('user_id', '=', uid)]</field>
             <field name="views"
                    eval="[(ref('my_profile_teacher_form')),'form']"/>
