@@ -3,15 +3,20 @@
     'data': [
         # security
         'security/ir.model.access.csv',
-
-        # Views
+        # Wizards
         'wizards/finances_print.xml',
+        # Views
         'views/my_finance.xml',
         'views/finance.xml',
-        'views/Inherited/student_notebook.xml',
 
+        # Inherited
+        'views/Inherited/student_notebook.xml',
         # All menus (should be at the end before the actions)
         'views/menu.xml',
+
+        # Reports
+        'reports/finance_report_template.xml',
+        'reports/finance_report.xml',
     ],
     'depends': [
         'base_school_erp',
