@@ -27,6 +27,14 @@
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page name="My Finance">
+                                <field name="finance_ids"/>
+                            </page>
+                            <page name="My Subjects">
+                                <field name="subject_id"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

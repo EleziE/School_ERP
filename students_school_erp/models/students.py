@@ -12,12 +12,12 @@ class Student(models.Model):
                            default=lambda self: _('New'))
 
     user_id = fields.Many2one(comodel_name='res.users',
-                              invisible=True,)
+                              invisible=True, )
     name = fields.Char(string='Name',
                        store=True)
     surname = fields.Char(string='Surname')
 
-    #Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
+    # Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
     email = fields.Char(string='Email',
                         related='user_id.login',
                         readonly=False)
@@ -68,16 +68,12 @@ class Student(models.Model):
                                                    "image/png,"
                                                    "image/jpeg")
 
-
-
-
-
     @api.model
     def create(self, vals):
-        #=================== Per Sequence Generator ====================
+        # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
-        #=================== Per Sequence Generator ===================
+        # =================== Per Sequence Generator ===================
 
         # =================== Per Access Rights Generator ===================
         access_rights = self.env.ref('base_school_erp.group_school_student')
@@ -86,16 +82,27 @@ class Student(models.Model):
         user = self.env['res.users'].create({
             'name': vals.get('name'),
             'login': vals.get('email'),
-            'member_type':'student',
+            'member_type': 'student',
             'groups_id': [
-                (4,access_rights.id),
-                (4,internal_user.id),]
+                (4, access_rights.id),
+                (4, internal_user.id), ]
         })
         vals['user_id'] = user.id
         print('A student was created')
         # =================== Per Access Rights Generator ===================
 
         return super().create(vals)
+
+    def action_print_report(self):
+        """Button action to generate PDF"""
+        self.ensure_one()  # only one student at a time
+        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
+            'target': 'new',
+        }
 
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
@@ -131,7 +138,7 @@ class Student(models.Model):
                 rec.graduation_date = False
 
     # TO-DO Recheck it (understand it)
-    #Open My profile with right records
+    # Open My profile with right records
     # def action_open_my_profile(self):
     #     student = self.search([('user_id', '=', self.env.uid)], limit=1)
     #     return {

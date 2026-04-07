@@ -22,7 +22,7 @@ class MyProfileStudent(models.Model):
     suspend_reason = fields.Text(related='student_id.suspend_reason')
     enrollment_date = fields.Date(related='student_id.enrollment_date')
     graduation_date = fields.Date(related='student_id.graduation_date')
-
+    finance_ids = fields.One2many(related='student_id.finance_ids')
 
     # Autofill the fields
     @api.onchange('user_id')

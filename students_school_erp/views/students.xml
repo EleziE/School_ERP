@@ -23,6 +23,10 @@
                         <button name="action_graduated" type="object" string="Graduated"
                                 invisible="state not in ('active', 'inactive', 'suspended')"
                                 groups="base_school_erp.group_school_admin"/>
+                        <button name="action_print_report"
+                                type="object"
+                                string="Print Report"
+                                class="btn-primary"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -32,22 +36,21 @@
                         </div>
                         <group>
                             <group name="Required">
-                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]" invisible="True"/>
+                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]"
+                                       invisible="True"/>
                                 <field name="name" required="True"/>
                                 <field name="surname" required="True"/>
                                 <field name="email" required="True"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
-                                <field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
+                                <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
                             </group>
                             <group name="Optional">
                                 <field name="gender" placeholder="Select..."/>
                                 <field name="dob"/>
                                 <field name="blood_type"/>
-                                <field name="classroom_id" invisible="state == 'graduated'"/>
-                                <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
                                 <field name="birthday_certificate"
-                                filename="birthday_certificate_name"
+                                       filename="birthday_certificate_name"
                                        widget="binary"/>
                                 <field name="birthday_certificate_name" invisible="True"/>
                                 <field name="state" readonly="1"/>
@@ -110,7 +113,7 @@
             <field name="name">Students</field>
             <field name="res_model">students.students</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'default_member_type':'student','force_member_type':'student'}</field>
+            <field name="context">{'default_member_type': 'student', 'force_member_type': 'student'}</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('students_tree_view')}),

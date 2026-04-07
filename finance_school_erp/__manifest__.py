@@ -3,13 +3,13 @@
     'data': [
         # security
         'security/ir.model.access.csv',
-
-        # Views
+        # Wizards
         'wizards/finances_print.xml',
-        'views/my_finance.xml',
+        # Views
         'views/finance.xml',
-        'views/Inherited/student_notebook.xml',
 
+        # Inherited
+        'views/Inherited/student_notebook.xml',
         # All menus (should be at the end before the actions)
         'views/menu.xml',
     ],
