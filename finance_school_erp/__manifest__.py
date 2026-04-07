@@ -13,10 +13,6 @@
         'views/Inherited/student_notebook.xml',
         # All menus (should be at the end before the actions)
         'views/menu.xml',
-
-        # Reports
-        'reports/finance_report_template.xml',
-        'reports/finance_report.xml',
     ],
     'depends': [
         'base_school_erp',
