@@ -7,12 +7,5 @@
                   action="action_finance"
                   web_icon='finance_school_erp,static/description/icon.png'
                   groups="base_school_erp.group_school_admin,base_school_erp.group_school_teacher"/>
-
-        <menuitem id="my_finance"
-                  name="My Finance"
-                  parent="finance"
-                  sequence="1"
-                  action="action_my_finance"
-                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_teacher"/>
     </data>
 </odoo>

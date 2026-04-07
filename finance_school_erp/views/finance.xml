@@ -9,6 +9,8 @@
                 <field name="student_id"/>
                 <field name="state"/>
                 <field name="create_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paid'"/>
                 <field name="amount"/>
             </tree>
         </field>

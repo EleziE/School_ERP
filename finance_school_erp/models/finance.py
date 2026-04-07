@@ -21,7 +21,6 @@ class Finance(models.Model):
                                         ('paid', 'Paid'),
                                         ('unpaid', 'Unpaid')],
                              default='draft')
-
     student_id = fields.Many2one(comodel_name='students.students',
                                  string='Student')
 

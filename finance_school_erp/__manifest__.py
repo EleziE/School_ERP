@@ -6,7 +6,6 @@
         # Wizards
         'wizards/finances_print.xml',
         # Views
-        'views/my_finance.xml',
         'views/finance.xml',
 
         # Inherited
