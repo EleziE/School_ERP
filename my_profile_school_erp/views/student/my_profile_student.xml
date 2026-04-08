@@ -8,10 +8,21 @@
             <field name="arch" type="xml">
                 <form edit="False" create="False" duplicate="False">
                     <sheet>
+                        <header>
+                            <button name="action_print_report"
+                                    string="Print Info"
+                                    icon="fa-print"
+                                    type="object"
+                                    class="btn-secondary"
+                                    invisible="state in ('suspended','graduated','new','rejected')"
+                            />
+                        </header>
                         <group>
                             <group>
                                 <field name="member_type" invisible="True"/>
-                                <field name="user_id" invisible="True" readonly="True" domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+                                <field name="user_id" invisible="True" readonly="True"
+                                       domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+                                <field name="sequence"/>
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>

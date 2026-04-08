@@ -12,7 +12,8 @@ class Task(models.Model):
                                      [('user_id', '=', self.env.uid)], limit=1),
                                  readonly=True)
     created_for = fields.Many2one(comodel_name='teacher.teacher',
-                                  string="Created for")
+                                  string="Created for",
+                                  help='Tasks are created only for teachers',)
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
                                          ('completed', 'Completed'),

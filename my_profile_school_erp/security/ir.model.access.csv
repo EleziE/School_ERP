@@ -1,4 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_my_profile_student,my profile student,model_my_profile_student,,1,1,1,1
 access_my_profile_teacher,my profile teacher,model_my_profile_teacher,,1,1,1,1
+
+
+
 access_my_finances_student,my_finances_student,model_my_finances_student,,1,0,0,0
+
+
+
+access_student_info_report,student.info.report,model_student_info_report,,1,1,1,1

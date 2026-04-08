@@ -18,3 +18,12 @@ me financen apo duhet per me ba modul tjeter SUBJECT per me e ba ashtu.
 
 ne student form view, pse ne disa prej tyne edhe pse e kan sate != 'graduated' prap si field del (apo ngaqe kam ba
 ndryshim ne db edhe ka met naj gja (prej ne graduated ne activ or whatever))
+
+######################## 4/8/2026 #########################
+
+Recheck the previous questions
+
+View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that the task is created),
+and the statusbar to be editable to compleat only if the uid is the same as the created for id 
+
+pse spunon buttoni print info the student erp from view (dicka e till) ku e ke ..
