@@ -9,7 +9,9 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/my_profile.xml',
+        'views/my_profile_teacher.xml',
+        'views/my_profile_student.xml',
+        'views/my_finances_student.xml',
         'views/menu.xml',
     ],
 }

@@ -5,9 +5,8 @@ from reportlab.lib.pagesizes import letter
 import base64
 import io
 
-def _report_generator(user_name,subjects):
 
-
+def _report_generator(user_name, subjects):
     # Create in-memory buffer
     buffer = io.BytesIO()
 
@@ -32,15 +31,13 @@ def _report_generator(user_name,subjects):
     # Build PDF into buffer
     doc.build(elements)
 
-    # Get PDF bytes
     pdf_bytes = buffer.getvalue()
 
-    # Save to file
-    # with open("subjects.pdf", "wb") as f:
-    #     f.write(pdf_bytes)
-
-    # Convert to base64
     pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
 
-    # Output base64
     print(pdf_base64)
+
+
+
+
+

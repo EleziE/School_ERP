@@ -39,7 +39,7 @@
                                 <field name="user_id" string="Name" domain=" [('member_type','=','student')]"
                                        invisible="True"/>
                                 <field name="name" required="True"/>
-                                <field name="surname" required="True"/>
+                                <field name="surname" required="True" optional="show"/>
                                 <field name="email" required="True"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
@@ -78,12 +78,13 @@
                 <tree>
                     <field name="sequence"/>
                     <field name="user_id" string="Name"/>
-                    <field name="surname" string="Surname"/>
+                    <field name="surname" string="Surname" optional="show"/>
                     <field name="email"/>
                     <field name="state" widget="badge" decoration-success="state == 'active'"
                            decoration-warning="state in ('suspended','inactive')"
                            decoration-primary="state == 'graduated'"
-                           decoration-danger="state == 'rejected'"/>
+                           decoration-danger="state == 'rejected'"
+                           optional="show"/>
                 </tree>
             </field>
             <field name="groups_id"

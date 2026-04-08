@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="created_by" domain="[('member_type','=','administrator')]"/>
-                <field name="created_for"/>
+                <field name="check_user_finish_date" invisible="True"/>
+                <field name="created_for" readonly="check_user_finish_date == False"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
                 <field name="finish_date"/>
