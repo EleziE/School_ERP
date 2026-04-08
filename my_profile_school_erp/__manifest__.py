@@ -8,10 +8,15 @@
         'finance_school_erp',
     ],
     'data': [
+        # Security
         'security/ir.model.access.csv',
-        'views/my_profile_teacher.xml',
-        'views/my_profile_student.xml',
-        'views/my_finances_student.xml',
+        # Teacher Views
+        'views/teacher/my_profile_teacher.xml',
+        # 'views/teacher/my_finances_teacher.xml',
+        # Student Views
+        'views/student/my_profile_student.xml',
+        'views/student/my_finances_student.xml',
+        # Menu-item's
         'views/menu.xml',
     ],
 }

@@ -10,7 +10,7 @@ class Finance(models.Model):
                                  string='Created by',
                                  default=lambda self: self.env.user,
                                  readonly=True)
-    created_by_info = fields.Char(string='Created by',compute='_compute_created_by_info')
+    created_by_info = fields.Char(string='Created by', compute='_compute_created_by_info')
     amount = fields.Float(string='Amount')
     reason = fields.Char(string='Reason',
                          required=True,
@@ -34,6 +34,16 @@ class Finance(models.Model):
             else:
                 rec.created_by_info = 'N/A'
 
+    def my_finance_student(self):
+        user = self.env.user.id
+        # records = self.search([('created_by', '=', user)]) NOT NEEDED DOMAIN DOES ITS JOB !!! (in this case)
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'finance.finance',
+            'view_mode': 'tree,form',
+            'domain': [('created_by', '=', user)],
+            'name': 'My Finances',
+        }
 
     def pay_finance(self):
         self.state = 'paid'

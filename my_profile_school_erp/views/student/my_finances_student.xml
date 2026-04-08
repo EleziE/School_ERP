@@ -2,12 +2,11 @@
 <odoo>
     <data>
         <record id="my_finance_student_form" model="ir.ui.view">
-            <field name="model">my.finance.student</field>
+            <field name="model">finance.finance</field>
             <field name="arch" type="xml">
                 <form create="False" delete="False" edit="False">
                     <group>
-                        <field name="user_id" invisible="True"/>
-                        <field name="student_id" domain="[('id','!=',uid)]"/>
+                        <field name="student_id" domain="[('user_id','=',uid)]"/>
                         <field name="created_by"/>
                         <field name="created_by_info"/>
                         <field name="reason"/>
@@ -18,7 +17,7 @@
             </field>
         </record>
         <record id="my_finance_student_tree" model="ir.ui.view">
-            <field name="model">my.finance.student</field>
+            <field name="model">finance.finance</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="student_id"/>
@@ -33,8 +32,13 @@
 
         <record id="action_my_finance_student" model="ir.actions.act_window">
             <field name="name">Finance</field>
-            <field name="res_model">my.finance.student</field>
+            <field name="res_model">finance.finance</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'default_user_id': uid}</field>
+            <field name="view_ids" eval="[(5,0,0),
+                                (0,0,{'view_mode': 'tree','view_id':ref('my_finance_student_tree')}),
+                                (0,0,{'view_mode': 'form','view_id':ref('my_finance_student_form')}),
+                                ]"/>
         </record>
     </data>
 </odoo>
