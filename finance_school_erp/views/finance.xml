@@ -49,6 +49,11 @@
         <field name="name">Finance</field>
         <field name="res_model">finance.finance</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5,0,0),
+                                (0,0,{'view_mode': 'tree','view_id':ref('finance_tree_view')}),
+                                (0,0,{'view_mode': 'form','view_id':ref('finance_form_view')}),
+                                ]"/>
+
     </record>
 
 </odoo>

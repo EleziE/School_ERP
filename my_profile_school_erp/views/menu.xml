@@ -5,8 +5,9 @@
         <menuitem id="my_profile_student"
                   name="My Profile"
                   action="action_my_profile_student"
-                  web_icon="my_profile_school_erp,static/decription/icon.png"
+                  web_icon="my_profile_school_erp,static/description/icon.png"
                   groups="base_school_erp.group_school_student"/>
+
         <!--My Finance (Submenu sequence = 0)-->
         <menuitem id="my_finance_student"
                   name="Finance"
@@ -18,7 +19,7 @@
         <menuitem id="my_profile_teacher"
                   name="My Profile"
                   action="action_my_profile_teacher"
-                  web_icon="my_profile_school_erp,static/decription/icon.png"
+                  web_icon="my_profile_school_erp,static/description/icon.png"
                   groups="base_school_erp.group_school_teacher"/>
 
     </data>

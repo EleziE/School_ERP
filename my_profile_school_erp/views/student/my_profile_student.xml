@@ -11,7 +11,7 @@
                         <group>
                             <group>
                                 <field name="member_type" invisible="True"/>
-                                <field name="user_id" readonly="True" domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+                                <field name="user_id" invisible="True" readonly="True" domain="[('member_type','=','student')]" options="{'no_open':True}"/>
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>
