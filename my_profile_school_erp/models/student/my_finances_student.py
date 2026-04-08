@@ -12,6 +12,10 @@ class MyFinances(models.Model):
     state = fields.Selection(related='created_by.state')
 
     def my_finance_student(self):
+        """
+            Don't know what is the difference between the args 'student_id' and without it since i don't know what th def does hy hy hy
+            Does the def need an api.depend or something function to work since like this is just unused as a button waiting to be called
+            """
         user = self.env.user.id
         # records = self.search([('created_by', '=', user)]) NOT NEEDED DOMAIN DOES ITS JOB !!! (in this case)
         return {

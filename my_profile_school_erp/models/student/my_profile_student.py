@@ -14,7 +14,7 @@ class MyProfileStudent(models.Model):
     state = fields.Selection(related='student_id.state')
     blood_type = fields.Selection(related='student_id.blood_type')
     subject_id = fields.Many2many(related='student_id.subject_id')
-    classroom_id = fields.Many2one(comodel_name='class.rooms',related='student_id.classroom_id')
+    classroom_id = fields.Many2one(comodel_name='class.rooms', related='student_id.classroom_id')
     member_type = fields.Selection(related='user_id.member_type')
     sequence = fields.Char(related='student_id.sequence')
     gender = fields.Selection(related='student_id.gender')
@@ -24,9 +24,32 @@ class MyProfileStudent(models.Model):
     graduation_date = fields.Date(related='student_id.graduation_date')
     finance_ids = fields.One2many(related='student_id.finance_ids')
 
-    # Autofill the fields
     @api.onchange('user_id')
     def _compute_student_id(self):
+        """
+        Autofill the fields
+        """
         logged_user = self.env.user.id
         for rec in self:
-             rec.student_id = self.env['students.students'].search([('user_id', '=', logged_user)], limit=1).id
+            rec.student_id = self.env['students.students'].search([('user_id', '=', logged_user)], limit=1).id
+
+    def action_print_report(self):
+        """
+        To Generate the report with a button in the profile (ogrenci belgisis gibi)
+        """
+        report = self.env['student.info.report']
+        pdf_base64 = report.generate_pdf(self)
+
+        attachment = self.env['ir.attachment'].create({
+            'name': f'Student_Profile_{self.name}.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf',
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
+        }

@@ -20,7 +20,7 @@
         <record id="my_finance_student_tree" model="ir.ui.view">
             <field name="model">finance.finance</field>
             <field name="arch" type="xml">
-                <tree create="False" delete="False" edit="False" >
+                <tree create="False" delete="False" edit="False">
                     <field name="created_by"/>
                     <field name="created_by_info" string="Info"/>
                     <field name="reason"/>
@@ -36,10 +36,7 @@
             <field name="name">Finance</field>
             <field name="res_model">my.finances.student</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{
-                'default_user_id': uid,
-                'default_state': 'paid'
-            }</field>
+            <field name="domain">[('created_by', '=', uid)]</field>
             <field name="view_ids" eval="[(5,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('my_finance_student_tree')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('my_finance_student_form')}),
