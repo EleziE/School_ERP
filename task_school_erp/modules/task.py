@@ -54,7 +54,8 @@ class Task(models.Model):
     @api.depends('created_for')
     def _compute_check_user_finish_date(self):
         for rec in self:
-            rec.check_user_finish_date = rec.created_for.id == rec.env.uid
+            # True if the current logged-in user is the same as the teacher's user
+            rec.check_user_finish_date = rec.created_for.user_id.id == rec.env.uid if rec.created_for else False
 
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'

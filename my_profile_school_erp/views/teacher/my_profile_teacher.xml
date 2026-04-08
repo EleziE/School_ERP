@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Teacher Form-->
+        <record id="my_profile_teacher_form" model="ir.ui.view">
+            <field name="name">my.profile.teacher</field>
+            <field name="model">my.profile.teacher</field>
+            <field name="arch" type="xml">
+                <form create="False" delete="False" edit="False">
+                    <sheet>
+                        <header>
+                            <button name="print_my_finances" type="object" string="Sub"/>
+                        </header>
+                        <group>
+                            <group string="required_group">
+                                <field name="sequence" />
+                                <field name="user_id" options="{'no_open':True}"/>
+                                <field name="surname"/>
+                            </group>
+                            <group string="optional_group">
+                                <field name="blood_type"/>
+                                <field name="dob"/>
+                                <field name="phone"/>
+                                <field name="education"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Action Teacher-->
+        <record id="action_my_profile_teacher" model="ir.actions.act_window">
+            <field name="name">My Profile</field>
+            <field name="res_model">my.profile.teacher</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'default_user_id': uid}</field>
+            <field name="domain">[('user_id', '=', uid)]</field>
+            <field name="views"
+                   eval="[(ref('my_profile_teacher_form')),'form']"/>
+            <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_teacher'))]"/>
+        </record>
+    </data>
+</odoo>

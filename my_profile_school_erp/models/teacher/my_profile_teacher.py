@@ -4,7 +4,7 @@ from odoo.addons.my_profile_school_erp.reports import reports as rpt
 class MyProfileTeacher(models.Model):
     _name = 'my.profile.teacher'
 
-    user_id = fields.Many2one(comodel_name='res.users')
+    user_id = fields.Many2one(comodel_name='res.users',readonly=True)
     teacher_id = fields.Many2one(comodel_name='teacher.teacher', compute='_compute_teacher_id')
     name = fields.Char(related='teacher_id.name')
     surname = fields.Char(related='teacher_id.surname')
@@ -34,11 +34,16 @@ class MyProfileTeacher(models.Model):
             username = rec.teacher_id.name
             pdf_base64 = rpt._report_generator(user_name=username,subjects=subject_names)
             print(pdf_base64)
-            # rec.pdf_file = pdf_base64
-            # rec.pdf_filename = "subjects.pdf"
-            #
-            # return {
-            #     'type': 'ir.actions.act_url',
-            #     'url': f'/web/content/{rec._name}/{rec.id}/pdf_file/{rec.pdf_filename}?download=true',
-            #     'target': 'self',
-            # }
+
+    def print_my_finances(self):
+        for rec in self:
+            my_finances = self.env['finance.finance'].search([('state','=','unpaid')])
+            if my_finances:
+                return {
+                    'name': rec.teacher_id.name,
+                    'state': rec.state,
+                    'amount': rec.teacher_id.amount,
+                    'create_date': rec.create_date,
+                }
+            else:
+                return {'N/A'}
