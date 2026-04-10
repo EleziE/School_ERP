@@ -15,7 +15,6 @@
                         <field name="state" widget="badge"
                                decoration-success="state == 'paid'"
                                decoration-danger="state == 'unpaid'"/>
-
                         <field name="amount" options="{'no_open':True, 'no_create':True}" readonly="True"/>
                     </tree>
                 </field>

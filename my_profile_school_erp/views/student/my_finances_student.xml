@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form create="False" delete="False" edit="False">
                     <group>
-                        <field name="created_by"/>
+                        <field name="created_by" options="{'no_open':True}"/>
                         <field name="created_by_info"/>
                         <field name="reason"/>
                         <field name="state"/>

@@ -72,5 +72,20 @@ def open_my_profile(self):
         'views': [(self.env.ref('teacher_school_erp.my_profile_teacher').id, 'form')],
 # ca shkakton prb
 ```
+################## 4/11/2026 ##################
+Pse ?
+```py
+        <menuitem id="students"
+                  name="Students"
+                  action="action_students"
+                  web_icon='students_school_erp,static/description/icon.png'
+                  groups="base_school_erp.group_school_admin"/>
 
+                  
+access_student_student_admin,access.student.admin,model_students_students,base_school_erp.group_school_admin,1,1,1,1
+access_student_student_student,access.student.student,model_students_students,base_school_erp.group_school_student,1,0,0,0
+
+
+Pse si user student i can still see the module students ?
+```
 
