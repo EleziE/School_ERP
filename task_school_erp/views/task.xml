@@ -6,8 +6,6 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="created_by" domain="[('member_type','=','administrator')]"/>
-                <field name="check_user_finish_date" invisible="True"/>
-                <field name="created_for" readonly="check_user_finish_date == False"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
                 <field name="finish_date"/>
@@ -35,7 +33,6 @@
                         <field name="created_for" domain="[('id','!=',created_by)]"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
-                        <field name="check_user_finish_date" invisible="True"/>
                         <field name="finish_date" readonly='"not check_user_finish_date"'/>
                         <field name="description" placeholder="Information about the task..."/>
                     </group>

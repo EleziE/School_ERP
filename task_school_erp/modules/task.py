@@ -6,29 +6,34 @@ class Task(models.Model):
     _description = 'Task'
     _rec_name = 'created_for'
 
+    # TO-DO  check in Readme "To Do #1"
     created_by = fields.Many2one(comodel_name='teacher.teacher',
                                  string='Created by',
                                  default=lambda self: self.env['teacher.teacher'].search(
                                      [('user_id', '=', self.env.uid)], limit=1),
                                  readonly=True)
+
+    teacher_id = fields.Many2one(comodel_name='teacher.teacher', )
+
     created_for = fields.Many2one(comodel_name='teacher.teacher',
                                   string="Created for",
-                                  help='Tasks are created only for teachers',)
+                                  help='Tasks are created only for teachers', )
+
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
                                          ('completed', 'Completed'),
                                          ('completed_delayed', 'Completed / Delayed'),
-                                         ('completed_early', 'Completed Early'),
-                                         ],
+                                         ('completed_early', 'Completed Early'), ],
                               compute='status_based_dates',
                               store=True,
                               group_expand='_group_expand_status')
     starting_date = fields.Date(
-        default=fields.Date.today,
-        readonly=False)
+        default=fields.Date.today)
+
     planned_finish_date = fields.Date()
+
     finish_date = fields.Date(store=True)
-    check_user_finish_date = fields.Boolean(compute='_compute_check_user_finish_date')
+
     description = fields.Text()
 
     def action_in_progres(self):
@@ -52,11 +57,6 @@ class Task(models.Model):
             else:
                 rec.status = 'completed_early'
 
-    @api.depends('created_for')
-    def _compute_check_user_finish_date(self):
-        for rec in self:
-            # True if the current logged-in user is the same as the teacher's user
-            rec.check_user_finish_date = rec.created_for.user_id.id == rec.env.uid if rec.created_for else False
 
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
