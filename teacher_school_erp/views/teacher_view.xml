@@ -18,6 +18,7 @@
                             </group>
                             <group name="Optional">
                                 <field name="blood_type"/>
+                                <field name="education"/>
                                 <field name="dob"/>
                                 <field name="phone"/>
                             </group>
@@ -49,7 +50,6 @@
                     <field name="sequence"/>
                     <field name="name"/>
                     <field name="surname"/>
-                    <field name="education"/>
                     <field name="dob"/>
                     <field name="education" widget="badge"
                            decoration-success="education == 'bachelor'"
