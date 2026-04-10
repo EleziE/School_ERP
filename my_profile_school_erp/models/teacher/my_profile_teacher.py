@@ -1,5 +1,5 @@
-from odoo import api, fields, models, tools
-from odoo.addons.my_profile_school_erp.reports import reports as rpt
+from odoo import api, fields, models
+from odoo.addons.my_profile_school_erp.reports.teacher import tea_info_report as rpt
 
 class MyProfileTeacher(models.Model):
     _name = 'my.profile.teacher'
@@ -47,3 +47,24 @@ class MyProfileTeacher(models.Model):
                 }
             else:
                 return {'N/A'}
+
+    def action_print_report(self):
+        """
+        To Generate the report with a button in the profile (ogrenci belgisis gibi)
+        """
+        report = self.env['teacher.info.report']
+        pdf_base64 = report.generate_pdf_teacher(self)
+
+        attachment = self.env['ir.attachment'].create({
+            'name': f'Teacher_Profile_{self.name}.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf',
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
+        }

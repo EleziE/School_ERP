@@ -27,3 +27,23 @@ View Form of Task (make that the finished date to be editable only if the uid is
 and the statusbar to be editable to compleat only if the uid is the same as the created for id 
 
 pse spunon buttoni print info the student erp from view (dicka e till) ku e ke ..
+######################## 4/10/2026 #########################
+            ### To-do #1 ###
+```py
+created_by = fields.Many2one(comodel_name='teacher.teacher',
+                                 string='Created by',
+                                 default=lambda self: self.env['teacher.teacher'].search(
+                                     [('user_id', '=', self.env.uid)], limit=1),
+                                 readonly=True)                
+```
+or 
+```py
+created_by = fields.Many2one(comodel_name='res.users',
+                                 string='Created by',
+                                 default=lambda self: self.env['teacher.teacher'].search(
+                                     [('user_id', '=', self.env.uid)], limit=1),
+                                 readonly=True)
+```
+
+
+

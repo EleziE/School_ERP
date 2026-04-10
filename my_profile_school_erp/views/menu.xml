@@ -3,7 +3,7 @@
     <data>
         <!--Student-->
         <menuitem id="student"
-                  name=" "
+                  name="S"
                   web_icon="my_profile_school_erp,static/description/icon.png"
                   groups="base_school_erp.group_school_student"/>
         <!--My Profile (Submenu sequence = 0)-->
@@ -14,16 +14,29 @@
                   action="action_my_profile_student"/>
         <!--My Finance (Submenu sequence = 1)-->
         <menuitem id="my_finance_student"
-                  name="Finance"
+                  name="My Finance"
                   action="action_my_finance_student"
                   sequence="1"
                   parent="student"/>
+
+
+
         <!--Teacher-->
-        <menuitem id="my_profile_teacher"
-                  name="My Profile"
-                  action="action_my_profile_teacher"
+        <menuitem id="teacher"
+                  name="T"
                   web_icon="my_profile_school_erp,static/description/icon.png"
                   groups="base_school_erp.group_school_teacher"/>
-
+        <!--My Profile (Submenu sequence = 0)-->
+        <menuitem id="my_profile_teacher"
+                  name="My Profile"
+                  parent="teacher"
+                  action="action_my_profile_teacher"
+                  sequence="0"/>
+        <!--My Task's (Submenu sequence = 1)-->
+        <menuitem id="my_task's_teacher"
+                  name="My Task's"
+                  parent="teacher"
+                  action="action_my_task_teacher"
+                  sequence="1"/>
     </data>
 </odoo>

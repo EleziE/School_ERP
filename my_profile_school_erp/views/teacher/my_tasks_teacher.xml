@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Teacher Task Tree-->
+        <record id="my_tasks_teacher_tree" model="ir.ui.view">
+            <field name="name">my.task.teacher.tree</field>
+            <field name="model">task</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="created_for" string="For"/>
+                    <field name="created_by"/>
+                    <field name="starting_date"/>
+                    <field name="planned_finish_date"/>
+                    <field name="finish_date"/>
+                    <field name="status" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+        <!--Action Teacher-->
+        <record id="action_my_task_teacher" model="ir.actions.act_window">
+            <field name="name">Task</field>
+            <field name="res_model">task</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_created_for': uid}</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('my_tasks_teacher_tree')}),]"/>
+        </record>
+    </data>
+</odoo>
