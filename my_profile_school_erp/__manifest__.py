@@ -19,6 +19,6 @@
         # Menu-item's
         'views/menu.xml',
     ],
-    'icon': 'static/description/icon.png',
+    'icon': 'my_profile_school_erp/static/description/icon.png',
     'web_icon': 'my_profile_school_erp,static/description/icon.png',
 }
