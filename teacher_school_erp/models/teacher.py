@@ -110,7 +110,7 @@ class Teacher(models.Model):
             'res_id': teacher.id,
             'view_mode': 'form',
             'target': 'current',
-            'views': [(self.env.ref('teacher_school_erp.my_profile_teacher').id, 'form')],
+            'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
         }
 
 

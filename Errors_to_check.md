@@ -27,3 +27,50 @@ View Form of Task (make that the finished date to be editable only if the uid is
 and the statusbar to be editable to compleat only if the uid is the same as the created for id 
 
 pse spunon buttoni print info the student erp from view (dicka e till) ku e ke ..
+######################## 4/10/2026 #########################
+            ### To-do #1 ###
+```py
+created_by = fields.Many2one(comodel_name='teacher.teacher',
+                                 string='Created by',
+                                 default=lambda self: self.env['teacher.teacher'].search(
+                                     [('user_id', '=', self.env.uid)], limit=1),
+                                 readonly=True)                
+```
+or 
+```py
+created_by = fields.Many2one(comodel_name='res.users',
+                                 string='Created by',
+                                 default=lambda self: self.env['teacher.teacher'].search(
+                                     [('user_id', '=', self.env.uid)], limit=1),
+                                 readonly=True)
+```
+Pse ne Task (logged as Admin) kur krijon task per Agim user te del butoni compleat ama per Fatmirin ose Hasanin nuk ban HAHAAHAHAHA
+
+```python
+    @api.model
+def open_my_profile(self):
+    """
+    Return action that opens the logged-in teacher's profile
+    Made with pure ChatGPT how I don't know hy hy hy
+    """
+    teacher = self.env['teacher.teacher'].search([('user_id', '=', self.env.uid)], limit=1)
+    if not teacher:
+        teacher = self.create({'user_id': self.env.uid})
+    return {
+        'type': 'ir.actions.act_window',
+        'name': 'My Profile',
+        'res_model': 'teacher.teacher',
+        'res_id': teacher.id,
+        'view_mode': 'form',
+        'target': 'current',
+        'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
+    }
+
+
+        'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
+# ishte 
+        'views': [(self.env.ref('teacher_school_erp.my_profile_teacher').id, 'form')],
+# ca shkakton prb
+```
+
+

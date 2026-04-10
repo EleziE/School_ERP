@@ -2,7 +2,6 @@ from odoo import models
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 import io
-from odoo.tools import misc
 
 class StudentReport(models.AbstractModel):
     _name = 'report.students_module.student_report_pdf'

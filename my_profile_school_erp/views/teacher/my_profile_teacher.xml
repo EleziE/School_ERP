@@ -8,16 +8,14 @@
             <field name="arch" type="xml">
                 <form create="False" delete="False" edit="False">
                     <sheet>
-                        <header>
-                            <button name="print_my_finances" type="object" string="Sub"/>
-                        </header>
-                        <group>
-                            <group string="required_group">
-                                <field name="sequence" />
+                        <button name="action_print_report" string="Print Info" type="object" icon="fa-print"/>
+                        <group col="1">
+                            <group string="Required information">
+                                <field name="sequence"/>
                                 <field name="user_id" options="{'no_open':True}"/>
                                 <field name="surname"/>
                             </group>
-                            <group string="optional_group">
+                            <group string="Optional Information">
                                 <field name="blood_type"/>
                                 <field name="dob"/>
                                 <field name="phone"/>

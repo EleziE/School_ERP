@@ -12,13 +12,13 @@
         'security/ir.model.access.csv',
         # Teacher Views
         'views/teacher/my_profile_teacher.xml',
-        # 'views/teacher/my_finances_teacher.xml',
+        'views/teacher/my_tasks_teacher.xml',
         # Student Views
         'views/student/my_profile_student.xml',
         'views/student/my_finances_student.xml',
         # Menu-item's
         'views/menu.xml',
     ],
-    'icon': 'static/description/icon.png',
+    'icon': 'my_profile_school_erp/static/description/icon.png',
     'web_icon': 'my_profile_school_erp,static/description/icon.png',
 }

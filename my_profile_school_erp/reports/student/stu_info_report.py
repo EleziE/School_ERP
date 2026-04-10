@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
@@ -21,23 +21,18 @@ class StudentProfileReport(models.AbstractModel):
         elements.append(Paragraph(f"Student No: {record.sequence or ''}", styles['Normal']))
         elements.append(Paragraph(f"Name: {record.name or ''}", styles['Normal']))
         elements.append(Paragraph(f"Surname: {record.surname or ''}", styles['Normal']))
+        elements.append(Paragraph(f"Date of Birth: {record.dob or ''}", styles['Normal']))
         elements.append(Paragraph(f"State: {record.state or ''}", styles['Normal']))
         elements.append(Paragraph(f"Email: {record.email or ''}", styles['Normal']))
-        elements.append(Paragraph(f"Phone: {record.phone or ''}", styles['Normal']))
         elements.append(Paragraph(f"Enrollment Date: {record.enrollment_date or ''}", styles['Normal']))
-        elements.append(Paragraph(f"Graduation Date: {record.graduation_date or ''}", styles['Normal']))
-        elements.append(Paragraph(f"Blood Type: {record.blood_type or ''}", styles['Normal']))
-        elements.append(Paragraph(f"Gender: {record.gender or ''}", styles['Normal']))
-        elements.append(Paragraph(f"Date of Birth: {record.dob or ''}", styles['Normal']))
         elements.append(Spacer(1, 12))
 
         elements.append(Paragraph("Finance Records", styles['Heading2']))
         if record.finance_ids:
             for finance in record.finance_ids:
-                elements.append(Paragraph(
-                    f"- Amount: {finance.amount} | Reason: {finance.reason} | State: {finance.state}",
-                    styles['Normal']
-                ))
+                elements.append(Paragraph(f"- Amount: {finance.amount}", styles['Normal']))
+                elements.append(Paragraph(f"- Reason: {finance.reason}", styles['Normal']))
+                elements.append(Paragraph(f"- State: {finance.state}", styles['Normal']))
         else:
             elements.append(Paragraph("No finance records.", styles['Normal']))
 

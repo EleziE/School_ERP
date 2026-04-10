@@ -1,11 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_profile_student,my profile student,model_my_profile_student,,1,1,1,1
-access_my_profile_teacher,my profile teacher,model_my_profile_teacher,,1,1,1,1
+
+access_my_profile_student_admin,my_profile_student,model_my_profile_student,base_school_erp.group_school_admin,1,1,1,1
+access_my_profile_student_student,my_profile_student,model_my_profile_student,base_school_erp.group_school_student,1,1,1,0
 
 
 
-access_my_finances_student,my_finances_student,model_my_finances_student,,1,0,0,0
+access_my_profile_teacher_admin,my_profile_teacher,model_my_profile_teacher,base_school_erp.group_school_admin,1,1,1,1
+access_my_profile_teacher_teacher,my_profile_teacher,model_my_profile_teacher,base_school_erp.group_school_teacher,1,1,1,0
 
 
+access_my_finances_student_admin,my_finances_student,model_my_finances_student,base_school_erp.group_school_admin,1,1,1,1
+access_my_finances_student_student,my_finances_student,model_my_finances_student,base_school_erp.group_school_student,1,1,0,0
 
-access_student_info_report,student.info.report,model_student_info_report,,1,1,1,1
