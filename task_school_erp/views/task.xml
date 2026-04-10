@@ -23,10 +23,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar" options="{'clickable':True}"/>
+                    <field name="status" widget="statusbar"/>
                     <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
-                    <button name="action_completed" string="Completed" type="object"
-                            invisible="status != 'in_progress' or created_for != uid"/>
+                    <button name="action_completed" string="Completed" type="object" invisible="('created_for','!=',uid)"/>
                 </header>
                 <sheet>
                     <group>

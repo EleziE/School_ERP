@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 
 class Task(models.Model):
@@ -56,6 +57,22 @@ class Task(models.Model):
                 rec.status = 'completed_delayed'
             else:
                 rec.status = 'completed_early'
+
+"""
+Kta te dyja pse jan gabim edhe si me i ba aktive 
+"""
+    # @api.depends('created_for')
+    # def check_user(self):
+    #     for rec in self:
+    #         if rec.created_for.user_id != self.env.user.id:
+    #             raise UserError('You are not allowed to perform this task')
+    #
+    # @api.depends('finish_date')
+    # def finish_date(self):
+    #     for rec in self:
+    #         if not rec.finish_date:
+    #             rec.status = 'in_progress'
+
 
 
 class Teacher(models.Model):
