@@ -31,11 +31,12 @@
                     <group>
                         <field name="sequence"/>
                         <field name="created_by"
-                               options="{'no_open': True, 'no_create':True} "/>
+                               options="{'no_open': True, 'no_create':True}"/>
                         <field name="check_user_finish_date" invisible="True"/>
                         <field name="created_for"
                                domain="[('id','!=',created_by)]"
-                               options="{'no_open': True, 'no_create':True}"/>
+                               options="{'no_open': True, 'no_create':True}"
+                               readonly="created_by != uid"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
                         <field name="finish_date" invisible="not check_user_finish_date"/>
