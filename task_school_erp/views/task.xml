@@ -5,7 +5,8 @@
         <field name="model">task</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="created_by" domain="[('member_type','=','administrator')]"/>
+                <field name="sequence" optional="hide"/>
+                <field name="created_by" domain="[('member_type','=','administrator')]" />
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -23,82 +24,55 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar"/>
-                    <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
-                    <button name="action_completed" string="Completed" type="object" invisible="('created_for','!=',uid)"/>
+                    <field name="status"
+                           widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
-                        <field name="created_by" options="{'no_open': True, 'no_create':True}"/>
-                        <field name="created_for" domain="[('id','!=',created_by)]"/>
+                        <field name="sequence"/>
+                        <field name="created_by"
+                               options="{'no_open': True, 'no_create':True}"/>
+                        <field name="check_user_finish_date" invisible="True"/>
+                        <field name="created_for"
+                               domain="[('id','!=',created_by)]"
+                               options="{'no_open': True, 'no_create':True}"
+                               readonly="created_by != uid"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
-                        <field name="finish_date" readonly='"not check_user_finish_date"'/>
-                        <field name="description" placeholder="Information about the task..."/>
+                        <field name="finish_date" invisible="not check_user_finish_date"/>
+                        <field name="description"
+                               placeholder="Information about the task..."/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-    <!--Kanban-->
-    <record id="task_kanban_view" model="ir.ui.view">
-        <field name="name">task.kanban.view</field>
+    <!--Task Search-->
+    <record id="task_view_search" model="ir.ui.view">
+        <field name="name">task.view.search</field>
         <field name="model">task</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="status">
-                <field name="status"/>
+            <search>
+                <field name="created_for" groups="base_school_erp.group_school_admin"/>
                 <field name="created_by"/>
-                <field name="created_for"/>
-                <field name="starting_date"/>
-                <field name="finish_date"/>
-
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_card">
-                            <div class="oe_kanban_card oe_kanban_global_click">
-                                <div class="oe_kanban_content">
-
-                                    <strong>
-                                        <field name="description"/>
-                                    </strong>
-
-                                    <div>
-                                        <b>Created By :</b>
-                                        <field name="created_by"/>
-                                    </div>
-
-                                    <div>
-                                        <b>Assigned To :</b>
-                                        <field name="created_for"/>
-                                    </div>
-
-                                    <div>
-                                        <b>Start :</b>
-                                        <field name="starting_date"/>
-                                    </div>
-
-                                    <div>
-                                        <b>Finish :</b>
-                                        <field name="finish_date"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
+                <field name="sequence" groups="base_school_erp.group_school_admin"/>
+                <filter name="status" string="Completed" domain="[('status','=','completed')]"/>
+                <filter name="status" string="Delayed" domain="[('status','=','completed_delayed')]"/>
+                <filter name="status" string="Early" domain="[('status','=','completed_early')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                </group>
+            </search>
         </field>
     </record>
     <!--Action-->
     <record id="action_task" model="ir.actions.act_window">
         <field name="name">Task</field>
         <field name="res_model">task</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_ids" eval="[(5,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
-                                (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),
-                                (0,0,{'view_mode': 'kanban','view_id':ref('task_kanban_view')}),
-                                ]"/>
+                                (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),]"/>
     </record>
 </odoo>

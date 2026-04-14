@@ -3,6 +3,7 @@
     'data': [
         # security
         'security/ir.model.access.csv',
+        'security/rules.xml',
         # Wizards
         'wizards/finances_print.xml',
         # Views

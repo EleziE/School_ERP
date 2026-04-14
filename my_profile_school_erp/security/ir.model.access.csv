@@ -9,6 +9,5 @@ access_my_profile_teacher_admin,my_profile_teacher,model_my_profile_teacher,base
 access_my_profile_teacher_teacher,my_profile_teacher,model_my_profile_teacher,base_school_erp.group_school_teacher,1,1,1,0
 
 
-access_my_finances_student_admin,my_finances_student,model_my_finances_student,base_school_erp.group_school_admin,1,1,1,1
-access_my_finances_student_student,my_finances_student,model_my_finances_student,base_school_erp.group_school_student,1,1,0,0
+
 

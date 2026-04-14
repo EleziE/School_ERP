@@ -6,6 +6,6 @@
                   name="Task"
                   action="action_task"
                   web_icon="task_school_erp,static/description/icon.png"
-                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_teacher"/>
+                  groups="base_school_erp.group_school_admin"/>
     </data>
 </odoo>
