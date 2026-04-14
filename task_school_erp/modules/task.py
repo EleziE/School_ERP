@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api,_
 from odoo.exceptions import UserError
 
 
@@ -102,6 +102,20 @@ class Task(models.Model):
                     raise UserError('The task cant be arranged for the past, it should be in the future')
             
             """
+    @api.model
+    def create(self, vals):
+        # =================== Per Sequence Generator ====================
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('task') or _('New')
+        return super().create(vals)
+        # =================== Per Sequence Generator ===================
+
+
+    _sql_constraints = [
+        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
+    ]
+
+
 
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
