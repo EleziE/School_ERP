@@ -3,6 +3,7 @@
     'data': [
         # Security
         'security/ir.model.access.csv',
+        'security/rules.xml',
         # Views
         'views/task.xml',
         'views/Inherited/(teacher)task_notebook.xml',
