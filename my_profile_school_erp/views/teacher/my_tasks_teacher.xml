@@ -38,7 +38,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="created_for" string="For"/>
-                    <field name="created_by"/>
+                    <field name="created_by" domain="[('user_id.name','=','created_by.name')]"/>
                     <field name="starting_date"/>
                     <field name="planned_finish_date"/>
                     <field name="finish_date"/>

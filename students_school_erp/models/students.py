@@ -151,6 +151,7 @@ class Student(models.Model):
     #         'target': 'current',
     #     }
     ############################ Buttons ###########################################
+
     def action_graduated(self):
         self.state = 'graduated'
 
