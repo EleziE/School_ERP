@@ -23,18 +23,22 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar"/>
-                    <button name="action_in_progres" string="In Progress" type="object" invisible="status != 'new'"/>
-                    <button name="action_completed" string="Completed" type="object" invisible="('created_for','!=',uid)"/>
+                    <field name="status"
+                           widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
-                        <field name="created_by" options="{'no_open': True, 'no_create':True}"/>
-                        <field name="created_for" domain="[('id','!=',created_by)]"/>
+                        <field name="created_by"
+                               options="{'no_open': True, 'no_create':True} "/>
+                        <field name="check_user_finish_date" invisible="True"/>
+                        <field name="created_for"
+                               domain="[('id','!=',created_by)]"
+                               options="{'no_open': True, 'no_create':True}"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
-                        <field name="finish_date" readonly='"not check_user_finish_date"'/>
-                        <field name="description" placeholder="Information about the task..."/>
+                        <field name="finish_date" invisible="not check_user_finish_date"/>
+                        <field name="description"
+                               placeholder="Information about the task..."/>
                     </group>
                 </sheet>
             </form>
