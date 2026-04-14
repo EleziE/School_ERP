@@ -67,6 +67,7 @@
                    eval="[(5, 0, 0),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('teacher_tree_view')}),
                    (0, 0, {'view_mode': 'form', 'view_id': ref('teacher_form_view')}),]"/>
+            <field name="groups_id" eval="[(6,0,[(ref('base_school_erp.group_school_admin'))])]"/>
         </record>
     </data>
 </odoo>
