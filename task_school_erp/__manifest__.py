@@ -4,6 +4,8 @@
         # Security
         'security/ir.model.access.csv',
         'security/rules.xml',
+        #Data
+        'data/seq_task.xml',
         # Views
         'views/task.xml',
         'views/Inherited/(teacher)task_notebook.xml',
