@@ -8,9 +8,10 @@
             <tree>
                 <field name="student_id"/>
                 <field name="create_date"/>
-                    <field name="state" widget="badge"
-                           decoration-success="state == 'paid'"
-                           decoration-danger="state == 'unpaid'"/>
+                <field name="paid_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paid'"
+                       decoration-danger="state == 'unpaid'"/>
                 <field name="amount"/>
             </tree>
         </field>
@@ -22,8 +23,16 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="pay_finance" string="Pay" type="object" invisible="state == 'paid'"/>
-                    <button name="unpaid_finance" string="Unpaid" type="object" invisible="state == 'unpaid'"/>
+                    <button name="pay_finance"
+                            string="Pay"
+                            type="object"
+                            invisible="state == 'paid'"
+                            groups="base_school_erp.group_school_admin"/>
+                    <button name="unpaid_finance"
+                            string="Unpaid"
+                            type="object"
+                            invisible="state == 'unpaid'"
+                            groups="base_school_erp.group_school_admin"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,paid,unpaid"/>
                 </header>
                 <sheet>
@@ -32,6 +41,11 @@
                                domain="[('member_type','=','student')]"/>
                         <field name="create_date"/>
                         <field name="amount"/>
+                        <field name="paid_date"/>
+                        <field name="state" widget="badge"
+                               decoration-success="state == 'paid'"
+                               decoration-warning="state == 'draft'"
+                               decoration-danger="state == 'unpaid'"/>
                         <field name="reason" placeholder="Write the reason for suspension..."
                                options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
                     </group>
@@ -55,5 +69,4 @@
                                 ]"/>
 
     </record>
-
 </odoo>

@@ -85,6 +85,9 @@ Pse ?
 access_student_student_admin,access.student.admin,model_students_students,base_school_erp.group_school_admin,1,1,1,1
 access_student_student_student,access.student.student,model_students_students,base_school_erp.group_school_student,1,0,0,0
 
+######################## 4/14/2026 #########################
+Per me e fsheh modulin Task ose Finance , mos noshta duhet me kriju modul tjeter i cili referon (related)
+tek fiannca ose task edhe ..... nejse se noshta nuk dalin recordet sepse jan te rujtuna ne tabel tjeter...
 
 Pse si user student i can still see the module students ?
 ```

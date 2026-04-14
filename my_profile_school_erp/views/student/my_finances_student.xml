@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <!--Student Form-->
-        <record id="my_finance_student_form" model="ir.ui.view">
-            <field name="model">finance.finance</field>
-            <field name="arch" type="xml">
-                <form create="False" delete="False" edit="False">
-                    <group>
-                        <field name="created_by" options="{'no_open':True}"/>
-                        <field name="created_by_info"/>
-                        <field name="reason"/>
-                        <field name="state"/>
-                        <field name="amount"/>
-                    </group>
-                </form>
-            </field>
-        </record>
+
         <!--Student Tree View-->
         <record id="my_finance_student_tree" model="ir.ui.view">
             <field name="model">finance.finance</field>
+            <field name="name">my.finance.student.tree</field>
             <field name="arch" type="xml">
-                <tree create="False" delete="False" edit="False">
-                    <field name="created_by"/>
-                    <field name="created_by_info" string="Info"/>
-                    <field name="reason"/>
+                <tree>
+                    <field name="student_id"/>
+                    <field name="create_date"/>
+                    <field name="paid_date"/>
                     <field name="state" widget="badge"
                            decoration-success="state == 'paid'"
                            decoration-danger="state == 'unpaid'"/>
@@ -31,12 +18,37 @@
                 </tree>
             </field>
         </record>
+        <!--Student Form-->
+        <record id="my_finance_student_form" model="ir.ui.view">
+            <field name="name">my.finance.student.form</field>
+            <field name="model">finance.finance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="student_id" options="{'no_open':True, 'no_create':True}"
+                                   domain="[('member_type','=','student')]"/>
+                            <field name="create_date"/>
+                            <field name="amount"/>
+                            <field name="paid_date"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'paid'"
+                                   decoration-warning="state == 'draft'"
+                                   decoration-danger="state == 'unpaid'"/>
+                            <field name="reason" placeholder="Write the reason for suspension..."
+                                   options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <!--Action Student-->
         <record id="action_my_finance_student" model="ir.actions.act_window">
-            <field name="name">Finance</field>
-            <field name="res_model">my.finances.student</field>
+            <field name="name">Student Finance</field>
+            <field name="res_model">finance.finance</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('created_by', '=', uid)]</field>
+            <field name="domain">[('student_id.user_id', '=', uid)]</field>
             <field name="view_ids" eval="[(5,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('my_finance_student_tree')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('my_finance_student_form')}),
