@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <!--For restriction of Teacher-->
+        <!--
+        Restriction of Teacher:
+        Makes sure that the teachers see only they one task's
+        -->
         <record id="rule_task_teacher" model="ir.rule">
             <field name="name">Teacher: Only his Task's</field>
             <field name="model_id" ref="model_task"/>
             <field name="domain_force">[('created_for.user_id', '=', user.id)]</field>
             <field name="groups" eval="[(4, ref('base_school_erp.group_school_teacher'))]"/>
         </record>
+
+
     </data>
 </odoo>
