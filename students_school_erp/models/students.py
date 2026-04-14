@@ -160,7 +160,7 @@ class Student(models.Model):
     def action_inactive(self):
         self.state = 'inactive'
 
-    ############################ Constraints ###########################################
+    ############################ Constraints ############################
     _sql_constraints = [
         ('unique_student_id', 'UNIQUE (sequence)', 'This Student ID already exists.'),
         ('unique_user_id', 'UNIQUE (user_id)', 'This User ID already exists.'),
