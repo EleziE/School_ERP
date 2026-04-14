@@ -1,4 +1,4 @@
-from odoo import fields, models, api,_
+from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
 
@@ -10,7 +10,6 @@ class Task(models.Model):
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-
 
     # TO-DO  check in Readme "To Do #1"
     created_by = fields.Many2one(comodel_name='teacher.teacher',
@@ -44,6 +43,14 @@ class Task(models.Model):
 
     check_user_finish_date = fields.Boolean(compute='_compute_check_user')
 
+    @api.model
+    def create(self, vals):
+        # =================== Per Sequence Generator ====================
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('task') or _('New')
+        return super().create(vals)
+        # =================== Per Sequence Generator ===================
+
     @api.depends('created_for')
     def _compute_check_user(self):
         for rec in self:
@@ -63,7 +70,7 @@ class Task(models.Model):
                 rec.status = 'completed_delayed'
             else:
                 rec.status = 'completed_early'
-
+    ######################### Constraints ################################
     @api.constrains('finish_date')
     def check_user(self):
         """
@@ -72,7 +79,8 @@ class Task(models.Model):
         for rec in self:
             if rec.finish_date:
                 if rec.created_for.user_id != self.env.user:
-                    raise UserError(f'You are not allowed to perform this task, only {rec.created_for.name} is allowed to !')
+                    raise UserError(
+                        f'You are not allowed to perform this task, only {rec.created_for.name} is allowed to !')
 
     @api.constrains('status')
     def status_lock(self):
@@ -102,20 +110,11 @@ class Task(models.Model):
                     raise UserError('The task cant be arranged for the past, it should be in the future')
             
             """
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('task') or _('New')
-        return super().create(vals)
-        # =================== Per Sequence Generator ===================
-
 
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
     ]
-
-
+    ######################### Constraints ################################
 
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
