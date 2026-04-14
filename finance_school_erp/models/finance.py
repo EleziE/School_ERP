@@ -10,7 +10,10 @@ class Finance(models.Model):
                                  string='Created by',
                                  default=lambda self: self.env.user,
                                  readonly=True)
-    created_by_info = fields.Char(string='Created by', compute='_compute_created_by_info')
+
+    created_by_info = fields.Char(string='Created by',
+                                  compute='_compute_created_by_info')
+
     amount = fields.Float(string='Amount')
     reason = fields.Char(string='Reason',
                          required=True,
@@ -23,6 +26,28 @@ class Finance(models.Model):
                              default='draft')
     student_id = fields.Many2one(comodel_name='students.students',
                                  string='Student')
+
+    paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
+                                readonly=True,
+                                store=True)
+
+    # def write(self, vals):
+    #     if 'state' in vals and vals['state'] == 'paid':
+    #         for rec in self:
+    #             if not rec.paid_date:
+    #                 rec.paid_date = fields.Datetime.now()
+    #     return super().write(vals)
+
+    @api.depends('state')
+    def _compute_paid_date(self):
+        """
+        Pse ma ruan ne te njejten time (date tmm ama time pse nuk ndryshon)
+        """
+        for record in self:
+            if record.state == 'paid':
+                record.paid_date = fields.Datetime.now()
+            else:
+                record.paid_date = False
 
     @api.depends('created_by')
     def _compute_created_by_info(self):
