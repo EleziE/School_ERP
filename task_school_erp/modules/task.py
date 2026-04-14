@@ -7,6 +7,11 @@ class Task(models.Model):
     _description = 'Task'
     _rec_name = 'created_for'
 
+    sequence = fields.Char(string='Task ID: ',
+                           readonly=True,
+                           default=lambda self: _('New'))
+
+
     # TO-DO  check in Readme "To Do #1"
     created_by = fields.Many2one(comodel_name='teacher.teacher',
                                  string='Created by',
