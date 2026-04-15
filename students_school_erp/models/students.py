@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 class Student(models.Model):
     _name = 'students.students'
     _description = 'Students'
+    _inherit=['mail.thread','mail.activity.mixin']
 
     # Dont know how i did it (learn python baboo se ske gja per terezi )
     sequence = fields.Char(string='Student ID: ',
@@ -14,17 +15,18 @@ class Student(models.Model):
     user_id = fields.Many2one(comodel_name='res.users',
                               invisible=True, )
     name = fields.Char(string='Name',
-                       store=True)
-    surname = fields.Char(string='Surname')
-
+                       store=True,tracking=True)
+    surname = fields.Char(string='Surname',tracking=True)
+    father_name = fields.Char(string='Father ',tracking=True)
+    mother_name = fields.Char(string='Mother ',tracking=True)
     # Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
     email = fields.Char(string='Email',
                         related='user_id.login',
-                        readonly=False)
+                        readonly=False,tracking=True)
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-    dob = fields.Date(string='Date of birth')
+    dob = fields.Date(string='Date of birth',tracking=True)
     blood_type = fields.Selection(selection=[('a+', 'A+'),
                                              ('a-', 'A-'),
                                              ('b+', 'B+'),
@@ -45,8 +47,8 @@ class Student(models.Model):
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='new')
-    suspend_reason = fields.Text(string='Suspension Reason')
+                             default='new',tracking=True)
+    suspend_reason = fields.Text(string='Suspension Reason',tracking=True)
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
                         placeholder="+355XX XXX XXXX")
@@ -67,6 +69,8 @@ class Student(models.Model):
                                             accept="application/pdf,"
                                                    "image/png,"
                                                    "image/jpeg")
+    year = fields.Selection(string='Year',related='subject_id.year',readonly=False,store=True)
+    faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False,store=True)
 
     @api.model
     def create(self, vals):
