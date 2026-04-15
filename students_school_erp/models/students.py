@@ -69,8 +69,8 @@ class Student(models.Model):
                                             accept="application/pdf,"
                                                    "image/png,"
                                                    "image/jpeg")
-    year = fields.Selection(string='Year',related='subject_id.year',readonly=False)
-    faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False)
+    year = fields.Selection(string='Year',related='subject_id.year',readonly=False,store=True)
+    faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False,store=True)
 
     @api.model
     def create(self, vals):

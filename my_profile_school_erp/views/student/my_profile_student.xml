@@ -40,7 +40,7 @@
                         </group>
                         <div class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-triangle"/>
-                            If the information in this form is incorrect, please inform the school administration.
+                            If the information is incorrect, please inform the school administration.
                         </div>
                     </sheet>
                 </form>

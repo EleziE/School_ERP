@@ -6,16 +6,12 @@
             <field name="name">my.subjects.form</field>
             <field name="model">my.subject.student</field>
             <field name="arch" type="xml">
-                <form edit="False" create="False" duplicate="False">
+                <form create="False" delete="False" duplicate="False" edit="False">
                     <sheet>
                         <group>
-                            <field name="name"/>
                             <field name="faculty_name"/>
                             <field name="year"/>
-                            <field name="type"/>
                             <field name="semester"/>
-                            <field name="credits"/>
-                            <field name="sub_seq"/>
                         </group>
                     </sheet>
                 </form>

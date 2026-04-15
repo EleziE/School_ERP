@@ -45,17 +45,15 @@
                                 <field name="email" required="True"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
-                                <field name="year"/>
-                                <field name="faculty"/>
                                 <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
                             </group>
                             <group name="Optional">
                                 <field name="gender" placeholder="Select..."/>
                                 <field name="dob"/>
                                 <field name="blood_type"/>
-                                <field name="birthday_certificate"
-                                       filename="birthday_certificate_name"
-                                       widget="binary"/>
+                                <field name="birthday_certificate" filename="birthday_certificate_name" widget="binary"/>
+                                <field name="year"/>
+                                <field name="faculty"/>
                                 <field name="birthday_certificate_name" invisible="True"/>
                                 <field name="state" readonly="1"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
