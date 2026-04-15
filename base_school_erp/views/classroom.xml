@@ -4,9 +4,24 @@
     <record id="class_tree_view" model="ir.ui.view">
         <field name="model">class.rooms</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree>
+                <field name="sequence" optional="hide"/>
                 <field name="name"/>
             </tree>
+        </field>
+    </record>
+    <!--Form-->
+    <record id="class_form_view" model="ir.ui.view">
+        <field name="model">class.rooms</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -15,7 +30,7 @@
     <record id="action_class_room" model="ir.actions.act_window">
         <field name="name">Classrooms</field>
         <field name="res_model">class.rooms</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
     <!--menuitem-->
     <menuitem id="class_room"

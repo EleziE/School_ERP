@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 
 class Finance(models.Model):
@@ -15,34 +16,36 @@ class Finance(models.Model):
                                   compute='_compute_created_by_info')
 
     amount = fields.Float(string='Amount')
+
     reason = fields.Char(string='Reason',
                          required=True,
                          help='Reason for payment',
                          default='No reason')
+
     state = fields.Selection(string='State',
                              selection=[('draft', 'Draft'),
-                                        ('paid', 'Paid'),
-                                        ('unpaid', 'Unpaid')],
+                                        ('unpaid', 'Unpaid'),
+                                        ('paid', 'Paid')],
                              default='draft')
     student_id = fields.Many2one(comodel_name='students.students',
-                                 string='Student')
+                                 string='Student',required=True)
 
     paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
 
-    # def write(self, vals):
-    #     if 'state' in vals and vals['state'] == 'paid':
-    #         for rec in self:
-    #             if not rec.paid_date:
-    #                 rec.paid_date = fields.Datetime.now()
-    #     return super().write(vals)
+    readonly_fields = {'student_id','paid_date','amount','created_by','created_by_info'}
+
+    def write(self, vals):
+        for rec in self:
+            locked_field = self.readonly_fields & set(vals.keys())
+            if locked_field:
+                raise UserError(
+                    f"You cannot edit after saving the creation!")
+        return super().write(vals)
 
     @api.depends('state')
     def _compute_paid_date(self):
-        """
-        Pse ma ruan ne te njejten time (date tmm ama time pse nuk ndryshon)
-        """
         for record in self:
             if record.state == 'paid':
                 record.paid_date = fields.Datetime.now()
@@ -72,11 +75,9 @@ class Finance(models.Model):
 
     def pay_finance(self):
         self.state = 'paid'
-        print(f'{self.student_id.name} paid the payment of {self.amount} LEK (te reja)!')
 
     def unpaid_finance(self):
         self.state = 'unpaid'
-        print(f'{self.student_id.name} has to make the payment of {self.amount} LEK (te reja)!')
 
 
 class Student(models.Model):

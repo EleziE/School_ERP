@@ -39,7 +39,9 @@
                                 <field name="user_id" string="Name" domain=" [('member_type','=','student')]"
                                        invisible="True"/>
                                 <field name="name" required="True"/>
-                                <field name="surname" required="True" optional="show"/>
+                                <field name="surname" required="True"/>
+                                <field name="father_name" required="True"/>
+                                <field name="mother_name" required="True"/>
                                 <field name="email" required="True"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>

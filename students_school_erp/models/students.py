@@ -16,7 +16,8 @@ class Student(models.Model):
     name = fields.Char(string='Name',
                        store=True)
     surname = fields.Char(string='Surname')
-
+    father_name = fields.Char(string='Father ')
+    mother_name = fields.Char(string='Mother ')
     # Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
     email = fields.Char(string='Email',
                         related='user_id.login',

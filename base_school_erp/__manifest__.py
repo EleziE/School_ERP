@@ -8,6 +8,9 @@
         'views/Inherited/base_view_users_tree_inherited.xml',
         'views/Inherited/base_view_users_search_inherited.xml',
         'views/Inherited/base_open_module_rearrangement.xml',
+        # Sequences
+        'views/Sequence/subject_seq.xml',
+        'views/Sequence/classroom_seq.xml',
         # Views
         'views/menu.xml',
         'views/holidays.xml',
