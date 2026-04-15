@@ -50,6 +50,7 @@
                 <group expand="0" string="Group By">
                     <filter name="year" string="Year" context="{'group_by':'year'}"/>
                     <filter name="semester" string="Semester" context="{'group_by':'semester'}"/>
+                    <filter name="faculty" string="Faculty" context="{'group_by':'faculty'}"/>
                 </group>
             </search>
         </field>
