@@ -23,6 +23,7 @@ class Student(models.Model):
     email = fields.Char(string='Email',
                         related='user_id.login',
                         readonly=False,tracking=True)
+    external_email = fields.Char(string='External Email',help='Email to communicate with the user, not from the schools email')
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
