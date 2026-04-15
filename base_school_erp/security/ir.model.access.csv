@@ -1,8 +1,20 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-base.access_holiday_holiday,access_holiday_holiday,base_school_erp.model_holiday_holiday,,1,1,1,1
-base.access_subject_subject,access_subject_subject,base_school_erp.model_subject_subject,,1,1,1,1
-base.access_class_rooms,access_class_rooms,base_school_erp.model_class_rooms,,1,1,1,1
-base.access_exams,access_exams,base_school_erp.model_exams,,1,1,1,1
+base.access_holiday_holiday_admin,access_holiday_holiday admin,base_school_erp.model_holiday_holiday,base_school_erp.group_school_admin,1,1,1,1
+base.access_subject_subject_admin,access_subject_subject admin,base_school_erp.model_subject_subject,base_school_erp.group_school_admin,1,1,1,1
+base.access_class_rooms_admin,access_class_rooms admin,base_school_erp.model_class_rooms,base_school_erp.group_school_admin,1,1,1,1
+base.access_exams_admin,access_exams admin,base_school_erp.model_exams,base_school_erp.group_school_admin,1,1,1,1
 
 
-access_res_users_user,access_res_users_user,base.model_res_users,,1,1,1,1
+access_res_users_user,access_res_users_user admin ,base.model_res_users,base_school_erp.group_school_admin,1,1,1,1
+
+
+
+base.access_holiday_holiday_student,access_holiday_holiday student,base_school_erp.model_holiday_holiday,base_school_erp.group_school_student,1,0,0,0
+base.access_subject_subject_student,access_subject_subject student,base_school_erp.model_subject_subject,base_school_erp.group_school_student,1,0,0,0
+base.access_class_rooms_student,access_class_rooms student,base_school_erp.model_class_rooms,base_school_erp.group_school_student,1,0,0,0
+base.access_exams_student,access_exams student,base_school_erp.model_exams,base_school_erp.group_school_student,1,0,0,0
+
+base.access_holiday_holiday_teacher,access_holiday_holiday teacher,base_school_erp.model_holiday_holiday,base_school_erp.group_school_teacher,1,0,0,0
+base.access_subject_subject_teacher,access_subject_subject teacher,base_school_erp.model_subject_subject,base_school_erp.group_school_teacher,1,0,0,0
+base.access_class_rooms_teacher,access_class_rooms teacher,base_school_erp.model_class_rooms,base_school_erp.group_school_teacher,1,0,0,0
+base.access_exams_teacher,access_exams teacher,base_school_erp.model_exams,base_school_erp.group_school_teacher,1,0,0,0

@@ -45,6 +45,8 @@
                                 <field name="email" required="True"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
+                                <field name="year"/>
+                                <field name="faculty"/>
                                 <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
                             </group>
                             <group name="Optional">
@@ -78,7 +80,7 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="sequence"/>
+                    <field name="sequence" optional="hide"/>
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname" optional="show"/>
                     <field name="email"/>

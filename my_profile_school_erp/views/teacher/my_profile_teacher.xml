@@ -22,6 +22,13 @@
                                 <field name="education"/>
                             </group>
                         </group>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-triangle"/>
+                            If the information is incorrect, please inform the school administration.
+                            <br/>
+                            <br/>
+                            Contacts: admin@admin.com
+                        </div>
                     </sheet>
                 </form>
             </field>

@@ -38,14 +38,10 @@
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
-                        <notebook>
-                            <page name="My Finance">
-                                <field name="finance_ids"/>
-                            </page>
-                            <page name="My Subjects">
-                                <field name="subject_id"/>
-                            </page>
-                        </notebook>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-triangle"/>
+                            If the information in this form is incorrect, please inform the school administration.
+                        </div>
                     </sheet>
                 </form>
             </field>

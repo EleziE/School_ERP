@@ -16,6 +16,7 @@
         # Student Views
         'views/student/my_profile_student.xml',
         'views/student/my_finances_student.xml',
+        'views/student/my_subjects_student.xml',
         # Menu-item's
         'views/menu.xml',
     ],
