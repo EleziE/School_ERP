@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" optional="hide"/>
-                <field name="created_by" domain="[('member_type','=','administrator')]"/>
+                <field name="created_by" domain="[('member_type','=','administrator')]" optional="hide"/>
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -62,6 +62,7 @@
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                    <filter name="member" string="User" context="{'group_by':'created_for'}"/>
                 </group>
             </search>
         </field>
