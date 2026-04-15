@@ -8,7 +8,62 @@
     <record id="project.menu_main_pm" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
+    <!--Calendar menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Appointments menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="appointment.main_menu_appointments" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Knowledge menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="knowledge.knowledge_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--To-DO menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="project_todo.menu_todo_todos" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Settings menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="base.menu_administration" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Apps menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="base.menu_apps" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Link Tracker menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Planing  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="planning.planning_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Mass Mailing  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="mass_mailing.mass_mailing_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Employees  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Surveys  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="survey.menu_surveys" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Sign  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="sign.menu_document" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
+    <!--Discuss  menuitem to be visible only for the admin (not teacher and student)-->
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
 
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+    </record>
     <!--added field in base-->
     <record id="base_view_users_tree_inherited" model="ir.ui.view">
         <field name="name">base.view.users.tree.inherited</field>
