@@ -14,6 +14,7 @@
     'depends': [
         'base_school_erp',
         'students_school_erp',
+        'mail'
         ],
     'icon': 'teacher_school_erp/static/description/icon.png',
 }

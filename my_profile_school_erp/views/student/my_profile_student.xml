@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <!--Form Student Form-->
+        <!--Form -->
         <record id="my_profile_student_form" model="ir.ui.view">
             <field name="name">my.profile.student</field>
             <field name="model">my.profile.student</field>
@@ -38,19 +38,15 @@
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
-                        <notebook>
-                            <page name="My Finance">
-                                <field name="finance_ids"/>
-                            </page>
-                            <page name="My Subjects">
-                                <field name="subject_id"/>
-                            </page>
-                        </notebook>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-triangle"/>
+                            If the information is incorrect, please inform the school administration.
+                        </div>
                     </sheet>
                 </form>
             </field>
         </record>
-        <!--Action Student-->
+        <!--Action -->
         <record id="action_my_profile_student" model="ir.actions.act_window">
             <field name="name">Student Profile</field>
             <field name="res_model">my.profile.student</field>

@@ -5,13 +5,16 @@ from odoo.exceptions import ValidationError, AccessError
 class Teacher(models.Model):
     _name = 'teacher.teacher'
     _description = 'Teacher'
+    _inherit = ['mail.thread','mail.activity.mixin']
 
     user_id = fields.Many2one(comodel_name='res.users',
                               required=True,)
     name = fields.Char(string='Name',
-                       store=True,)
+                       store=True,
+                       tracking=True)
     surname = fields.Char(string='Surname',
-                          store=True,)
+                          store=True,
+                       tracking=True)
     phone = fields.Char(string='Phone',
                         store=True,)
     dob = fields.Date(string='Date of birth')

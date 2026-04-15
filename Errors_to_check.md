@@ -23,31 +23,39 @@ ndryshim ne db edhe ka met naj gja (prej ne graduated ne activ or whatever))
 
 Recheck the previous questions
 
-View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that the task is created),
-and the statusbar to be editable to compleat only if the uid is the same as the created for id 
+View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that
+the task is created),
+and the statusbar to be editable to compleat only if the uid is the same as the created for id
 
 pse spunon buttoni print info the student erp from view (dicka e till) ku e ke ..
 ######################## 4/10/2026 #########################
-            ### To-do #1 ###
+### To-do #1 ###
+
 ```py
 created_by = fields.Many2one(comodel_name='teacher.teacher',
-                                 string='Created by',
-                                 default=lambda self: self.env['teacher.teacher'].search(
-                                     [('user_id', '=', self.env.uid)], limit=1),
-                                 readonly=True)                
+                             string='Created by',
+                             default=lambda self: self.env['teacher.teacher'].search(
+                                 [('user_id', '=', self.env.uid)], limit=1),
+                             readonly=True)                
 ```
-or 
+
+or
+
 ```py
 created_by = fields.Many2one(comodel_name='res.users',
-                                 string='Created by',
-                                 default=lambda self: self.env['teacher.teacher'].search(
-                                     [('user_id', '=', self.env.uid)], limit=1),
-                                 readonly=True)
+                             string='Created by',
+                             default=lambda self: self.env['teacher.teacher'].search(
+                                 [('user_id', '=', self.env.uid)], limit=1),
+                             readonly=True)
 ```
-Pse ne Task (logged as Admin) kur krijon task per Agim user te del butoni compleat ama per Fatmirin ose Hasanin nuk ban HAHAAHAHAHA
+
+Pse ne Task (logged as Admin) kur krijon task per Agim user te del butoni compleat ama per Fatmirin ose Hasanin nuk ban
+HAHAAHAHAHA
 
 ```python
     @api.model
+
+
 def open_my_profile(self):
     """
     Return action that opens the logged-in teacher's profile
@@ -66,10 +74,9 @@ def open_my_profile(self):
         'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
     }
 
-
-        'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
-# ishte 
-        'views': [(self.env.ref('teacher_school_erp.my_profile_teacher').id, 'form')],
+    'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
+    # ishte 
+    'views': [(self.env.ref('teacher_school_erp.my_profile_teacher').id, 'form')],
 # ca shkakton prb
 ```
 ################## 4/11/2026 ##################
@@ -85,10 +92,46 @@ Pse ?
 access_student_student_admin,access.student.admin,model_students_students,base_school_erp.group_school_admin,1,1,1,1
 access_student_student_student,access.student.student,model_students_students,base_school_erp.group_school_student,1,0,0,0
 
+
 ######################## 4/14/2026 #########################
-Per me e fsheh modulin Task ose Finance , mos noshta duhet me kriju modul tjeter i cili referon (related)
+1.Per me e fsheh modulin Task ose Finance , mos noshta duhet me kriju modul tjeter i cili referon (related)
 tek fiannca ose task edhe ..... nejse se noshta nuk dalin recordet sepse jan te rujtuna ne tabel tjeter...
+######################## 4/15/2026 #########################
+1.why the <chatter/> doesnt work in odoo 17
+    and the old version it works
+
+```xml
+
+<div class="oe_chatter">
+    <field name="message_follower_ids"/>
+    <field name="activity_ids"/>
+    <field name="message_ids"/>
+</div>
+```
+
+2.how to hide the mail modeules added icons in the front page form users (do i have to hide them one by one or how )
+
+3.the report (unpaid_finances) not getting recognized by the button in view
 
 Pse si user student i can still see the module students ?
 ```
 
+
+4.per cfar ndikojn kta dy rreshta ne my profile_student
+member type edhe userid 
+
+pse kur jan autofillen te dhenat ndersa kur nuk jan nuk autofillen
+```xml
+
+<group>
+    <field name="member_type" invisible="True"/>
+    <field name="user_id" invisible="True" readonly="True"
+           domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+    <field name="sequence"/>
+    <field name="name"/>
+    <field name="surname"/>
+    <field name="state"/>
+    <field name="gender" readonly="True"/>
+    <field name="enrollment_date" readonly="True"/>
+</group>
+```
