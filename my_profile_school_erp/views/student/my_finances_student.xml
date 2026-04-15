@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <!--Student Tree View-->
+        <!--Tree -->
         <record id="my_finance_student_tree" model="ir.ui.view">
             <field name="model">finance.finance</field>
             <field name="name">my.finance.student.tree</field>
@@ -18,7 +18,7 @@
                 </tree>
             </field>
         </record>
-        <!--Student Form-->
+        <!-- Form-->
         <record id="my_finance_student_form" model="ir.ui.view">
             <field name="name">my.finance.student.form</field>
             <field name="model">finance.finance</field>
@@ -43,7 +43,7 @@
             </field>
         </record>
 
-        <!--Action Student-->
+        <!--Action -->
         <record id="action_my_finance_student" model="ir.actions.act_window">
             <field name="name">Student Finance</field>
             <field name="res_model">finance.finance</field>
