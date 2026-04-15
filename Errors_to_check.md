@@ -75,3 +75,18 @@ def open_my_profile(self):
 ######################## 4/14/2026 #########################
 Per me e fsheh modulin Task ose Finance , mos noshta duhet me kriju modul tjeter i cili referon (related)
 tek fiannca ose task edhe ..... nejse se noshta nuk dalin recordet sepse jan te rujtuna ne tabel tjeter...
+######################## 4/15/2026 #########################
+why the <chatter/> doesnt work in odoo 17 
+and the old version it works
+```xml
+
+<div class="oe_chatter">
+    <field name="message_follower_ids"/>
+    <field name="activity_ids"/>
+    <field name="message_ids"/>
+</div>
+```
+
+
+
+how to hide the mail modeules added icons in the front page form users (do i have to hide them one by one or how )
