@@ -9,10 +9,10 @@
                 <form create="False" delete="False" edit="False">
                     <sheet>
                         <button name="action_print_report" string="Print Info" type="object" icon="fa-print"/>
-                        <group col="1">
+                        <group col="2">
                             <group string="Required information">
                                 <field name="sequence"/>
-                                <field name="user_id" options="{'no_open':True}"/>
+                                <field name="user_id" options="{'no_open':True}" string="Name"/>
                                 <field name="surname"/>
                             </group>
                             <group string="Optional Information">
@@ -26,7 +26,6 @@
                 </form>
             </field>
         </record>
-
         <!--Action Teacher-->
         <record id="action_my_profile_teacher" model="ir.actions.act_window">
             <field name="name">My Profile</field>

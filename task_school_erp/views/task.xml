@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" optional="hide"/>
-                <field name="created_by" domain="[('member_type','=','administrator')]" />
+                <field name="created_by" domain="[('member_type','=','administrator')]"/>
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -74,5 +74,9 @@
         <field name="view_ids" eval="[(5,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),]"/>
+    </record>
+    <!--Only Admins are allowed to see the icon of Task module-->
+    <record id="task" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin')])]"/>
     </record>
 </odoo>
