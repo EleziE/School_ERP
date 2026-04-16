@@ -5,7 +5,7 @@ class MyProfileStudent(models.Model):
     _name = 'my.profile.student'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id')
+    student_id = fields.Many2one(comodel_name='students.students')
 
     name = fields.Char(related='student_id.name')
     surname = fields.Char(related='student_id.surname')
@@ -23,6 +23,8 @@ class MyProfileStudent(models.Model):
     enrollment_date = fields.Date(related='student_id.enrollment_date')
     graduation_date = fields.Date(related='student_id.graduation_date')
     finance_ids = fields.One2many(related='student_id.finance_ids')
+    faculty = fields.Selection(related='student_id.faculty')
+    year = fields.Selection(related='student_id.year')
 
     @api.onchange('user_id')
     def _compute_student_id(self):

@@ -16,6 +16,7 @@ class StudentProfileReport(models.AbstractModel):
         styles = getSampleStyleSheet()
 
         elements = []
+
         elements.append(Paragraph("Student Profile Report", styles['Title']))
         elements.append(Spacer(1, 12))
 
