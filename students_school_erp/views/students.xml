@@ -84,9 +84,13 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <tree>
+                    <header>
+<!--                        <button name=""-->
+                    </header>
                     <field name="sequence" optional="hide"/>
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname" optional="show"/>
+                    <field name="dob" string="Birthday" optional="hide"/>
                     <field name="email"/>
                     <field name="state" widget="badge" decoration-success="state == 'active'"
                            decoration-warning="state in ('suspended','inactive')"

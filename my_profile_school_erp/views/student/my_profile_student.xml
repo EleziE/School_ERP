@@ -26,6 +26,8 @@
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>
+                                <field name="faculty"/>
+                                <field name="year"/>
                                 <field name="gender" readonly="True"/>
                                 <field name="enrollment_date" readonly="True"/>
                             </group>
