@@ -1,5 +1,8 @@
 
-                                                                                                                
+Learning from here : in proces
+https://www.youtube.com/watch?v=ZDR7-iSuwkQ&list=PLOGAj7tCqHx-IDg2x6cWzqN0um8Z4plQT 
+
+
 <p align="center">Report Information </p>
 
 These are some of the defaults that a person might need to know for a report on `reportlab`. Some measurements of pages or some other things that might help him to customize a report using `reportlab`, package of python.
