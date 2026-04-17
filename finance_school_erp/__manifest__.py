@@ -4,6 +4,8 @@
         # security
         'security/ir.model.access.csv',
         'security/rules.xml',
+        # Data
+        'data/finance_seq.xml',
         # Wizards
         'wizards/finances_print.xml',
         # Views
