@@ -77,7 +77,7 @@ class Student(models.Model):
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students') or _('New')
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students')
         # =================== Per Sequence Generator ===================
 
         # =================== Per Access Rights Generator ===================
@@ -98,49 +98,7 @@ class Student(models.Model):
 
         return super().create(vals)
 
-    def action_print_report(self):
-        """Button action to generate PDF"""
-        self.ensure_one()  # only one student at a time
-        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
 
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
-            'target': 'new',
-        }
-
-    @api.constrains('user_id')
-    def _check_user_not_teacher(self):
-        for rec in self:
-            if rec.user_id and rec.user_id.member_type == 'teacher':
-                raise ValidationError(
-                    f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
-                )
-
-    @api.constrains('dob')
-    def check_dob(self):
-        for rec in self:
-            today = fields.Date.today()
-            if rec.dob and rec.dob > today:
-                raise ValidationError("Date of birth  can't be in the future")
-
-    def action_open_suspend_wizard(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Suspend Student',
-            'res_model': 'suspend_reason_wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'active_id': self.id},
-        }
-
-    @api.depends('state')
-    def _compute_graduation_date(self):
-        for rec in self:
-            if rec.state == 'graduated':
-                rec.graduation_date = fields.Date.today()
-            else:
-                rec.graduation_date = False
 
     # TO-DO Recheck it (understand it)
     # Open My profile with right records
@@ -155,7 +113,44 @@ class Student(models.Model):
     #         'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')],
     #         'target': 'current',
     #     }
+
+    ############################ Wizards ###########################################
+    def action_open_suspend_wizard(self):
+        """
+        Wizard: don't know what it does yet
+        """
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Suspend Student',
+            'res_model': 'suspend_reason_wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'active_id': self.id},
+        }
+
+
     ############################ Buttons ###########################################
+    @api.depends('state')
+    def _compute_graduation_date(self):
+        """
+        To set the graduation date the day that the student is declared graduated by the state button
+        """
+        for rec in self:
+            if rec.state == 'graduated':
+                rec.graduation_date = fields.Date.today()
+            else:
+                rec.graduation_date = False
+
+    def action_print_report(self):
+        """Button action to generate PDF"""
+        self.ensure_one()  # only one student at a time
+        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
+            'target': 'new',
+        }
 
     def action_graduated(self):
         self.state = 'graduated'
@@ -172,3 +167,18 @@ class Student(models.Model):
         ('unique_user_id', 'UNIQUE (user_id)', 'This User ID already exists.'),
         ('dob_check', 'CHECK(dob < CURRENT_DATE)', 'Date of birth must be in the past.')
     ]
+
+    @api.constrains('user_id')
+    def _check_user_not_teacher(self):
+        for rec in self:
+            if rec.user_id and rec.user_id.member_type == 'teacher':
+                raise ValidationError(
+                    f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
+                )
+
+    @api.constrains('dob')
+    def check_dob(self):
+        for rec in self:
+            today = fields.Date.today()
+            if rec.dob and rec.dob > today:
+                raise ValidationError("Date of birth  can't be in the future")

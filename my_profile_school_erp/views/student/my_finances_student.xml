@@ -21,6 +21,7 @@
                     <field name="state" widget="badge"
                            decoration-success="state == 'paid'"
                            decoration-danger="state == 'unpaid'"/>
+                    <field name="reason" optional="hide"/>
                     <field name="amount"/>
                 </tree>
             </field>
@@ -38,6 +39,7 @@
                             <field name="create_date"/>
                             <field name="amount"/>
                             <field name="paid_date"/>
+                            <field name="confirmed_by" invisible="[('state','!=','paid')]"/>
                             <field name="state" widget="badge"
                                    decoration-success="state == 'paid'"
                                    decoration-warning="state == 'draft'"
