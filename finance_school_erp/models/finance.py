@@ -48,11 +48,13 @@ class Finance(models.Model):
                                 readonly=True,
                                 store=True)
     confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by')
+
+
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('finance.finance') or _('New')
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('finance.finance')
         # =================== Per Sequence Generator ===================
 
         return super().create(vals)
@@ -105,7 +107,10 @@ class Finance(models.Model):
         }
 
     def pay_finance(self):
-        self.state = 'paid'
+        self.write({
+        'state': 'paid',
+        'user_id': self.env.user.id,
+        })
 
     def unpaid_finance(self):
         self.state = 'unpaid'

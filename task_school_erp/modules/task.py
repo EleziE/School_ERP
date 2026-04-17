@@ -47,7 +47,7 @@ class Task(models.Model):
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('task') or _('New')
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('task')
         return super().create(vals)
         # =================== Per Sequence Generator ===================
 

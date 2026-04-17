@@ -47,7 +47,7 @@ class Teacher(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher') or _('New')
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher')
 
         access_rights = self.env.ref('base_school_erp.group_school_teacher')
         internal_user = self.env.ref('base.group_user')
