@@ -6,6 +6,7 @@ class Task(models.Model):
     _name = 'task'
     _description = 'Task'
     _rec_name = 'created_for'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
@@ -22,7 +23,7 @@ class Task(models.Model):
 
     created_for = fields.Many2one(comodel_name='teacher.teacher',
                                   string="Created for",
-                                  help='Tasks are created only for teachers', )
+                                  help='Tasks are created only for teachers',tracking=True )
 
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
@@ -31,7 +32,7 @@ class Task(models.Model):
                                          ('completed_early', 'Completed Early'), ],
                               compute='status_based_dates',
                               store=True,
-                              group_expand='_group_expand_status')
+                              group_expand='_group_expand_status',tracking=True)
 
     starting_date = fields.Date(default=fields.Date.today)
 

@@ -158,3 +158,10 @@ The button Print Info in my prfile form view gives back a false pdf file (empty 
 
 ---
 
+Recheck in task why you cant enter the name of the teacher 
+
+---
+
+RECHECK YOU THE GROUP FOR ACCESS RIGHTS administration WHY I CANT SEE THE MODULES 
+
+---
