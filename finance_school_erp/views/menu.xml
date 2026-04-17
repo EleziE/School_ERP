@@ -6,6 +6,6 @@
                   name="Finance"
                   action="action_finance"
                   web_icon='finance_school_erp,static/description/icon.png'
-                  groups="base_school_erp.group_school_admin"/>
+                  groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
     </data>
 </odoo>
