@@ -7,11 +7,6 @@
             <field name="sequence">10</field>
         </record>
 
-        <record id="group_school_none" model="res.groups">
-            <field name="name">None</field>
-            <field name="category_id" ref="module_category_school"/>
-            <field name="implied_ids" eval="[]"/>
-        </record>
         <record id="group_school_student" model="res.groups">
             <field name="name">Student</field>
             <field name="category_id" ref="module_category_school"/>

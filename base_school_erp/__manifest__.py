@@ -5,9 +5,7 @@
         'security/security_groups.xml',
         'security/ir.model.access.csv',
         # Inherited
-        'views/Inherited/base_view_users_tree_inherited.xml',
-        'views/Inherited/base_view_users_search_inherited.xml',
-        'views/Inherited/base_open_module_rearrangement.xml',
+        'views/Inherited/costume_base_modifications.xml',
         # Sequences
         'views/Sequence/subject_seq.xml',
         'views/Sequence/classroom_seq.xml',

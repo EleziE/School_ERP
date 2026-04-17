@@ -26,14 +26,14 @@
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>
+                                <field name="faculty"/>
+                                <field name="year"/>
                                 <field name="gender" readonly="True"/>
                                 <field name="enrollment_date" readonly="True"/>
                             </group>
                             <group>
                                 <field name="dob"/>
-                                <field name="classroom_id" invisible="state == 'graduated'" readonly="True"/>
-                                <field name="subject_id" widget="many2many_tags" invisible="state == 'graduated'"/>
-                                <field name="email" readonly="True"/>
+                                    <field name="email" readonly="True"/>
                                 <field name="blood_type"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>

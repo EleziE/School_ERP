@@ -39,10 +39,11 @@
                                 <field name="user_id" string="Name" domain=" [('member_type','=','student')]"
                                        invisible="True"/>
                                 <field name="name" required="True"/>
-                                <field name="surname" required="True"/>
-                                <field name="father_name" required="True"/>
-                                <field name="mother_name" required="True"/>
+                                <field name="surname"/>
+                                <field name="father_name"/>
+                                <field name="mother_name"/>
                                 <field name="email" required="True"/>
+                                <field name="external_email"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
                                 <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
@@ -83,9 +84,13 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <tree>
+                    <header>
+<!--                        <button name=""-->
+                    </header>
                     <field name="sequence" optional="hide"/>
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname" optional="show"/>
+                    <field name="dob" string="Birthday" optional="hide"/>
                     <field name="email"/>
                     <field name="state" widget="badge" decoration-success="state == 'active'"
                            decoration-warning="state in ('suspended','inactive')"
@@ -115,6 +120,10 @@
                     </group>
                 </search>
             </field>
+        </record>
+        <!--Only the groups that are added are allowed to see the icon of Finance module-->
+        <record id="students" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin')])]"/>
         </record>
         <!--Action-->
         <record id="action_students" model="ir.actions.act_window">
