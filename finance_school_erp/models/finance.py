@@ -6,6 +6,7 @@ class Finance(models.Model):
     _name = 'finance.finance'
     _description = 'Finance'
     _rec_name = 'student_id'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     sequence = fields.Char(string='Records ID: ',
                            readonly=True,
@@ -35,7 +36,7 @@ class Finance(models.Model):
                              selection=[('draft', 'Draft'),
                                         ('unpaid', 'Unpaid'),
                                         ('paid', 'Paid')],
-                             default='draft')
+                             default='draft',tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
                                  string='Student',required=True)
 

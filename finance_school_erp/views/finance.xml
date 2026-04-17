@@ -59,10 +59,15 @@
                             type="action"
                             string="Finance Report"/>
                 </footer>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
-        <record id="finaance_view_search" model="ir.ui.view">
+    <record id="finaance_view_search" model="ir.ui.view">
         <field name="name">Finance Search</field>
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">

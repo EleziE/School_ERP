@@ -20,6 +20,7 @@
         'base_school_erp',
         'students_school_erp',
         'teacher_school_erp',
+        'mail',
     ],
     'icon': 'finance_school_erp/static/description/icon.png',
     'web_icon': 'finance_school_erp,static/description/icon.png',
