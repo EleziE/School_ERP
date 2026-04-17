@@ -11,7 +11,6 @@ class StudentProfileReport(models.AbstractModel):
 
     @staticmethod
     def generate_pdf(record):
-
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer)
         styles = getSampleStyleSheet()
