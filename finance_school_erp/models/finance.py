@@ -8,6 +8,10 @@ class Finance(models.Model):
     _rec_name = 'student_id'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+
+    user_id = fields.Many2one(comodel_name='res.users')
+
+
     sequence = fields.Char(string='Records ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
@@ -43,7 +47,7 @@ class Finance(models.Model):
     paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
-
+    confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by')
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
@@ -61,6 +65,15 @@ class Finance(models.Model):
                 raise UserError("Paid records cannot be modified.")
 
         return super().write(vals)
+
+
+    @api.depends('user_id','state')
+    def _compute_confirmed_by(self):
+        for rec in self:
+            if rec.state == 'paid' and rec.user_id:
+                rec.confirmed_by = rec.user_id.name
+            else:
+                rec.confirmed_by = False
 
     @api.depends('state')
     def _compute_paid_date(self):
