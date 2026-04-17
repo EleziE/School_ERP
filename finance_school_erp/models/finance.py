@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api,_
 from odoo.exceptions import UserError
 
 
@@ -6,6 +6,10 @@ class Finance(models.Model):
     _name = 'finance.finance'
     _description = 'Finance'
     _rec_name = 'student_id'
+
+    sequence = fields.Char(string='Records ID: ',
+                           readonly=True,
+                           default=lambda self: _('New'))
 
     created_by = fields.Many2one(comodel_name='res.users',
                                  string='Created by',
@@ -17,10 +21,15 @@ class Finance(models.Model):
 
     amount = fields.Float(string='Amount')
 
-    reason = fields.Char(string='Reason',
+    reason = fields.Selection(string='Reason',
                          required=True,
                          help='Reason for payment',
-                         default='No reason')
+                         selection=[('first_semester_payment', 'First Semester Payment'),
+                                    ('second_semester_payment', 'Second Semester Payment'),
+                                    ('extra_credits', 'Extra Credits'),
+                                    ('transportation_fee', 'Transportation Fee'),])
+    reason_extra = fields.Char(string='Extra Reason')
+    student_number = fields.Char(string='Student ID',related='student_id.sequence')
 
     state = fields.Selection(string='State',
                              selection=[('draft', 'Draft'),
@@ -34,14 +43,22 @@ class Finance(models.Model):
                                 readonly=True,
                                 store=True)
 
-    readonly_fields = {'student_id','paid_date','amount','created_by','created_by_info'}
+    @api.model
+    def create(self, vals):
+        # =================== Per Sequence Generator ====================
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('finance.finance') or _('New')
+        # =================== Per Sequence Generator ===================
+
+        return super().create(vals)
 
     def write(self, vals):
+        readonly_fields = {'student_id', 'paid_date', 'amount'}
+
         for rec in self:
-            locked_field = self.readonly_fields & set(vals.keys())
-            if locked_field:
-                raise UserError(
-                    f"You cannot edit after saving the creation!")
+            if rec.state == 'paid' and (readonly_fields & set(vals.keys())):
+                raise UserError("Paid records cannot be modified.")
+
         return super().write(vals)
 
     @api.depends('state')

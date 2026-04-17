@@ -6,9 +6,12 @@
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" optional="hide"/>
+                <field name="student_number" optional="hide"/>
                 <field name="student_id"/>
                 <field name="create_date"/>
                 <field name="paid_date"/>
+                <field name="reason" optional="hide"/>
                 <field name="state" widget="badge"
                        decoration-success="state == 'paid'"
                        decoration-danger="state == 'unpaid'"/>
@@ -37,6 +40,7 @@
                 </header>
                 <sheet>
                     <group>
+                        <field name="sequence" optional="hide"/>
                         <field name="student_id" options="{'no_open':True, 'no_create':True}"
                                domain="[('member_type','=','student')]"/>
                         <field name="create_date"/>
@@ -46,8 +50,8 @@
                                decoration-success="state == 'paid'"
                                decoration-warning="state == 'draft'"
                                decoration-danger="state == 'unpaid'"/>
-                        <field name="reason" placeholder="Write the reason for suspension..."
-                               options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
+                        <field name="reason"/>
+                        <field name="reason_extra" invisible="reason != 'extra_credits'"/>
                     </group>
                 </sheet>
                 <footer>
@@ -58,6 +62,25 @@
             </form>
         </field>
     </record>
+        <record id="finaance_view_search" model="ir.ui.view">
+        <field name="name">Finance Search</field>
+        <field name="model">finance.finance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id" string="Student"/>
+                <field name="student_number" string="Student ID"/>
+                <separator/>
+                <filter name="unpaid" string="Unpaid" domain="[('state','=','unpaid')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="state_of_payment" string="Status" context="{'group_by':'state'}"/>
+                    <separator/>
+                    <filter name="students_name" string="Student" context="{'group_by':'student_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!--Action-->
     <record id="action_finance" model="ir.actions.act_window">
         <field name="name">Finance</field>

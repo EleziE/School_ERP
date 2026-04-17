@@ -21,6 +21,7 @@
                     <field name="state" widget="badge"
                            decoration-success="state == 'paid'"
                            decoration-danger="state == 'unpaid'"/>
+                    <field name="reason" optional="hide"/>
                     <field name="amount"/>
                 </tree>
             </field>
