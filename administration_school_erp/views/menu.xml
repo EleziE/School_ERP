@@ -5,5 +5,5 @@
               sequence="1"
               action="administration_action"
               web_icon='administration_school_erp,static/description/icon.png'
-              groups="base_school_erp.group_school_admin"/>
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
 </odoo>

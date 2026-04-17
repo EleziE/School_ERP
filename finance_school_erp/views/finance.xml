@@ -30,12 +30,12 @@
                             string="Pay"
                             type="object"
                             invisible="state in ('paid','draft')"
-                            groups="base_school_erp.group_school_admin"/>
+                            groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                     <button name="unpaid_finance"
                             string="Create"
                             type="object"
                             invisible="state in ('unpaid','paid')"
-                            groups="base_school_erp.group_school_admin"/>
+                            groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
                 </header>
                 <sheet>
@@ -59,7 +59,7 @@
                             type="action"
                             string="Finance Report"/>
                 </footer>
-                <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                <div class="oe_chatter" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>

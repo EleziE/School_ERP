@@ -93,7 +93,7 @@ class Teacher(models.Model):
             'sequence', 'member_type'
         ]
         if any(f in vals for f in restricted_fields):
-            if not self.env.user.has_group('base_school_erp.group_school_admin'):
+            if not self.env.user.has_group('base_school_erp.group_school_admin','base_school_erp.group_school_administration'):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
     ########################################################################
