@@ -13,16 +13,16 @@
                                options="{'clickable': False}"/>
                         <button name="action_active" type="object" string="Activate"
                                 invisible="state not in ('inactive', 'suspended','new')"
-                                groups="base_school_erp.group_school_admin"/>
+                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_inactive" type="object" string="Deactivate"
                                 invisible="state != 'active'"
                                 groups="base_school_erp.group_school_admin"/>
                         <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
                                 invisible="state not in ('active', 'inactive')"
-                                groups="base_school_erp.group_school_admin"/>
+                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_graduated" type="object" string="Graduated"
                                 invisible="state not in ('active', 'inactive', 'suspended')"
-                                groups="base_school_erp.group_school_admin"/>
+                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_print_report"
                                 type="object"
                                 string="Print Report"
@@ -70,7 +70,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
@@ -100,7 +100,7 @@
                 </tree>
             </field>
             <field name="groups_id"
-                   eval="[(4,ref('base_school_erp.group_school_admin'))]"/>
+                   eval="[(4,ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration'))]"/>
         </record>
         <!--Search-->
         <record id="student_view_search" model="ir.ui.view">
@@ -123,7 +123,7 @@
         </record>
         <!--Only the groups that are added are allowed to see the icon of Finance module-->
         <record id="students" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin')])]"/>
+            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
         </record>
         <!--Action-->
         <record id="action_students" model="ir.actions.act_window">

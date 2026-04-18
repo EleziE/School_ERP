@@ -38,7 +38,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter">
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
@@ -65,7 +65,7 @@
         </record>
         <!--Only the groups that are added are allowed to see the icon of Teacher module-->
         <record id="teacher" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin')])]"/>
+            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
         </record>
         <!--Action-->
         <record id="action_teacher" model="ir.actions.act_window">

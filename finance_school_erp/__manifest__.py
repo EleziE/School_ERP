@@ -4,6 +4,8 @@
         # security
         'security/ir.model.access.csv',
         'security/rules.xml',
+        # Data
+        'data/finance_seq.xml',
         # Wizards
         'wizards/finances_print.xml',
         # Views
@@ -18,6 +20,7 @@
         'base_school_erp',
         'students_school_erp',
         'teacher_school_erp',
+        'mail',
     ],
     'icon': 'finance_school_erp/static/description/icon.png',
     'web_icon': 'finance_school_erp,static/description/icon.png',

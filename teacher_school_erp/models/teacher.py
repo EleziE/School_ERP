@@ -47,7 +47,7 @@ class Teacher(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher') or _('New')
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher')
 
         access_rights = self.env.ref('base_school_erp.group_school_teacher')
         internal_user = self.env.ref('base.group_user')
@@ -93,7 +93,7 @@ class Teacher(models.Model):
             'sequence', 'member_type'
         ]
         if any(f in vals for f in restricted_fields):
-            if not self.env.user.has_group('base_school_erp.group_school_admin'):
+            if not self.env.user.has_group('base_school_erp.group_school_admin','base_school_erp.group_school_administration'):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
     ########################################################################

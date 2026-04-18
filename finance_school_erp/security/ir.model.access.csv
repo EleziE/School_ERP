@@ -1,7 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access.finance.finance.admin,access.finance.finance.admin,model_finance_finance,base_school_erp.group_school_admin,1,1,1,1
+access.finance.finance.administration,access.finance.finance.administration,model_finance_finance,base_school_erp.group_school_administration,1,1,1,1
 access.finance.finance.teacher,access.finance.finance.teacher,model_finance_finance,base_school_erp.group_school_teacher,1,0,0,0
 access.finance.finance.student,access.finance.finance.student,model_finance_finance,base_school_erp.group_school_student,1,0,0,0
 
 access.finance.report.wizard.admin,finance.report.wizard,model_finance_report_wizard,base_school_erp.group_school_admin,1,1,1,1
+access.finance.report.wizard.administration,finance.report.wizard,model_finance_report_wizard,base_school_erp.group_school_administration,1,1,1,1

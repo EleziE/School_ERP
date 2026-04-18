@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_task_admin,access_task_admin,model_task,base_school_erp.group_school_admin,1,1,1,1
+access_task_administration,access_task_admin,model_task,base_school_erp.group_school_administration,1,1,1,1
 access_task_teacher,access_task_teacher,model_task,base_school_erp.group_school_teacher,1,1,0,0

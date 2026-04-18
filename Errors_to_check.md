@@ -134,3 +134,34 @@ pse kur jan autofillen te dhenat ndersa kur nuk jan nuk autofillen
     <field name="enrollment_date" readonly="True"/>
 </group>
 ```
+######################## 4/17/2026 #########################
+# nr.100
+
+Why the name of the person who set the state to paid is not being shown in the form view . Where si the error 
+
+---
+```python
+def pay_finance(self): 
+    self.write({
+        'state': 'paid',
+        'user_id': self.env.user.id,
+    })
+     
+def pay_finance(self):
+    self.state = 'paid'
+
+# ne rast se du thejsht per status ... a bajn te dyja te njejten gja .. edhe pse ne write munem me fut edhe tjera gjana ne te 
+```
+---
+
+The button Print Info in my prfile form view gives back a false pdf file (empty one ), check why ?
+
+---
+
+Recheck in task why you cant enter the name of the teacher 
+
+---
+
+RECHECK YOU THE GROUP FOR ACCESS RIGHTS administration WHY I CANT SEE THE MODULES  (u rregullu .. kishe harru me i fut grupe ne menuitem)
+
+---

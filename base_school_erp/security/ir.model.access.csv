@@ -1,11 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 base.access_holiday_holiday_admin,access_holiday_holiday admin,base_school_erp.model_holiday_holiday,base_school_erp.group_school_admin,1,1,1,1
-base.access_subject_subject_admin,access_subject_subject admin,base_school_erp.model_subject_subject,base_school_erp.group_school_admin,1,1,1,1
+base.access_subject_subject_administration,access_subject_subject administration,base_school_erp.model_subject_subject,base_school_erp.group_school_administration,1,1,1,1
 base.access_class_rooms_admin,access_class_rooms admin,base_school_erp.model_class_rooms,base_school_erp.group_school_admin,1,1,1,1
-base.access_exams_admin,access_exams admin,base_school_erp.model_exams,base_school_erp.group_school_admin,1,1,1,1
+base.access_class_rooms_administration,access_class_rooms administration,base_school_erp.model_class_rooms,base_school_erp.group_school_administration,1,1,1,1
+base.access_exams_administration,access_exams admin,base_school_erp.model_exams,base_school_erp.group_school_admin,1,1,1,1
+base.access_exams_admin,access_exams admin,base_school_erp.model_exams,base_school_erp.group_school_administration,1,1,1,1
 
 
 access_res_users_user,access_res_users_user admin ,base.model_res_users,base_school_erp.group_school_admin,1,1,1,1
+access_res_users_user,access_res_users_user administraton ,base.model_res_users,base_school_erp.group_school_administration,1,1,1,1
 
 
 

@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 
 access_administration_administration_admin,access.administration.admin,model_administration_administration,base_school_erp.group_school_admin,1,1,1,1
+access_administration_administration_administration,access.administration.admin,model_administration_administration,base_school_erp.group_school_admin,1,1,1,1
