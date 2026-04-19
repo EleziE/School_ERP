@@ -3,9 +3,6 @@
 RECHECK: A ka naj menyr tjeter si me e vendos ne notebook Subject perveq se me e vendos fieldin aty (m2m) .. me e ba si
 me financen apo duhet per me ba modul tjeter SUBJECT per me e ba ashtu.
 
-3.Rishiko si me e ba per me marr te dhanat e sakta per my profile per staudent (e njejta edhe per teacher)
-
-                                                                                            ####################### 4/7/2026 ###############################
 ---
 ```xml
 <field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
@@ -22,8 +19,6 @@ Recheck the previous questions
 View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that
 the task is created),
 and the statusbar to be editable to compleat only if the uid is the same as the created for id
-
-pse spunon buttoni print info the student erp from view (dicka e till) ku e ke ..
 
                                                                                         ######################## 4/10/2026 #########################
 ---
@@ -113,13 +108,14 @@ tek fiannca ose task edhe ..... nejse se noshta nuk dalin recordet sepse jan te 
 3.the report (unpaid_finances) not getting recognized by the button in view
 
 Pse si user student i can still see the module students ?
-```
+
 
 
 4.per cfar ndikojn kta dy rreshta ne my profile_student
 member type edhe userid 
 
 pse kur jan autofillen te dhenat ndersa kur nuk jan nuk autofillen
+
 ```xml
 
 <group>
