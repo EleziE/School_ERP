@@ -7,5 +7,6 @@ class ResUsersInheritance(models.Model):
     member_type = fields.Selection(selection=[('none', 'None'),
                                               ('student', 'Student'),
                                               ('teacher', 'Teacher'),
-                                              ('administrator', 'Administrator'), ],
+                                              ('administration', 'Administration'),
+                                              ('admin', 'Admin'), ],
                                    store=True)

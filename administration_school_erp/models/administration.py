@@ -6,7 +6,6 @@ class Administration(models.Model):
     _inherit = ['mail.thread','mail.activity.mixin']
 
     user_id = fields.Many2one(comodel_name='res.users',string='User')
-
     name = fields.Char(string='Name',
                        store=True, tracking=True)
     login = fields.Char(string='Email',related='user_id.login',readonly=False)
