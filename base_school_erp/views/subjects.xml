@@ -62,7 +62,7 @@
         <field name="res_model">subject.subject</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <!--Only the groups that are added are allowed to see the icon of Finance module-->
+    <!--Only the groups that are added are allowed to see the icon of this module-->
     <record id="subject" model="ir.ui.menu">
         <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
     </record>
