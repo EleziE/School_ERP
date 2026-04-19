@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="course_subjects_form" model="ir.ui.view">
+            <field name="name">course.subjects.form</field>
+            <field name="model">my.subject.student</field>
+            <field name="arch" type="xml">
+                <form create="False" delete="False" duplicate="False" edit="False">
+                    <sheet>
+                        <group>
+                            <field name="faculty_name"></field>
+                            <field name="year"></field>
+                            <field name="semester"></field>
+                        </group>
+                        <notebook>
+                            <page name="Subject's">
+                                <field name="subject_ids"
+                                       domain="[('faculty', '=', faculty_name),
+                                                ('year', '=', year),
+                                                ('semester', '=', semester)]"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Action-->
+        <record id="action_course_subject" model="ir.actions.act_window">
+            <field name="name">Course Subject</field>
+            <field name="res_model">my.subject.student</field>
+            <field name="view_mode">form</field>
+            <field name="views"
+                   eval="[(ref('course_subjects_form')),'form']"/>
+            <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_student'))]"/>
+        </record>
+    </data>
+</odoo>

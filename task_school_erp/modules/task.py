@@ -13,15 +13,13 @@ class Task(models.Model):
                            default=lambda self: _('New'))
 
     # TO-DO  check in Readme "To Do #1"
-    created_by = fields.Many2one(comodel_name='teacher.teacher',
+    created_by = fields.Many2one(comodel_name='administration.administration',
                                  string='Created by',
-                                 default=lambda self: self.env['teacher.teacher'].search(
-                                     [('user_id', '=', self.env.uid)], limit=1),
                                  readonly=True)
 
     teacher_id = fields.Many2one(comodel_name='teacher.teacher', )
 
-    created_for = fields.Many2one(comodel_name='teacher.teacher',
+    created_for = fields.Many2one(comodel_name='teacher.teacher',compute='_compute_created_for',
                                   string="Created for",
                                   help='Tasks are created only for teachers',tracking=True )
 
@@ -51,6 +49,13 @@ class Task(models.Model):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('task')
         return super().create(vals)
         # =================== Per Sequence Generator ===================
+
+    @api.depends('create_uid')
+    def _compute_created_for(self):
+        for rec in self:
+            rec.created_by = self.env['administration.administration'].search([('user_id','=',rec.created_by.id)],limit=1)
+
+
 
     @api.depends('created_for')
     def _compute_check_user(self):

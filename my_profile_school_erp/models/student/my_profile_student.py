@@ -5,7 +5,7 @@ class MyProfileStudent(models.Model):
     _name = 'my.profile.student'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students')
+    student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id')
 
     name = fields.Char(related='student_id.name')
     surname = fields.Char(related='student_id.surname')
@@ -26,7 +26,7 @@ class MyProfileStudent(models.Model):
     faculty = fields.Selection(related='student_id.faculty')
     year = fields.Selection(related='student_id.year')
 
-    @api.onchange('user_id')
+    @api.depends('user_id')
     def _compute_student_id(self):
         """
         Autofill the fields
@@ -37,10 +37,10 @@ class MyProfileStudent(models.Model):
 
     def action_print_report(self):
         """
-        To Generate the report with a button in the profile (ogrenci belgisis gibi)
+        To Generate the report and take the information in a pdf
         """
         report = self.env['student.info.report']
-        pdf_base64 = report.generate_pdf(self)
+        pdf_base64 = report.generate_pdf_student(self)
 
         attachment = self.env['ir.attachment'].create({
             'name': f'Student_Profile_{self.name}.pdf',
@@ -53,5 +53,5 @@ class MyProfileStudent(models.Model):
         return {
             'type': 'ir.actions.act_url',
             'url': f'/web/content/{attachment.id}?download=true',
-            'target': 'self',
+            'target': 'new',
         }

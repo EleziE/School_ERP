@@ -9,10 +9,21 @@
                 <form create="False" delete="False" duplicate="False" edit="False">
                     <sheet>
                         <group>
+                            <field name="user_id" invisible="True"/>
                             <field name="faculty_name"/>
                             <field name="year"/>
                             <field name="semester"/>
                         </group>
+                        <notebook>
+                            <page name="Subject's">
+                                <field name="subject_ids" readonly="True">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -22,8 +33,10 @@
             <field name="name">Student Subject</field>
             <field name="res_model">my.subject.student</field>
             <field name="view_mode">form</field>
-            <field name="views"
-                   eval="[(ref('my_profile_subjects_form')),'form']"/>
+            <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('my_profile_subjects_form')})
+    ]"/>
             <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_student'))]"/>
         </record>
     </data>
