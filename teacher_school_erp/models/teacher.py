@@ -42,7 +42,8 @@ class Teacher(models.Model):
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-    email = fields.Char(string='Email',)
+    email = fields.Char(string='Email',related='user_id.login')
+    external_email = fields.Char(string='External Email',help='The email that is personal not the one that we use to log in')
 
     @api.model
     def create(self, vals):
