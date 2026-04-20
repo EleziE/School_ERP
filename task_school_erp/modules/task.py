@@ -13,13 +13,13 @@ class Task(models.Model):
                            default=lambda self: _('New'))
 
     # TO-DO  check in Readme "To Do #1"
-    created_by = fields.Many2one(comodel_name='administration.administration',
+    created_by = fields.Many2one(comodel_name='teacher.teacher',
                                  string='Created by',
                                  readonly=True)
 
     teacher_id = fields.Many2one(comodel_name='teacher.teacher', )
 
-    created_for = fields.Many2one(comodel_name='teacher.teacher',compute='_compute_created_for',
+    created_for = fields.Many2one(comodel_name='teacher.teacher',
                                   string="Created for",
                                   help='Tasks are created only for teachers',tracking=True )
 
@@ -53,7 +53,7 @@ class Task(models.Model):
     @api.depends('create_uid')
     def _compute_created_for(self):
         for rec in self:
-            rec.created_by = self.env['administration.administration'].search([('user_id','=',rec.created_by.id)],limit=1)
+            rec.created_by = self.env['teacher.teacher'].search([('user_id','=',rec.created_by.id)],limit=1)
 
 
 

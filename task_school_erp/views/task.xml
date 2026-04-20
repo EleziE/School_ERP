@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" optional="hide"/>
-                <field name="created_by" domain="[('member_type','=','administrator')]" optional="hide"/>
+                <field name="created_by" domain="[('member_type','=','teacher')]" optional="hide"/>
                 <field name="created_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
