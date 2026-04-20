@@ -71,6 +71,7 @@ class Student(models.Model):
                                                    "image/png,"
                                                    "image/jpeg")
     year = fields.Selection(string='Year',related='subject_id.year',readonly=False,store=True)
+    semester = fields.Selection(related='subject_id.semester')
     faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False,store=True)
 
     @api.model
