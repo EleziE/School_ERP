@@ -6,7 +6,7 @@ class MySubjects(models.Model):
     _rec_name = 'name'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students',compute='_compute_student_id')
+    student_id = fields.Many2one(comodel_name='students.students',compute='_compute_student_id',store=True)
     subject_ids = fields.Many2many(comodel_name='subject.subject')
 
     faculty_name = fields.Selection(related='student_id.faculty',readonly=False)
