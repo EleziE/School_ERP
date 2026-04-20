@@ -60,8 +60,7 @@ class StudentAPI(http.Controller):
         return Response(
             json.dumps(data),
             content_type='application/json',
-            status=200
-        )
+            status=200)
 
     @http.route('/api/student/create_student', type='http', auth='user', methods=['POST'], csrf=False)
     def create_student(self):
