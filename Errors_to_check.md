@@ -153,5 +153,4 @@ def pay_finance(self):
 Recheck in task why you cant enter the name of the teacher 
 ######################## 4/20/2026 #########################
 
-First you should enter the db name and the login and username with json format at the localhost:...../web/authernication ore something like that than the GET requests will work...
-as for the POST Still a problem
+First you should enter the db name and the login and username with json format at the localhost:...../web/authernication ore something like that than the GET requests will work

@@ -66,28 +66,29 @@ class StudentAPI(http.Controller):
     @http.route('/api/student/create_student', type='http', auth='user', methods=['POST'], csrf=False)
     def create_student(self):
 
-        data = request.jsonrequest
-        try:
-            student = request.env['students.students'].create({
-                'name': data.get('name'),
-                'surname': data.get('surname'),
-                'email': data.get('email'),
-                'state': data.get('state'),
-                'father_name': data.get('father_name'),
-                'mother_name': data.get('mother_name'),
-                'external_email': data.get('external_email'),
-                'gender': data.get('gender'),
-                'dob': data.get('dob'),
-                'blood_type': data.get('blood_type'),
-                'year': data.get('year'),
-                'faculty': data.get('faculty'),
-                'semester': data.get('semester'),
+        data = json.loads(request.httprequest.data)
 
-            })
+        student = request.env['students.students'].create({
+            'name': data.get('name'),
+            'surname': data.get('surname'),
+            'email': data.get('login'),
+            'state': data.get('state'),
+            'father_name': data.get('father_name'),
+            'mother_name': data.get('mother_name'),
+            'external_email': data.get('external_email'),
+            'gender': data.get('gender'),
+            'dob': data.get('dob'),
+            'blood_type': data.get('blood_type'),
+            'year': data.get('year'),
+            'faculty': data.get('faculty'),
+            'semester': data.get('semester'),
+
+        })
+        try:
             return Response(
-            json.dumps({
-                'message': 'Student created!',
-                'status': 200, }),
+                json.dumps({
+                    'message': 'Student created!',
+                    'status': 200, }),
                 content_type='application/json;charset=utf-8', status=200)
 
         except ValidationError as e:
