@@ -5,28 +5,35 @@
         <menuitem id="student"
                   name="S"
                   web_icon="my_profile_school_erp,static/description/icon.png"
-                  groups="base_school_erp.group_school_student"/>
+                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
         <!--My Profile (Submenu sequence = 0)-->
         <menuitem id="my_profile"
                   name="My Profile"
                   parent="student"
                   sequence="0"
                   action="action_my_profile_student"
-                  groups="base_school_erp.group_school_student"/>
+                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
         <!--My Finance (Submenu sequence = 1)-->
         <menuitem id="my_finance_student"
                   name="My Finance"
                   action="action_my_finance_student"
                   sequence="1"
                   parent="student"
-                  groups="base_school_erp.group_school_student"/>
+                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
         <!--My Subject (Submenu sequence = 2)-->
         <menuitem id="my_subject_student"
                   name="My Subject"
                   action="action_my_subject_student"
                   sequence="2"
                   parent="student"
-                  groups="base_school_erp.group_school_student"/>
+                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
+         <!--My Curse Subject (Submenu sequence = 3)-->
+        <menuitem id="curse_subject_student_"
+                  name="Course Subject"
+                  action="action_course_subject"
+                  sequence="3"
+                  parent="student"
+                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
 
 
         <!--Teacher-->

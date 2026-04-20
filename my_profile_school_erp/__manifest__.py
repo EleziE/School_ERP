@@ -10,13 +10,23 @@
     'data': [
         # Security
         'security/ir.model.access.csv',
+
+
+
         # Teacher Views
         'views/teacher/my_profile_teacher.xml',
         'views/teacher/my_tasks_teacher.xml',
+
+
+
         # Student Views
         'views/student/my_profile_student.xml',
         'views/student/my_finances_student.xml',
         'views/student/my_subjects_student.xml',
+        'views/student/course_subject.xml',
+
+
+
         # Menu-item's
         'views/menu.xml',
     ],
