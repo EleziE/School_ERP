@@ -1,12 +1,13 @@
 from odoo import http
-from odoo.http import request,Response
+from odoo.exceptions import ValidationError
+from odoo.http import request, Response
 import json
+
 
 class StudentAPI(http.Controller):
 
-
-    @http.route('/api/student/<student_id>', type='http', auth='public', methods=['GET'],csrf=False)
-    def get_student_info(self,student_id ):
+    @http.route(['/api/student/<student_id>'], type='http', auth='user', methods=['GET'], csrf=False)
+    def get_student_info(self, student_id):
         """
         API to take information with student id
         """
@@ -35,8 +36,7 @@ class StudentAPI(http.Controller):
             json.dumps(data),
             content_type='application/json;charset=utf-8', status=200)
 
-
-    @http.route('/api/student/list_students', type='http', auth='user', methods=['GET'])
+    @http.route(['/api/student/list_students'], type='http', auth='user', methods=['GET'], csrf=False)
     def get_students(self):
         """
         List all the students that exist
@@ -63,4 +63,47 @@ class StudentAPI(http.Controller):
             status=200
         )
 
+    @http.route('/api/student/create_student', type='http', auth='user', methods=['POST'], csrf=False)
+    def create_student(self):
 
+        data = json.loads(request.httprequest.data)
+
+        if data.get('member_type') != 'student':
+            return Response(
+                json.dumps({'message': 'This API is only for creation of Students'}),
+                content_type='application/json;charset=utf-8', status=400)
+
+        student = request.env['students.students'].create({
+            'name': data.get('name'),
+            'surname': data.get('surname'),
+            'email': data.get('login'), # required
+            'state': data.get('state'),
+            'father_name': data.get('father_name'),
+            'mother_name': data.get('mother_name'),
+            'external_email': data.get('external_email'),
+            'gender': data.get('gender'),
+            'dob': data.get('dob'),
+            'blood_type': data.get('blood_type'),
+            'year': data.get('year'),
+            'faculty': data.get('faculty'),
+            'semester': data.get('semester'),
+            'member_type': data.get('member_type'), # required
+
+        })
+        try:
+            return Response(
+                json.dumps({
+                    'message': 'Student created!',
+                    'status': 200, }),
+                content_type='application/json;charset=utf-8', status=200)
+
+        except ValidationError as e:
+            return Response(
+                json.dumps({'message': str(e), 'status': 400}),
+                content_type='application/json;charset=utf-8', status=400)
+
+        except Exception as e:
+            return Response(
+                json.dumps({'message': str(e), 'status': 500}),
+                content_type='application/json;charset=utf-8', status=500
+            )

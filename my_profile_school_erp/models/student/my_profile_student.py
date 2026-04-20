@@ -5,7 +5,7 @@ class MyProfileStudent(models.Model):
     _name = 'my.profile.student'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id')
+    student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id',store=True)
 
     name = fields.Char(related='student_id.name')
     surname = fields.Char(related='student_id.surname')
