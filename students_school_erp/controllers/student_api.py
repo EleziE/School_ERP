@@ -68,10 +68,15 @@ class StudentAPI(http.Controller):
 
         data = json.loads(request.httprequest.data)
 
+        if data.get('member_type') != 'student':
+            return Response(
+                json.dumps({'message': 'This API is only for creation of Students'}),
+                content_type='application/json;charset=utf-8', status=400)
+
         student = request.env['students.students'].create({
             'name': data.get('name'),
             'surname': data.get('surname'),
-            'email': data.get('login'),
+            'email': data.get('login'), # required
             'state': data.get('state'),
             'father_name': data.get('father_name'),
             'mother_name': data.get('mother_name'),
@@ -82,6 +87,7 @@ class StudentAPI(http.Controller):
             'year': data.get('year'),
             'faculty': data.get('faculty'),
             'semester': data.get('semester'),
+            'member_type': data.get('member_type'), # required
 
         })
         try:
@@ -93,11 +99,11 @@ class StudentAPI(http.Controller):
 
         except ValidationError as e:
             return Response(
-                json.dumps({'message':str(e),'status': 400}),
+                json.dumps({'message': str(e), 'status': 400}),
                 content_type='application/json;charset=utf-8', status=400)
 
         except Exception as e:
             return Response(
-                json.dumps({'message':str(e),'status': 500}),
+                json.dumps({'message': str(e), 'status': 500}),
                 content_type='application/json;charset=utf-8', status=500
             )
