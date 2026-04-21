@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form -->
+        <record id="my_profile_administration_form" model="ir.ui.view">
+            <field name="name">my.profile.administration</field>
+            <field name="model">my.profile.administration</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="member_type" invisible="True"/>
+                                <field name="user_id" invisible="True" readonly="True"
+                                       domain="[('member_type','=','administration')]" options="{'no_open':True}"/>
+                                <field name="name"/>
+                                <field name="surname"/>
+                                <field name="email" />
+                                <field name="external_email" />
+                            </group>
+                            <group>
+                                <field name="gender" />
+                                <field name="dob"/>
+                                <field name="blood_type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Action -->
+        <record id="action_my_profile_administration" model="ir.actions.act_window">
+            <field name="name">Student Profile</field>
+            <field name="res_model">my.profile.administration</field>
+            <field name="view_mode">form</field>
+            <field name="views"
+                   eval="[(ref('my_profile_administration_form')),'form']"/>
+            <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_administration'))]"/>
+        </record>
+    </data>
+</odoo>
