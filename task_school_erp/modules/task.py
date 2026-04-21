@@ -15,7 +15,7 @@ class Task(models.Model):
     # TO-DO  check in Readme "To Do #1"
     created_by = fields.Many2one(comodel_name='teacher.teacher',
                                  string='Created by',
-                                 readonly=True)
+                                 readonly=True,compute='_compute_created_for',)
 
     teacher_id = fields.Many2one(comodel_name='teacher.teacher', )
 
@@ -53,7 +53,7 @@ class Task(models.Model):
     @api.depends('create_uid')
     def _compute_created_for(self):
         for rec in self:
-            rec.created_by = self.env['teacher.teacher'].search([('user_id','=',rec.created_by.id)],limit=1)
+            rec.created_by = self.env.uid
 
 
 

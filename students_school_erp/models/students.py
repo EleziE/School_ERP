@@ -72,6 +72,7 @@ class Student(models.Model):
     year = fields.Selection(string='Year',related='subject_id.year',readonly=False,store=True)
     semester = fields.Selection(related='subject_id.semester')
     faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False,store=True)
+    check_graduated = fields.Boolean(default=False,compute='graduate_fella')
 
     @api.model
     def create(self, vals):
@@ -98,7 +99,10 @@ class Student(models.Model):
 
         return super().create(vals)
 
-
+    @api.depends('state')
+    def graduate_fella(self):
+        if self.state == 'graduated':
+            check_graduated = True
 
     # TO-DO Recheck it (understand it)
     # Open My profile with right records
@@ -113,8 +117,8 @@ class Student(models.Model):
     #         'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')],
     #         'target': 'current',
     #     }
-
     ############################ Wizards ###########################################
+
     def action_open_suspend_wizard(self):
         """
         Wizard: don't know what it does yet
@@ -152,14 +156,13 @@ class Student(models.Model):
             'target': 'new',
         }
 
+
     def action_graduated(self):
         self.state = 'graduated'
     def action_graduated_reverse(self):
         self.state = 'active'
-
     def action_active(self):
         self.state = 'active'
-
     def action_inactive(self):
         self.state = 'inactive'
 
@@ -169,7 +172,6 @@ class Student(models.Model):
         ('unique_user_id', 'UNIQUE (user_id)', 'This User ID already exists.'),
         ('dob_check', 'CHECK(dob < CURRENT_DATE)', 'Date of birth must be in the past.')
     ]
-
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
         for rec in self:
@@ -177,7 +179,6 @@ class Student(models.Model):
                 raise ValidationError(
                     f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
                 )
-
     @api.constrains('dob')
     def check_dob(self):
         for rec in self:
