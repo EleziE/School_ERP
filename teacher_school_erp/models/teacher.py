@@ -9,6 +9,9 @@ class Teacher(models.Model):
 
     user_id = fields.Many2one(comodel_name='res.users',
                               required=True,)
+    sequence = fields.Char(string='Teacher ID: ',
+                           readonly=True,
+                           default=lambda self: _('New'))
     name = fields.Char(string='Name',
                        store=True,
                        tracking=True)
@@ -36,19 +39,25 @@ class Teacher(models.Model):
     class_room_id = fields.Many2many(comodel_name='class.rooms')
     member_type = fields.Selection(related='user_id.member_type',
                                    readonly=True)
-    sequence = fields.Char(string='Teacher ID: ',
-                           readonly=True,
-                           default=lambda self: _('New'))
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-    email = fields.Char(string='Email',related='user_id.login')
-    external_email = fields.Char(string='External Email',help='The email that is personal not the one that we use to log in')
+    email = fields.Char(string='Email',related='user_id.login',
+                        required=True)
+    external_email = fields.Char(string='External Email',
+                                 help='The email that is personal not the one that we use to log in')
 
     @api.model
     def create(self, vals):
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher')
+
+        if not vals.get('email'):
+            raise ValueError("Email is a must, it can't be left empty !!!")
+
+        if not vals.get('name'):
+            raise ValueError("Name is a must, it can't be left empty !!!")
+
 
         access_rights = self.env.ref('base_school_erp.group_school_teacher')
         internal_user = self.env.ref('base.group_user')
@@ -63,8 +72,6 @@ class Teacher(models.Model):
                 (4,internal_user.id),]
         })
         vals ['user_id'] = user.id
-        print('A teacher was created')
-
         return super().create(vals)
 
     @api.constrains('user_id')
@@ -94,7 +101,8 @@ class Teacher(models.Model):
             'sequence', 'member_type'
         ]
         if any(f in vals for f in restricted_fields):
-            if not self.env.user.has_group('base_school_erp.group_school_admin','base_school_erp.group_school_administration'):
+            if (not self.env.user.has_group('base_school_erp.group_school_admin')
+                    or self.env.user.has_group('base_school_erp.group_school_administration')):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
     ########################################################################

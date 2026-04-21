@@ -8,13 +8,6 @@
             <field name="name">my.finance.student.tree</field>
             <field name="arch" type="xml">
                 <tree>
-<!--                    <header>-->
-<!--                        <button name="action_print_unpaid_pdf"-->
-<!--                                type="object"-->
-<!--                                string="Unpaid PDF"-->
-<!--                                class="btn-primary"/>-->
-<!--                    </header>-->
-
                     <field name="student_id"/>
                     <field name="create_date"/>
                     <field name="paid_date"/>

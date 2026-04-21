@@ -6,6 +6,8 @@ import json
 
 class StudentAPI(http.Controller):
 
+
+###### GET API
     @http.route(['/api/student/<student_id>'], type='http', auth='user', methods=['GET'], csrf=False)
     def get_student_info(self, student_id):
         """
@@ -14,11 +16,11 @@ class StudentAPI(http.Controller):
         student = request.env['students.students'].browse(int(student_id))
 
         if not student.exists():
+            error = 'Student not found, try another ID! '
             return Response(
-                json.dumps({'success': False, 'message': 'student not found'}),
+                json.dumps(error),
                 content_type='application/json;charset=utf-8', status=404)
         data = {
-            'success': True,
             'student_id': student.id,
             'sequence': student.sequence,
             'name': student.name,
@@ -62,15 +64,18 @@ class StudentAPI(http.Controller):
             content_type='application/json',
             status=200)
 
+
+###### POST API
     @http.route('/api/student/create_student', type='http', auth='user', methods=['POST'], csrf=False)
     def create_student(self):
 
         data = json.loads(request.httprequest.data)
 
         if data.get('member_type') != 'student':
+            message = 'This API is only for creation of Students'
             return Response(
-                json.dumps({'message': 'This API is only for creation of Students'}),
-                content_type='application/json;charset=utf-8', status=400)
+                json.dumps(message),
+                content_type='application/json', status=400)
 
         student = request.env['students.students'].create({
             'name': data.get('name'),
@@ -90,10 +95,9 @@ class StudentAPI(http.Controller):
 
         })
         try:
+            message='Student created successfully'
             return Response(
-                json.dumps({
-                    'message': 'Student created!',
-                    'status': 200, }),
+                json.dumps(message),
                 content_type='application/json;charset=utf-8', status=200)
 
         except ValidationError as e:

@@ -15,10 +15,7 @@
                         </group>
                         <notebook>
                             <page name="Subject's">
-                                <field name="subject_ids"
-                                       domain="[('faculty', '=', faculty_name),
-                                                ('year', '=', year),
-                                                ('semester', '=', semester)]"/>
+                                <field name="subject_ids"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -31,8 +28,8 @@
             <field name="name">Course Subject</field>
             <field name="res_model">my.subject.student</field>
             <field name="view_mode">form</field>
-            <field name="views"
-                   eval="[(ref('course_subjects_form')),'form']"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('course_subjects_form')})]"/>
             <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_student'))]"/>
         </record>
     </data>

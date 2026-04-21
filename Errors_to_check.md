@@ -9,9 +9,6 @@ me financen apo duhet per me ba modul tjeter SUBJECT per me e ba ashtu.
 ```
 
 
-ne student form view, pse ne disa prej tyne edhe pse e kan sate != 'graduated' prap si field del (apo ngaqe kam ba
-ndryshim ne db edhe ka met naj gja (prej ne graduated ne activ or whatever))
-
                                                                                         ######################## 4/8/2026 #########################
 ---
 Recheck the previous questions
@@ -130,10 +127,10 @@ pse kur jan autofillen te dhenat ndersa kur nuk jan nuk autofillen
     <field name="enrollment_date" readonly="True"/>
 </group>
 ```
-######################## 4/17/2026 #########################
+                                                                                            ######################## 4/17/2026 #########################
 # nr.100
 
-Why the name of the person who set the state to paid is not being shown in the form view . Where si the error 
+Why the name of the person who set the state to paid is not being shown in the form view . Where is the error 
 
 ---
 ```python
@@ -150,7 +147,34 @@ def pay_finance(self):
 ```
 ---
 
-Recheck in task why you cant enter the name of the teacher 
-######################## 4/20/2026 #########################
+Recheck in task why you cant enter the name of the teacher
 
-First you should enter the db name and the login and username with json format at the localhost:...../web/authernication ore something like that than the GET requests will work
+                                                                                            ######################## 4/21/2026 #########################
+
+These are all unfinished work. After work dont forget to delete the ones done
+
+- CP-Commit #2 (04/21/2026)
+
+To filter the m2m field after selecting the faculty name , year ,semester so the subject of the selected fields to me shown... is not working
+
+- CP-Commit #3 (04/21/2026)
+
+Wizard + Report 
+
+Trying to make the button that select the state of finance than based on that the PDF report ot be created ...
+the majority of the files created and added in this commit don't work
+
+- CP-Commit #4 (04/21/2026)
+
+Small changes, recheck the previous unsolved problems
+
+- CP-Commit #5 (04/21/2026)
+
+How to make a button that if the state of a student is graduated to not allow to sign in ... or the moment that he signs in to show only a page that tells e message as i want 
+
+I have created a graduated_fella() boolean type function in the student model but how to connect it with the res_users... or to add it there 
+
+
+In TASK module why the create_by is not filled by the uid ... learn the logic (form view ... creating a new task)
+
+Recheck the sequence if it changes as it should after saving the autofilled version (the previous error)
