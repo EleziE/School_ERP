@@ -19,7 +19,6 @@ class Student(models.Model):
     surname = fields.Char(string='Surname',tracking=True)
     father_name = fields.Char(string='Father ',tracking=True)
     mother_name = fields.Char(string='Mother ',tracking=True)
-    # Pse duhet me e ba ti readonly=False , kur ti se ke ba kun readonly=True (ose kshu ma ban te CP)
     email = fields.Char(string='Email',
                         related='user_id.login',
                         readonly=False,tracking=True)
@@ -48,7 +47,7 @@ class Student(models.Model):
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='new',tracking=True)
+                             default='new',tracking=True,required=True)
     suspend_reason = fields.Text(string='Suspension Reason',tracking=True)
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
