@@ -5,23 +5,17 @@ from odoo.exceptions import UserError
 class Task(models.Model):
     _name = 'task'
     _description = 'Task'
-    _rec_name = 'created_for'
+    _rec_name = 'task_for'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    user_id = fields.Many2one(comodel_name='res.users', string='User', )
+    task_for = fields.Many2one(comodel_name='teacher.teacher')
+    task_from = fields.Many2one(comodel_name='administration.administration',readonly=True,compute='_compute_created_for')
+
 
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-
-    # TO-DO  check in Readme "To Do #1"
-    created_by = fields.Many2one(comodel_name='teacher.teacher',
-                                 string='Created by',
-                                 readonly=True,compute='_compute_created_for',)
-
-    teacher_id = fields.Many2one(comodel_name='teacher.teacher', )
-
-    created_for = fields.Many2one(comodel_name='teacher.teacher',
-                                  string="Created for",
-                                  help='Tasks are created only for teachers',tracking=True )
 
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
@@ -30,7 +24,8 @@ class Task(models.Model):
                                          ('completed_early', 'Completed Early'), ],
                               compute='status_based_dates',
                               store=True,
-                              group_expand='_group_expand_status',tracking=True)
+                              group_expand='_group_expand_status',
+                              tracking=True)
 
     starting_date = fields.Date(default=fields.Date.today)
 
@@ -50,17 +45,21 @@ class Task(models.Model):
         return super().create(vals)
         # =================== Per Sequence Generator ===================
 
-    @api.depends('create_uid')
+    @api.depends('user_id')
     def _compute_created_for(self):
         for rec in self:
-            rec.created_by = self.env.uid
+            logged_user = self.env.user
+            result = rec.task_from = self.env['administration.administration'].search([('user_id', '=', logged_user.id)], limit=1)
+            if result:
+                rec.task_from = result
+            else:
+                rec.task_from = False
 
 
-
-    @api.depends('created_for')
+    @api.depends('task_for')
     def _compute_check_user(self):
         for rec in self:
-            rec.check_user_finish_date = (rec.created_for.user_id == self.env.user)
+            rec.check_user_finish_date = (rec.task_for.user_id == self.env.user)
 
     def _group_expand_status(self, states, domain, order):
         return [key for key, val in self._fields['status'].selection]
@@ -84,9 +83,9 @@ class Task(models.Model):
         """
         for rec in self:
             if rec.finish_date:
-                if rec.created_for.user_id != self.env.user:
+                if rec.task_for.user_id != self.env.user:
                     raise UserError(
-                        f'You are not allowed to perform this task, only {rec.created_for.name} is allowed to !')
+                        f'You are not allowed to perform this task, only {rec.task_for.name} is allowed to !')
 
     @api.constrains('status')
     def status_lock(self):
@@ -125,4 +124,4 @@ class Task(models.Model):
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
 
-    task_id = fields.One2many(comodel_name='task', inverse_name='created_for', string='My task', readonly=True)
+    task_id = fields.One2many(comodel_name='task', inverse_name='task_for', string='My task', readonly=True)

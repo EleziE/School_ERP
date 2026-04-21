@@ -4,10 +4,6 @@ RECHECK: A ka naj menyr tjeter si me e vendos ne notebook Subject perveq se me e
 me financen apo duhet per me ba modul tjeter SUBJECT per me e ba ashtu.
 
 ---
-```xml
-<field name="graduation_date" invisible=" not user_id and state != 'graduated'"/>
-```
-
 
                                                                                         ######################## 4/8/2026 #########################
 ---
