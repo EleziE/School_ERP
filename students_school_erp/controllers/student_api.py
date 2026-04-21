@@ -6,6 +6,8 @@ import json
 
 class StudentAPI(http.Controller):
 
+
+###### GET API
     @http.route(['/api/student/<student_id>'], type='http', auth='user', methods=['GET'], csrf=False)
     def get_student_info(self, student_id):
         """
@@ -62,6 +64,8 @@ class StudentAPI(http.Controller):
             content_type='application/json',
             status=200)
 
+
+###### POST API
     @http.route('/api/student/create_student', type='http', auth='user', methods=['POST'], csrf=False)
     def create_student(self):
 

@@ -154,3 +154,9 @@ Recheck in task why you cant enter the name of the teacher
 ######################## 4/20/2026 #########################
 
 First you should enter the db name and the login and username with json format at the localhost:...../web/authernication ore something like that than the GET requests will work
+
+
+######################## 4/20/2026 #########################
+- CP-Commit #2 (04/21/2026)
+
+To filter the m2m field after selecting the faculty name , year ,semester so the subject of the selected fields to me shown... is not working
