@@ -8,17 +8,16 @@ class MySubjects(models.Model):
     user_id = fields.Many2one(comodel_name='res.users')
     student_id = fields.Many2one(comodel_name='students.students', compute='_compute_student_id', store=True)
     subject_ids = fields.Many2many(comodel_name='subject.subject',compute='subject_ids_shown')
-
-    faculty_name = fields.Selection(related='student_id.faculty', readonly=False)
-    year = fields.Selection(related='student_id.year', readonly=False)
-    semester = fields.Selection(related='student_id.subject_id.semester', readonly=False)
-
     coursers_subject = fields.Many2many(comodel_name='subject.subject', compute='_compute_courses_subject')
 
+    # Student Related Field
     name = fields.Char(related='student_id.name')
     type = fields.Selection(related='student_id.subject_id.type')
     credits = fields.Integer(related='student_id.subject_id.credits')
     sub_seq = fields.Char(related='student_id.subject_id.sequence')
+    faculty_name = fields.Selection(related='student_id.faculty', readonly=False)
+    year = fields.Selection(related='student_id.year', readonly=False)
+    semester = fields.Selection(related='student_id.subject_id.semester', readonly=False)
 
     @api.onchange('user_id')
     def _compute_student_id(self):

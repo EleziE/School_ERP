@@ -37,7 +37,7 @@ class MyProfileStudent(models.Model):
 
     def action_print_report(self):
         """
-        To Generate the report and take the information in a pdf
+        To Generate the report and take the information in a PDF
         """
         report = self.env['student.info.report']
         pdf_base64 = report.generate_pdf_student(self)
