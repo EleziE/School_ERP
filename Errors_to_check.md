@@ -151,12 +151,27 @@ def pay_finance(self):
 ---
 
 Recheck in task why you cant enter the name of the teacher 
+
 ######################## 4/20/2026 #########################
 
 First you should enter the db name and the login and username with json format at the localhost:...../web/authernication ore something like that than the GET requests will work
 
 
 ######################## 4/20/2026 #########################
+
+These are all unfinished work. After work dont forget to delete the ones done
+
 - CP-Commit #2 (04/21/2026)
 
 To filter the m2m field after selecting the faculty name , year ,semester so the subject of the selected fields to me shown... is not working
+
+- CP-Commit #3 (04/21/2026)
+
+Wizard + Report 
+
+Trying to make the button that select the state of finance than based on that the PDF report ot be created ...
+the majority of the files created and added in this commit don't work
+
+- CP-Commit #4 (04/21/2026)
+
+Small changes, recheck the previous unsolved problems

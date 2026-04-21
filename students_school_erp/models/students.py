@@ -154,6 +154,8 @@ class Student(models.Model):
 
     def action_graduated(self):
         self.state = 'graduated'
+    def action_graduated_reverse(self):
+        self.state = 'active'
 
     def action_active(self):
         self.state = 'active'

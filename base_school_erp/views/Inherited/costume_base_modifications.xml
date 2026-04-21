@@ -4,63 +4,70 @@
     <!--All the modifications in base module -->
 
 
-    <!--Project menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Project menuitem to be visible only for the selected groups-->
     <record id="project.menu_main_pm" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Calendar menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Calendar menuitem to be visible only for the selected groups-->
     <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Appointments menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Appointments menuitem to be visible only for the selected groups-->
     <record id="appointment.main_menu_appointments" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Knowledge menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Knowledge menuitem to be visible only for the selected groups-->
     <record id="knowledge.knowledge_menu_root" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--To-DO menuitem to be visible only for the admin (not teacher and student)-->
+    <!--To-DO menuitem to be visible only for the selected groups-->
     <record id="project_todo.menu_todo_todos" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Settings menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Settings menuitem to be visible only for the selected groups-->
     <record id="base.menu_administration" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Apps menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Apps menuitem to be visible only for the selected groups-->
     <record id="base.menu_apps" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Link Tracker menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Link Tracker menuitem to be visible only for the selected groups-->
     <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Planing  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Planing  menuitem to be visible only for the selected groups-->
     <record id="planning.planning_menu_root" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Mass Mailing  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Mass Mailing  menuitem to be visible only for the selected groups-->
     <record id="mass_mailing.mass_mailing_menu_root" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Employees  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Employees  menuitem to be visible only for the selected groups-->
     <record id="hr.menu_hr_root" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Surveys  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Surveys  menuitem to be visible only for the selected groups-->
     <record id="survey.menu_surveys" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Sign  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--Sign  menuitem to be visible only for the selected groups-->
     <record id="sign.menu_document" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
-    <!--Discuss  menuitem to be visible only for the admin (not teacher and student)-->
+    <!--
+    Discuss  menuitem to be visible only for the selected groups
+    Name has been changed
+    -->
     <record id="mail.menu_root_discuss" model="ir.ui.menu">
-        <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
+        <field name="name">Messenger</field>
+        <field name="groups_id" eval="[(6, 0, [
+        ref('base_school_erp.group_school_admin'),
+        ref('base_school_erp.group_school_administration'),
+        ref('base_school_erp.group_school_teacher')])]"/>
     </record>
-
+    <!--Contacts  menuitem to be visible only for the selected groups-->
     <record id="contacts.menu_contacts" model="ir.ui.menu">
         <field name="groups_id" eval="[(6, 0, [ref('base_school_erp.group_school_admin')])]"/>
     </record>
@@ -100,5 +107,4 @@
     <record id="base.open_module_tree" model="ir.actions.act_window" forcecreate="False">
         <field name="view_mode">tree,kanban,form</field>
     </record>
-
 </odoo>

@@ -40,26 +40,23 @@ class Administration(models.Model):
 
     @api.model
     def create(self, vals):
-    # =================== Per Sequence Generator ====================
+    # =================== For Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('administration.administration')
-    # =================== Per Sequence Generator ===================
 
-
-    # =================== Per Access Rights Generator ===================
+    # =================== For Access Rights Generator ===================
         access_rights = self.env.ref('base_school_erp.group_school_administration')
         internal_user = self.env.ref('base.group_user')
 
         user = self.env['res.users'].create({
             'name': vals.get('name'),
             'login': vals.get('login'),
-            'member_type': 'administrator',
+            'member_type': 'administration',
             'groups_id': [
                 (4, access_rights.id),
                 (4, internal_user.id), ]
         })
         vals['user_id'] = user.id
         print('A administration worker was created')
-    # =================== Per Access Rights Generator ===================
 
         return super().create(vals)
