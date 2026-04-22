@@ -1,5 +1,5 @@
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, AccessError
 
 
 class Task(models.Model):
@@ -8,14 +8,17 @@ class Task(models.Model):
     _rec_name = 'task_for'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    user_id = fields.Many2one(comodel_name='res.users', string='User', )
-    task_for = fields.Many2one(comodel_name='teacher.teacher')
-    task_from = fields.Many2one(comodel_name='administration.administration',readonly=True,compute='_compute_created_for')
-
-
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
+    user_id = fields.Many2one(comodel_name='res.users', string='User', )
+    task_for = fields.Many2one(comodel_name='teacher.teacher')
+    task_from = fields.Many2one(comodel_name='administration.administration',
+                                readonly=True,
+                                compute='_compute_task_for',
+                                store=True)
+
+
 
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
@@ -43,17 +46,31 @@ class Task(models.Model):
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('task')
         return super().create(vals)
-        # =================== Per Sequence Generator ===================
+
+
+    @api.model
+    def write(self, vals):
+        """
+        Who has the rights to modify the records
+        """
+        if not vals.get(self.env.user.has_group('base_school_erp.group_school_administration')or
+                    self.env.user.has_group('base_school_erp.group_school_admin')):
+            raise AccessError('You are not allowed to perform this task!')
+
+        return super().write(vals)
+
+
+
 
     @api.depends('user_id')
-    def _compute_created_for(self):
+    def _compute_task_for(self):
         for rec in self:
             logged_user = self.env.user
             result = rec.task_from = self.env['administration.administration'].search([('user_id', '=', logged_user.id)], limit=1)
-            if result:
-                rec.task_from = result
-            else:
-                rec.task_from = False
+            # if result:
+            #     rec.task_from = result
+            # else:
+            #     rec.task_from = False
 
 
     @api.depends('task_for')
