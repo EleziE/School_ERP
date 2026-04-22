@@ -105,24 +105,6 @@ class Teacher(models.Model):
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
 
-    @api.model
-    def open_my_profile(self):
-        """
-        Return action that opens the logged-in teacher's profile
-        Made with pure ChatGPT how I don't know hy hy hy
-        """
-        teacher = self.env['teacher.teacher'].search([('user_id', '=', self.env.uid)], limit=1)
-        if not teacher:
-            teacher = self.create({'user_id': self.env.uid})
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'My Profile',
-            'res_model': 'teacher.teacher',
-            'res_id': teacher.id,
-            'view_mode': 'form',
-            'target': 'current',
-            'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
-        }
 
 
 class Student(models.Model):
