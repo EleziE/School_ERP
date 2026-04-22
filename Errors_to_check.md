@@ -36,7 +36,4 @@ In TASK module why the create_by is not filled by the uid ... learn the logic (f
 Recheck the sequence if it changes as it should after saving the autofilled version (the previous error)
 
                                                                                             ######################## 4/21/2026 #########################
----
-- CP-Commit #7 (04/22/2026), 
 
-Pse ne my_profile_student , kur logohem me user student, jo admin, nuk me del buttoni print info 

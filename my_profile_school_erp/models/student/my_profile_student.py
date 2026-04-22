@@ -19,6 +19,7 @@ class MyProfileStudent(models.Model):
     sequence = fields.Char(related='student_id.sequence')
     gender = fields.Selection(related='student_id.gender')
     email = fields.Char(related='student_id.email')
+    external_email = fields.Char(related='student_id.external_email')
     suspend_reason = fields.Text(related='student_id.suspend_reason')
     enrollment_date = fields.Date(related='student_id.enrollment_date')
     graduation_date = fields.Date(related='student_id.graduation_date')

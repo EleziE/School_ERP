@@ -1,6 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
-
+from datetime import datetime
 
 class Student(models.Model):
     _name = 'students.students'

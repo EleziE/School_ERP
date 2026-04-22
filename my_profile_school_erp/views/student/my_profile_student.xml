@@ -17,24 +17,24 @@
                                     invisible="state in ('suspended','graduated','new','rejected')"/>
                         </header>
                         <group>
-                            <group>
+                            <group name="Required Information">
                                 <field name="member_type" invisible="True"/>
-                                <field name="user_id" invisible="True" readonly="True"
-                                       domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+                                <field name="user_id" invisible="True"/>
                                 <field name="sequence"/>
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>
                                 <field name="faculty"/>
                                 <field name="year"/>
-                                <field name="gender" readonly="True"/>
-                                <field name="enrollment_date" readonly="True"/>
                             </group>
-                            <group>
+                            <group name="Extra Information">
+                                <field name="gender" />
                                 <field name="dob"/>
-                                <field name="email" readonly="True"/>
+                                <field name="email" />
+                                <field name="enrollment_date" />
+                                <field name="external_email" />
                                 <field name="blood_type"/>
-                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
+                                <field name="suspend_reason"  invisible="state != 'suspended'"/>
                             </group>
                         </group>
                         <div class="alert alert-warning" role="alert">
