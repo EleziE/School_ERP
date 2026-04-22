@@ -35,5 +35,8 @@ In TASK module why the create_by is not filled by the uid ... learn the logic (f
 
 Recheck the sequence if it changes as it should after saving the autofilled version (the previous error)
 
-                                                                                            ######################## 4/21/2026 #########################
+                                                                                            ######################## 4/22/2026 #########################
 
+- Pse tek moduli my profile teacher ... edhe pse admini nuk asht teacher prap i del emri tek fieldi name kurse te kte tjerat S edhe A nuk i del  
+
+- tek moduli student, def graduate_fella ... shihe qa ban edhe a duhet

@@ -17,7 +17,7 @@
                                     invisible="state in ('suspended','graduated','new','rejected')"/>
                         </header>
                         <group>
-                            <group name="Required Information">
+                            <group name="Required Information" string="Required Information">
                                 <field name="member_type" invisible="True"/>
                                 <field name="user_id" invisible="True"/>
                                 <field name="sequence"/>
@@ -27,14 +27,14 @@
                                 <field name="faculty"/>
                                 <field name="year"/>
                             </group>
-                            <group name="Extra Information">
-                                <field name="gender" />
+                            <group name="Extra Information" string="Extra Information">
+                                <field name="gender"/>
                                 <field name="dob"/>
-                                <field name="email" />
-                                <field name="enrollment_date" />
-                                <field name="external_email" />
+                                <field name="email"/>
+                                <field name="enrollment_date"/>
+                                <field name="external_email"/>
                                 <field name="blood_type"/>
-                                <field name="suspend_reason"  invisible="state != 'suspended'"/>
+                                <field name="suspend_reason" invisible="state != 'suspended'"/>
                             </group>
                         </group>
                         <div class="alert alert-warning" role="alert">
@@ -44,10 +44,15 @@
                             <br/>
                             <i class="fa fa-envelope "/> admin@admin.com
                             <br/>
-                            <br/>
                             <i class="fa fa-phone"/> +355 XXX XXXX
                         </div>
                     </sheet>
+                    <div class="oe_chatter"
+                         groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>

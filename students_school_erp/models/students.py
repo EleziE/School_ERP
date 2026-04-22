@@ -2,6 +2,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
 from datetime import datetime
 
+
 class Student(models.Model):
     _name = 'students.students'
     _description = 'Students'
@@ -112,24 +113,11 @@ class Student(models.Model):
         if self.state == 'graduated':
             check_graduated = True
 
-    # TO-DO Recheck it (understand it)
-    # Open My profile with right records
-    # def action_open_my_profile(self):
-    #     student = self.search([('user_id', '=', self.env.uid)], limit=1)
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'My Profile',
-    #         'res_model': 'students.students',
-    #         'view_mode': 'form',
-    #         'res_id': student.id,
-    #         'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')],
-    #         'target': 'current',
-    #     }
     ############################ Wizards ###########################################
 
     def action_open_suspend_wizard(self):
         """
-        Wizard: don't know what it does yet
+        Wizard: to fill the suspend reason for the student
         """
         return {
             'type': 'ir.actions.act_window',
