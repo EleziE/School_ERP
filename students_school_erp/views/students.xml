@@ -77,10 +77,10 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_chatter" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin">
-                        <field name="message_follower_ids" group="base_school_erp.group_school_admin"/>
-                        <field name="activity_ids" />
-                        <field name="message_ids"/>
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids"  />
+                        <field name="message_ids" />
                     </div>
                 </form>
             </field>
