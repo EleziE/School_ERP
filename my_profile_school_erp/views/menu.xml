@@ -27,7 +27,7 @@
                   sequence="2"
                   parent="student"
                   groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
-         <!--My Curse Subject (Submenu sequence = 3)-->
+        <!--My Curse Subject (Submenu sequence = 3)-->
         <menuitem id="curse_subject_student_"
                   name="Course Subject"
                   action="action_course_subject"
@@ -55,5 +55,15 @@
                   action="action_my_task_teacher"
                   sequence="1"
                   groups="base_school_erp.group_school_teacher"/>
+        <!--Administration-->
+        <menuitem id="administration"
+                  name="A"
+                  web_icon="my_profile_school_erp,static/description/icon.png"
+                  groups="base_school_erp.group_school_administration"/>
+        <menuitem id="my_profile_administration"
+                  name="My Profile"
+                  parent="administration"
+                  action="action_my_profile_administration"
+                  sequence="0"/>
     </data>
 </odoo>

@@ -25,7 +25,8 @@
         'views/student/my_subjects_student.xml',
         'views/student/course_subject.xml',
 
-
+        # Administration
+        'views/administration/my_profile_student.xml',
 
         # Menu-item's
         'views/menu.xml',

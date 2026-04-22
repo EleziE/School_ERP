@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" optional="hide"/>
-                <field name="created_by" domain="[('member_type','=','teacher')]" optional="hide"/>
-                <field name="created_for"/>
+                <field name="task_from" options="{'no_open':True}"/>
+                <field name="task_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
                 <field name="finish_date"/>
@@ -30,12 +30,9 @@
                 <sheet>
                     <group>
                         <field name="sequence"/>
-                        <field name="created_by"
-                               options="{'no_open': True, 'no_create':True}"/>
+                        <field name="task_from"/>
+                        <field name="task_for"/>
                         <field name="check_user_finish_date" invisible="True"/>
-                        <field name="created_for"
-                               domain="[('id','!=',created_by)]"
-                               options="{'no_open': True, 'no_create':True}"/>
                         <field name="starting_date"/>
                         <field name="planned_finish_date"/>
                         <field name="finish_date" invisible="not check_user_finish_date"/>
@@ -43,7 +40,8 @@
                                placeholder="Information about the task..."/>
                     </group>
                 </sheet>
-                <div class="oe_chatter" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
+                <div class="oe_chatter"
+                     groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
@@ -57,16 +55,15 @@
         <field name="model">task</field>
         <field name="arch" type="xml">
             <search>
-                <field name="created_for" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                <field name="created_by"/>
-                <field name="sequence" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+                <field name="sequence"
+                       groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                 <filter name="status" string="Completed" domain="[('status','=','completed')]"/>
                 <filter name="status" string="Delayed" domain="[('status','=','completed_delayed')]"/>
                 <filter name="status" string="Early" domain="[('status','=','completed_early')]"/>
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
-                    <filter name="member" string="User" context="{'group_by':'created_for'}"/>
+                    <filter name="member" string="User" context="{'group_by':'user_id'}"/>
                 </group>
             </search>
         </field>
