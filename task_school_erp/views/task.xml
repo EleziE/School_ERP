@@ -30,7 +30,7 @@
                 <sheet>
                     <group>
                         <field name="sequence"/>
-                        <field name="task_from"/>
+                        <field name="task_from" options="{'no_open':True}"/>
                         <field name="task_for"/>
                         <field name="check_user_finish_date" invisible="True"/>
                         <field name="starting_date"/>
@@ -41,7 +41,7 @@
                     </group>
                 </sheet>
                 <div class="oe_chatter"
-                     groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
+                     groups="base_school_erp.group_school_admin">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
@@ -79,6 +79,7 @@
     </record>
     <!--Only Admins are allowed to see the icon of Task module-->
     <record id="task" model="ir.ui.menu">
+        <field name="name">Tasks</field>
         <field name="groups_id"
                eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
     </record>

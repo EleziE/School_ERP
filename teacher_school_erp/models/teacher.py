@@ -74,6 +74,22 @@ class Teacher(models.Model):
         vals ['user_id'] = user.id
         return super().create(vals)
 
+    def write(self, vals):
+        """
+        Only Admins can edit this field
+        Not other groups
+        """
+        restricted_fields = [
+            'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
+            'enrollment_date', 'education', 'subject_id', 'class_room_id',
+            'sequence', 'member_type'
+        ]
+        if any(f in vals for f in restricted_fields):
+            if not (self.env.user.has_group('base_school_erp.group_school_admin')
+                    or self.env.user.has_group('base_school_erp.group_school_administration')):
+                raise AccessError("You can't edit these fields.")
+        return super().write(vals)
+
     @api.constrains('user_id')
     def _check_user_not_student(self):
         for rec in self:
@@ -89,41 +105,6 @@ class Teacher(models.Model):
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
 
-    ########################### Security for field #########################
-    '''
-    Only Admins can edit this field
-    Not other groups
-    '''
-    def write(self, vals):
-        restricted_fields = [
-            'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
-            'enrollment_date', 'education', 'subject_id', 'class_room_id',
-            'sequence', 'member_type'
-        ]
-        if any(f in vals for f in restricted_fields):
-            if (not self.env.user.has_group('base_school_erp.group_school_admin')
-                    or self.env.user.has_group('base_school_erp.group_school_administration')):
-                raise AccessError("You can't edit these fields.")
-        return super().write(vals)
-    ########################################################################
-    @api.model
-    def open_my_profile(self):
-        """
-        Return action that opens the logged-in teacher's profile
-        Made with pure ChatGPT how I don't know hy hy hy
-        """
-        teacher = self.env['teacher.teacher'].search([('user_id', '=', self.env.uid)], limit=1)
-        if not teacher:
-            teacher = self.create({'user_id': self.env.uid})
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'My Profile',
-            'res_model': 'teacher.teacher',
-            'res_id': teacher.id,
-            'view_mode': 'form',
-            'target': 'current',
-            'views': [(self.env.ref('teacher_school_erp.teacher_form_view').id, 'form')],
-        }
 
 
 class Student(models.Model):

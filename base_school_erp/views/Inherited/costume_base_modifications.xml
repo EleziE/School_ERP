@@ -66,6 +66,7 @@
         ref('base_school_erp.group_school_admin'),
         ref('base_school_erp.group_school_administration'),
         ref('base_school_erp.group_school_teacher')])]"/>
+        <field name="web_icon">base_school_erp,static/description/discuss.png</field>
     </record>
     <!--Contacts  menuitem to be visible only for the selected groups-->
     <record id="contacts.menu_contacts" model="ir.ui.menu">

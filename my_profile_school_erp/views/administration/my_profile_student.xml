@@ -6,7 +6,7 @@
             <field name="name">my.profile.administration</field>
             <field name="model">my.profile.administration</field>
             <field name="arch" type="xml">
-                <form>
+                <form create="False" edit="False" duplicate="False" delete="False">
                     <sheet>
                         <group>
                             <group>

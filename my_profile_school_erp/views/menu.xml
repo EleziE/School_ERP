@@ -55,11 +55,13 @@
                   action="action_my_task_teacher"
                   sequence="1"
                   groups="base_school_erp.group_school_teacher"/>
+
         <!--Administration-->
         <menuitem id="administration"
                   name="A"
                   web_icon="my_profile_school_erp,static/description/icon.png"
                   groups="base_school_erp.group_school_administration"/>
+        <!--My Profile (Submenu sequence = 0)-->
         <menuitem id="my_profile_administration"
                   name="My Profile"
                   parent="administration"

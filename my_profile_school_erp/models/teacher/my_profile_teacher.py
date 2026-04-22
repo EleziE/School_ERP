@@ -22,31 +22,11 @@ class MyProfileTeacher(models.Model):
 
 
     # Autofill the fields
-    @api.onchange('user_id')
+    @api.depends('user_id')
     def _compute_teacher_id(self):
         logged_user = self.env.user.id
         for rec in self:
              rec.teacher_id = self.env['teacher.teacher'].search([('user_id', '=', logged_user)], limit=1).id
-
-    def print_subjects(self):
-        for rec in self:
-            subject_names = [s.name for s in rec.teacher_id.subject_id]
-            username = rec.teacher_id.name
-            pdf_base64 = rpt._report_generator(user_name=username,subjects=subject_names)
-            print(pdf_base64)
-
-    def print_my_finances(self):
-        for rec in self:
-            my_finances = self.env['finance.finance'].search([('state','=','unpaid')])
-            if my_finances:
-                return {
-                    'name': rec.teacher_id.name,
-                    'state': rec.state,
-                    'amount': rec.teacher_id.amount,
-                    'create_date': rec.create_date,
-                }
-            else:
-                return {'N/A'}
 
     def action_print_report(self):
         """
