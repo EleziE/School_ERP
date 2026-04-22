@@ -74,6 +74,22 @@ class Teacher(models.Model):
         vals ['user_id'] = user.id
         return super().create(vals)
 
+    def write(self, vals):
+        """
+        Only Admins can edit this field
+        Not other groups
+        """
+        restricted_fields = [
+            'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
+            'enrollment_date', 'education', 'subject_id', 'class_room_id',
+            'sequence', 'member_type'
+        ]
+        if any(f in vals for f in restricted_fields):
+            if not (self.env.user.has_group('base_school_erp.group_school_admin')
+                    or self.env.user.has_group('base_school_erp.group_school_administration')):
+                raise AccessError("You can't edit these fields.")
+        return super().write(vals)
+
     @api.constrains('user_id')
     def _check_user_not_student(self):
         for rec in self:
@@ -89,23 +105,6 @@ class Teacher(models.Model):
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
 
-    ########################### Security for field #########################
-    '''
-    Only Admins can edit this field
-    Not other groups
-    '''
-    def write(self, vals):
-        restricted_fields = [
-            'blood_type', 'user_id', 'name', 'surname', 'phone', 'dob',
-            'enrollment_date', 'education', 'subject_id', 'class_room_id',
-            'sequence', 'member_type'
-        ]
-        if any(f in vals for f in restricted_fields):
-            if (not self.env.user.has_group('base_school_erp.group_school_admin')
-                    or self.env.user.has_group('base_school_erp.group_school_administration')):
-                raise AccessError("You can't edit these fields.")
-        return super().write(vals)
-    ########################################################################
     @api.model
     def open_my_profile(self):
         """

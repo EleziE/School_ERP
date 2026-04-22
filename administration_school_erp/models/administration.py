@@ -1,5 +1,5 @@
 from odoo import fields, models, _, api
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, ValidationError
 
 
 class Administration(models.Model):
@@ -81,3 +81,10 @@ class Administration(models.Model):
         if any(field in vals for field in secure_fields):
             pass
         return super().write(vals)
+
+    @api.constrains('dob')
+    def check_dob(self):
+        for rec in self:
+            today = fields.Date.today()
+            if rec.dob and rec.dob > today:
+                raise ValidationError("Date of birth  can't be in the future")
