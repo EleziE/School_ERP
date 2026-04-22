@@ -20,52 +20,39 @@
                   sequence="1"
                   parent="student"
                   groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
-        <!--My Subject (Submenu sequence = 2)-->
-        <menuitem id="my_subject_student"
-                  name="My Subject"
-                  action="action_my_subject_student"
-                  sequence="2"
-                  parent="student"
-                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
-        <!--My Curse Subject (Submenu sequence = 3)-->
-        <menuitem id="curse_subject_student_"
-                  name="Course Subject"
-                  action="action_course_subject"
-                  sequence="3"
-                  parent="student"
-                  groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
-
 
         <!--Teacher-->
         <menuitem id="teacher"
                   name="T"
                   web_icon="my_profile_school_erp,static/description/icon.png"
-                  groups="base_school_erp.group_school_teacher"/>
+                  groups="base_school_erp.group_school_teacher,base_school_erp.group_school_admin"/>
         <!--My Profile (Submenu sequence = 0)-->
         <menuitem id="my_profile_teacher"
                   name="My Profile"
                   parent="teacher"
                   action="action_my_profile_teacher"
                   sequence="0"
-                  groups="base_school_erp.group_school_teacher"/>
+                  groups="base_school_erp.group_school_teacher,base_school_erp.group_school_admin"/>
         <!--My Task's (Submenu sequence = 1)-->
         <menuitem id="my_task's_teacher"
                   name="My Task's"
                   parent="teacher"
                   action="action_my_task_teacher"
                   sequence="1"
-                  groups="base_school_erp.group_school_teacher"/>
+                  groups="base_school_erp.group_school_teacher,base_school_erp.group_school_admin"/>
 
         <!--Administration-->
         <menuitem id="administration"
                   name="A"
                   web_icon="my_profile_school_erp,static/description/icon.png"
-                  groups="base_school_erp.group_school_administration"/>
+                  groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"/>
+
         <!--My Profile (Submenu sequence = 0)-->
         <menuitem id="my_profile_administration"
                   name="My Profile"
                   parent="administration"
                   action="action_my_profile_administration"
+                  groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"
                   sequence="0"/>
     </data>
 </odoo>

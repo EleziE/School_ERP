@@ -12,10 +12,10 @@ class Task(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
     user_id = fields.Many2one(comodel_name='res.users', string='User', )
-    task_for = fields.Many2one(comodel_name='teacher.teacher',tracking=True)
+    task_for = fields.Many2one(comodel_name='teacher.teacher', tracking=True)
     task_from = fields.Many2one(comodel_name='administration.administration',
                                 readonly=True,
-                                compute='_compute_task_for',
+                                default=lambda self: self.env['administration.administration'].search([('user_id', '=', self.env.user.id)], limit=1),
                                 store=True)
 
     status = fields.Selection(selection=[('new', 'New'),
@@ -56,16 +56,6 @@ class Task(models.Model):
 
         return super().write(vals)
 
-    @api.depends('user_id')
-    def _compute_task_for(self):
-        for rec in self:
-            logged_user = self.env.user
-            result = rec.task_from = self.env['administration.administration'].search(
-                [('user_id', '=', logged_user.id)], limit=1)
-            # if result:
-            #     rec.task_from = result
-            # else:
-            #     rec.task_from = False
 
     @api.depends('task_for')
     def _compute_check_user(self):
