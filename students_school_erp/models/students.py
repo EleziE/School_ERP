@@ -1,11 +1,12 @@
 from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, AccessError
+from datetime import datetime
 
 
 class Student(models.Model):
     _name = 'students.students'
     _description = 'Students'
-    _inherit=['mail.thread','mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # Dont know how i did it (learn python baboo se ske gja per terezi )
     sequence = fields.Char(string='Student ID: ',
@@ -15,18 +16,19 @@ class Student(models.Model):
     user_id = fields.Many2one(comodel_name='res.users',
                               invisible=True, )
     name = fields.Char(string='Name',
-                       store=True,tracking=True)
-    surname = fields.Char(string='Surname',tracking=True)
-    father_name = fields.Char(string='Father ',tracking=True)
-    mother_name = fields.Char(string='Mother ',tracking=True)
+                       store=True, tracking=True)
+    surname = fields.Char(string='Surname', tracking=True)
+    father_name = fields.Char(string='Father ', tracking=True)
+    mother_name = fields.Char(string='Mother ', tracking=True)
     email = fields.Char(string='Email',
                         related='user_id.login',
-                        readonly=False,tracking=True)
-    external_email = fields.Char(string='External Email',help='Email to communicate with the user, not from the schools email')
+                        readonly=False, tracking=True)
+    external_email = fields.Char(string='External Email',
+                                 help='Email to communicate with the user, not from the schools email')
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-    dob = fields.Date(string='Date of birth',tracking=True)
+    dob = fields.Date(string='Date of birth', tracking=True)
     blood_type = fields.Selection(selection=[('a+', 'A+'),
                                              ('a-', 'A-'),
                                              ('b+', 'B+'),
@@ -47,8 +49,8 @@ class Student(models.Model):
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='new',tracking=True,required=True)
-    suspend_reason = fields.Text(string='Suspension Reason',tracking=True)
+                             default='new', tracking=True, required=True)
+    suspend_reason = fields.Text(string='Suspension Reason', tracking=True)
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
                         placeholder="+355XX XXX XXXX")
@@ -69,10 +71,10 @@ class Student(models.Model):
                                             accept="application/pdf,"
                                                    "image/png,"
                                                    "image/jpeg")
-    year = fields.Selection(string='Year',related='subject_id.year',readonly=False,store=True)
+    year = fields.Selection(string='Year', related='subject_id.year', readonly=False, store=True)
     semester = fields.Selection(related='subject_id.semester')
-    faculty = fields.Selection(string='Faculty',related='subject_id.faculty',readonly=False,store=True)
-    check_graduated = fields.Boolean(default=False,compute='graduate_fella')
+    faculty = fields.Selection(string='Faculty', related='subject_id.faculty', readonly=False, store=True)
+    check_graduated = fields.Boolean(default=False, compute='graduate_fella')
 
     @api.model
     def create(self, vals):
@@ -99,29 +101,23 @@ class Student(models.Model):
 
         return super().create(vals)
 
+    @api.model
+    def write(self, vals):
+        if not (self.env.user.has_group('base_school_erp.group_school_administration') or
+                self.env.user.has_group('base_school_erp.group_school_admin')):
+            raise AccessError('You do not have the right to change records ! ')
+        return super().write(vals)
+
     @api.depends('state')
     def graduate_fella(self):
         if self.state == 'graduated':
             check_graduated = True
 
-    # TO-DO Recheck it (understand it)
-    # Open My profile with right records
-    # def action_open_my_profile(self):
-    #     student = self.search([('user_id', '=', self.env.uid)], limit=1)
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'My Profile',
-    #         'res_model': 'students.students',
-    #         'view_mode': 'form',
-    #         'res_id': student.id,
-    #         'views': [(self.env.ref('students_school_erp.my_profile_student').id, 'form')],
-    #         'target': 'current',
-    #     }
     ############################ Wizards ###########################################
 
     def action_open_suspend_wizard(self):
         """
-        Wizard: don't know what it does yet
+        Wizard: to fill the suspend reason for the student
         """
         return {
             'type': 'ir.actions.act_window',
@@ -131,7 +127,6 @@ class Student(models.Model):
             'target': 'new',
             'context': {'active_id': self.id},
         }
-
 
     ############################ Buttons ###########################################
     @api.depends('state')
@@ -156,13 +151,15 @@ class Student(models.Model):
             'target': 'new',
         }
 
-
     def action_graduated(self):
         self.state = 'graduated'
+
     def action_graduated_reverse(self):
         self.state = 'active'
+
     def action_active(self):
         self.state = 'active'
+
     def action_inactive(self):
         self.state = 'inactive'
 
@@ -172,6 +169,7 @@ class Student(models.Model):
         ('unique_user_id', 'UNIQUE (user_id)', 'This User ID already exists.'),
         ('dob_check', 'CHECK(dob < CURRENT_DATE)', 'Date of birth must be in the past.')
     ]
+
     @api.constrains('user_id')
     def _check_user_not_teacher(self):
         for rec in self:
@@ -179,6 +177,7 @@ class Student(models.Model):
                 raise ValidationError(
                     f"'{rec.user_id.name}' is already a Teacher and cannot be a Student."
                 )
+
     @api.constrains('dob')
     def check_dob(self):
         for rec in self:

@@ -14,35 +14,45 @@
                                     icon="fa-print"
                                     type="object"
                                     class="btn-secondary"
-                                    invisible="state in ('suspended','graduated','new','rejected')"
-                            />
+                                    invisible="state in ('suspended','graduated','new','rejected')"/>
                         </header>
                         <group>
-                            <group>
+                            <group name="Required Information" string="Required Information">
                                 <field name="member_type" invisible="True"/>
-                                <field name="user_id" invisible="True" readonly="True"
-                                       domain="[('member_type','=','student')]" options="{'no_open':True}"/>
+                                <field name="user_id" invisible="True"/>
                                 <field name="sequence"/>
                                 <field name="name"/>
                                 <field name="surname"/>
                                 <field name="state"/>
                                 <field name="faculty"/>
                                 <field name="year"/>
-                                <field name="gender" readonly="True"/>
-                                <field name="enrollment_date" readonly="True"/>
                             </group>
-                            <group>
+                            <group name="Extra Information" string="Extra Information">
+                                <field name="gender"/>
                                 <field name="dob"/>
-                                    <field name="email" readonly="True"/>
+                                <field name="email"/>
+                                <field name="enrollment_date"/>
+                                <field name="external_email"/>
                                 <field name="blood_type"/>
-                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
+                                <field name="suspend_reason" invisible="state != 'suspended'"/>
                             </group>
                         </group>
                         <div class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-triangle"/>
                             If the information is incorrect, please inform the school administration.
+                            <br/>
+                            <br/>
+                            <i class="fa fa-envelope "/> admin@admin.com
+                            <br/>
+                            <i class="fa fa-phone"/> +355 XXX XXXX
                         </div>
                     </sheet>
+                    <div class="oe_chatter"
+                         groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -51,8 +61,9 @@
             <field name="name">Student Profile</field>
             <field name="res_model">my.profile.student</field>
             <field name="view_mode">form</field>
-            <field name="views"
-                   eval="[(ref('my_profile_student_form')),'form']"/>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('my_profile_student_form')})]"/>
             <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_student'))]"/>
         </record>
     </data>
