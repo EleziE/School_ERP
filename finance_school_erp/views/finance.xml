@@ -54,12 +54,8 @@
                         <field name="reason_extra" invisible="reason != 'extra_credits'"/>
                     </group>
                 </sheet>
-                <footer>
-                    <button name="%(finance_report_wizard)d"
-                            type="action"
-                            string="Finance Report"/>
-                </footer>
-                <div class="oe_chatter" groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
+                <div class="oe_chatter"
+                     groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
