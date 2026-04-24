@@ -7,7 +7,7 @@
         # Data
         'data/finance_seq.xml',
         # Wizards
-        'wizards/finances_print.xml',
+        'wizards/finances_print_wizard.xml',
         # Views
         'views/finance.xml',
 
