@@ -44,8 +44,8 @@ class MyProfileStudent(models.Model):
         """
         To Generate the report and take the information in a PDF
         """
-        report = self.env['student.info.report']
-        pdf_base64 = report.generate_pdf_student(self)
+        report = self.env['person.profile.information.report']
+        pdf_base64 = report.generate_my_profile(self)
 
         attachment = self.env['ir.attachment'].create({
             'name': f'Student_Profile_{self.name}.pdf',

@@ -1,1 +1,1 @@
-from . import finances_print
+from . import finances_print_wizard
