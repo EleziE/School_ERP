@@ -1,4 +1,64 @@
-from odoo import fields, models, api, _
+from odoo import fields, models,api,_
+from odoo.exceptions import ValidationError
+
+
+class ResUsersInheritance(models.Model):
+    _inherit = 'res.users'
+
+    member_type = fields.Selection(selection=[('none', 'None'),
+                                              ('student', 'Student'),
+                                              ('teacher', 'Teacher'),
+                                              ('administration', 'Administration'),
+                                              ('admin', 'Admin'), ],
+                                   store=True)
+
+
+class ClassRooms(models.Model):
+    _name = 'class.rooms'
+    _description = 'Class Room'
+    _rec_name = 'name'
+
+    sequence = fields.Char(string='Sequence',readonly=True)
+    name = fields.Char(string='Class name')
+
+
+
+    @api.model
+    def create(self, vals):
+        # =================== Per Sequence Generator ====================
+        if vals.get('sequence', _('New')) == _('New'):
+            vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
+        # =================== Per Sequence Generator ===================
+        return super().create(vals)
+
+    _sql_constraints = [
+        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
+    ]
+
+
+class Exams(models.Model):
+    _name = 'exams'
+    _description = 'Exams'
+
+    name = fields.Char(string='Exam')
+    date_of_exam = fields.Date(string='Date of exam')
+
+    @api.constrains('date_of_exam')
+    def _check_exam_holiday(self):
+        for rec in self:
+            holiday = self.env['holiday.holiday'].search([
+                ('date', '=', rec.date_of_exam)
+            ])
+            if holiday:
+                raise ValidationError("Exam day in a holiday, it can't be scheduled.")
+
+
+class Holidays(models.Model):
+    _name = 'holiday.holiday'
+    _description = 'Holiday'
+
+    name = fields.Char(string='Holidays name')
+    date = fields.Date(string='Holidays date')
 
 
 class Subject(models.Model):
