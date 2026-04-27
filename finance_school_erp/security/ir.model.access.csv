@@ -5,6 +5,4 @@ access.finance.finance.administration,access.finance.finance.administration,mode
 access.finance.finance.teacher,access.finance.finance.teacher,model_finance_finance,base_school_erp.group_school_teacher,1,0,0,0
 access.finance.finance.student,access.finance.finance.student,model_finance_finance,base_school_erp.group_school_student,1,0,0,0
 
-
-access_print_finances_wizard.admin,access_print_finances_wizard admin,finance_school_erp.model_print_finances_wizard,base_school_erp.group_school_admin,1,1,1,1
-access_print_finances_wizard.administration,access_print_finances_wizard administration,finance_school_erp.model_print_finances_wizard,base_school_erp.group_school_administration,1,1,1,1
+finance_school_erp.access_print_finances,access_print_finances,finance_school_erp.model_print_finances_wizard,base.group_user,1,1,1,1
