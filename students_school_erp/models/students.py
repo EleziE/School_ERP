@@ -8,7 +8,6 @@ class Student(models.Model):
     _description = 'Students'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    # Dont know how i did it (learn python baboo se ske gja per terezi )
     sequence = fields.Char(string='Student ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
@@ -16,19 +15,25 @@ class Student(models.Model):
     user_id = fields.Many2one(comodel_name='res.users',
                               invisible=True, )
     name = fields.Char(string='Name',
-                       store=True, tracking=True)
-    surname = fields.Char(string='Surname', tracking=True)
-    father_name = fields.Char(string='Father ', tracking=True)
-    mother_name = fields.Char(string='Mother ', tracking=True)
+                       store=True,
+                       tracking=True)
+    surname = fields.Char(string='Surname',
+                          tracking=True)
+    father_name = fields.Char(string='Father ',
+                              tracking=True)
+    mother_name = fields.Char(string='Mother ',
+                              tracking=True)
     email = fields.Char(string='Email',
                         related='user_id.login',
-                        readonly=False, tracking=True)
+                        readonly=False,
+                        tracking=True)
     external_email = fields.Char(string='External Email',
                                  help='Email to communicate with the user, not from the schools email')
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
-    dob = fields.Date(string='Date of birth', tracking=True)
+    dob = fields.Date(string='Date of birth',
+                      tracking=True)
     blood_type = fields.Selection(selection=[('a+', 'A+'),
                                              ('a-', 'A-'),
                                              ('b+', 'B+'),
@@ -49,8 +54,11 @@ class Student(models.Model):
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='new', tracking=True, required=True)
-    suspend_reason = fields.Text(string='Suspension Reason', tracking=True)
+                             default='new',
+                             tracking=True,
+                             required=True)
+    suspend_reason = fields.Text(string='Suspension Reason',
+                                 tracking=True)
     phone = fields.Char(string='Phone no ',
                         related='user_id.phone',
                         placeholder="+355XX XXX XXXX")
@@ -71,17 +79,22 @@ class Student(models.Model):
                                             accept="application/pdf,"
                                                    "image/png,"
                                                    "image/jpeg")
-    year = fields.Selection(string='Year', related='subject_id.year', readonly=False, store=True)
+    year = fields.Selection(string='Year',
+                            related='subject_id.year',
+                            readonly=False,
+                            store=True)
     semester = fields.Selection(related='subject_id.semester')
-    faculty = fields.Selection(string='Faculty', related='subject_id.faculty', readonly=False, store=True)
-    check_graduated = fields.Boolean(default=False, compute='graduate_fella')
+    faculty = fields.Selection(string='Faculty',
+                               related='subject_id.faculty',
+                               readonly=False,
+                               store=True)
 
+    # =================== Main Functions (CREATE & WRITE) ====================
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students')
-        # =================== Per Sequence Generator ===================
 
         # =================== Per Access Rights Generator ===================
         access_rights = self.env.ref('base_school_erp.group_school_student')
@@ -96,8 +109,7 @@ class Student(models.Model):
                 (4, internal_user.id), ]
         })
         vals['user_id'] = user.id
-        print('A student was created')
-        # =================== Per Access Rights Generator ===================
+
 
         return super().create(vals)
 
@@ -108,10 +120,7 @@ class Student(models.Model):
             raise AccessError('You do not have the right to change records ! ')
         return super().write(vals)
 
-    @api.depends('state')
-    def graduate_fella(self):
-        if self.state == 'graduated':
-            check_graduated = True
+
 
     ############################ Wizards ###########################################
 
@@ -140,16 +149,6 @@ class Student(models.Model):
             else:
                 rec.graduation_date = False
 
-    def action_print_report(self):
-        """Button action to generate PDF"""
-        self.ensure_one()  # only one student at a time
-        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
-
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
-            'target': 'new',
-        }
 
     def action_graduated(self):
         self.state = 'graduated'
@@ -184,3 +183,37 @@ class Student(models.Model):
             today = fields.Date.today()
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
+
+    ############################ Reports ############################
+    def action_graduate_student_info(self):
+        """
+        To Generate the report and take the information in a PDF
+        """
+        report = self.env['report.graduated.stu.info']
+        pdf_base64 = report.generate(self)
+
+        attachment = self.env['ir.attachment'].create({
+            'name': f'Student_Profile_{self.name}.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf',
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'new',
+        }
+
+
+    def action_print_report(self):
+        """Button action to generate PDF to express the Information of a Student """
+        self.ensure_one()
+        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
+            'target': 'new',
+        }

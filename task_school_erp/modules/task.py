@@ -11,12 +11,12 @@ class Task(models.Model):
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-    user_id = fields.Many2one(comodel_name='res.users', string='User', )
+    user_id = fields.Many2one(comodel_name='res.users', string='User', tracking=True )
     task_for = fields.Many2one(comodel_name='teacher.teacher', tracking=True)
     task_from = fields.Many2one(comodel_name='administration.administration',
                                 readonly=True,
                                 default=lambda self: self.env['administration.administration'].search([('user_id', '=', self.env.user.id)], limit=1),
-                                store=True)
+                                store=True, tracking=True)
 
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
@@ -28,13 +28,14 @@ class Task(models.Model):
                               group_expand='_group_expand_status',
                               tracking=True)
 
-    starting_date = fields.Date(default=fields.Date.today)
+    starting_date = fields.Date(default=fields.Date.today,
+                                tracking=True)
+    planned_finish_date = fields.Date(tracking=True)
 
-    planned_finish_date = fields.Date()
+    finish_date = fields.Date(store=True,
+                              tracking=True)
 
-    finish_date = fields.Date(store=True)
-
-    description = fields.Text()
+    description = fields.Text(tracking=True)
 
     check_user_finish_date = fields.Boolean(compute='_compute_check_user')
 
@@ -53,6 +54,10 @@ class Task(models.Model):
                 self.env.user.has_group('base_school_erp.group_school_admin') or
                 self.env.user.has_group('base_school_erp.group_school_teacher')):
             raise AccessError('You are not allowed to perform this task!')
+
+        for rec in self:
+            if rec.status in ['completed', 'completed_delayed', 'completed_early'] and not  rec.user_id.has_group('base_school_erp.group_school_admin'):
+                raise UserError('\nThe task has been completed!\n\n You cannot change the status of the task!')
 
         return super().write(vals)
 

@@ -28,11 +28,11 @@
                         <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
                                 invisible="state not in ('active', 'inactive')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_print_report"
+                        <button name="action_graduate_student_info"
                                 type="object"
                                 string="Print Report"
                                 class="btn-primary"
-                                invisible="state not in ('graduated','suspended')"/>
+                                invisible="state != 'graduated'"/>
 
                     </header>
                     <sheet>
@@ -50,7 +50,6 @@
                                 <field name="father_name"/>
                                 <field name="mother_name"/>
                                 <field name="email" required="True"/>
-                                <field name="external_email"/>
                                 <field name="member_type" readonly="True"/>
                                 <field name="enrollment_date"/>
                                 <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
@@ -59,16 +58,14 @@
                                 <field name="gender" placeholder="Select..."/>
                                 <field name="dob"/>
                                 <field name="blood_type"/>
-                                <field name="birthday_certificate" filename="birthday_certificate_name"
-                                       widget="binary"/>
-                                <field name="year"/>
-                                <field name="faculty"/>
-                                <field name="birthday_certificate_name" invisible="True"/>
+                                <field name="year" invisible="state == 'graduated'"/>
+                                <field name="faculty" invisible="state == 'graduated'"/>
+                                <field name="external_email"/>
                                 <field name="state" readonly="1"/>
                                 <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
-                        <notebook invisible="state == 'new'">
+                        <notebook invisible="state in ['new','graduated','suspended']">
                             <page string="Finance" name="finance">
                             </page>
                             <page string="Teacher" name="teacher">
