@@ -8,14 +8,15 @@
             <field name="name">my.finance.student.tree</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="student_id"/>
+                    <field name="student_id" optional="hide"/>
                     <field name="create_date"/>
                     <field name="paid_date"/>
                     <field name="state" widget="badge"
                            decoration-success="state == 'paid'"
                            decoration-danger="state == 'unpaid'"/>
                     <field name="reason" optional="hide"/>
-                    <field name="amount"/>
+                    <field name="reason_extra" />
+                    <field name="amount" optional="hide"/>
                 </tree>
             </field>
         </record>
@@ -28,7 +29,7 @@
                     <sheet>
                         <group>
                             <field name="student_id" options="{'no_open':True, 'no_create':True}"
-                                   domain="[('member_type','=','student')]"/>
+                                   domain="[('member_type','=','student')]" optional="hide"/>
                             <field name="create_date"/>
                             <field name="amount"/>
                             <field name="paid_date"/>
@@ -39,6 +40,7 @@
                                    decoration-danger="state == 'unpaid'"/>
                             <field name="reason" placeholder="Write the reason for suspension..."
                                    options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
+                            <field name="reason_extra" invisible="reason != 'extra_credits'"/>
                         </group>
                     </sheet>
                 </form>

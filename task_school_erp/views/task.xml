@@ -22,7 +22,7 @@
     <record id="task_form_view" model="ir.ui.view">
         <field name="model">task</field>
         <field name="arch" type="xml">
-            <form>
+            <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]">
                 <header>
                     <field name="status"
                            widget="statusbar"/>
@@ -55,7 +55,9 @@
         <field name="model">task</field>
         <field name="arch" type="xml">
             <search>
-                <field name="sequence"
+                <field name="task_for"
+                       groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+                <field name="task_from"
                        groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                 <filter name="status" string="Completed" domain="[('status','=','completed')]"/>
                 <filter name="status" string="Delayed" domain="[('status','=','completed_delayed')]"/>
