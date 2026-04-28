@@ -27,4 +27,9 @@
     ],
     'icon': 'my_profile_school_erp/static/description/icon.png',
     'web_icon': 'my_profile_school_erp,static/description/icon.png',
+    'assets': {
+        'web.assets_backend': [
+            'my_profile_school_erp/static/src/css/badge_size.css',
+        ],
+    },
 }

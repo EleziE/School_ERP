@@ -6,53 +6,107 @@
             <field name="name">my.profile.student</field>
             <field name="model">my.profile.student</field>
             <field name="arch" type="xml">
-                <form edit="False" create="False" duplicate="False">
+                <form edit="False" create="False" duplicate="False" class="student_status_badge">
+
+                    <!-- HEADER -->
+                    <header>
+                        <button name="action_print_report"
+                                string="Print Info"
+                                icon="fa-print"
+                                type="object"
+                                class="btn-primary"
+                                invisible="state in ('suspended','graduated','new','rejected')"/>
+                    </header>
+
                     <sheet>
-                        <header>
-                            <button name="action_print_report"
-                                    string="Print Info"
-                                    icon="fa-print"
-                                    type="object"
-                                    class="btn-secondary"
-                                    invisible="state in ('suspended','graduated','new','rejected')"/>
-                        </header>
-                        <group>
-                            <group name="Required Information" string="Required Information">
+
+                        <!-- TITLE -->
+                        <div class="oe_title d-flex align-items-center gap-3">
+
+                            <!-- Avatar -->
+                            <field name="image_128"
+                                   widget="image"
+                                   class="oe_avatar"
+                                   options="{'size': [90, 90]}"/>
+
+                            <!-- Name + info -->
+                            <div class="d-flex flex-column">
+
+                                <h1 class="m-0 d-flex gap-2 align-items-center">
+                                    <field name="name"/>
+                                    <field name="surname"/>
+                                </h1>
+
+                                <h2 class="text-muted m-0">
+                                    <field name="sequence"/>
+                                </h2>
+
+                            </div>
+
+                        </div>
+                        <!-- STATUS BADGE -->
+                        <div class="mb-3">
+                            <field name="state" widget="badge"
+                                   class="fs-5 px-3 py-2"
+                                   decoration-success="state == 'active'"
+                                   decoration-warning="state == 'new'"
+                                   decoration-danger="state == 'suspended'"/>
+                        </div>
+
+                        <!-- MAIN GRID -->
+                        <group col="2">
+
+                            <!-- LEFT: REQUIRED -->
+                            <group string="🎓 Academic Information">
                                 <field name="member_type" invisible="True"/>
                                 <field name="user_id" invisible="True"/>
-                                <field name="sequence"/>
-                                <field name="name"/>
-                                <field name="surname"/>
-                                <field name="state"/>
                                 <field name="faculty"/>
                                 <field name="year"/>
+                                <field name="enrollment_date"/>
                             </group>
-                            <group name="Extra Information" string="Extra Information">
+
+                            <!-- RIGHT: PERSONAL -->
+                            <group string="👤 Personal Information">
                                 <field name="gender"/>
                                 <field name="dob"/>
-                                <field name="email"/>
-                                <field name="enrollment_date"/>
-                                <field name="external_email"/>
                                 <field name="blood_type"/>
-                                <field name="suspend_reason" invisible="state != 'suspended'"/>
                             </group>
+
                         </group>
-                        <div class="alert alert-warning" role="alert">
-                            <i class="fa fa-exclamation-triangle"/>
-                            If the information is incorrect, please inform the school administration.
+
+                        <!-- CONTACT -->
+                        <group string="📧 Contact Information" col="2">
+                            <field name="email"/>
+                            <field name="external_email"/>
+                        </group>
+
+                        <!-- CONDITIONAL -->
+                        <group string="⚠ Suspension Details"
+                               invisible="state != 'suspended'">
+                            <field name="suspend_reason"/>
+                        </group>
+
+                        <!-- ALERT BOX -->
+                        <div class="alert alert-warning mt-3" role="alert">
+                            <i class="fa fa-exclamation-triangle me-2"/>
+                            <strong>Notice:</strong> If the information is incorrect, please inform the school
+                            administration.
+                            <br/><br/>
+                            <i class="fa fa-envelope me-2"/> admin@admin.com
                             <br/>
-                            <br/>
-                            <i class="fa fa-envelope "/> admin@admin.com
-                            <br/>
-                            <i class="fa fa-phone"/> +355 XXX XXXX
+                            <i class="fa fa-phone me-2"/> +355 XXX XXXX
                         </div>
+
                     </sheet>
+
+                    <!-- CHATTER -->
                     <div class="oe_chatter"
                          groups="base_school_erp.group_school_admin">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
                     </div>
+
                 </form>
             </field>
         </record>

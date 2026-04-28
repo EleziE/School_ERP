@@ -88,7 +88,7 @@ class Student(models.Model):
                                related='subject_id.faculty',
                                readonly=False,
                                store=True)
-
+    image_128 = fields.Image(string='Image 128',)
     # =================== Main Functions (CREATE & WRITE) ====================
     @api.model
     def create(self, vals):

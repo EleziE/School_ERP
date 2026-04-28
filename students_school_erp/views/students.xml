@@ -6,79 +6,104 @@
             <field name="name">students.form.view</field>
             <field name="model">students.students</field>
             <field name="arch" type="xml">
-                <form>
+                <form class="student_form_view">
                     <header>
                         <field name="state" widget="statusbar"
                                statusbar_visible="new,active,inactive,suspended,graduated,rejected"
                                options="{'clickable': False}"/>
                         <button name="action_active" type="object" string="Activate"
+                                class="btn-primary"
                                 invisible="state not in ('inactive', 'suspended','new')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_inactive" type="object" string="Deactivate"
+                                class="btn-secondary"
                                 invisible="state != 'active'"
                                 groups="base_school_erp.group_school_admin"/>
-                        <button name="action_graduated" type="object" string="Graduated"
-                                invisible="state not in ('active', 'inactive', 'suspended')"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_graduated_reverse" type="object" string="Reactivate"
-                                invisible="state != 'graduated'"
-                                confirm="A graduated student is becoming active again. Are you sure ?!"
+                        <button name="action_open_suspend_wizard" type="object" string="Suspend"
                                 class="btn-danger"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_open_suspend_wizard" type="object" string="Suspend" class="btn-danger"
                                 invisible="state not in ('active', 'inactive')"
+                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+                        <button name="action_graduated" type="object" string="Graduate"
+                                class="btn-success"
+                                invisible="state not in ('active', 'inactive', 'suspended')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_graduate_student_info"
                                 type="object"
                                 string="Print Report"
                                 class="btn-primary"
                                 invisible="state != 'graduated'"/>
-
                     </header>
                     <sheet>
-                        <div class="oe_title">
-                            <h3>
-                                <field name="sequence" readonly="1"/>
-                            </h3>
+                        <div class="oe_title d-flex align-items-center gap-3 p-2">
+                            <field name="image_128"
+                                   widget="image"
+                                   class="oe_avatar"
+                                   options="{'size': [100, 100]}"/>
+                            <div class="d-flex flex-column">
+                                <h2 class="m-0 text-muted">
+                                    <field name="sequence" readonly="1"/>
+                                </h2>
+                                <h1 class="m-0 d-flex align-items-center">
+                                    <field name="name" class="oe_inline me-1"/>
+                                    <field name="surname" class="oe_inline"/>
+                                </h1>
+                            </div>
                         </div>
-                        <group>
-                            <group name="Required">
-                                <field name="user_id" string="Name" domain=" [('member_type','=','student')]"
-                                       invisible="True"/>
-                                <field name="name" required="True"/>
+                        <group col="2">
+                            <group string="👤 Personal Information">
+                                <field name="user_id" invisible="1"/>
+                                <field name="name" required="1"/>
                                 <field name="surname"/>
+                                <field name="gender"/>
+                                <field name="dob"/>
+                            </group>
+                            <group string="🧾 Optional Personal Information">
                                 <field name="father_name"/>
                                 <field name="mother_name"/>
-                                <field name="email" required="True"/>
-                                <field name="member_type" readonly="True"/>
-                                <field name="enrollment_date"/>
-                                <field name="graduation_date" invisible=" not user_id or state != 'graduated'"/>
-                            </group>
-                            <group name="Optional">
-                                <field name="gender" placeholder="Select..."/>
-                                <field name="dob"/>
                                 <field name="blood_type"/>
-                                <field name="year" invisible="state == 'graduated'"/>
-                                <field name="faculty" invisible="state == 'graduated'"/>
-                                <field name="external_email"/>
-                                <field name="state" readonly="1"/>
-                                <field name="suspend_reason" readonly="1" invisible="state != 'suspended'"/>
                             </group>
                         </group>
+                        <group col="2">
+                            <group string="🎓 Academic Information">
+                                <field name="member_type" readonly="1"/>
+                                <field name="faculty"/>
+                                <field name="year"/>
+                                <field name="enrollment_date"/>
+                                <field name="graduation_date"
+                                       invisible="not user_id or state != 'graduated'"/>
+                            </group>
+                            <group string="📧 Contact Information">
+                                <field name="email" required="1"/>
+                                <field name="external_email"/>
+                            </group>
+                        </group>
+                        <group string="⚙ Status Details">
+                            <field name="state" readonly="1"/>
+                            <field name="suspend_reason"
+                                   readonly="1"
+                                   invisible="state != 'suspended'"/>
+                        </group>
                         <notebook invisible="state in ['new','graduated','suspended']">
-                            <page string="Finance" name="finance">
-                            </page>
-                            <page string="Teacher" name="teacher">
-                            </page>
+                            <page string="Finance" name="finance"/>
+                            <page string="Teacher" name="teacher"/>
                             <page string="Subjects" name="subject">
                                 <field name="subject_id"/>
                             </page>
                         </notebook>
+                        <div class="alert alert-warning mt-3">
+                            <i class="fa fa-exclamation-triangle me-2"/>
+                            If information is incorrect, please contact administration.
+                            <br/><br/>
+                            <i class="fa fa-envelope me-2"/> admin@admin.com
+                            <br/>
+                            <i class="fa fa-phone me-2"/> +355 XXX XXXX
+                        </div>
                     </sheet>
-                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
-                        <field name="message_follower_ids" />
-                        <field name="activity_ids"  />
-                        <field name="message_ids" />
+                    <div class="oe_chatter"
+                         groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
                     </div>
                 </form>
             </field>
@@ -89,9 +114,6 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <tree>
-                    <header>
-                        <!--                        <button name=""-->
-                    </header>
                     <field name="sequence" optional="hide"/>
                     <field name="user_id" string="Name"/>
                     <field name="surname" string="Surname" optional="show"/>
