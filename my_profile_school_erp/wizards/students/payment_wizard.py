@@ -11,3 +11,14 @@ class PaymentWizard(models.TransientModel):
 
     finance_type = fields.Selection(related="finance_id.state")
 
+    def action_print_finance(self):
+        """Print the finance details in a PDF"""
+        self.ensure_one()
+
+        data={
+            'finance_id': self.finance_id.id,
+            'user_id': self.user_id.id,
+            'student_id': self.student_id.id,
+            'finance_type': self.finance_type.id,
+        }
+        return self.env.ref('my_profile_school_erp.action_print_report')
