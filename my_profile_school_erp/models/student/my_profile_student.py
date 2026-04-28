@@ -30,7 +30,9 @@ class MyProfileStudent(models.Model):
     finance_ids = fields.One2many(related='student_id.finance_ids')
     faculty = fields.Selection(related='student_id.faculty')
     year = fields.Selection(related='student_id.year')
-
+    image_128 = fields.Image(string='Image 128',
+                             related='student_id.image_128',
+                             tracking=True)
     @api.depends('user_id')
     def _compute_student_id(self):
         """

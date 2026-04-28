@@ -39,3 +39,8 @@ Recheck the sequence if it changes as it should after saving the autofilled vers
 
 
 - Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta 
+
+                                                                                            ######################## 4/28/2026 #########################
+
+1. How to make it that the subjects to be shown in the module students(not my profile) to show only the subject of while filtering the faculty, year and semester
+2. 
