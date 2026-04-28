@@ -118,6 +118,9 @@ class Student(models.Model):
         if not (self.env.user.has_group('base_school_erp.group_school_administration') or
                 self.env.user.has_group('base_school_erp.group_school_admin')):
             raise AccessError('You do not have the right to change records ! ')
+
+        if self.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
+            raise AccessError('You are not allowed to change records of a Graduated student ! ')
         return super().write(vals)
 
 

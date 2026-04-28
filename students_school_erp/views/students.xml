@@ -27,11 +27,17 @@
                                 class="btn-success"
                                 invisible="state not in ('active', 'inactive', 'suspended')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+                        <button name="action_graduated_reverse" type="object" string="Reactivate"
+                                class="btn-danger"
+                                invisible="state != 'graduated'"
+                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"
+                        confirm="A graduated student is becoming active again ! Are you sure !?"/>
                         <button name="action_graduate_student_info"
                                 type="object"
                                 string="Print Report"
                                 class="btn-primary"
                                 invisible="state != 'graduated'"/>
+
                     </header>
                     <sheet>
                         <div class="oe_title d-flex align-items-center gap-3 p-2">
@@ -43,11 +49,19 @@
                                 <h2 class="m-0 text-muted">
                                     <field name="sequence" readonly="1"/>
                                 </h2>
-                                <h1 class="m-0 d-flex align-items-center">
-                                    <field name="name" class="oe_inline me-1"/>
-                                    <field name="surname" class="oe_inline"/>
-                                </h1>
-                            </div>
+                                <h1 class="m-0 d-flex align-items-end gap-4">
+
+                                    <div class="d-flex flex-column">
+                                        <label for="name" class="text-muted small mb-0">Name</label>
+                                        <field name="name" class="oe_inline"/>
+                                    </div>
+
+                                    <div class="d-flex flex-column">
+                                        <label for="surname" class="text-muted small mb-0">Surname</label>
+                                        <field name="surname" class="oe_inline"/>
+                                    </div>
+
+                                </h1></div>
                         </div>
                         <group col="2">
                             <group string="👤 Personal Information">
