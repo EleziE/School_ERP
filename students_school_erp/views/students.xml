@@ -16,15 +16,15 @@
                                 invisible="state not in ('inactive', 'suspended','new')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_inactive" type="object" string="Deactivate"
-                                class="btn-secondary"
+                                class="btn-outline-warning"
                                 invisible="state != 'active'"
                                 groups="base_school_erp.group_school_admin"/>
                         <button name="action_open_suspend_wizard" type="object" string="Suspend"
-                                class="btn-danger"
+                                class="btn-outline-danger"
                                 invisible="state not in ('active', 'inactive')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_graduated" type="object" string="Graduate"
-                                class="btn-success"
+                                class="btn-outline-success"
                                 invisible="state not in ('active', 'inactive', 'suspended')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                         <button name="action_graduated_reverse" type="object" string="Reactivate"
