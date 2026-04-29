@@ -1,34 +1,72 @@
-from odoo import models
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
 from reportlab.pdfgen import canvas
+from odoo import models
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from datetime import datetime
 import io
+import base64
+
 
 class StudentReport(models.AbstractModel):
     _name = 'report.students_module.student_report_pdf'
     _description = 'Student PDF Report'
 
-    def _get_report_values(self, docids, data=None):
-        docs = self.env['students.students'].browse(docids)
-        return {
-            'doc_ids': docids,
-            'docs': docs,
-            'data': data,
-        }
-
-    def generate_pdf(self, student):
-        """Generates a PDF for a single student"""
+    def generate(self, record):
         buffer = io.BytesIO()
-        pdf = canvas.Canvas(buffer, pagesize=A4)
-        pdf.setFont("Helvetica", 12)
+        doc = SimpleDocTemplate(buffer)
+        styles = getSampleStyleSheet()
+        elements = []
 
-        pdf.drawString(50, 800, f"Student Report: {student.name} {student.surname}")
-        pdf.drawString(50, 780, f"Email: {student.email or 'N/A'}")
-        pdf.drawString(50, 760, f"Phone: {student.phone or 'N/A'}")
-        pdf.drawString(50, 740, f"Class: {student.classroom_id.name if student.classroom_id else 'N/A'}")
-        pdf.drawString(50, 720, f"Enrollment Date: {student.enrollment_date}")
-        pdf.drawString(50, 700, f"State: {student.state}")
+        dob_formatted = record.dob.strftime("%d/%m/%Y") if record.dob else ''
 
-        pdf.showPage()
-        pdf.save()
-        buffer.seek(0)
-        return buffer.read()
+        def add_footer_header(c, _doc):
+            c.saveState()
+
+            created_date = datetime.now().strftime("%d/%m/%Y")
+            c.setFont('Times-Roman', 12)
+            c.setFillColor(colors.grey)
+            c.drawRightString(
+                A4[0] - 1 * cm,
+                A4[1] - 1 * cm,
+                f'Created: {created_date}',
+            )
+            c.setFont('Times-Roman', 12)
+            c.setFillColor(colors.grey)
+            c.drawCentredString(
+                A4[0] / 2,
+                1 * cm,
+                "This document is valid 6 month after the released date!"
+            )
+            c.restoreState()
+
+        # ── removed the if record.state == 'graduated' check ──
+        elements.append(Paragraph("Student Profile Report", styles['Title']))
+        elements.append(Spacer(1, 12))
+        elements.append(Paragraph("Student Information", styles['Heading2']))
+        elements.append(Spacer(1, 20))
+        elements.append(Paragraph(f"Student ID : {record.sequence or ''}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Name : {(record.name or '').capitalize()}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Surname : {(record.surname or '').capitalize()}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Father name : {(record.father_name or '').capitalize()}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Mother name : {(record.mother_name or '').capitalize()}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Date of Birth : {dob_formatted}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Email : {record.email or ''}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"External email : {record.external_email or ''}", styles['Normal']))
+
+        doc.build(elements,
+                  onFirstPage=add_footer_header,
+                  onLaterPages=add_footer_header)
+        pdf = buffer.getvalue()
+        buffer.close()
+
+        return base64.b64encode(pdf)

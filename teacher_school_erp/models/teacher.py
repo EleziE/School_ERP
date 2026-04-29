@@ -1,5 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
+import secrets
 
 
 class Teacher(models.Model):
@@ -10,8 +11,7 @@ class Teacher(models.Model):
     user_id = fields.Many2one(comodel_name='res.users',
                               required=True,)
     sequence = fields.Char(string='Teacher ID: ',
-                           readonly=True,
-                           default=lambda self: _('New'))
+                           readonly=True)
     name = fields.Char(string='Name',
                        tracking=True)
     surname = fields.Char(string='Surname',
@@ -36,18 +36,19 @@ class Teacher(models.Model):
     class_room_id = fields.Many2many(comodel_name='class.rooms')
     member_type = fields.Selection(related='user_id.member_type',
                                    readonly=True)
+    faculty = fields.Selection(related='subject_id.faculty',readonly=False)
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
                                          ('male', 'Male')], )
     email = fields.Char(string='Email',related='user_id.login',
-                        required=True)
+                        required=True,readonly=False,store=True)
     external_email = fields.Char(string='External Email',
                                  help='The email that is personal not the one that we use to log in')
-
+    image_128=fields.Image(string='Image 128',)
     @api.model
     def create(self, vals):
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('teacher.teacher')
+            vals['sequence'] = self._generate_unique_sequence()
 
         if not vals.get('email'):
             raise ValueError("Email is a must, it can't be left empty !!!")
@@ -102,7 +103,13 @@ class Teacher(models.Model):
             if rec.dob and rec.dob > today:
                 raise ValidationError("Date of birth  can't be in the future")
 
-
+    def _generate_unique_sequence(self):
+        while True:
+            number = str(secrets.randbelow(9000000) + 1000000)
+            sequence = f'S-{number}'
+            existing = self.search([('sequence', '=', sequence)], limit=1)
+            if not existing:
+                return sequence
 
 class Student(models.Model):
     _inherit = 'students.students'

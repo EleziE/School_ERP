@@ -29,30 +29,44 @@
                     <button name="pay_finance"
                             string="Pay"
                             type="object"
+                            class="btn-primary"
                             invisible="state in ('paid','draft')"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
                     <button name="unpaid_finance"
                             string="Create"
                             type="object"
+                            class="btn-secondary"
                             invisible="state in ('unpaid','paid')"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,unpaid,paid"/>
                 </header>
                 <sheet>
-                    <group>
-                        <field name="sequence" optional="hide"/>
-                        <field name="student_id" options="{'no_open':True, 'no_create':True}"
-                               domain="[('member_type','=','student')]"/>
-                        <field name="create_date"/>
-                        <field name="amount"/>
-                        <field name="paid_date"/>
-                        <field name="state" widget="badge"
-                               decoration-success="state == 'paid'"
-                               decoration-warning="state == 'draft'"
-                               decoration-danger="state == 'unpaid'"/>
-                        <field name="reason"/>
-                        <field name="reason_extra" invisible="reason != 'extra_credits'"/>
+                    <group col="2">
+                        <group string="Basic Information">
+                            <field name="sequence" optional="hide"/>
+                            <field name="student_id"
+                                   options="{'no_open': True, 'no_create': True}"
+                                   domain="[('member_type','=','student')]"/>
+                            <field name="create_date" readonly="1"/>
+                            <field name="reason"/>
+                            <field name="reason_extra"
+                                   invisible="reason != 'extra_credits'"/>
+                        </group>
+                        <group string="Payment Details">
+                            <field name="amount"/>
+                            <field name="paid_date"/>
+                            <field name="state"
+                                   widget="badge"
+                                   decoration-success="state == 'paid'"
+                                   decoration-warning="state == 'draft'"
+                                   decoration-danger="state == 'unpaid'"/>
+                        </group>
                     </group>
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <i class="fa fa-exclamation-triangle me-2"/>
+                        <strong>Notice:</strong> After the payment is in status <strong>'Paid'</strong> you cannot change the record
+                    </div>
                 </sheet>
                 <div class="oe_chatter"
                      groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
@@ -69,6 +83,7 @@
         <field name="arch" type="xml">
             <search>
                 <field name="student_id" string="Student"/>
+                <field name="sequence" string="Finance ID"/>
                 <field name="student_number" string="Student ID"/>
                 <separator/>
                 <filter name="unpaid" string="Unpaid" domain="[('state','=','unpaid')]"/>

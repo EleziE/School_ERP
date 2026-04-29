@@ -1,6 +1,6 @@
 from odoo import fields, models, api,_
 from odoo.exceptions import UserError
-
+import secrets
 
 class Finance(models.Model):
     _name = 'finance.finance'
@@ -13,8 +13,7 @@ class Finance(models.Model):
 
 
     sequence = fields.Char(string='Records ID: ',
-                           readonly=True,
-                           default=lambda self: _('New'))
+                           readonly=True)
 
     created_by = fields.Many2one(comodel_name='res.users',
                                  string='Created by',
@@ -50,14 +49,28 @@ class Finance(models.Model):
     confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by',store=True)
 
 
+
+
+
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('finance.finance')
-        # =================== Per Sequence Generator ===================
+            vals['sequence'] = self._generate_unique_sequence()
+
 
         return super().create(vals)
+
+    def _generate_unique_sequence(self):
+        while True:
+            number = str(secrets.randbelow(9000000) + 1000000)
+            sequence = f'FIN-{number}'
+            existing = self.search([('sequence', '=', sequence)], limit=1)
+            if not existing:
+                return sequence
+
+
+
 
     def write(self, vals):
         readonly_fields = {'student_id', 'paid_date', 'amount'}

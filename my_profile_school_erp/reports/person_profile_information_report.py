@@ -21,7 +21,6 @@ class PersonProfileInformationReport(models.AbstractModel):
         doc = SimpleDocTemplate(buffer)
         styles = getSampleStyleSheet()
         elements = []
-        record = record.env['res_']
         def add_footer_header(canvas,_doc ):
             canvas.saveState()
 
@@ -62,6 +61,30 @@ class PersonProfileInformationReport(models.AbstractModel):
             elements.append(Paragraph(f"Email : {record.email or ''}", styles['Normal']))
             elements.append(Spacer(1, 6))
             elements.append(Paragraph(f"External email : {record.external_email or ''}", styles['Normal']))
+
+        if record.member=='student' and record.state == 'graduated':
+            elements.append(Paragraph("Student Profile Report", styles['Title']))
+            elements.append(Spacer(1, 12))
+            elements.append(Paragraph("Student Information", styles['Heading2']))
+            elements.append(Spacer(1, 20))
+            elements.append(Paragraph(f"Student ID : {record.sequence or ''}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Name : {(record.name or '').capitalize()}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Surname : {(record.surname or '').capitalize()}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Father name : {(record.father_name or '').capitalize()}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Mother name : {(record.mother_name or '').capitalize()}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Date of Birth : {dob_formatted}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Email : {record.email or ''}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"External email : {record.external_email or ''}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Graduated date : {record.graduation_date or ''}", styles['Normal']))
+
 
         elif record.member_type == 'teacher':
 

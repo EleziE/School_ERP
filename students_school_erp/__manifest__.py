@@ -5,8 +5,6 @@
         'security/ir.model.access.csv',
         # Wizards
         'wizards/suspend_reason_wizard.xml',
-        # Sequence
-        'data/seq_student.xml',
         # Views
         'views/students.xml',
         'views/menu.xml',

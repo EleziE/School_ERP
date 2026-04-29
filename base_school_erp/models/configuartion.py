@@ -46,11 +46,9 @@ class Exams(models.Model):
     @api.constrains('date_of_exam')
     def _check_exam_holiday(self):
         for rec in self:
-            holiday = self.env['holiday.holiday'].search([
-                ('date', '=', rec.date_of_exam)
-            ])
+            holiday = self.env['holiday.holiday'].search([('date', '=', rec.date_of_exam)])
             if holiday:
-                raise ValidationError("Exam day in a holiday, it can't be scheduled.")
+                raise ValidationError(f"{holiday.name}, so please chose another date for the exam.")
 
 
 class Holidays(models.Model):
@@ -116,7 +114,6 @@ class Subject(models.Model):
             vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
 
         return super().create(vals)
-        # =================== Per Sequence Generator ===================
 
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
