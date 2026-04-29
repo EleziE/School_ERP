@@ -27,50 +27,134 @@
             <field name="name">my.finance.student.form</field>
             <field name="model">finance.finance</field>
             <field name="arch" type="xml">
-                <form string="Student Finance">
+                <form string="Student Finance" edit="False" create="False" delete="False" class="student_finance_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            /* Premium Typography &amp; Spacing */
+                            .o_finance_header {
+                                background: #ffffff;
+                                border-bottom: 1px solid #edf2f7;
+                            }
+
+                            .o_balance_card {
+                                background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+                                color: white;
+                                border-radius: 12px;
+                                padding: 20px;
+                                min-width: 200px;
+                                box-shadow: 0 4px 15px rgba(26, 54, 93, 0.1);
+                            }
+
+                            .o_card_section {
+                                border: 1px solid #e2e8f0;
+                                border-radius: 12px;
+                                background: #ffffff;
+                                padding: 24px;
+                                height: 100%;
+                            }
+                        </style>
+                    </xpath>
 
                     <header>
-                        <field name="state" widget="badge"
-                               class="fa-5 px-3 py-2"
-                               decoration-success="state == 'paid'"
-                               decoration-warning="state == 'draft'"
-                               decoration-danger="state == 'unpaid'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
                     </header>
 
-                    <sheet>
-
-                        <div class="oe_title">
-                            <h1>
-                                <field name="student_id"
-                                       options="{'no_open':True, 'no_create':True}"
-                                       domain="[('member_type','=','student')]"/>
-                            </h1>
+                    <sheet class="p-0">
+                        <div class="p-4 d-flex justify-content-between align-items-center o_finance_header">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle bg-primary-light p-3 text-primary">
+                                    <i class="fa fa-university fa-2x"/>
+                                </div>
+                                <div>
+                                    <label for="student_id" string="Student Payer"
+                                           class="text-muted small fw-bold text-uppercase d-block mb-1"/>
+                                    <h2 class="fw-bold mb-0 text-dark">
+                                        <field name="student_id" readonly="1" options="{'no_open': True}"/>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="o_balance_card text-center">
+                                    <label for="amount" string="Invoice Amount"
+                                           class="text-white-50 small fw-bold text-uppercase d-block mb-1"/>
+                                    <div class="h2 fw-bold mb-0">
+                                        <field name="amount" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="p-4 bg-light">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="o_card_section">
+                                        <h5 class="text-primary fw-bold mb-4">
+                                            <i class="fa fa-calendar me-2"/> Payment Timeline
+                                        </h5>
+                                        <div class="mb-3">
+                                            <label for="create_date" string="Billing Date"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6"><field name="create_date" readonly="1"/></div>
+                                        </div>
+                                        <div class="mb-3 border-top pt-3" invisible="state != 'paid'">
+                                            <label for="paid_date" string="Date of Payment"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6 text-success fw-bold"><field name="paid_date"
+                                                                                        readonly="1"/></div>
+                                        </div>
+                                        <div class="mb-0 pt-3 border-top" invisible="state != 'paid'">
+                                            <label for="confirmed_by" class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fa fa-check-circle me-2 text-success"/>
+                                                <field name="confirmed_by" readonly="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <group string="General Information" col="2">
-                            <group>
-                                <field name="amount" widget="monetary"/>
-                                <field name="create_date" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="paid_date"/>
-                                <field name="confirmed_by"
-                                       invisible="state != 'paid'"/>
-                            </group>
-                        </group>
+                                <div class="col-md-6">
+                                    <div class="o_card_section">
+                                        <h5 class="text-secondary fw-bold mb-4">
+                                            <i class="fa fa-file-text-o me-2"/> Description
+                                        </h5>
+                                        <div class="mb-4">
+                                            <label for="reason" string="Payment Purpose"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="p-2 bg-light rounded border-start border-4 border-primary">
+                                                <field name="reason" readonly="1" options="{'no_open': True}"/>
+                                            </div>
+                                        </div>
+                                        <div invisible="reason != 'extra_credits'">
+                                            <label for="reason_extra" string="Additional Notes"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="small p-3 border rounded shadow-sm bg-white fst-italic">
+                                                <field name="reason_extra" readonly="1"/>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 pt-3 border-top" invisible="state == 'paid'">
+                                            <div class="alert alert-warning p-2 mb-0 d-flex align-items-center">
+                                                <i class="fa fa-exclamation-triangle me-2"/>
+                                                <span class="small">Payment is pending verification by the
+                                                    administration.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- REASON SECTION -->
-                        <group string="Details">
-                            <field name="reason"
-                                   placeholder="Write the reason..."
-                                   options="{'no_open':True,'no_create':True,'no_delete':True}"/>
-
-                            <field name="reason_extra"
-                                   placeholder="Additional details..."
-                                   invisible="reason != 'extra_credits'"/>
-                        </group>
-
+                        <div class="p-4">
+                            <div class="rounded-3 p-3 d-flex align-items-center gap-3 border shadow-sm"
+                                 style="background: #f8fafc;">
+                                <div class="h3 mb-0 text-info">🏦</div>
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-0" style="color: #334155;">Official Financial Statement</h6>
+                                    <p class="text-muted small mb-0">This document serves as an electronic record of
+                                        financial transactions within the Student Portal.</p>
+                                </div>
+                            </div>
+                        </div>
                     </sheet>
                 </form>
             </field>

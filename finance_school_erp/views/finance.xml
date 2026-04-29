@@ -24,50 +24,121 @@
         <field name="name">finance.form.view</field>
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">
-            <form>
+            <form class="finance_form_view">
+                <xpath expr="." position="inside">
+                    <style>
+                        /* The 1.0s Fill/Sweep Animation from Left to Right */
+                        .btn-pay-sweep {
+                            background-image: linear-gradient(to right, #e8f5e9 50%, #2e7d32 50%) !important;
+                            background-size: 200% 100% !important;
+                            background-position: left bottom !important;
+                            color: #2e7d32 !important;
+                            transition: background-position 1.0s ease, color 0.6s ease !important;
+                            border: 1px solid #c8e6c9 !important;
+                        }
+
+                        .btn-pay-sweep:hover {
+                            background-position: right bottom !important;
+                            color: white !important;
+                            border-color: #1b5e20 !important;
+                        }
+                    </style>
+                </xpath>
+
                 <header>
                     <button name="pay_finance"
-                            string="Pay"
+                            string="💳 Register Payment"
                             type="object"
-                            class="btn-primary"
+                            class="btn rounded-pill px-4 shadow-sm fw-bold btn-pay-sweep"
+                            confirm="Confirm payment?&#10;&#10;Please verify: Amount and Student are correct.&#10;&#10;This will lock the record and it cannot be changed."
                             invisible="state in ('paid','draft')"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+
                     <button name="unpaid_finance"
-                            string="Create"
+                            string="Confirm Invoice"
                             type="object"
-                            class="btn-secondary"
+                            class="btn-secondary rounded-pill px-4 shadow-sm"
                             invisible="state in ('unpaid','paid')"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="draft,unpaid,paid"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
                 </header>
-                <sheet>
-                    <group col="2">
-                        <group string="Basic Information">
-                            <field name="sequence" optional="hide"/>
-                            <field name="student_id"
-                                   options="{'no_open': True, 'no_create': True}"
-                                   domain="[('member_type','=','student')]"/>
-                            <field name="create_date" readonly="1"/>
-                            <field name="reason"/>
-                            <field name="reason_extra"
-                                   invisible="reason != 'extra_credits'"/>
-                        </group>
-                        <group string="Payment Details">
-                            <field name="amount"/>
-                            <field name="paid_date"/>
-                            <field name="state"
-                                   widget="badge"
-                                   decoration-success="state == 'paid'"
-                                   decoration-warning="state == 'draft'"
-                                   decoration-danger="state == 'unpaid'"/>
-                        </group>
-                    </group>
-                    <div class="alert alert-warning mt-3" role="alert">
-                        <i class="fa fa-exclamation-triangle me-2"/>
-                        <strong>Notice:</strong> After the payment is in status <strong>'Paid'</strong> you cannot change the record
+
+                <sheet class="p-0">
+                    <div class="p-4 d-flex justify-content-between align-items-end border-bottom bg-white">
+                        <div>
+                            <label for="sequence" string="Financial ID"
+                                   class="text-muted small fw-bold text-uppercase d-block mb-1"/>
+                            <h2 class="fw-bold mb-0"><field name="sequence" readonly="1"/></h2>
+                        </div>
+                        <div class="text-end">
+                            <label for="amount" string="Total Balance"
+                                   class="text-muted small fw-bold text-uppercase d-block mb-1"/>
+                            <div class="h2 fw-bold text-dark mb-0">
+                                <field name="amount" nolabel="1" widget="monetary"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <div class="row g-4">
+                            <div class="col-md-7">
+                                <div class="o_card_box p-4 border rounded-3 shadow-sm h-100 bg-white">
+                                    <h6 class="text-uppercase text-primary fw-bold mb-4" style="letter-spacing: 1px;">
+                                        <i class="fa fa-user me-2"/> Payer Information
+                                    </h6>
+
+                                    <div class="mb-4">
+                                        <label for="student_id" class="text-muted small fw-bold d-block mb-1"/>
+                                        <field name="student_id" nolabel="1" class="fw-bold h5 d-block"
+                                               options="{'no_open': True, 'no_create': True}"/>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <label for="create_date" string="Date Created"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <field name="create_date" nolabel="1"/>
+                                        </div>
+                                        <div class="col-6 border-start ps-3">
+                                            <label for="paid_date" class="text-muted small fw-bold d-block mb-1"/>
+                                            <field name="paid_date" nolabel="1" class="fw-bold"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="o_card_box p-4 border rounded-3 shadow-sm h-100 bg-white">
+                                    <h6 class="text-uppercase text-secondary fw-bold mb-4" style="letter-spacing: 1px;">
+                                        <i class="fa fa-tag me-2"/> Classification
+                                    </h6>
+
+                                    <div class="mb-3">
+                                        <label for="reason" class="text-muted small fw-bold d-block mb-1"/>
+                                        <field name="reason" nolabel="1" class="fw-bold d-block mb-2"/>
+
+                                        <div class="p-2 border rounded bg-light" invisible="reason != 'extra_credits'">
+                                            <label for="reason_extra" string="Additional Note"
+                                                   class="text-muted extra-small fw-bold d-block"/>
+                                            <field name="reason_extra" nolabel="1"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="state" string="Status"
+                                               class="text-muted small fw-bold d-block mb-1"/>
+                                        <field name="state" widget="badge"
+                                               decoration-success="state == 'paid'"
+                                               decoration-warning="state == 'draft'"
+                                               decoration-danger="state == 'unpaid'"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </sheet>
+
                 <div class="oe_chatter"
                      groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                     <field name="message_follower_ids"/>
@@ -77,6 +148,7 @@
             </form>
         </field>
     </record>
+    <!--Search-->
     <record id="finaance_view_search" model="ir.ui.view">
         <field name="name">Finance Search</field>
         <field name="model">finance.finance</field>

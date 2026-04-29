@@ -6,29 +6,136 @@
             <field name="name">my.profile.teacher</field>
             <field name="model">my.profile.teacher</field>
             <field name="arch" type="xml">
-                <form create="False" delete="False" edit="False">
-                    <sheet>
-                        <button name="action_print_report" string="Print Info" type="object" icon="fa-print"/>
-                        <group col="2">
-                            <group string="Required information">
-                                <field name="sequence"/>
-                                <field name="user_id" invisible="True"/>
-                                <field name="name"/>
-                                <field name="surname"/>
-                            </group>
-                            <group string="Optional Information">
-                                <field name="blood_type"/>
-                                <field name="dob"/>
-                                <field name="phone"/>
-                                <field name="education"/>
-                            </group>
-                        </group>
-                        <div class="alert alert-warning" role="alert">
-                            <i class="fa fa-exclamation-triangle"/>
-                            If the information is incorrect, please inform the school administration.
-                            <br/>
-                            <br/>
-                            Contacts: admin@admin.com
+                <form create="False" delete="False" edit="False" class="teacher_profile_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            .pill-btn-warm {
+                                transition: background-color 1.0s ease, color 1.0s ease, border-color 1.0s ease, transform 0.2s ease !important;
+                                border: 1px solid transparent !important;
+                            }
+
+                            /* Print Button: Soft Teal -> Deep Teal */
+                            .btn-print-warm {
+                                background-color: #e0f2f1 !important;
+                                color: #00695c !important;
+                                border-color: #b2dfdb !important;
+                            }
+
+                            .btn-print-warm:hover {
+                                background-color: #00695c !important;
+                                color: white !important;
+                                border-color: #004d40 !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .o_card_box {
+                                border: 1px solid #e9ecef;
+                                border-radius: 15px;
+                                padding: 20px;
+                                background: white;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                            }
+                        </style>
+                    </xpath>
+
+                    <sheet class="p-0">
+                        <div class="p-3 pb-0">
+                            <div class="d-flex align-items-center justify-content-between w-100 mb-3 p-2"
+                                 style="background: #f8f9fa; border-radius: 50px; border: 1px solid #e9ecef;">
+                                <div class="ms-2">
+                                    <button name="action_print_report" string="🖨️ Print My Profile" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"/>
+                                </div>
+                                <div class="me-3 text-muted small fw-bold">
+                                    <i class="fa fa-mortar-board me-1"/> TEACHER PORTAL
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 pt-2">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                     style="width: 100px; height: 100px;">
+                                    <i class="fa fa-user-circle text-muted" style="font-size: 60px;"/>
+                                </div>
+                                <div>
+                                    <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">
+                                        Teacher Reference</div>
+                                    <div style="font-size:1.8rem; font-weight:700;" class="text-dark">
+                                        <field name="sequence" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="o_card_box h-100">
+                                        <h5 class="text-primary fw-bold mb-4 border-bottom pb-2">📋 Identity Details</h5>
+                                        <field name="user_id" invisible="1"/>
+                                        <div class="mb-3">
+                                            <label for="name" class="text-muted small fw-bold d-block mb-1">First
+                                                Name</label>
+                                            <div class="h6 fw-bold"><field name="name" nolabel="1"/></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="surname" class="text-muted small fw-bold d-block mb-1">Last
+                                                Name</label>
+                                            <div class="h6 fw-bold"><field name="surname" nolabel="1"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="o_card_box h-100">
+                                        <h5 class="text-success fw-bold mb-4 border-bottom pb-2">🧾 Professional
+                                            Info</h5>
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label for="blood_type" class="text-muted small fw-bold d-block mb-1">
+                                                    Blood Type</label>
+                                                <field name="blood_type" nolabel="1"/>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label for="dob" class="text-muted small fw-bold d-block mb-1">Birth
+                                                    Date</label>
+                                                <field name="dob" nolabel="1"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phone" class="text-muted small fw-bold d-block mb-1">Contact
+                                                Number</label>
+                                            <div class="h6"><i class="fa fa-phone text-primary me-2"/><field
+                                                    name="phone" nolabel="1"/></div>
+                                        </div>
+                                        <div class="mb-0">
+                                            <label for="education" class="text-muted small fw-bold d-block mb-1">
+                                                Education Background</label>
+                                            <div class="bg-light p-2 rounded border-start border-4 border-success">
+                                                <field name="education" nolabel="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="o_footer_box p-3 rounded-4"
+                                 style="background: #fff9e6; border: 1px solid #ffeeba; color: #856404;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="font-size: 24px;">⚠️</div>
+                                    <div>
+                                        <strong class="d-block">Information Accuracy</strong>
+                                        <span class="small">If your profile data is incorrect, please reach out to the
+                                            school administration.</span>
+                                        <div class="mt-2 fw-bold small">
+                                            <i class="fa fa-envelope me-1"/> admin@admin.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </sheet>
                 </form>

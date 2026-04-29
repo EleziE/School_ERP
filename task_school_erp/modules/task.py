@@ -11,13 +11,13 @@ class Task(models.Model):
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-    user_id = fields.Many2one(comodel_name='res.users', string='User', tracking=True )
+    user_id = fields.Many2one(comodel_name='res.users', string='User', tracking=True)
     task_for = fields.Many2one(comodel_name='teacher.teacher', tracking=True)
     task_from = fields.Many2one(comodel_name='administration.administration',
                                 readonly=True,
-                                default=lambda self: self.env['administration.administration'].search([('user_id', '=', self.env.user.id)], limit=1),
+                                default=lambda self: self.env['administration.administration'].search(
+                                    [('user_id', '=', self.env.user.id)], limit=1),
                                 store=True, tracking=True)
-
     status = fields.Selection(selection=[('new', 'New'),
                                          ('in_progress', 'In Progress'),
                                          ('completed', 'Completed'),
@@ -27,17 +27,18 @@ class Task(models.Model):
                               store=True,
                               group_expand='_group_expand_status',
                               tracking=True)
-
     starting_date = fields.Date(default=fields.Date.today,
+                                readonly=True,
                                 tracking=True)
     planned_finish_date = fields.Date(tracking=True)
-
     finish_date = fields.Date(store=True,
+                              readonly=True,
                               tracking=True)
-
     description = fields.Text(tracking=True)
-
     check_user_finish_date = fields.Boolean(compute='_compute_check_user')
+    check_user_planned_finish_date = fields.Boolean(compute='_compute_planed_date_restriction')
+
+    ######################### CREATE & WRITE ################################
 
     @api.model
     def create(self, vals):
@@ -50,37 +51,52 @@ class Task(models.Model):
         """
         Who has the rights to modify the records
         """
-        if not (self.env.user.has_group('base_school_erp.group_school_administration') or
-                self.env.user.has_group('base_school_erp.group_school_admin') or
-                self.env.user.has_group('base_school_erp.group_school_teacher')):
+
+        is_admin = (self.env.user.has_group('base_school_erp.group_school_administration') or
+                    self.env.user.has_group('base_school_erp.group_school_admin') or
+                    self.env.user.has_group('base_school_erp.group_school_teacher'))
+
+        if not is_admin:
             raise AccessError('You are not allowed to perform this task!')
 
         for rec in self:
-            if rec.status in ['completed', 'completed_delayed', 'completed_early'] and not  rec.user_id.has_group('base_school_erp.group_school_admin'):
-                raise UserError('\nThe task has been completed!\n\n You cannot change the status of the task!')
+            was_completed = rec.status in ['completed', 'completed_delayed', 'completed_early']
+
+            if was_completed :
+
+                if 'finish_date' not in vals:
+                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task!')
 
         return super().write(vals)
 
+    ######################### Depends ################################
 
-    @api.depends('task_for')
-    def _compute_check_user(self):
+    def action_finish_task(self):
+        """The button action. It sets the date, which then triggers the status compute."""
         for rec in self:
-            rec.check_user_finish_date = (rec.task_for.user_id == self.env.user)
+            # Check permissions
+            if rec.task_for.user_id != self.env.user:
+                raise UserError(f'You are not allowed to perform this task, only {rec.task_for.name} is allowed!')
 
-    def _group_expand_status(self, states, domain, order):
-        return [key for key, val in self._fields['status'].selection]
+            # Set finish_date to today.
+            # Because 'status' depends on 'finish_date', it will update automatically.
+            rec.finish_date = fields.Date.today()
 
     @api.depends('planned_finish_date', 'finish_date')
     def status_based_dates(self):
         for rec in self:
-            if not rec.planned_finish_date or not rec.finish_date:
+            if not rec.finish_date:
                 rec.status = 'in_progress'
-            elif rec.finish_date == rec.planned_finish_date:
-                rec.status = 'completed'
-            elif rec.finish_date > rec.planned_finish_date:
-                rec.status = 'completed_delayed'
+            elif rec.planned_finish_date:
+                if rec.finish_date > rec.planned_finish_date:
+                    rec.status = 'completed_delayed'
+                elif rec.finish_date < rec.planned_finish_date:
+                    rec.status = 'completed_early'
+                else:
+                    rec.status = 'completed'
             else:
-                rec.status = 'completed_early'
+                # If no deadline was set but they finished it
+                rec.status = 'completed'
 
     ######################### Constraints ################################
     @api.constrains('finish_date')
@@ -112,22 +128,27 @@ class Task(models.Model):
                 raise UserError('The planned finish date cannot be in the past!')
             if rec.finish_date and rec.finish_date < rec.starting_date:
                 raise UserError('The finish date cannot be before the starting date!')
-            """
-            Why it cant be :
-            ```
-            @api.constrains('planned_finish_date', 'finish_date')
-            def restriction_date(self):
-            for rec in self:
-                if rec.planned_finish_date or rec.finish_date < rec.starting_date:
-                    raise UserError('The task cant be arranged for the past, it should be in the future')
-            
-            """
 
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
     ]
 
-    ######################### Constraints ################################
+    ######################### Recheck for the fields  ################################
+
+    @api.depends('task_for')
+    def _compute_check_user(self):
+        for rec in self:
+            rec.check_user_finish_date = (rec.task_for.user_id == self.env.user)
+
+    @api.depends('task_from')
+    def _compute_planed_date_restriction(self):
+        for rec in self:
+            rec.check_user_planned_finish_date = (rec.task_from.user_id == self.env.user)
+
+    ######################### Dont understand what they do yet  ################################
+
+    def _group_expand_status(self, states, domain, order):
+        return [key for key, val in self._fields['status'].selection]
 
 
 class Teacher(models.Model):

@@ -106,7 +106,7 @@ class Teacher(models.Model):
     def _generate_unique_sequence(self):
         while True:
             number = str(secrets.randbelow(9000000) + 1000000)
-            sequence = f'S-{number}'
+            sequence = f'T-{number}'
             existing = self.search([('sequence', '=', sequence)], limit=1)
             if not existing:
                 return sequence

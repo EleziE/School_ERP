@@ -198,9 +198,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <strong class="d-block mb-1 text-muted small">Year</strong>
-                                                <field name="year" nolabel="1"/>
+                                                <div invisible="state == 'graduated'">
+                                                    <strong class="d-block mb-1 text-muted small">Year</strong>
+                                                    <field name="year" nolabel="1"/>
+                                                </div>
+
+                                                <div invisible="state != 'graduated'">
+                                                    <strong class="d-block mb-1 text-muted small text-warning">
+                                                        Graduation</strong>
+                                                    <field name="graduation_date" nolabel="1"
+                                                           class="text-warning fw-bold"/>
+                                                </div>
                                             </div>
+
                                             <div class="col-6">
                                                 <strong class="d-block mb-1 text-muted small">Enrolled</strong>
                                                 <field name="enrollment_date" nolabel="1"/>

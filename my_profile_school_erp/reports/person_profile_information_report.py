@@ -21,7 +21,8 @@ class PersonProfileInformationReport(models.AbstractModel):
         doc = SimpleDocTemplate(buffer)
         styles = getSampleStyleSheet()
         elements = []
-        def add_footer_header(canvas,_doc ):
+
+        def add_footer_header(canvas, _doc):
             canvas.saveState()
 
             # Header
@@ -62,7 +63,9 @@ class PersonProfileInformationReport(models.AbstractModel):
             elements.append(Spacer(1, 6))
             elements.append(Paragraph(f"External email : {record.external_email or ''}", styles['Normal']))
 
-        if record.member=='student' and record.state == 'graduated':
+
+        elif record.member_type == 'student' and getattr(record, 'state', False) == 'graduated':
+            
             elements.append(Paragraph("Student Profile Report", styles['Title']))
             elements.append(Spacer(1, 12))
             elements.append(Paragraph("Student Information", styles['Heading2']))
@@ -88,19 +91,33 @@ class PersonProfileInformationReport(models.AbstractModel):
 
         elif record.member_type == 'teacher':
 
+            dob_formatted = record.dob.strftime("%d/%m/%Y") if record.dob else ''
+
             elements.append(Paragraph("Teacher Profile Report", styles['Title']))
             elements.append(Spacer(1, 12))
+
             elements.append(Paragraph("Teacher Information", styles['Heading2']))
-            elements.append(Spacer(1, 12))
-            elements.append(Paragraph(f"Teacher No: {record.sequence or ''}", styles['Normal']))
+            elements.append(Spacer(1, 20))
+
+            elements.append(Paragraph(f"Teacher ID : {record.sequence or ''}", styles['Normal']))
             elements.append(Spacer(1, 6))
-            elements.append(Paragraph(f"Name: {record.name or ''}", styles['Normal']))
+
+            elements.append(Paragraph(f"Name : {(record.name or '').capitalize()}", styles['Normal']))
             elements.append(Spacer(1, 6))
-            elements.append(Paragraph(f"Surname: {record.surname or ''}", styles['Normal']))
+
+            elements.append(Paragraph(f"Surname : {(record.surname or '').capitalize()}", styles['Normal']))
             elements.append(Spacer(1, 6))
-            elements.append(Paragraph(f"Date of Birth: {record.dob or ''}", styles['Normal']))
+
+            elements.append(Paragraph(f"Date of Birth : {dob_formatted}", styles['Normal']))
             elements.append(Spacer(1, 6))
-            elements.append(Paragraph(f"Email: {record.email or ''}", styles['Normal']))
+
+            elements.append(Paragraph(f"Email : {record.email or ''}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+
+            elements.append(Paragraph(f"Phone : {record.phone or ''}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+
+            elements.append(Paragraph(f"Education : {record.education or ''}", styles['Normal']))
             elements.append(Spacer(1, 12))
 
         elif record.member_type == 'administration':
