@@ -21,7 +21,7 @@ class PersonProfileInformationReport(models.AbstractModel):
         doc = SimpleDocTemplate(buffer)
         styles = getSampleStyleSheet()
         elements = []
-
+        record = record.env['res_']
         def add_footer_header(canvas,_doc ):
             canvas.saveState()
 

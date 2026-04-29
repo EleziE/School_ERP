@@ -46,6 +46,7 @@ class MyProfileStudent(models.Model):
         """
         To Generate the report and take the information in a PDF
         """
+        self.ensure_one()
         report = self.env['person.profile.information.report']
         pdf_base64 = report.generate_my_profile(self)
 
