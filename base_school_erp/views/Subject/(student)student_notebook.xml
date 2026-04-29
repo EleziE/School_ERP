@@ -6,16 +6,20 @@
         <field name="model">students.students</field>
         <field name="inherit_id" ref="students_school_erp.students_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='subject']" position="inside">
-                <field name="finance_ids" options="{'no_open':True, 'no_create':True}">
-                    <tree>
-                        <field name="state"/>
-                        <field name="reason" />
-                        <field name="amount" options="{'no_open':True, 'no_create':True}" readonly="True"/>
-                    </tree>
-                </field>
+            <!-- Filter subjects by student's faculty, year, semester -->
+            <xpath expr="//field[@name='subject_id']" position="attributes">
+                <attribute name="domain">[
+                    ('faculty', '=', faculty),
+                    ('year', '=', year),
+                    ('semester', '=', semester)
+                ]</attribute>
+                <attribute name="context">{
+                    'default_faculty': faculty,
+                    'default_year': year,
+                    'default_semester': semester
+                }</attribute>
             </xpath>
+
         </field>
     </record>
-
 </odoo>

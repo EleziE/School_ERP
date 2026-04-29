@@ -8,12 +8,13 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='finance']" position="inside">
                 <button name="%(action_print_finances)d" type="action" string="Print Finances"/>
-                <field name="finance_ids" options="{'no_open':True, 'no_create':True}">
+                <field name="finance_ids" options="{'no_open':True, 'no_create':True, 'no_edit':True}" readonly="True">
                     <tree>
-                        <field name="student_id"/>
-                        <field name="create_date"/>
-                        <field name="reason"/>
-                        <field name="state" widget="badge"
+                        <field name="sequence" optional="hide" readonly="True"/>
+                        <field name="student_id" optional="hide" readonly="True"/>
+                        <field name="create_date" readonly="True"/>
+                        <field name="reason" readonly="True"/>
+                        <field name="state" widget="badge" readonly="True"
                                decoration-success="state == 'paid'"
                                decoration-danger="state == 'unpaid'"/>
                         <field name="amount" options="{'no_open':True, 'no_create':True}" readonly="True"/>

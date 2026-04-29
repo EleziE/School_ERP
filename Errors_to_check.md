@@ -43,4 +43,13 @@ Recheck the sequence if it changes as it should after saving the autofilled vers
                                                                                             ######################## 4/28/2026 #########################
 
 1. How to make it that the subjects to be shown in the module students(not my profile) to show only the subject of while filtering the faculty, year and semester
-2. 
+
+
+
+                                                                                            ######################## 4/29/2026 #########################
+1. Student module UI is done !
+2. Teacher module UI is done !
+3. Task module UI is done !
+4. Finance module UI is done !
+5. Base wasn't touched !
+6. Finance in the my profile whach the lattes version and the second lattest  version that the Gemeni verdi knk

@@ -4,9 +4,10 @@
     <record id="task_tree_view" model="ir.ui.view">
         <field name="model">task</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree duplicate="0">
                 <field name="sequence" optional="hide"/>
-                <field name="task_from" options="{'no_open':True}"/>
+                <field name="task_from" options="{'no_open':True}" optional="show"
+                       groups="base_school_erp.group_school_admin"/>
                 <field name="task_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -22,26 +23,85 @@
     <record id="task_form_view" model="ir.ui.view">
         <field name="model">task</field>
         <field name="arch" type="xml">
-            <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]">
+            <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]"
+                  class="task_form_view">
                 <header>
-                    <field name="status"
-                           widget="statusbar"/>
+                    <button name="action_finish_task"
+                            string="✅ Finish Task"
+                            type="object"
+                            confirm="Confirm task completion? This will lock the record."
+                            class="btn-finish-warm rounded-pill fw-bold"
+                            invisible="not check_user_finish_date or status in ['completed','completed_delayed','completed_early']"/>
+
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="in_progress,completed"/>
                 </header>
+
                 <sheet>
-                    <group>
-                        <field name="sequence"/>
-                        <field name="task_from" options="{'no_open':True}"/>
-                        <field name="task_for"/>
-                        <field name="check_user_finish_date" invisible="True"/>
-                        <field name="starting_date"/>
-                        <field name="planned_finish_date"/>
-                        <field name="finish_date" invisible="not check_user_finish_date"/>
+                    <xpath expr="." position="inside">
+                        <style>
+                            .btn-finish-warm {
+                                background-image: linear-gradient(to right, #e0f7fa 50%, #00838f 50%) !important;
+                                background-size: 200% 100% !important;
+                                background-position: left bottom !important;
+                                color: #006064 !important;
+                                transition: background-position 1.0s ease, color 0.7s ease !important;
+                                border: 1px solid #b2ebf2 !important;
+                                padding: 8px 20px !important;
+                            }
+
+                            .btn-finish-warm:hover {
+                                background-position: right bottom !important;
+                                color: white !important;
+                            }
+
+                            .o_task_main_card {
+                                background: #ffffff;
+                                border: 1px solid #e9ecef;
+                                border-radius: 12px;
+                                padding: 20px;
+                            }
+                        </style>
+                    </xpath>
+
+                    <div class="oe_title mb-4">
+                        <h1 class="d-flex align-items-center">
+                            <field name="sequence" class="text-primary me-2"/>
+                        </h1>
+                    </div>
+
+                    <div class="o_task_main_card shadow-sm">
+                        <group>
+                            <group name="assignment_details" string="👥 Assignment">
+                                <field name="task_from" options="{'no_open': True, 'no_create': True}"
+                                       readonly="1"/>
+                                <field name="task_for" options="{'no_open': True, 'no_create': True}"
+                                       readonly="status != 'new'"/>
+                                <field name="user_id" invisible="1"/>
+                            </group>
+
+                            <group name="date_details" string="📅 Timeline">
+                                <field name="starting_date"/>
+                                <field name="planned_finish_date"
+                                       readonly="not check_user_planned_finish_date"/>
+                                <field name="finish_date"
+                                       invisible="not finish_date"
+                                       readonly="1"
+                                       force_save="1"/>
+                                <field name="check_user_finish_date" invisible="1"/>
+                                <field name="check_user_planned_finish_date" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <separator string="📝 Task Instructions" class="mt-4 fw-bold text-success"/>
                         <field name="description"
-                               placeholder="Information about the task..."/>
-                    </group>
+                               placeholder="Describe the work to be done..."
+                               class="oe_inline w-100 p-3 bg-light border-0 rounded"
+                               readonly="status != 'new' and not check_user_planned_finish_date"/>
+                    </div>
                 </sheet>
-                <div class="oe_chatter"
-                     groups="base_school_erp.group_school_admin">
+
+                <div class="oe_chatter">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
@@ -65,7 +125,8 @@
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
-                    <filter name="member" string="User" context="{'group_by':'user_id'}"/>
+                    <filter name="task_for" string="Task for" context="{'group_by':'task_for'}"/>
+                    <filter name="task_from" string="Task from" context="{'group_by':'task_from'}"/>
                 </group>
             </search>
         </field>

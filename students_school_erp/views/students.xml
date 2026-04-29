@@ -7,114 +7,249 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <form class="student_form_view">
-                    <header>
-                        <field name="state" widget="statusbar"
-                               statusbar_visible="new,active,inactive,suspended,graduated,rejected"
-                               options="{'clickable': False}"/>
-                        <button name="action_active" type="object" string="Activate"
-                                class="btn-primary"
-                                invisible="state not in ('inactive', 'suspended','new')"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_inactive" type="object" string="Deactivate"
-                                class="btn-outline-warning"
-                                invisible="state != 'active'"
-                                groups="base_school_erp.group_school_admin"/>
-                        <button name="action_open_suspend_wizard" type="object" string="Suspend"
-                                class="btn-outline-danger"
-                                invisible="state not in ('active', 'inactive')"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_graduated" type="object" string="Graduate"
-                                class="btn-outline-success"
-                                invisible="state not in ('active', 'inactive', 'suspended')"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_graduated_reverse" type="object" string="Reactivate"
-                                class="btn-danger"
-                                invisible="state != 'graduated'"
-                                groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"
-                        confirm="A graduated student is becoming active again ! Are you sure !?"/>
-                        <button name="action_graduate_student_info"
-                                type="object"
-                                string="Print Report"
-                                class="btn-primary"
-                                invisible="state != 'graduated'"/>
+                    <xpath expr="." position="inside">
+                        <style>
+                            /* Base class for all pill buttons */
+                            .pill-btn-warm {
+                                transition: background-color 1.0s ease, color 1.0s ease, border-color 1.0s ease, transform 0.2s ease !important;
+                                border: 1px solid transparent !important;
+                            }
 
-                    </header>
-                    <sheet>
-                        <div class="oe_title d-flex align-items-center gap-3 p-2">
-                            <field name="image_128"
-                                   widget="image"
-                                   class="oe_avatar"
-                                   options="{'size': [100, 100]}"/>
-                            <div class="d-flex flex-column">
-                                <h2 class="m-0 text-muted">
+                            .btn-grad-warm {
+                                background-color: #d4edda !important;
+                                color: #155724 !important;
+                                border-color: #c3e6cb !important;
+                            }
+
+                            .btn-grad-warm:hover {
+                                background-color: #6B8E23 !important;
+                                color: white !important;
+                                border-color: #556B2F !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-susp-warm {
+                                background-color: #fff3cd !important;
+                                color: #856404 !important;
+                                border-color: #ffeeba !important;
+                            }
+
+                            .btn-susp-warm:hover {
+                                background-color: #D35400 !important;
+                                color: white !important;
+                                border-color: #A04000 !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-inact-warm {
+                                background-color: #e2e3e5 !important;
+                                color: #383d41 !important;
+                                border-color: #d6d8db !important;
+                            }
+
+                            .btn-inact-warm:hover {
+                                background-color: #707B7C !important;
+                                color: white !important;
+                                border-color: #515A5A !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-act-warm {
+                                background-color: #cce5ff !important;
+                                color: #004085 !important;
+                                border-color: #b8daff !important;
+                            }
+
+                            .btn-act-warm:hover {
+                                background-color: #2E86C1 !important;
+                                color: white !important;
+                                border-color: #21618C !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-print-warm {
+                                background-color: #e0f2f1 !important;
+                                color: #00695c !important;
+                                border-color: #b2dfdb !important;
+                            }
+
+                            .btn-print-warm:hover {
+                                background-color: #00695c !important;
+                                color: white !important;
+                                border-color: #004d40 !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-revert-warm {
+                                background-color: #f6efe9 !important;
+                                color: #8c6a51 !important;
+                                border-color: #e5d8cd !important;
+                            }
+
+                            .btn-revert-warm:hover {
+                                /* Hover: Subdued terracotta, lower contrast */
+                                background-color: #be8a65 !important;
+                                color: white !important;
+                                border-color: #a07455 !important;
+                                transform: translateY(-2px);
+                                /* Soft shadow to match the warm feel */
+                                box-shadow: 0 4px 12px rgba(190, 138, 101, 0.2) !important;
+                            }
+                        </style>
+                    </xpath>
+                    <sheet class="p-0">
+                        <div class="p-3 pb-0">
+                            <div class="o_status_box d-flex align-items-center justify-content-between w-100 mb-3 p-2"
+                                 style="background: #f8f9fa; border-radius: 50px; border: 1px solid #e9ecef;">
+                                <div class="d-flex gap-2 flex-grow-1 ms-2">
+                                    <button name="action_active" string="Active" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-act-warm"
+                                            invisible="state not in ['suspended','inactive']"/>
+                                    <button name="action_inactive" string="Set Inactive" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-inact-warm"
+                                            invisible="state != 'active'"/>
+                                    <button name="action_open_suspend_wizard" string="⚠️ Suspend" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-susp-warm"
+                                            invisible="state not in ['active', 'inactive']"/>
+                                    <button name="action_graduated" string="🎓 Graduate" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-grad-warm"
+                                            invisible="state != 'active'"/>
+                                    <button name="action_graduated_reverse"
+                                            string="🔄 Revert to Active"
+                                            type="object"
+                                            confirm="A graduated student is becoming active again. Are you sure you want to proceed?"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-revert-warm"
+                                            invisible="state != 'graduated'"/>
+                                    <button name="action_graduate_student_info" string="🖨️ Print Profile" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"
+                                            invisible="state != 'graduated'"/>
+                                    <button name="action_print_report" string="🖨️ Print Profile" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"
+                                            invisible="state  in  ['new','suspended','inactive','graduated']"/>
+                                </div>
+                                <div class="me-2">
+                                    <field name="state" widget="statusbar"
+                                           statusbar_visible="active,inactive,suspended,graduated"
+                                           options="{'clickable': False}"/>
+                                </div>
+                            </div>
+                        </div> <div class="p-3">
+                        <div class="d-flex align-items-center gap-3 o_student_header">
+                            <field name="image_128" widget="image" class="oe_avatar" options="{'size': [90, 90]}"/>
+                            <div class="flex-grow-1">
+                                <div class="text-muted small">Student ID</div>
+                                <div style="font-size:1.2rem; font-weight:600;">
                                     <field name="sequence" readonly="1"/>
-                                </h2>
-                                <h1 class="m-0 d-flex align-items-end gap-4">
-
-                                    <div class="d-flex flex-column">
-                                        <label for="name" class="text-muted small mb-0">Name</label>
-                                        <field name="name" class="oe_inline"/>
-                                    </div>
-
-                                    <div class="d-flex flex-column">
-                                        <label for="surname" class="text-muted small mb-0">Surname</label>
-                                        <field name="surname" class="oe_inline"/>
-                                    </div>
-
-                                </h1></div>
+                                </div>
+                            </div>
                         </div>
-                        <group col="2">
-                            <group string="👤 Personal Information">
-                                <field name="user_id" invisible="1"/>
-                                <field name="name" required="1"/>
-                                <field name="surname"/>
-                                <field name="gender"/>
-                                <field name="dob"/>
-                            </group>
-                            <group string="🧾 Optional Personal Information">
-                                <field name="father_name"/>
-                                <field name="mother_name"/>
-                                <field name="blood_type"/>
-                            </group>
-                        </group>
-                        <group col="2">
-                            <group string="🎓 Academic Information">
-                                <field name="member_type" readonly="1"/>
-                                <field name="faculty"/>
-                                <field name="year"/>
-                                <field name="enrollment_date"/>
-                                <field name="graduation_date"
-                                       invisible="not user_id or state != 'graduated'"/>
-                            </group>
-                            <group string="📧 Contact Information">
-                                <field name="email" required="1"/>
-                                <field name="external_email"/>
-                            </group>
-                        </group>
-                        <group string="⚙ Status Details">
-                            <field name="state" readonly="1"/>
-                            <field name="suspend_reason"
-                                   readonly="1"
-                                   invisible="state != 'suspended'"/>
-                        </group>
-                        <notebook invisible="state in ['new','graduated','suspended']">
-                            <page string="Finance" name="finance"/>
-                            <page string="Teacher" name="teacher"/>
-                            <page string="Subjects" name="subject">
-                                <field name="subject_id"/>
-                            </page>
-                        </notebook>
-                        <div class="alert alert-warning mt-3">
-                            <i class="fa fa-exclamation-triangle me-2"/>
-                            If information is incorrect, please contact administration.
-                            <br/><br/>
-                            <i class="fa fa-envelope me-2"/> admin@admin.com
-                            <br/>
-                            <i class="fa fa-phone me-2"/> +355 XXX XXXX
+                    </div>
+                        <div class="p-3">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3">👤 Personal Information</h5>
+                                        <field name="user_id" invisible="1"/>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">Name</strong>
+                                            <field name="name" nolabel="1"/>
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">Surname</strong>
+                                            <field name="surname" nolabel="1"/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Gender</strong>
+                                                <field name="gender" nolabel="1"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Date of birth</strong>
+                                                <field name="dob" nolabel="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3">🧾 Family Details</h5>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">Father Name</strong>
+                                            <field name="father_name" nolabel="1"/>
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">Mother Name</strong>
+                                            <field name="mother_name" nolabel="1"/>
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">Blood Type</strong>
+                                            <field name="blood_type" nolabel="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3 text-primary">🎓 Academic Info</h5>
+                                        <div class="mb-2">
+                                            <field name="faculty" placeholder="Faculty" nolabel="1"
+                                                   class="fw-bold h6 text-primary"/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div invisible="state == 'graduated'">
+                                                    <strong class="d-block mb-1 text-muted small">Year</strong>
+                                                    <field name="year" nolabel="1"/>
+                                                </div>
+
+                                                <div invisible="state != 'graduated'">
+                                                    <strong class="d-block mb-1 text-muted small text-warning">
+                                                        Graduation</strong>
+                                                    <field name="graduation_date" nolabel="1"
+                                                           class="text-warning fw-bold"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Enrolled</strong>
+                                                <field name="enrollment_date" nolabel="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3 text-info">📧 Contact</h5>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">School Email</strong>
+                                            <field name="email" nolabel="1"/>
+                                        </div>
+                                        <div class="mb-2">
+                                            <strong class="d-block mb-1 text-muted small">External</strong>
+                                            <field name="external_email" nolabel="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <notebook class="mt-4" invisible="state in ['new','graduated','suspended']">
+                                <page string="Subjects" name="subject">
+                                    <field name="subject_id"/>
+                                </page>
+                                <page string="Teacher" name="teacher"/>
+                                <page string="Finance" name="finance"/>
+                            </notebook>
+                        </div>
+                        <div class="p-3 border-top mt-4 bg-light">
+                            <div class="o_footer_box small text-muted">
+                                <i class="fa fa-info-circle text-primary me-2"/> Contact administration for corrections.
+                                <br/>
+                                <i class="fa fa-envelope me-2"/> admin@admin.com | <i class="fa fa-phone me-2"/> +355
+                                XXX XXXX
+                            </div>
                         </div>
                     </sheet>
-                    <div class="oe_chatter"
-                         groups="base_school_erp.group_school_admin">
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
@@ -143,6 +278,85 @@
             <field name="groups_id"
                    eval="[(4,ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration'))]"/>
         </record>
+        <!--Kanban-->
+        <record id="students_kanban_view" model="ir.ui.view">
+            <field name="name">students.kanban.view</field>
+            <field name="model">students.students</field>
+            <field name="arch" type="xml">
+                <kanban class="student_kanban_view" quick_create="false">
+
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="surname"/>
+                    <field name="sequence"/>
+                    <field name="email"/>
+                    <field name="faculty"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                    <field name="image_128"/>
+                    <field name="enrollment_date"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+
+                            <!-- ONLY CHANGE: added oe_kanban_global_click -->
+                            <div class="oe_kanban_global_click"
+                                 style="border-radius:12px; border:1px solid #e8ecf0; box-shadow:0 2px 8px rgba(0,0,0,0.06); overflow:hidden; background:white; margin:4px;">
+
+                                <!-- Header -->
+                                <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); padding:14px 16px; display:flex; align-items:center; gap:12px;">
+                                    <img t-att-src="kanban_image('students.students', 'image_128', record.id.raw_value)"
+                                         style="width:48px; height:48px; border-radius:50%; border:2px solid rgba(255,255,255,0.3); object-fit:cover;"
+                                         alt="Avatar"/>
+                                    <div>
+                                        <div style="color:white; font-weight:700; font-size:1rem; line-height:1.2;">
+                                            <t t-esc="record.name.value"/>
+                                            <t t-esc="' '"/>
+                                            <t t-esc="record.surname.value"/>
+                                        </div>
+                                        <div style="color:rgba(255,255,255,0.55); font-size:0.72rem; letter-spacing:0.8px; text-transform:uppercase; margin-top:2px;">
+                                            <t t-esc="record.sequence.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Body -->
+                                <div style="padding:12px 16px; background:#f8f9fc;">
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Faculty</span>
+                                        <span><t t-esc="record.faculty.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Year</span>
+                                        <span><t t-esc="record.year.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Email</span>
+                                        <span><t t-esc="record.email.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555;">
+                                        <span style="color:#0f3460; font-weight:600;">Enrolled</span>
+                                        <span><t t-esc="record.enrollment_date.value or 'N/A'"/></span>
+                                    </div>
+                                </div>
+
+                                <!-- Footer -->
+                                <div style="padding:8px 16px; background:white; border-top:1px solid #e8ecf0; display:flex; justify-content:space-between; align-items:center;">
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'active'"
+                                           decoration-warning="state in ('suspended','inactive')"
+                                           decoration-primary="state == 'graduated'"
+                                           decoration-danger="state == 'rejected'"/>
+                                </div>
+
+                            </div>
+
+                        </t>
+                    </templates>
+
+                </kanban>
+            </field>
+        </record>
         <!--Search-->
         <record id="student_view_search" model="ir.ui.view">
             <field name="name">student.view.search</field>
@@ -166,10 +380,11 @@
         <record id="action_students" model="ir.actions.act_window">
             <field name="name">Students</field>
             <field name="res_model">students.students</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="context">{'default_member_type': 'student', 'force_member_type': 'student'}</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
+                   (0, 0, {'view_mode': 'kanban', 'view_id': ref('students_kanban_view')}),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('students_tree_view')}),
                    (0, 0, {'view_mode': 'form', 'view_id': ref('students_form_view')}),]"/>
         </record>
