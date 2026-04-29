@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id='teacher_form_view_inherit' model="ir.ui.view">
+        <field name="name">teacher.form.view.inherit</field>
         <field name="model">teacher.teacher</field>
         <field name="inherit_id" ref="teacher_school_erp.teacher_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='Tasks']">
-                <field name="task_id">
-                    <tree>
-                        <field name="description"/>
-                        <field name="status"/>
-                        <field name="finish_date"/>
-                    </tree>
-                </field>
+
+            <xpath expr="//page[@name='Tasks']" position="inside">
+                <div class="notebook-card">
+                    <div class="info-card-title">✅ Tasks</div>
+                    <field name="task_id"
+                           nolabel="1"
+                           options="{'no_create':True}">
+                        <tree editable="bottom">
+                            <field name="status"/>
+                            <field name="description"/>
+                            <field name="planned_finish_date"/>
+                            <field name="finish_date"/>
+                        </tree>
+                    </field>
+                </div>
             </xpath>
+
         </field>
     </record>
 </odoo>

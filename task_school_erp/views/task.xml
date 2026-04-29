@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" optional="hide"/>
-                <field name="task_from" options="{'no_open':True}"/>
+                <field name="task_from" options="{'no_open':True}" optional="show" groups="base_school_erp.group_school_admin"/>
                 <field name="task_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>

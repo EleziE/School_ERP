@@ -11,27 +11,27 @@
                         <field name="state" widget="statusbar"
                                statusbar_visible="new,active,inactive,suspended,graduated,rejected"
                                options="{'clickable': False}"/>
-                        <button name="action_active" type="object" string="Activate"
+                        <button name="action_active" type="object" string="✅ Activate"
                                 class="btn-primary"
                                 invisible="state not in ('inactive', 'suspended','new')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_inactive" type="object" string="Deactivate"
+                        <button name="action_inactive" type="object" string="⏸ Deactivate"
                                 class="btn-outline-warning"
                                 invisible="state != 'active'"
                                 groups="base_school_erp.group_school_admin"/>
-                        <button name="action_open_suspend_wizard" type="object" string="Suspend"
+                        <button name="action_open_suspend_wizard" type="object" string="🔒 Suspend"
                                 class="btn-outline-danger"
                                 invisible="state not in ('active', 'inactive')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_graduated" type="object" string="Graduate"
+                        <button name="action_graduated" type="object" string="🎓 Graduate"
                                 class="btn-outline-success"
                                 invisible="state not in ('active', 'inactive', 'suspended')"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                        <button name="action_graduated_reverse" type="object" string="Reactivate"
+                        <button name="action_graduated_reverse" type="object" string="↩ Reactivate"
                                 class="btn-danger"
                                 invisible="state != 'graduated'"
                                 groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"
-                        confirm="A graduated student is becoming active again ! Are you sure !?"/>
+                                confirm="A graduated student is becoming active again ! Are you sure !?"/>
                         <button name="action_graduate_student_info"
                                 type="object"
                                 string="Print Report"
@@ -143,6 +143,85 @@
             <field name="groups_id"
                    eval="[(4,ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration'))]"/>
         </record>
+        <!--Kanban-->
+        <record id="students_kanban_view" model="ir.ui.view">
+            <field name="name">students.kanban.view</field>
+            <field name="model">students.students</field>
+            <field name="arch" type="xml">
+                <kanban class="student_kanban_view" quick_create="false">
+
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="surname"/>
+                    <field name="sequence"/>
+                    <field name="email"/>
+                    <field name="faculty"/>
+                    <field name="year"/>
+                    <field name="state"/>
+                    <field name="image_128"/>
+                    <field name="enrollment_date"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+
+                            <!-- ONLY CHANGE: added oe_kanban_global_click -->
+                            <div class="oe_kanban_global_click"
+                                 style="border-radius:12px; border:1px solid #e8ecf0; box-shadow:0 2px 8px rgba(0,0,0,0.06); overflow:hidden; background:white; margin:4px;">
+
+                                <!-- Header -->
+                                <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); padding:14px 16px; display:flex; align-items:center; gap:12px;">
+                                    <img t-att-src="kanban_image('students.students', 'image_128', record.id.raw_value)"
+                                         style="width:48px; height:48px; border-radius:50%; border:2px solid rgba(255,255,255,0.3); object-fit:cover;"
+                                         alt="Avatar"/>
+                                    <div>
+                                        <div style="color:white; font-weight:700; font-size:1rem; line-height:1.2;">
+                                            <t t-esc="record.name.value"/>
+                                            <t t-esc="' '"/>
+                                            <t t-esc="record.surname.value"/>
+                                        </div>
+                                        <div style="color:rgba(255,255,255,0.55); font-size:0.72rem; letter-spacing:0.8px; text-transform:uppercase; margin-top:2px;">
+                                            <t t-esc="record.sequence.value"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Body -->
+                                <div style="padding:12px 16px; background:#f8f9fc;">
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Faculty</span>
+                                        <span><t t-esc="record.faculty.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Year</span>
+                                        <span><t t-esc="record.year.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555; margin-bottom:6px;">
+                                        <span style="color:#0f3460; font-weight:600;">Email</span>
+                                        <span><t t-esc="record.email.value or 'N/A'"/></span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#555;">
+                                        <span style="color:#0f3460; font-weight:600;">Enrolled</span>
+                                        <span><t t-esc="record.enrollment_date.value or 'N/A'"/></span>
+                                    </div>
+                                </div>
+
+                                <!-- Footer -->
+                                <div style="padding:8px 16px; background:white; border-top:1px solid #e8ecf0; display:flex; justify-content:space-between; align-items:center;">
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'active'"
+                                           decoration-warning="state in ('suspended','inactive')"
+                                           decoration-primary="state == 'graduated'"
+                                           decoration-danger="state == 'rejected'"/>
+                                </div>
+
+                            </div>
+
+                        </t>
+                    </templates>
+
+                </kanban>
+            </field>
+        </record>
         <!--Search-->
         <record id="student_view_search" model="ir.ui.view">
             <field name="name">student.view.search</field>
@@ -166,11 +245,12 @@
         <record id="action_students" model="ir.actions.act_window">
             <field name="name">Students</field>
             <field name="res_model">students.students</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,kanban,form</field>
             <field name="context">{'default_member_type': 'student', 'force_member_type': 'student'}</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('students_tree_view')}),
+                   (0, 0, {'view_mode': 'kanban', 'view_id': ref('students_kanban_view')}),
                    (0, 0, {'view_mode': 'form', 'view_id': ref('students_form_view')}),]"/>
         </record>
         <!--Only the groups that are added are allowed to see the icon of this module-->
