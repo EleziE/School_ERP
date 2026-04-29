@@ -42,7 +42,6 @@ class StudentReport(models.AbstractModel):
             )
             c.restoreState()
 
-        # ── removed the if record.state == 'graduated' check ──
         elements.append(Paragraph("Student Profile Report", styles['Title']))
         elements.append(Spacer(1, 12))
         elements.append(Paragraph("Student Information", styles['Heading2']))

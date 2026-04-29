@@ -42,7 +42,7 @@ class ReportFinances(models.AbstractModel):
             canvas.restoreState()
 
         if record.state == 'graduated':
-            elements.append(Paragraph("Student Profile Report", styles['Title']))
+            elements.append(Paragraph("Graduate Student Information ", styles['Title']))
             elements.append(Spacer(1, 12))
             elements.append(Paragraph("Student Information", styles['Heading2']))
             elements.append(Spacer(1, 20))

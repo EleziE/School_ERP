@@ -234,7 +234,9 @@ class Student(models.Model):
             'type': 'ir.actions.act_url',
             'url': f'/web/content/{attachment.id}?download=true',
             'target': 'new',
-        }  ############################ Sequence Generator ############################
+        }
+
+    ############################ Sequence Generator ############################
 
     def _generate_unique_sequence(self):
         while True:

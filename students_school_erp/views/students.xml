@@ -7,65 +7,182 @@
             <field name="model">students.students</field>
             <field name="arch" type="xml">
                 <form class="student_form_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            /* Base class for all pill buttons */
+                            .pill-btn-warm {
+                                transition: background-color 1.0s ease, color 1.0s ease, border-color 1.0s ease, transform 0.2s ease !important;
+                                border: 1px solid transparent !important;
+                            }
+
+                            .btn-grad-warm {
+                                background-color: #d4edda !important;
+                                color: #155724 !important;
+                                border-color: #c3e6cb !important;
+                            }
+
+                            .btn-grad-warm:hover {
+                                background-color: #6B8E23 !important;
+                                color: white !important;
+                                border-color: #556B2F !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-susp-warm {
+                                background-color: #fff3cd !important;
+                                color: #856404 !important;
+                                border-color: #ffeeba !important;
+                            }
+
+                            .btn-susp-warm:hover {
+                                background-color: #D35400 !important;
+                                color: white !important;
+                                border-color: #A04000 !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-inact-warm {
+                                background-color: #e2e3e5 !important;
+                                color: #383d41 !important;
+                                border-color: #d6d8db !important;
+                            }
+
+                            .btn-inact-warm:hover {
+                                background-color: #707B7C !important;
+                                color: white !important;
+                                border-color: #515A5A !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-act-warm {
+                                background-color: #cce5ff !important;
+                                color: #004085 !important;
+                                border-color: #b8daff !important;
+                            }
+
+                            .btn-act-warm:hover {
+                                background-color: #2E86C1 !important;
+                                color: white !important;
+                                border-color: #21618C !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-print-warm {
+                                background-color: #e0f2f1 !important;
+                                color: #00695c !important;
+                                border-color: #b2dfdb !important;
+                            }
+
+                            .btn-print-warm:hover {
+                                background-color: #00695c !important;
+                                color: white !important;
+                                border-color: #004d40 !important;
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-revert-warm {
+                                background-color: #f6efe9 !important;
+                                color: #8c6a51 !important;
+                                border-color: #e5d8cd !important;
+                            }
+
+                            .btn-revert-warm:hover {
+                                /* Hover: Subdued terracotta, lower contrast */
+                                background-color: #be8a65 !important;
+                                color: white !important;
+                                border-color: #a07455 !important;
+                                transform: translateY(-2px);
+                                /* Soft shadow to match the warm feel */
+                                box-shadow: 0 4px 12px rgba(190, 138, 101, 0.2) !important;
+                            }
+                        </style>
+                    </xpath>
                     <sheet class="p-0">
                         <div class="p-3 pb-0">
-                            <div class="o_status_box" style="display: flex; justify-content: flex-end;">
-                                <field name="state" widget="statusbar"
-                                       statusbar_visible="new,active,inactive,suspended,graduated,rejected"
-                                       options="{'clickable': False}"/>
+                            <div class="o_status_box d-flex align-items-center justify-content-between w-100 mb-3 p-2"
+                                 style="background: #f8f9fa; border-radius: 50px; border: 1px solid #e9ecef;">
+                                <div class="d-flex gap-2 flex-grow-1 ms-2">
+                                    <button name="action_active" string="Active" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-act-warm"
+                                            invisible="state not in ['suspended','inactive']"/>
+                                    <button name="action_inactive" string="Set Inactive" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-inact-warm"
+                                            invisible="state != 'active'"/>
+                                    <button name="action_open_suspend_wizard" string="⚠️ Suspend" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-susp-warm"
+                                            invisible="state not in ['active', 'inactive']"/>
+                                    <button name="action_graduated" string="🎓 Graduate" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-grad-warm"
+                                            invisible="state != 'active'"/>
+                                    <button name="action_graduated_reverse"
+                                            string="🔄 Revert to Active"
+                                            type="object"
+                                            confirm="A graduated student is becoming active again. Are you sure you want to proceed?"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-revert-warm"
+                                            invisible="state != 'graduated'"/>
+                                    <button name="action_graduate_student_info" string="🖨️ Print Profile" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"
+                                            invisible="state != 'graduated'"/>
+                                    <button name="action_print_report" string="🖨️ Print Profile" type="object"
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"
+                                            invisible="state  in  ['new','suspended','inactive','graduated']"/>
+                                </div>
+                                <div class="me-2">
+                                    <field name="state" widget="statusbar"
+                                           statusbar_visible="active,inactive,suspended,graduated"
+                                           options="{'clickable': False}"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="p-3">
-                            <div class="d-flex align-items-center gap-3 o_student_header">
-                                <field name="image_128"
-                                       widget="image"
-                                       class="oe_avatar"
-                                       options="{'size': [90, 90]}"/>
-                                <div class="flex-grow-1">
-                                    <div class="text-muted small">Student ID</div>
-                                    <div style="font-size:1.2rem; font-weight:600;">
-                                        <field name="sequence" readonly="1"/>
-                                    </div>
+                        </div> <div class="p-3">
+                        <div class="d-flex align-items-center gap-3 o_student_header">
+                            <field name="image_128" widget="image" class="oe_avatar" options="{'size': [90, 90]}"/>
+                            <div class="flex-grow-1">
+                                <div class="text-muted small">Student ID</div>
+                                <div style="font-size:1.2rem; font-weight:600;">
+                                    <field name="sequence" readonly="1"/>
                                 </div>
                             </div>
                         </div>
+                    </div>
                         <div class="p-3">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <div class="o_card_box">
-                                        <h5>👤 Personal Information</h5>
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3">👤 Personal Information</h5>
                                         <field name="user_id" invisible="1"/>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Name</strong>
+                                            <strong class="d-block mb-1 text-muted small">Name</strong>
                                             <field name="name" nolabel="1"/>
                                         </div>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Surname</strong>
+                                            <strong class="d-block mb-1 text-muted small">Surname</strong>
                                             <field name="surname" nolabel="1"/>
                                         </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Gender</strong>
-                                            <field name="gender" nolabel="1"/>
-                                        </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Date of Birth</strong>
-                                            <field name="dob" nolabel="1"/>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Gender</strong>
+                                                <field name="gender" nolabel="1"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Date of birth</strong>
+                                                <field name="dob" nolabel="1"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="o_card_box">
-                                        <h5>🧾 Optional Information</h5>
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3">🧾 Family Details</h5>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Father Name</strong>
+                                            <strong class="d-block mb-1 text-muted small">Father Name</strong>
                                             <field name="father_name" nolabel="1"/>
                                         </div>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Mother Name</strong>
+                                            <strong class="d-block mb-1 text-muted small">Mother Name</strong>
                                             <field name="mother_name" nolabel="1"/>
                                         </div>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Blood Type</strong>
+                                            <strong class="d-block mb-1 text-muted small">Blood Type</strong>
                                             <field name="blood_type" nolabel="1"/>
                                         </div>
                                     </div>
@@ -73,85 +190,60 @@
                             </div>
                             <div class="row g-3 mt-1">
                                 <div class="col-md-6">
-                                    <div class="o_card_box">
-                                        <h5>🎓 Academic Information</h5>
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3 text-primary">🎓 Academic Info</h5>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Member Type</strong>
-                                            <field name="member_type" readonly="1" nolabel="1"/>
+                                            <field name="faculty" placeholder="Faculty" nolabel="1"
+                                                   class="fw-bold h6 text-primary"/>
                                         </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Faculty</strong>
-                                            <field name="faculty" nolabel="1"/>
-                                        </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Year</strong>
-                                            <field name="year" nolabel="1"/>
-                                        </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Enrollment Date</strong>
-                                            <field name="enrollment_date" nolabel="1"/>
-                                        </div>
-                                        <div class="mb-2">
-                                            <strong class="d-block mb-1">Graduation Date</strong>
-                                            <field name="graduation_date" nolabel="1"
-                                                   invisible="not user_id or state != 'graduated'"/>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Year</strong>
+                                                <field name="year" nolabel="1"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <strong class="d-block mb-1 text-muted small">Enrolled</strong>
+                                                <field name="enrollment_date" nolabel="1"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="o_card_box">
-                                        <h5>📧 Contact Information</h5>
+                                    <div class="o_card_box p-3 border rounded shadow-sm">
+                                        <h5 class="fw-bold mb-3 text-info">📧 Contact</h5>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">Email</strong>
+                                            <strong class="d-block mb-1 text-muted small">School Email</strong>
                                             <field name="email" nolabel="1"/>
                                         </div>
                                         <div class="mb-2">
-                                            <strong class="d-block mb-1">External Email</strong>
+                                            <strong class="d-block mb-1 text-muted small">External</strong>
                                             <field name="external_email" nolabel="1"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-3">
-                                <div class="o_status_box">
-                                    <h5>⚙ Status Details</h5>
-                                    <div class="mb-2">
-                                        <strong class="d-block mb-1">Status</strong>
-                                        <field name="state" readonly="1" nolabel="1"/>
-                                    </div>
-                                    <div class="mb-2">
-                                        <strong class="d-block mb-1">Suspend Reason</strong>
-                                        <field name="suspend_reason" readonly="1" nolabel="1"
-                                               invisible="state != 'suspended'"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <notebook class="mt-3"
-                                      invisible="state in ['new','graduated','suspended']">
-                                <page string="Finance" name="finance"/>
-                                <page string="Teacher" name="teacher"/>
+                            <notebook class="mt-4" invisible="state in ['new','graduated','suspended']">
                                 <page string="Subjects" name="subject">
                                     <field name="subject_id"/>
                                 </page>
+                                <page string="Teacher" name="teacher"/>
+                                <page string="Finance" name="finance"/>
                             </notebook>
                         </div>
-                        <div class="p-3">
-                            <div class="o_footer_box">
-                                <i class="fa fa-info-circle text-primary me-2"/>
-                                If information is incorrect, contact administration.
+                        <div class="p-3 border-top mt-4 bg-light">
+                            <div class="o_footer_box small text-muted">
+                                <i class="fa fa-info-circle text-primary me-2"/> Contact administration for corrections.
                                 <br/>
-                                <i class="fa fa-envelope me-2"/> admin@admin.com
-                                <br/>
-                                <i class="fa fa-phone me-2"/> +355 XXX XXXX
+                                <i class="fa fa-envelope me-2"/> admin@admin.com | <i class="fa fa-phone me-2"/> +355
+                                XXX XXXX
                             </div>
                         </div>
-                        <div class="oe_chatter"
-                             groups="base_school_erp.group_school_admin">
-                            <field name="message_follower_ids"/>
-                            <field name="activity_ids"/>
-                            <field name="message_ids"/>
-                        </div>
                     </sheet>
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
