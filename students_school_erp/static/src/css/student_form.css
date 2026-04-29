@@ -1,0 +1,61 @@
+
+/* HEADER */
+.o_student_header {
+    border-radius: 14px;
+    padding: 12px;
+    background: white;
+    border: 1px solid #e8ecf0;
+}
+
+/* CARDS */
+.o_card_box {
+    border: 1px solid #e8ecf0;
+    border-radius: 14px;
+    padding: 14px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+/* STATUS BOX */
+.o_status_box {
+    border-radius: 14px;
+    padding: 14px;
+    background: #f8f9fc;
+    border: 1px solid #e8ecf0;
+}
+
+/* FOOTER */
+.o_footer_box {
+    border-radius: 14px;
+    padding: 12px;
+    background: white;
+    border: 1px solid #e8ecf0;
+}
+
+/* ================= SMART STATE COLORS ================= */
+
+/* ACTIVE */
+.state-active .o_student_header {
+    box-shadow: 0 0 0 2px rgba(40,167,69,0.15);
+}
+
+/* SUSPENDED / INACTIVE */
+.state-suspended .o_student_header,
+.state-inactive .o_student_header {
+    box-shadow: 0 0 0 2px rgba(255,193,7,0.18);
+}
+
+/* NEW */
+.state-new .o_student_header {
+    box-shadow: 0 0 0 2px rgba(13,110,253,0.15);
+}
+
+/* GRADUATED */
+.state-graduated .o_student_header {
+    box-shadow: 0 0 0 2px rgba(111,66,193,0.18);
+}
+
+/* REJECTED */
+.state-rejected .o_student_header {
+    box-shadow: 0 0 0 2px rgba(220,53,69,0.18);
+}

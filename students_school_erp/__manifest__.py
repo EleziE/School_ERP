@@ -15,4 +15,9 @@
     ],
     'icon': 'students_school_erp/static/description/icon.png',
     'web_icon': 'students_school_erp,static/description/icon.png',
+    'assets': {
+        'web.assets_backend': [
+            'students_school_erp/static/src/css/student_form.css',
+        ],
+    }
 }
