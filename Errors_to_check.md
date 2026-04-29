@@ -1,6 +1,5 @@
                                                                                         ######################## 4/8/2026 #########################
 ---
-Recheck the previous questions
 
 View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that
 the task is created),
@@ -30,7 +29,6 @@ How to make a button that if the state of a student is graduated to not allow to
 
 I have created a graduated_fella() boolean type function in the student model but how to connect it with the res_users... or to add it there 
 
-
 In TASK module why the create_by is not filled by the uid ... learn the logic (form view ... creating a new task)
 
 Recheck the sequence if it changes as it should after saving the autofilled version (the previous error)
@@ -39,4 +37,10 @@ Recheck the sequence if it changes as it should after saving the autofilled vers
 
 - Pse tek moduli my profile teacher ... edhe pse admini nuk asht teacher prap i del emri tek fieldi name kurse te kte tjerat S edhe A nuk i del  
 
-- tek moduli student, def graduate_fella ... shihe qa ban edhe a duhet
+
+- Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta 
+
+                                                                                            ######################## 4/28/2026 #########################
+
+1. How to make it that the subjects to be shown in the module students(not my profile) to show only the subject of while filtering the faculty, year and semester
+2. 

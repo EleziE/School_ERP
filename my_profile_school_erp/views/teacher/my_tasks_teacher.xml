@@ -6,13 +6,13 @@
             <field name="name">My Task (Teacher Form)</field>
             <field name="model">task</field>
             <field name="arch" type="xml">
-                <form>
+                <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]">
                     <sheet>
                         <group>
                             <field name="check_user_finish_date" invisible="True"/>
                             <field name="starting_date"/>
                             <field name="planned_finish_date"/>
-                            <field name="finish_date" invisible="not check_user_finish_date"/>
+                            <field name="finish_date"/>
                             <field name="status" widget="badge"
                                    decoration-success="status in ('completed','completed_early')"
                                    decoration-warning="status == 'in_progress'"
@@ -48,13 +48,11 @@
                                             </strong>
                                         </div>
                                         <div>
-                                            <span t-attf-class="badge rounded-pill
-                                        #{record.status.raw_value == 'completed' ? 'text-bg-success' :
-                                          record.status.raw_value == 'completed_early' ? 'text-bg-success' :
-                                          record.status.raw_value == 'completed_delayed' ? 'text-bg-danger' :
-                                          'text-bg-secondary'}">
-                                                <field name="status"/>
-                                            </span>
+                                            <span t-att-class="'badge rounded-pill ' + (
+                                                    record.status.raw_value === 'completed' and 'text-bg-success' or
+                                                    record.status.raw_value === 'completed_early' and 'text-bg-success' or
+                                                    record.status.raw_value === 'completed_delayed' and 'text-bg-danger' or
+                                                    'text-bg-secondary')"/>
                                         </div>
                                     </div>
 
@@ -97,7 +95,9 @@
             <field name="model">task</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="starting_date"/>
+                    <field name="task_for" optional="hide"/>
+                    <field name="task_from" optional="hide"/>
+                    <field name="starting_date" />
                     <field name="planned_finish_date"/>
                     <field name="finish_date"/>
                     <field name="status" widget="badge"
@@ -112,6 +112,7 @@
         <record id="action_my_task_teacher" model="ir.actions.act_window">
             <field name="name">Task</field>
             <field name="res_model">task</field>
+            <field name="domain">[('task_for.user_id','=',uid)]</field>
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),

@@ -8,43 +8,73 @@
             <field name="name">my.finance.student.tree</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="student_id"/>
+                    <field name="student_id" optional="hide"/>
                     <field name="create_date"/>
-                    <field name="paid_date"/>
+                    <field name="paid_date" optional="hide"/>
                     <field name="state" widget="badge"
                            decoration-success="state == 'paid'"
                            decoration-danger="state == 'unpaid'"/>
                     <field name="reason" optional="hide"/>
-                    <field name="amount"/>
+                    <field name="reason_extra" optional="hide"/>
+                    <field name="amount" optional="hide"/>
                 </tree>
             </field>
         </record>
         <!-- Form-->
+
+
         <record id="my_finance_student_form" model="ir.ui.view">
             <field name="name">my.finance.student.form</field>
             <field name="model">finance.finance</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="Student Finance">
+
+                    <header>
+                        <field name="state" widget="badge"
+                               class="fa-5 px-3 py-2"
+                               decoration-success="state == 'paid'"
+                               decoration-warning="state == 'draft'"
+                               decoration-danger="state == 'unpaid'"/>
+                    </header>
+
                     <sheet>
-                        <group>
-                            <field name="student_id" options="{'no_open':True, 'no_create':True}"
-                                   domain="[('member_type','=','student')]"/>
-                            <field name="create_date"/>
-                            <field name="amount"/>
-                            <field name="paid_date"/>
-                            <field name="confirmed_by" invisible="[('state','!=','paid')]"/>
-                            <field name="state" widget="badge"
-                                   decoration-success="state == 'paid'"
-                                   decoration-warning="state == 'draft'"
-                                   decoration-danger="state == 'unpaid'"/>
-                            <field name="reason" placeholder="Write the reason for suspension..."
-                                   options="{'rows': 5,'no_open':True,'no_create':True,'no_delete':True}"/>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="student_id"
+                                       options="{'no_open':True, 'no_create':True}"
+                                       domain="[('member_type','=','student')]"/>
+                            </h1>
+                        </div>
+
+
+                        <group string="General Information" col="2">
+                            <group>
+                                <field name="amount" widget="monetary"/>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="paid_date"/>
+                                <field name="confirmed_by"
+                                       invisible="state != 'paid'"/>
+                            </group>
                         </group>
+
+                        <!-- REASON SECTION -->
+                        <group string="Details">
+                            <field name="reason"
+                                   placeholder="Write the reason..."
+                                   options="{'no_open':True,'no_create':True,'no_delete':True}"/>
+
+                            <field name="reason_extra"
+                                   placeholder="Additional details..."
+                                   invisible="reason != 'extra_credits'"/>
+                        </group>
+
                     </sheet>
                 </form>
             </field>
         </record>
-
         <!--Action -->
         <record id="action_my_finance_student" model="ir.actions.act_window">
             <field name="name">Student Finance</field>
