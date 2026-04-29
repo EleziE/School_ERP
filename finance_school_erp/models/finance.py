@@ -47,7 +47,7 @@ class Finance(models.Model):
     paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
-    confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by')
+    confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by',store=True)
 
 
     @api.model

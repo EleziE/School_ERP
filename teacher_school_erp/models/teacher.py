@@ -13,13 +13,10 @@ class Teacher(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
     name = fields.Char(string='Name',
-                       store=True,
                        tracking=True)
     surname = fields.Char(string='Surname',
-                          store=True,
                        tracking=True)
-    phone = fields.Char(string='Phone',
-                        store=True,)
+    phone = fields.Char(string='Phone')
     dob = fields.Date(string='Date of birth')
     education = fields.Selection(selection=[('bachelor', 'Bachelor'),
                                             ('master', 'Master'),
