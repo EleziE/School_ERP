@@ -27,32 +27,47 @@
             <field name="name">my.finance.student.form</field>
             <field name="model">finance.finance</field>
             <field name="arch" type="xml">
-                <form string="Student Finance" edit="False" create="False" delete="False" class="student_finance_view">
+                <form string="Student Finance" edit="False" create="False" delete="False"
+                      class="o_student_finance_view">
                     <xpath expr="." position="inside">
                         <style>
-                            /* Premium Typography &amp; Spacing */
-                            .o_finance_header {
+                        <![CDATA[
+                            /* Custom Warm Theme Overrides */
+                            .o_form_view.o_student_finance_view {
+                                background-color: #fdfbf7 !important;
+                            }
+
+                            .o_warm_header {
                                 background: #ffffff;
-                                border-bottom: 1px solid #edf2f7;
+                                border-bottom: 2px solid #f3eada;
                             }
 
-                            .o_balance_card {
-                                background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
-                                color: white;
-                                border-radius: 12px;
-                                padding: 20px;
-                                min-width: 200px;
-                                box-shadow: 0 4px 15px rgba(26, 54, 93, 0.1);
+                            .o_balance_card_warm {
+                                background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+                                color: white !important;
+                                border-radius: 16px;
+                                padding: 24px;
+                                min-width: 220px;
+                                box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.2);
                             }
 
-                            .o_card_section {
-                                border: 1px solid #e2e8f0;
-                                border-radius: 12px;
+                            .o_card_warm {
+                                border: 1px solid #f3eada;
+                                border-radius: 16px;
                                 background: #ffffff;
                                 padding: 24px;
                                 height: 100%;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
                             }
-                        </style>
+
+                            .o_paper_note {
+                                background: #fffdfa;
+                                border-left: 4px solid #f59e0b;
+                                padding: 15px;
+                                border-radius: 4px;
+                            }
+                            ]]>
+                    </style>
                     </xpath>
 
                     <header>
@@ -60,9 +75,9 @@
                     </header>
 
                     <sheet class="p-0">
-                        <div class="p-4 d-flex justify-content-between align-items-center o_finance_header">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="rounded-circle bg-primary-light p-3 text-primary">
+                        <div class="p-4 d-flex justify-content-between align-items-center o_warm_header">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="rounded-circle p-3 text-warning" style="background: #fffbeb;">
                                     <i class="fa fa-university fa-2x"/>
                                 </div>
                                 <div>
@@ -74,39 +89,43 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <div class="o_balance_card text-center">
-                                    <label for="amount" string="Invoice Amount"
+                                <div class="o_balance_card_warm text-center">
+                                    <label for="amount" string="Total Amount"
                                            class="text-white-50 small fw-bold text-uppercase d-block mb-1"/>
-                                    <div class="h2 fw-bold mb-0">
+                                    <div class="h2 fw-bold mb-0 text-white">
                                         <field name="amount" widget="monetary"
                                                options="{'currency_field': 'currency_id'}"/>
+                                        <span class="currency-symbol"> €</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-4 bg-light">
+                        <div class="p-4" style="background-color: #fdfbf7;">
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <div class="o_card_section">
-                                        <h5 class="text-primary fw-bold mb-4">
-                                            <i class="fa fa-calendar me-2"/> Payment Timeline
+                                    <div class="o_card_warm">
+                                        <h5 class="fw-bold mb-4" style="color: #92400e;">
+                                            <i class="fa fa-calendar-check-o me-2"/> Payment Timeline
                                         </h5>
-                                        <div class="mb-3">
-                                            <label for="create_date" string="Billing Date"
+                                        <div class="mb-4">
+                                            <label for="create_date" string="Billing Issued"
                                                    class="text-muted small fw-bold d-block mb-1"/>
                                             <div class="h6"><field name="create_date" readonly="1"/></div>
                                         </div>
+
                                         <div class="mb-3 border-top pt-3" invisible="state != 'paid'">
-                                            <label for="paid_date" string="Date of Payment"
+                                            <label for="paid_date" string="Date of Settlement"
                                                    class="text-muted small fw-bold d-block mb-1"/>
-                                            <div class="h6 text-success fw-bold"><field name="paid_date"
-                                                                                        readonly="1"/></div>
+                                            <div class="h6 text-success fw-bold">
+                                                <field name="paid_date" readonly="1"/>
+                                            </div>
                                         </div>
+
                                         <div class="mb-0 pt-3 border-top" invisible="state != 'paid'">
                                             <label for="confirmed_by" class="text-muted small fw-bold d-block mb-1"/>
                                             <div class="d-flex align-items-center text-muted">
-                                                <i class="fa fa-check-circle me-2 text-success"/>
+                                                <i class="fa fa-shield me-2 text-success"/>
                                                 <field name="confirmed_by" readonly="1"/>
                                             </div>
                                         </div>
@@ -114,29 +133,33 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="o_card_section">
-                                        <h5 class="text-secondary fw-bold mb-4">
-                                            <i class="fa fa-file-text-o me-2"/> Description
+                                    <div class="o_card_warm">
+                                        <h5 class="fw-bold mb-4" style="color: #92400e;">
+                                            <i class="fa fa-file-text-o me-2"/> Billing Details
                                         </h5>
                                         <div class="mb-4">
-                                            <label for="reason" string="Payment Purpose"
+                                            <label for="reason" string="Description"
                                                    class="text-muted small fw-bold d-block mb-1"/>
-                                            <div class="p-2 bg-light rounded border-start border-4 border-primary">
-                                                <field name="reason" readonly="1" options="{'no_open': True}"/>
+                                            <div class="o_paper_note">
+                                                <field name="reason" readonly="1"/>
                                             </div>
                                         </div>
-                                        <div invisible="reason != 'extra_credits'">
+
+                                        <div invisible="not reason_extra" class="mb-4">
                                             <label for="reason_extra" string="Additional Notes"
                                                    class="text-muted small fw-bold d-block mb-1"/>
-                                            <div class="small p-3 border rounded shadow-sm bg-white fst-italic">
+                                            <div class="small p-3 border rounded bg-light fst-italic">
                                                 <field name="reason_extra" readonly="1"/>
                                             </div>
                                         </div>
-                                        <div class="mt-4 pt-3 border-top" invisible="state == 'paid'">
-                                            <div class="alert alert-warning p-2 mb-0 d-flex align-items-center">
-                                                <i class="fa fa-exclamation-triangle me-2"/>
-                                                <span class="small">Payment is pending verification by the
-                                                    administration.</span>
+
+                                        <div class="mt-2" invisible="state == 'paid'">
+                                            <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center mb-0">
+                                                <i class="fa fa-hourglass-half me-3 fa-lg"/>
+                                                <span class="small">
+                                                    <strong>Notice:</strong> This payment is currently under review by
+                                                    the finance department.
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -146,12 +169,12 @@
 
                         <div class="p-4">
                             <div class="rounded-3 p-3 d-flex align-items-center gap-3 border shadow-sm"
-                                 style="background: #f8fafc;">
-                                <div class="h3 mb-0 text-info">🏦</div>
+                                 style="background: #ffffff; border: 1px solid #f3eada !important;">
+                                <div class="h3 mb-0">📜</div>
                                 <div class="flex-grow-1">
-                                    <h6 class="fw-bold mb-0" style="color: #334155;">Official Financial Statement</h6>
-                                    <p class="text-muted small mb-0">This document serves as an electronic record of
-                                        financial transactions within the Student Portal.</p>
+                                    <h6 class="fw-bold mb-0 text-dark">Official Digital Receipt</h6>
+                                    <p class="text-muted small mb-0">This record is verified and stored in the
+                                        University Student Portal.</p>
                                 </div>
                             </div>
                         </div>
