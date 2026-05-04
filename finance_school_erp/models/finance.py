@@ -1,6 +1,7 @@
-from odoo import fields, models, api,_
+from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 import secrets
+
 
 class Finance(models.Model):
     _name = 'finance.finance'
@@ -8,9 +9,7 @@ class Finance(models.Model):
     _rec_name = 'student_id'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-
     user_id = fields.Many2one(comodel_name='res.users')
-
 
     sequence = fields.Char(string='Records ID: ',
                            readonly=True)
@@ -26,38 +25,38 @@ class Finance(models.Model):
     amount = fields.Float(string='Amount')
 
     reason = fields.Selection(string='Reason',
-                         required=True,
-                         help='Reason for payment',
-                         selection=[('first_semester_payment', 'First Semester Payment'),
-                                    ('second_semester_payment', 'Second Semester Payment'),
-                                    ('extra_credits', 'Extra Credits'),
-                                    ('transportation_fee', 'Transportation Fee'),])
+                              required=True,
+                              help='Reason for payment',
+                              selection=[
+                                  ('first_semester_payment_1year', 'Spring Semester Payment (First-Year)'),
+                                  ('first_semester_payment_2year', 'Spring Semester Payment (Second-Year)'),
+                                  ('first_semester_payment_3year', 'Spring Semester Payment (Third-Year)'),
+                                  ('second_semester_payment_1year', 'Fall Semester Payment (First-Year)'),
+                                  ('second_semester_payment_2year', 'Fall Semester Payment (Second-Year)'),
+                                  ('second_semester_payment_3year', 'Fall Semester Payment (Third-Year)'),
+                                  ('extra_credits', 'Extra Credits'),
+                                  ('transportation_fee', 'Transportation Fee'), ])
     reason_extra = fields.Char(string='Extra Reason')
-    student_number = fields.Char(string='Student ID',related='student_id.sequence')
+    student_number = fields.Char(string='Student ID', related='student_id.sequence')
 
     state = fields.Selection(string='State',
                              selection=[('draft', 'Draft'),
                                         ('unpaid', 'Unpaid'),
                                         ('paid', 'Paid')],
-                             default='draft',tracking=True)
+                             default='draft', tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
-                                 string='Student',required=True)
-
+                                 string='Student', required=True)
+    student_seq = fields.Char(string='Student Sequence', related='student_id.sequence')
     paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
-    confirmed_by = fields.Char(string='Confirmed By',compute='_compute_confirmed_by',store=True)
-
-
-
-
+    confirmed_by = fields.Char(string='Confirmed By', compute='_compute_confirmed_by', store=True)
 
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
             vals['sequence'] = self._generate_unique_sequence()
-
 
         return super().create(vals)
 
@@ -69,9 +68,6 @@ class Finance(models.Model):
             if not existing:
                 return sequence
 
-
-
-
     def write(self, vals):
         readonly_fields = {'student_id', 'paid_date', 'amount'}
 
@@ -81,8 +77,7 @@ class Finance(models.Model):
 
         return super().write(vals)
 
-
-    @api.depends('user_id','state')
+    @api.depends('user_id', 'state')
     def _compute_confirmed_by(self):
         for rec in self:
             if rec.state == 'paid' and rec.user_id:
@@ -121,8 +116,8 @@ class Finance(models.Model):
 
     def pay_finance(self):
         self.write({
-        'state': 'paid',
-        'user_id': self.env.user.id,
+            'state': 'paid',
+            'user_id': self.env.user.id,
         })
 
     def unpaid_finance(self):

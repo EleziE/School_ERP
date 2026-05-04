@@ -245,3 +245,13 @@ class Student(models.Model):
             existing = self.search([('sequence', '=', sequence)], limit=1)
             if not existing:
                 return sequence
+
+    ############################ Graduation Checker ############################
+    def check_credits(self):
+        """
+        If the student hase 180 credits, no more finances to pay (all are paid), and all the mandatory subjects are passed, then he can graduate !
+        this makes sure that the conditions are filled (In construction , not done yet !)
+        """
+        for rec in self:
+            if rec.subject_id.credits < 180:
+                raise ValidationError(f'Student cannot graduate since he is missing {rec.subject_id.credits} credits.')

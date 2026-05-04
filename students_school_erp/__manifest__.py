@@ -7,6 +7,7 @@
         'wizards/suspend_reason_wizard.xml',
         # Views
         'views/students.xml',
+        # Menu
         'views/menu.xml',
     ],
     'depends': [

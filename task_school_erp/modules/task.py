@@ -18,11 +18,10 @@ class Task(models.Model):
                                 default=lambda self: self.env['administration.administration'].search(
                                     [('user_id', '=', self.env.user.id)], limit=1),
                                 store=True, tracking=True)
-    status = fields.Selection(selection=[('new', 'New'),
-                                         ('in_progress', 'In Progress'),
+    status = fields.Selection(selection=[('in_progress', 'In Progress'),
                                          ('completed', 'Completed'),
                                          ('completed_delayed', 'Completed / Delayed'),
-                                         ('completed_early', 'Completed Early'), ],
+                                         ('completed_early', 'Completed / Early'), ],
                               compute='status_based_dates',
                               store=True,
                               group_expand='_group_expand_status',
@@ -65,7 +64,7 @@ class Task(models.Model):
             if was_completed :
 
                 if 'finish_date' not in vals:
-                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task!')
+                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task or modify it !')
 
         return super().write(vals)
 
@@ -81,6 +80,22 @@ class Task(models.Model):
             # Set finish_date to today.
             # Because 'status' depends on 'finish_date', it will update automatically.
             rec.finish_date = fields.Date.today()
+
+    def action_create_task(self):
+        for rec in self:
+            self.create({})
+            if not rec.planned_finish_date :
+                return {
+                    'type': 'ir.actions.client',
+                    'tag':'display_notification',
+                    "params":{
+                        'title': 'Warning',
+                        'message': 'The task was created but the planned finish date was left empty!',
+                        'type': 'warning',
+                        'sticky': False,
+                    }
+                }
+        return None
 
     @api.depends('planned_finish_date', 'finish_date')
     def status_based_dates(self):
@@ -154,4 +169,6 @@ class Task(models.Model):
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
 
-    task_id = fields.One2many(comodel_name='task', inverse_name='task_for', string='My task', readonly=True)
+    task_id = fields.One2many(comodel_name='task',
+                              inverse_name='task_for',
+                              string='My task')

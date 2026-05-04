@@ -20,15 +20,27 @@
         <field name="model">subject.subject</field>
         <field name="arch" type="xml">
             <form>
-                <group>
-                    <field name="sequence"/>
-                    <field name="name"/>
-                    <field name="year"/>
-                    <field name="semester"/>
-                    <field name="faculty"/>
-                    <field name="type"/>
-                    <field name="credits"/>
-                </group>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="e.g. Advanced Mathematics"/>
+                            <field name="sequence"/>
+                            <field name="faculty"/>
+                        </group>
+                        <group>
+                            <field name="year"/>
+                            <field name="semester"/>
+                            <field name="type"/>
+                            <field name="credits"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description_page">
+                            <field name="description" placeholder="Describe what students will learn in this subject..."
+                                   widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>
@@ -67,9 +79,5 @@
         <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin'),
                                             ref('base_school_erp.group_school_administration')])]"/>
     </record>
-    <!--menuitem-->
-    <menuitem id="subject"
-              name="Subject"
-              parent='school_erp'
-              action="action_subject"/>
+
 </odoo>
