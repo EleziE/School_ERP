@@ -65,7 +65,7 @@ class Task(models.Model):
             if was_completed :
 
                 if 'finish_date' not in vals:
-                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task!')
+                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task or modify it !')
 
         return super().write(vals)
 
@@ -81,6 +81,8 @@ class Task(models.Model):
             # Set finish_date to today.
             # Because 'status' depends on 'finish_date', it will update automatically.
             rec.finish_date = fields.Date.today()
+    def action_create_task(self):
+        self.create({})
 
     @api.depends('planned_finish_date', 'finish_date')
     def status_based_dates(self):
@@ -154,4 +156,6 @@ class Task(models.Model):
 class Teacher(models.Model):
     _inherit = 'teacher.teacher'
 
-    task_id = fields.One2many(comodel_name='task', inverse_name='task_for', string='My task', readonly=True)
+    task_id = fields.One2many(comodel_name='task',
+                              inverse_name='task_for',
+                              string='My task')

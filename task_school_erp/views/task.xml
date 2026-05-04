@@ -26,12 +26,11 @@
             <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]"
                   class="task_form_view">
                 <header>
-                    <button name="action_finish_task"
-                            string="✅ Finish Task"
+                    <button name="action_create_task"
+                            string="✅ Create Task"
                             type="object"
-                            confirm="Confirm task completion? This will lock the record."
                             class="btn-finish-warm rounded-pill fw-bold"
-                            invisible="not check_user_finish_date or status in ['completed','completed_delayed','completed_early']"/>
+                    invisible="sequence != 'New'"/>
 
                     <field name="status" widget="statusbar"
                            statusbar_visible="in_progress,completed"/>
@@ -73,17 +72,15 @@
                     <div class="o_task_main_card shadow-sm">
                         <group>
                             <group name="assignment_details" string="👥 Assignment">
-                                <field name="task_from" options="{'no_open': True, 'no_create': True}"
+                                <field name="task_from"
                                        readonly="1"/>
-                                <field name="task_for" options="{'no_open': True, 'no_create': True}"
-                                       readonly="status != 'new'"/>
+                                <field name="task_for" />
                                 <field name="user_id" invisible="1"/>
                             </group>
 
                             <group name="date_details" string="📅 Timeline">
                                 <field name="starting_date"/>
-                                <field name="planned_finish_date"
-                                       readonly="not check_user_planned_finish_date"/>
+                                <field name="planned_finish_date"/>
                                 <field name="finish_date"
                                        invisible="not finish_date"
                                        readonly="1"
@@ -96,8 +93,7 @@
                         <separator string="📝 Task Instructions" class="mt-4 fw-bold text-success"/>
                         <field name="description"
                                placeholder="Describe the work to be done..."
-                               class="oe_inline w-100 p-3 bg-light border-0 rounded"
-                               readonly="status != 'new' and not check_user_planned_finish_date"/>
+                               class="oe_inline w-100 p-3 bg-light border-0 rounded"/>
                     </div>
                 </sheet>
 
@@ -115,10 +111,8 @@
         <field name="model">task</field>
         <field name="arch" type="xml">
             <search>
-                <field name="task_for"
-                       groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
-                <field name="task_from"
-                       groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+                <field name="task_for"/>
+                <field name="task_from"/>
                 <filter name="status" string="Completed" domain="[('status','=','completed')]"/>
                 <filter name="status" string="Delayed" domain="[('status','=','completed_delayed')]"/>
                 <filter name="status" string="Early" domain="[('status','=','completed_early')]"/>
@@ -136,7 +130,7 @@
         <field name="name">Task</field>
         <field name="res_model">task</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_ids" eval="[(5,0,0),
+        <field name="view_ids" eval="[(6,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),]"/>
     </record>

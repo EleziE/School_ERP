@@ -78,6 +78,7 @@ class Subject(models.Model):
                                           ('foreign_language', 'Foreign_language'),
                                           ('dentist', 'Dentist'), ],
                                string='Faculty', required=True)
+
     semester = fields.Selection(string='Semester', selection=[('semester-1', 'First Semester'),
                                                               ('semester-2', 'Second Semester'), ])
     year = fields.Selection(selection=[
@@ -86,10 +87,13 @@ class Subject(models.Model):
         ('3rd', 'Third Year'), ],
         string='Year')
     type = fields.Selection(selection=[('mandatory', 'Mandatory'),
-                                       ('selective', 'Selective')],
+                                       ('selective', 'Selective'),
+                                       ('faculty_elective', 'Faculty Elective'),
+                                       ('university_elective', 'University Elective'),],
                             string='Type',
                             required=True)
     credits = fields.Integer(string='Credits')
+    description = fields.Html(string='Description')
 
     @api.model
     def create(self, vals):

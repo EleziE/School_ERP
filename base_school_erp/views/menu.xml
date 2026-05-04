@@ -5,4 +5,26 @@
               sequence="0"
               web_icon='base_school_erp,static/description/icon.png'
               groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="holidays"
+              name="Holidays"
+              sequence="10"
+              parent='school_erp'
+              action="action_holidays"/>
+    <menuitem id="class_room"
+              name="Classroom"
+              sequence="20"
+              parent='school_erp'
+              action="action_class_room"/>
+    <menuitem id="exam"
+              name="Exam"
+              sequence="30"
+              parent='school_erp'
+              action="action_exam"/>
+    <menuitem id="faculty"
+              parent="school_erp"
+              name="Faculty"
+              sequence="40"
+              action=""/>
+
+
 </odoo>
