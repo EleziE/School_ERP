@@ -119,8 +119,8 @@
                 <separator/>
                 <group expand="0" string="Group By">
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
-                    <filter name="task_for" string="Task for" context="{'group_by':'task_for'}"/>
-                    <filter name="task_from" string="Task from" context="{'group_by':'task_from'}"/>
+                    <filter name="task_for" string="Task for" context="{'group_by':'task_for'}" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"/>
+                    <filter name="task_from" string="Task from" context="{'group_by':'task_from'}" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"/>
                 </group>
             </search>
         </field>

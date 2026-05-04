@@ -69,7 +69,7 @@
                         <div>
                             <label for="sequence" string="Financial ID"
                                    class="text-muted small fw-bold text-uppercase d-block mb-1"/>
-                            <h2 class="fw-bold mb-0"><field name="sequence" readonly="1"/></h2>
+                            <h2 class="fw-bold mb-0"><field name="sequence"/></h2>
                         </div>
                         <div class="text-end">
                             <label for="amount" string="Total Balance"
@@ -92,6 +92,11 @@
                                         <label for="student_id" class="text-muted small fw-bold d-block mb-1"/>
                                         <field name="student_id" nolabel="1" class="fw-bold h5 d-block"
                                                options="{'no_open': True, 'no_create': True}"/>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="student_seq" class="text-muted small fw-bold d-block mb-1" invisible="not student_id"/>
+                                        <field name="student_seq" nolabel="1" class="fw-bold h5 d-block"
+                                               invisible="not student_id"/>
                                     </div>
 
                                     <div class="row g-3">
