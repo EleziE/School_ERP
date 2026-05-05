@@ -55,7 +55,7 @@ class Student(models.Model):
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='new',
+                             default='active',
                              tracking=True,
                              required=True)
     suspend_reason = fields.Text(string='Suspension Reason',
