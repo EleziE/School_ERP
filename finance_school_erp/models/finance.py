@@ -44,7 +44,7 @@ class Finance(models.Model):
                              selection=[('draft', 'Draft'),
                                         ('unpaid', 'Unpaid'),
                                         ('paid', 'Paid')],
-                             default='unpaid',
+                             default='draft',
                              tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
                                  string='Student',

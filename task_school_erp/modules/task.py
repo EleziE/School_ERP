@@ -1,3 +1,5 @@
+import secrets
+
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, AccessError
 
@@ -15,7 +17,7 @@ class Task(models.Model):
                               string='User',
                               tracking=True)
     task_for = fields.Many2one(comodel_name='teacher.teacher',
-                               tracking=True,)
+                               tracking=True, )
     task_from = fields.Many2one(comodel_name='administration.administration',
                                 readonly=True,
                                 default=lambda self: self.env['administration.administration'].search(
@@ -40,14 +42,17 @@ class Task(models.Model):
     description = fields.Text(tracking=True)
     check_user_finish_date = fields.Boolean(compute='_compute_check_user')
     check_user_planned_finish_date = fields.Boolean(compute='_compute_planed_date_restriction')
-    days_report = fields.Integer(string='Days Report',help='From task to finish time',compute='_compute_time_between')
+    days_report = fields.Integer(string='Days Report',
+                                 help='From task to finish time',
+                                 compute='_compute_time_between')
+
     ######################### CREATE & WRITE ################################
 
     @api.model
     def create(self, vals):
         # =================== Per Sequence Generator ====================
         if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('task')
+            vals['sequence'] = self._generate_unique_sequence()
         return super().create(vals)
 
     def write(self, vals):
@@ -65,10 +70,11 @@ class Task(models.Model):
         for rec in self:
             was_completed = rec.status in ['completed', 'completed_delayed', 'completed_early']
 
-            if was_completed :
+            if was_completed:
 
                 if 'finish_date' not in vals:
-                    raise UserError('\nThe task has been completed!\n\nYou cannot change the status of the task or modify it !')
+                    raise UserError(
+                        '\nThe task has been completed!\n\nYou cannot change the status of the task or modify it !')
 
         return super().write(vals)
 
@@ -88,11 +94,11 @@ class Task(models.Model):
     def action_create_task(self):
         for rec in self:
             self.create({})
-            if not rec.planned_finish_date :
+            if not rec.planned_finish_date:
                 return {
                     'type': 'ir.actions.client',
-                    'tag':'display_notification',
-                    "params":{
+                    'tag': 'display_notification',
+                    "params": {
                         'title': 'Warning',
                         'message': 'The task was created but the planned finish date was left empty!',
                         'type': 'warning',
@@ -120,21 +126,21 @@ class Task(models.Model):
     @api.depends('starting_date', 'planned_finish_date', 'finish_date')
     def _compute_time_between(self):
         for rec in self:
-            # Check if we have the necessary dates to do math
             if rec.finish_date and rec.planned_finish_date:
-                # Logic: Deadline minus Actual Finish
-                # Positive (+) means you finished early (days remaining)
-                # Negative (-) means you finished late (days past)
                 diff = (rec.planned_finish_date - rec.finish_date).days
                 rec.days_report = diff
-
-
             elif not rec.finish_date and rec.planned_finish_date:
-                # Optional: Show days remaining until deadline if not finished yet
                 rec.days_report = (rec.planned_finish_date - fields.Date.today()).days
-
             else:
                 rec.days_report = 0
+
+    def _generate_unique_sequence(self):
+        while True:
+            number = str(secrets.randbelow(9000000) + 1000000)
+            sequence = f'TSK-{number}'
+            existing = self.search([('sequence', '=', sequence)], limit=1)
+            if not existing:
+                return sequence
 
 
     ######################### Constraints ################################

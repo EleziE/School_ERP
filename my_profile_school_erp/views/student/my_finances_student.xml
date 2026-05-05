@@ -78,6 +78,7 @@
                                     <div class="h2 fw-bold mb-0 text-white">
                                         <field name="amount" widget="monetary"
                                                options="{'currency_field': 'currency_id'}"/>
+                                        <span class="ms-1">€</span>
                                     </div>
                                 </div>
                             </div>
