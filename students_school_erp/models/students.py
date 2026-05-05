@@ -51,11 +51,10 @@ class Student(models.Model):
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
-                                        ('suspended', 'Suspended'),
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
-                             default='active',
+                             default='new',
                              tracking=True,
                              required=True)
     suspend_reason = fields.Text(string='Suspension Reason',
