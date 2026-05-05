@@ -20,6 +20,6 @@ class SuspendReason(models.TransientModel):
 
     def action_confirm_suspend(self):
         self.student_id.sudo().write({
-            'state': 'suspended',
+            'state': 'inactive',
             'suspend_reason': self.reason,
         })

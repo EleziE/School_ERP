@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
-        <!--Tree -->
-        <record id="my_finance_student_tree" model="ir.ui.view">
-            <field name="model">finance.finance</field>
-            <field name="name">my.finance.student.tree</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="student_id" optional="hide"/>
-                    <field name="create_date"/>
-                    <field name="paid_date" optional="hide"/>
-                    <field name="state" widget="badge"
-                           decoration-success="state == 'paid'"
-                           decoration-danger="state == 'unpaid'"/>
-                    <field name="reason" optional="hide"/>
-                    <field name="reason_extra" optional="hide"/>
-                    <field name="amount" optional="hide"/>
-                </tree>
-            </field>
-        </record>
         <!-- Form-->
-
-
         <record id="my_finance_student_form" model="ir.ui.view">
             <field name="name">my.finance.student.form</field>
             <field name="model">finance.finance</field>
@@ -31,7 +10,6 @@
                       class="o_student_finance_view">
                     <xpath expr="." position="inside">
                         <style>
-                        <![CDATA[
                             /* Custom Warm Theme Overrides */
                             .o_form_view.o_student_finance_view {
                                 background-color: #fdfbf7 !important;
@@ -66,12 +44,17 @@
                                 padding: 15px;
                                 border-radius: 4px;
                             }
-                            ]]>
-                    </style>
+
+                            .o_sequence_text {
+                                color: #92400e;
+                                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                                font-weight: bold;
+                            }
+                        </style>
                     </xpath>
 
-                    <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
+                    <header invisible="1">
+                        <field name="state"/>
                     </header>
 
                     <sheet class="p-0">
@@ -95,7 +78,7 @@
                                     <div class="h2 fw-bold mb-0 text-white">
                                         <field name="amount" widget="monetary"
                                                options="{'currency_field': 'currency_id'}"/>
-                                        <span class="currency-symbol"> €</span>
+                                        <span class="ms-1">€</span>
                                     </div>
                                 </div>
                             </div>
@@ -137,6 +120,15 @@
                                         <h5 class="fw-bold mb-4" style="color: #92400e;">
                                             <i class="fa fa-file-text-o me-2"/> Billing Details
                                         </h5>
+
+                                        <div class="mb-4">
+                                            <label for="sequence" string="Record ID"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6 o_sequence_text">
+                                                <field name="sequence" readonly="1"/>
+                                            </div>
+                                        </div>
+
                                         <div class="mb-4">
                                             <label for="reason" string="Description"
                                                    class="text-muted small fw-bold d-block mb-1"/>
@@ -173,13 +165,33 @@
                                 <div class="h3 mb-0">📜</div>
                                 <div class="flex-grow-1">
                                     <h6 class="fw-bold mb-0 text-dark">Official Digital Receipt</h6>
-                                    <p class="text-muted small mb-0">This record is verified and stored in the
-                                        University Student Portal.</p>
+                                    <p class="text-muted small mb-0">
+                                        This record is verified and stored in the University Student Portal.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </sheet>
                 </form>
+            </field>
+        </record>
+        <!--Tree -->
+        <record id="my_finance_student_tree" model="ir.ui.view">
+            <field name="model">finance.finance</field>
+            <field name="name">my.finance.student.tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" optional="show"/>
+                    <field name="student_id" optional="hide"/>
+                    <field name="create_date"/>
+                    <field name="paid_date" optional="hide"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'paid'"
+                           decoration-danger="state == 'unpaid'"/>
+                    <field name="reason" optional="hide"/>
+                    <field name="reason_extra" optional="hide"/>
+                    <field name="amount" optional="hide"/>
+                </tree>
             </field>
         </record>
         <!--Action -->

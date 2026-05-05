@@ -10,7 +10,7 @@
                     <header>
                         <button name="action_active" string="Active" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-act-warm"
-                                invisible="state not in ['suspended','inactive']"/>
+                                invisible="state not in ['new','inactive']"/>
                         <button name="action_inactive" string="Set Inactive" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-inact-warm"
                                 invisible="state != 'active'"/>
@@ -30,9 +30,9 @@
                                 invisible="state != 'graduated'"/>
                         <button name="action_print_report" string="🖨️ Print Profile" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-print-warm"
-                                invisible="state in ['new','suspended','inactive','graduated']"/>
+                                invisible="state in ['new','inactive','graduated']"/>
 
-                        <field name="state" widget="statusbar" statusbar_visible="active,inactive,suspended,graduated"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,active,inactive,graduated"/>
                     </header>
 
                     <sheet>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
 
-                        <notebook class="mt-5" invisible="state in ['new','graduated','suspended'] ">
+                        <notebook class="mt-5" invisible="state in ['new','graduated','new'] ">
                             <page string="Subjects" name="subject">
                                 <field name="subject_id"
                                        context="{'default_year': year, 'default_faculty': faculty, 'default_semester': semester}"
@@ -216,7 +216,7 @@
                     <field name="dob" string="Birthday" optional="hide"/>
                     <field name="email"/>
                     <field name="state" widget="badge" decoration-success="state == 'active'"
-                           decoration-warning="state in ('suspended','inactive')"
+                           decoration-warning="state in ('new','inactive')"
                            decoration-primary="state == 'graduated'"
                            decoration-danger="state == 'rejected'"
                            optional="show"/>
@@ -296,7 +296,7 @@
                                 <div style="padding:8px 16px; background:white; border-top:1px solid #e8ecf0; display:flex; justify-content:space-between; align-items:center;">
                                     <field name="state" widget="badge"
                                            decoration-success="state == 'active'"
-                                           decoration-warning="state in ('suspended','inactive')"
+                                           decoration-warning="state in ('new','inactive')"
                                            decoration-primary="state == 'graduated'"
                                            decoration-danger="state == 'rejected'"/>
                                 </div>

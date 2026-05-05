@@ -37,20 +37,27 @@ class Finance(models.Model):
                                   ('extra_credits', 'Extra Credits'),
                                   ('transportation_fee', 'Transportation Fee'), ])
     reason_extra = fields.Char(string='Extra Reason')
-    student_number = fields.Char(string='Student ID', related='student_id.sequence')
+    student_number = fields.Char(string='Student ID',
+                                 related='student_id.sequence')
 
     state = fields.Selection(string='State',
                              selection=[('draft', 'Draft'),
                                         ('unpaid', 'Unpaid'),
                                         ('paid', 'Paid')],
-                             default='draft', tracking=True)
+                             default='draft',
+                             tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
-                                 string='Student', required=True)
-    student_seq = fields.Char(string='Student Sequence', related='student_id.sequence')
-    paid_date = fields.Datetime(string='Paid Date', compute='_compute_paid_date',
+                                 string='Student',
+                                 required=True)
+    student_seq = fields.Char(string='Student Sequence',
+                              related='student_id.sequence')
+    paid_date = fields.Datetime(string='Paid Date',
+                                compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
-    confirmed_by = fields.Char(string='Confirmed By', compute='_compute_confirmed_by', store=True)
+    confirmed_by = fields.Char(string='Confirmed By',
+                               compute='_compute_confirmed_by',
+                               store=True)
 
     @api.model
     def create(self, vals):

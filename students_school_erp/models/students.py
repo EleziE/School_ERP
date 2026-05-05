@@ -51,7 +51,6 @@ class Student(models.Model):
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
-                                        ('suspended', 'Suspended'),
                                         ('graduated', 'Graduated'),
                                         ('rejected', 'Rejected'), ],
                              string='State',
