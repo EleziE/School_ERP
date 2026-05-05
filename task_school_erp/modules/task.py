@@ -11,13 +11,17 @@ class Task(models.Model):
     sequence = fields.Char(string='Task ID: ',
                            readonly=True,
                            default=lambda self: _('New'))
-    user_id = fields.Many2one(comodel_name='res.users', string='User', tracking=True)
-    task_for = fields.Many2one(comodel_name='teacher.teacher', tracking=True)
+    user_id = fields.Many2one(comodel_name='res.users',
+                              string='User',
+                              tracking=True)
+    task_for = fields.Many2one(comodel_name='teacher.teacher',
+                               tracking=True,)
     task_from = fields.Many2one(comodel_name='administration.administration',
                                 readonly=True,
                                 default=lambda self: self.env['administration.administration'].search(
                                     [('user_id', '=', self.env.user.id)], limit=1),
-                                store=True, tracking=True)
+                                store=True,
+                                tracking=True)
     status = fields.Selection(selection=[('in_progress', 'In Progress'),
                                          ('completed', 'Completed'),
                                          ('completed_delayed', 'Completed / Delayed'),
@@ -36,7 +40,7 @@ class Task(models.Model):
     description = fields.Text(tracking=True)
     check_user_finish_date = fields.Boolean(compute='_compute_check_user')
     check_user_planned_finish_date = fields.Boolean(compute='_compute_planed_date_restriction')
-
+    days_report = fields.Integer(string='Days Report',help='From task to finish time',compute='_compute_time_between')
     ######################### CREATE & WRITE ################################
 
     @api.model
@@ -112,6 +116,26 @@ class Task(models.Model):
             else:
                 # If no deadline was set but they finished it
                 rec.status = 'completed'
+
+    @api.depends('starting_date', 'planned_finish_date', 'finish_date')
+    def _compute_time_between(self):
+        for rec in self:
+            # Check if we have the necessary dates to do math
+            if rec.finish_date and rec.planned_finish_date:
+                # Logic: Deadline minus Actual Finish
+                # Positive (+) means you finished early (days remaining)
+                # Negative (-) means you finished late (days past)
+                diff = (rec.planned_finish_date - rec.finish_date).days
+                rec.days_report = diff
+
+
+            elif not rec.finish_date and rec.planned_finish_date:
+                # Optional: Show days remaining until deadline if not finished yet
+                rec.days_report = (rec.planned_finish_date - fields.Date.today()).days
+
+            else:
+                rec.days_report = 0
+
 
     ######################### Constraints ################################
     @api.constrains('finish_date')
