@@ -34,3 +34,9 @@ in to show only a page that tells e message as I want
 2. How to make it so the moment i click in the student in tree to open the student information and see the subject that
    the student will have to pass and has passed
    so i can get an idea how many left are there for this student
+
+
+                                                                                            ######################## 05/05/2026 #########################
+1. Recheck the new create function in faculty how it works and why that way 
+2. You will need to delete the subject_seq because in reality it should be faculty 
+3. Recheck the logic of creating new facultys and they prefix , becaus the yshould be connected as precis for the subject that will be related to these faculties
