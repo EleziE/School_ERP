@@ -20,7 +20,6 @@
         # Student Views
         'views/student/my_profile_student.xml',
         'views/student/my_finances_student.xml',
-        'views/student/student_subject.xml',
 
         # Administration
         'views/administration/my_profile_administration.xml',

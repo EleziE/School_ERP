@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="year_1st" model="year.year">
+            <field name="name">First Year</field>
+            <field name="code">1st</field>
+            <field name="order">1</field>
+        </record>
+        <record id="year_2nd" model="year.year">
+            <field name="name">Second Year</field>
+            <field name="code">2nd</field>
+            <field name="order">2</field>
+        </record>
+        <record id="year_3rd" model="year.year">
+            <field name="name">Third Year</field>
+            <field name="code">3rd</field>
+            <field name="order">3</field>
+        </record>
+        <record id="year_4th" model="year.year">
+            <field name="name">Fourth Year</field>
+            <field name="code">4th</field>
+            <field name="order">4</field>
+        </record>
+        <record id="year_5th" model="year.year">
+            <field name="name">Fifth Year</field>
+            <field name="code">5th</field>
+            <field name="order">5</field>
+        </record>
+    </data>
+</odoo>

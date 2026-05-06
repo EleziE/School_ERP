@@ -181,7 +181,7 @@
                             <page string="Subjects" name="subject">
                                 <field name="subject_id"
                                        context="{'default_year': year, 'default_faculty': faculty, 'default_semester': semester}"
-                                       domain="[('year', '=', year), ('faculty', '=', faculty), ('semester', '=', semester)]"/>
+                                       domain="[('year_id', '=', year), ('faculty_id', '=', faculty), ('semester_id', '=', semester)]"/>
                             </page>
                             <page string="Teacher" name="teacher"/>
                             <page string="Finance" name="finance"/>

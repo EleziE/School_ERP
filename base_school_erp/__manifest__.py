@@ -6,6 +6,9 @@
         # Security
         'security/security_groups.xml',
         'security/ir.model.access.csv',
+        # Data
+        'data/year_data.xml',
+        'data/semester_data.xml',
         # Inherited
         'views/Inherited/costume_base_modifications.xml',
         # Sequences

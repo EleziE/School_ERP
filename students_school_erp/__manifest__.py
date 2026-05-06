@@ -8,7 +8,6 @@
         # Wizards
         'wizards/suspend_reason_wizard.xml',
         # Data
-        'data/suspend_reason_recheck.xml',
         # Views
         'views/students.xml',
         # Menu
