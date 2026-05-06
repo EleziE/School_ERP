@@ -1,6 +1,7 @@
 {
     'name': 'Teacher',
-
+    'license': 'LGPL-3',
+    'description':"""Teacher""",
     'data': [
         # Security
         'security/ir.model.access.csv',
@@ -15,6 +16,6 @@
         'base_school_erp',
         'students_school_erp',
         'mail'
-        ],
+    ],
     'icon': 'teacher_school_erp/static/description/icon.png',
 }

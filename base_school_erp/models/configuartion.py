@@ -1,4 +1,4 @@
-from odoo import fields, models,api,_
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -18,18 +18,18 @@ class ClassRooms(models.Model):
     _description = 'Class Room'
     _rec_name = 'name'
 
-    sequence = fields.Char(string='Sequence',readonly=True)
+    sequence = fields.Char(string='Sequence', readonly=True)
     name = fields.Char(string='Class name')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # Check if sequence is missing for EVERY record in the list
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
 
-
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
-        # =================== Per Sequence Generator ===================
-        return super().create(vals)
+        # Pass the entire list to the database in one go
+        return super().create(vals_list)
 
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
@@ -89,35 +89,40 @@ class Subject(models.Model):
     type = fields.Selection(selection=[('mandatory', 'Mandatory'),
                                        ('selective', 'Selective'),
                                        ('faculty_elective', 'Faculty Elective'),
-                                       ('university_elective', 'University Elective'),],
+                                       ('university_elective', 'University Elective'), ],
                             string='Type',
                             required=True)
     credits = fields.Integer(string='Credits')
     description = fields.Html(string='Description')
 
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            faculty = vals.get('faculty')
-            codes = {
-                'cs': 'subject.cs',
-                'medicine': 'subject.med',
-                'engineering': 'subject.engineering',
-                'social': 'subject.social',
-                'laws': 'subject.laws',
-                'economic': 'subject.economic',
-                'architecture': 'subject.architecture',
-                'arts': 'subject.arts',
-                'education': 'subject.education',
-                'pharmacy': 'subject.pharmacy',
-                'foreign_language': 'subject.foreign_language',
-                'dentist': 'subject.dentist',
-            }
-            code = codes.get(faculty, 'subject.subject')
-            vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
+    @api.model_create_multi
+    def create(self, vals_list):
+        # Mapping for sequences
+        codes = {
+            'cs': 'subject.cs',
+            'medicine': 'subject.med',
+            'engineering': 'subject.engineering',
+            'social': 'subject.social',
+            'laws': 'subject.laws',
+            'economic': 'subject.economic',
+            'architecture': 'subject.architecture',
+            'arts': 'subject.arts',
+            'education': 'subject.education',
+            'pharmacy': 'subject.pharmacy',
+            'foreign_language': 'subject.foreign_language',
+            'dentist': 'subject.dentist',
+        }
 
-        return super().create(vals)
+        for vals in vals_list:
+            if vals.get('sequence', _('New')) == _('New'):
+                faculty = vals.get('faculty')
+                # Determine the correct sequence code
+                code = codes.get(faculty, 'subject.subject')
+                # Generate the sequence
+                vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
+
+        # Return the super call with the full list
+        return super().create(vals_list)
 
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),

@@ -1,13 +1,16 @@
 {
     'name': 'Students',
+    'license': 'LGPL-3',
+    'description': """Students""",
     'data': [
         # Security
         'security/ir.model.access.csv',
         # Wizards
         'wizards/suspend_reason_wizard.xml',
+        # Data
+        'data/suspend_reason_recheck.xml',
         # Views
         'views/students.xml',
-        'views/student_subject.xml',
         # Menu
         'views/menu.xml',
     ],

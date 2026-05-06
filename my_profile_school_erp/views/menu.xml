@@ -20,6 +20,12 @@
                   sequence="1"
                   parent="student"
                   groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
+        <!--My Subject (Submenu sequence = 2)-->
+        <menuitem id="students_subject"
+                  name="Subject"
+                  action="action_student_subject"
+                  parent="student"
+                  sequence="2"/>
 
         <!--Teacher-->
         <menuitem id="teacher"

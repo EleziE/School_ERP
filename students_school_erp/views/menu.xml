@@ -8,10 +8,5 @@
                   web_icon='students_school_erp,static/description/icon.png'
                   groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
 
-        <menuitem id="students_subject"
-                  name="Subject"
-                  action="action_student_subject"
-                  parent="students"
-                  sequence="10"/>
     </data>
 </odoo>

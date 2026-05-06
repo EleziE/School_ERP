@@ -1,5 +1,7 @@
 {
     'name': 'Base School ERP',
+    'description': """Base School ERP""",
+    'license': 'LGPL-3',
     'data': [
         # Security
         'security/security_groups.xml',

@@ -13,8 +13,8 @@ class Student(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
 
-    user_id = fields.Many2one(comodel_name='res.users',
-                              invisible=True, )
+    user_id = fields.Many2one(comodel_name='res.users',)
+
     name = fields.Char(string='Name',
                        store=True,
                        tracking=True)
@@ -51,17 +51,16 @@ class Student(models.Model):
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
-                                        ('graduated', 'Graduated'),
-                                        ('rejected', 'Rejected'), ],
+                                        ('graduated', 'Graduated'), ],
                              string='State',
                              default='new',
                              tracking=True,
                              required=True)
     suspend_reason = fields.Text(string='Suspension Reason',
-                                 tracking=True)
+                                 tracking=True,
+                                 readonly=True)
     phone = fields.Char(string='Phone no ',
-                        related='user_id.phone',
-                        placeholder="+355XX XXX XXXX")
+                        related='user_id.phone',)
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
     graduation_date = fields.Date(string='Graduation Date',
@@ -74,11 +73,10 @@ class Student(models.Model):
     user_password = fields.Char(string='Password',
                                 related='user_id.new_password', )
 
-    year = fields.Selection(selection=[
-        ('1st', 'First Year'),
-        ('2nd', 'Second Year'),
-        ('3rd', 'Third Year'), ],
-        string='Year')
+    year = fields.Selection(selection=[('1st', 'First Year'),
+                                       ('2nd', 'Second Year'),
+                                       ('3rd', 'Third Year'), ],
+                            string='Year')
     semester = fields.Selection(string='Semester',
                                 selection=[('semester-1', 'First Semester'),
                                            ('semester-2', 'Second Semester'), ])
@@ -100,27 +98,32 @@ class Student(models.Model):
     image_128 = fields.Image(string='Image 128', )
 
     # =================== Main Functions (CREATE & WRITE) ====================
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self._generate_unique_sequence()
-
-        # =================== Per Access Rights Generator ===================
+    @api.model_create_multi
+    def create(self, vals_list):
+        # 1. Prepare references once (efficient)
         access_rights = self.env.ref('base_school_erp.group_school_student')
         internal_user = self.env.ref('base.group_user')
 
-        user = self.env['res.users'].create({
-            'name': vals.get('name'),
-            'login': vals.get('email'),
-            'member_type': 'student',
-            'groups_id': [
-                (4, access_rights.id),
-                (4, internal_user.id), ]
-        })
-        vals['user_id'] = user.id
+        for vals in vals_list:
+            # 2. Sequence Logic
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self._generate_unique_sequence()
 
-        return super().create(vals)
+            # 3. Create the User for this specific student
+            # Note: We create users inside the loop because each student needs their own
+            user = self.env['res.users'].create({
+                'name': vals.get('name'),
+                'login': vals.get('email'),
+                'member_type': 'student',
+                'groups_id': [
+                    (4, access_rights.id),
+                    (4, internal_user.id),
+                ]
+            })
+            vals['user_id'] = user.id
+
+        # 4. Pass the whole list to super
+        return super(Student, self).create(vals_list)
 
     @api.model
     def write(self, vals):
@@ -167,9 +170,6 @@ class Student(models.Model):
 
     def action_active(self):
         self.state = 'active'
-
-    def action_inactive(self):
-        self.state = 'inactive'
 
     ############################ Constraints ############################
     _sql_constraints = [
@@ -254,3 +254,19 @@ class Student(models.Model):
         for rec in self:
             if rec.subject_id.credits < 180:
                 raise ValidationError(f'Student cannot graduate since he is missing {rec.subject_id.credits} credits.')
+
+    ############################ Cron's ############################
+    @api.model
+    def _cron_clear_suspension_reasons(self):
+        """
+        Finds students who are 'active' but still have a lingering
+        suspension reason in the database and clears it.
+        """
+
+        students_to_fix = self.search([
+            ('state', 'in', ['active', 'new', 'graduated']),
+            ('suspend_reason', '!=', False)
+        ])
+
+        if students_to_fix:
+            students_to_fix.write({'suspend_reason': False})

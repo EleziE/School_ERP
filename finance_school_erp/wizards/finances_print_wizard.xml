@@ -7,13 +7,13 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="student_id"/>
+                        <field name="student_id" options="{'no_open':True}"/>
                         <field name="start_date" string="From:"/>
                         <field name="last_date" string="To: "/>
                     </group>
                     <footer>
                         <button name="student_finances" string="Print" type="object"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>
             </field>

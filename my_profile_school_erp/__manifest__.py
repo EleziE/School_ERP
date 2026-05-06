@@ -1,5 +1,7 @@
 {
     'name': 'My Profile',
+    'license': 'LGPL-3',
+    'description': """My Profile""",
     'depends': [
         'base_school_erp',
         'students_school_erp',
@@ -18,6 +20,7 @@
         # Student Views
         'views/student/my_profile_student.xml',
         'views/student/my_finances_student.xml',
+        'views/student/student_subject.xml',
 
         # Administration
         'views/administration/my_profile_administration.xml',

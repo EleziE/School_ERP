@@ -11,12 +11,9 @@
                         <button name="action_active" string="Active" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-act-warm"
                                 invisible="state not in ['new','inactive']"/>
-                        <button name="action_inactive" string="Set Inactive" type="object"
-                                class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-inact-warm"
-                                invisible="state != 'active'"/>
                         <button name="action_open_suspend_wizard" string="⚠️ Suspend" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-susp-warm"
-                                invisible="state not in ['active', 'inactive']"/>
+                                invisible="state != 'active'"/>
                         <button name="action_graduated" string="🎓 Graduate" type="object"
                                 class="btn rounded-pill px-4 shadow-sm fw-bold pill-btn-warm btn-grad-warm"
                                 invisible="state != 'active'"/>
@@ -154,6 +151,8 @@
                                         <field name="graduation_date" invisible="state != 'graduated'"
                                                class="text-warning fw-bold"/>
                                         <field name="enrollment_date"/>
+                                        <field name="suspend_reason" invisible="state != 'inactive'"
+                                        class="text-danger"/>
                                     </group>
                                 </div>
                             </div>
@@ -178,7 +177,7 @@
                             </div>
                         </div>
 
-                        <notebook class="mt-5" invisible="state in ['new','graduated','new'] ">
+                        <notebook class="mt-5" invisible="state in ['inactive','graduated','new'] ">
                             <page string="Subjects" name="subject">
                                 <field name="subject_id"
                                        context="{'default_year': year, 'default_faculty': faculty, 'default_semester': semester}"
@@ -218,7 +217,6 @@
                     <field name="state" widget="badge" decoration-success="state == 'active'"
                            decoration-warning="state in ('new','inactive')"
                            decoration-primary="state == 'graduated'"
-                           decoration-danger="state == 'rejected'"
                            optional="show"/>
                 </tree>
             </field>
@@ -297,8 +295,7 @@
                                     <field name="state" widget="badge"
                                            decoration-success="state == 'active'"
                                            decoration-warning="state in ('new','inactive')"
-                                           decoration-primary="state == 'graduated'"
-                                           decoration-danger="state == 'rejected'"/>
+                                           decoration-primary="state == 'graduated'"/>
                                 </div>
 
                             </div>

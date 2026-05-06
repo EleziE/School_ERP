@@ -11,6 +11,7 @@ import base64
 
 class PersonProfileInformationReport(models.AbstractModel):
     _name = 'person.profile.information.report'
+    _description = 'Person Profile Information Report'
 
     @staticmethod
     def generate_my_profile(record):

@@ -14,13 +14,13 @@ class Finance(models.Model):
     sequence = fields.Char(string='Records ID: ',
                            readonly=True)
 
-    created_by = fields.Many2one(comodel_name='res.users',
+    create_uid = fields.Many2one(comodel_name='res.users',
                                  string='Created by',
                                  default=lambda self: self.env.user,
                                  readonly=True)
 
-    created_by_info = fields.Char(string='Created by',
-                                  compute='_compute_created_by_info')
+    create_uid_info = fields.Char(string='Created by (Info)',
+                                  compute='_compute_create_uid_info')
 
     amount = fields.Float(string='Amount')
 
@@ -59,13 +59,14 @@ class Finance(models.Model):
                                compute='_compute_confirmed_by',
                                store=True)
 
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self._generate_unique_sequence()
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self._generate_unique_sequence()
 
-        return super().create(vals)
+        # Always pass the entire list to super()
+        return super().create(vals_list)
 
     def _generate_unique_sequence(self):
         while True:
@@ -100,24 +101,24 @@ class Finance(models.Model):
             else:
                 record.paid_date = False
 
-    @api.depends('created_by')
-    def _compute_created_by_info(self):
+    @api.depends('create_uid')
+    def _compute_create_uid_info(self):
         for rec in self:
-            if rec.created_by:
-                name = rec.created_by.name
-                email = rec.created_by.login or 'N/A'
-                rec.created_by_info = f"{name} -> {email}"
+            if rec.create_uid:
+                name = rec.create_uid.name
+                email = rec.create_uid.login or 'N/A'
+                rec.create_uid_info = f"{name} -> {email}"
             else:
-                rec.created_by_info = 'N/A'
+                rec.create_uid_info = 'N/A'
 
     def my_finance_student(self):
         user = self.env.user.id
-        # records = self.search([('created_by', '=', user)]) NOT NEEDED DOMAIN DOES ITS JOB !!! (in this case)
+        # records = self.search([('create_uid', '=', user)]) NOT NEEDED DOMAIN DOES ITS JOB !!! (in this case)
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'finance.finance',
             'view_mode': 'tree,form',
-            'domain': [('created_by', '=', user)],
+            'domain': [('create_uid', '=', user)],
             'name': 'My Finances',
         }
 

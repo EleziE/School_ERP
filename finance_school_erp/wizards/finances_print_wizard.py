@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class PrintFinancesWizard(models.TransientModel):
     _name = 'print.finances.wizard'
+    _description = 'Print Finances Wizard'
 
     student_id = fields.Many2one(comodel_name='students.students', readonly=True)
 
@@ -18,5 +19,7 @@ class PrintFinancesWizard(models.TransientModel):
 
             for payment in all_payments:
                 payment_details.append([payment.amount, payment.state, payment.paid_date])
+            print(payment_details)
+        return payment_details
 
 
