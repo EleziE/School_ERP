@@ -13,26 +13,6 @@ class ResUsersInheritance(models.Model):
                                    store=True)
 
 
-class ClassRooms(models.Model):
-    _name = 'class.rooms'
-    _description = 'Class Room'
-    _rec_name = 'name'
-
-    sequence = fields.Char(string='Sequence', readonly=True)
-    name = fields.Char(string='Class name')
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
-        return super().create(vals_list)
-
-    _sql_constraints = [
-        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
-    ]
-
-
 class Exams(models.Model):
     _name = 'exams'
     _description = 'Exams'
@@ -54,6 +34,82 @@ class Holidays(models.Model):
 
     name = fields.Char(string='Holidays name')
     date = fields.Date(string='Holidays date')
+
+
+class Faculty(models.Model):
+    _name = 'faculty.faculty'
+    _description = 'Faculty'
+    _rec_name = 'name'
+
+    name = fields.Char(string='Faculty Name', required=True)
+    code = fields.Char(string='Code', required=True)
+    max_year = fields.Integer(string='Max Years')
+    sequence = fields.Char(string='Sequence', readonly=True)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        codes = {
+            'cs': 'faculty.cs',
+            'medicine': 'faculty.med',
+            'engineering': 'faculty.engineering',
+            'social': 'faculty.social',
+            'laws': 'faculty.laws',
+            'economic': 'faculty.economic',
+            'architecture': 'faculty.architecture',
+            'arts': 'faculty.arts',
+            'education': 'faculty.education',
+            'pharmacy': 'faculty.pharmacy',
+            'foreign_language': 'faculty.foreign_language',
+            'dentist': 'faculty.dentist',
+        }
+        for vals in vals_list:
+            if vals.get('sequence', _('New')) == _('New'):
+                code = codes.get(vals.get('code'), 'faculty.faculty')
+                vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
+        return super().create(vals_list)
+
+
+class Year(models.Model):
+    _name = 'year.year'
+    _description = 'Year'
+    _rec_name = 'name'
+    _order = 'order asc'
+
+    name = fields.Char(string='Year', required=True)
+    code = fields.Char(string='Code', required=True)
+    order = fields.Integer(string='Order')
+
+
+class Semester(models.Model):
+    _name = 'semester.semester'
+    _description = 'Semester'
+    _rec_name = 'name'
+    _order = 'order asc'
+
+    year_id = fields.Many2one('year.year')
+    name = fields.Char(string='Semester', required=True)
+    code = fields.Char(string='Code', required=True)
+    order = fields.Integer(string='Order')
+
+
+class ClassRooms(models.Model):
+    _name = 'class.rooms'
+    _description = 'Class Room'
+    _rec_name = 'name'
+
+    sequence = fields.Char(string='Sequence', readonly=True)
+    name = fields.Char(string='Class name')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
+        return super().create(vals_list)
+
+    _sql_constraints = [
+        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
+    ]
 
 
 class Subject(models.Model):
@@ -107,59 +163,3 @@ class Subject(models.Model):
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
     ]
-
-
-class Faculty(models.Model):
-    _name = 'faculty.faculty'
-    _description = 'Faculty'
-    _rec_name = 'name'
-
-    name = fields.Char(string='Faculty Name', required=True)
-    code = fields.Char(string='Code', required=True)
-    max_year = fields.Integer(string='Max Years')
-    sequence = fields.Char(string='Sequence', readonly=True)
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        codes = {
-            'cs': 'faculty.cs',
-            'medicine': 'faculty.med',
-            'engineering': 'faculty.engineering',
-            'social': 'faculty.social',
-            'laws': 'faculty.laws',
-            'economic': 'faculty.economic',
-            'architecture': 'faculty.architecture',
-            'arts': 'faculty.arts',
-            'education': 'faculty.education',
-            'pharmacy': 'faculty.pharmacy',
-            'foreign_language': 'faculty.foreign_language',
-            'dentist': 'faculty.dentist',
-        }
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                code = codes.get(vals.get('code'), 'faculty.faculty')
-                vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
-        return super().create(vals_list)
-
-
-class Year(models.Model):
-    _name = 'year.year'
-    _description = 'Year'
-    _rec_name = 'name'
-    _order = 'order asc'
-
-    name = fields.Char(string='Year', required=True)  # 'First Year'
-    code = fields.Char(string='Code', required=True)  # '1st'
-    order = fields.Integer(string='Order')  # 1, 2, 3, 4, 5
-
-
-class Semester(models.Model):
-    _name = 'semester.semester'
-    _description = 'Semester'
-    _rec_name = 'name'
-    _order = 'order asc'
-
-    year_id = fields.Many2one('year.year')
-    name = fields.Char(string='Semester', required=True)
-    code = fields.Char(string='Code', required=True)
-    order = fields.Integer(string='Order')

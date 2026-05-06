@@ -15,11 +15,12 @@
         'views/Sequence/subject_seq.xml',
         'views/Sequence/classroom_seq.xml',
         # Views
-        'views/menu.xml',
         'views/holidays.xml',
         'views/classroom.xml',
         'views/subjects.xml',
-        'views/exam.xml', ],
+        'views/exam.xml',
+        'views/faculty.xml',
+        'views/menu.xml', ],
     'icon': 'base_school_erp/static/description/icon.png',
     'assets': {
         'web.assets_backend': [
