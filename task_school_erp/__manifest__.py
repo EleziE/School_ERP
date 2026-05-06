@@ -1,10 +1,12 @@
 {
     'name': 'Task',
+    'license': 'LGPL-3',
+    'description':"""Task""",
     'data': [
         # Security
         'security/ir.model.access.csv',
         # 'security/rules.xml',
-        #Data
+        # Data
         # Views
         'views/task.xml',
         'views/Inherited/(teacher)task_notebook.xml',

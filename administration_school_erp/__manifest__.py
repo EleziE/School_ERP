@@ -1,5 +1,7 @@
 {
     'name': 'Administration School',
+    'license':'LGPL-3',
+    'description':"""Administration School""",
     'data': [
         'security/ir.model.access.csv',
         'data/administration_seq.xml',

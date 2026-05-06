@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="faculty_form_view" model="ir.ui.view">
+        <field name="model">faculty.faculty</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                        <field name="max_year"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="faculty_tree_view" model="ir.ui.view">
+        <field name="model">faculty.faculty</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="max_year"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="action_faculty" model="ir.actions.act_window">
+            <field name="name">Faculty Action</field>
+            <field name="res_model">faculty.faculty</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('faculty_tree_view')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('faculty_form_view')})]"/>
+        </record>
+
+
+</odoo>

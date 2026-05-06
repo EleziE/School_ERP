@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Base Prefix of Subjects-->
+        <record id="seq_subject" model="ir.sequence">
+            <field name="name">Subject Sequence</field>
+            <field name="code">subject.subject</field>
+            <field name="prefix">Sub/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Computer Science-->
+        <record id="seq_subject_cs" model="ir.sequence">
+            <field name="name">Computer Science Sequence</field>
+            <field name="code">subject.cs</field>
+            <field name="prefix">CS/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Medicine-->
+        <record id="seq_subject_med" model="ir.sequence">
+            <field name="name">Medicine Sequence</field>
+            <field name="code">subject.med</field>
+            <field name="prefix">MED/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Social-->
+        <record id="seq_subject_social" model="ir.sequence">
+            <field name="name">Social Sequence</field>
+            <field name="code">subject.social</field>
+            <field name="prefix">SOC/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Laws-->
+        <record id="seq_subject_laws" model="ir.sequence">
+            <field name="name">Laws Sequence</field>
+            <field name="code">subject.laws</field>
+            <field name="prefix">LAW/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Economic-->
+        <record id="seq_subject_economic" model="ir.sequence">
+            <field name="name">Economic Sequence</field>
+            <field name="code">subject.economic</field>
+            <field name="prefix">ECO/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Architecture-->
+        <record id="seq_subject_architecture" model="ir.sequence">
+            <field name="name">Architecture Sequence</field>
+            <field name="code">subject.architecture</field>
+            <field name="prefix">ARC/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Arts-->
+        <record id="seq_subject_arts" model="ir.sequence">
+            <field name="name">Arts Sequence</field>
+            <field name="code">subject.arts</field>
+            <field name="prefix">ART/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Education-->
+        <record id="seq_subject_education" model="ir.sequence">
+            <field name="name">Education Sequence</field>
+            <field name="code">subject.education</field>
+            <field name="prefix">EDU/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Pharmacy-->
+        <record id="seq_subject_pharmacy" model="ir.sequence">
+            <field name="name">Pharmacy Sequence</field>
+            <field name="code">subject.pharmacy</field>
+            <field name="prefix">PHA/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Foreign Language-->
+        <record id="seq_subject_foreign_language" model="ir.sequence">
+            <field name="name">Foreign Language Sequence</field>
+            <field name="code">subject.foreign_language</field>
+            <field name="prefix">FLG/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Engineering-->
+        <record id="seq_subject_engineering" model="ir.sequence">
+            <field name="name">Engineering Sequence</field>
+            <field name="code">subject.engineering</field>
+            <field name="prefix">ENG/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+        <!--For Dentist-->
+        <record id="seq_subject_dentist" model="ir.sequence">
+            <field name="name">Dentist Sequence</field>
+            <field name="code">subject.dentist</field>
+            <field name="prefix">DEN/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

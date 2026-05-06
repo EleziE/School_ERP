@@ -1,5 +1,7 @@
 {
     'name': 'Finance',
+    'license': 'LGPL-3',
+    'description':"""Finance""",
     'data': [
         # security
         'security/ir.model.access.csv',

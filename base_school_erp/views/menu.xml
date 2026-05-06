@@ -24,7 +24,7 @@
               parent="school_erp"
               name="Faculty"
               sequence="40"
-              action=""/>
+              action="action_faculty"/>
 
 
 </odoo>

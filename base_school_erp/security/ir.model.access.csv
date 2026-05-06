@@ -1,22 +1,39 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_holiday_holiday_admin,access_holiday_holiday admin,base_school_erp.model_holiday_holiday,base_school_erp.group_school_admin,1,1,1,1
-access_subject_subject_admin,access_subject_subject admin,base_school_erp.model_subject_subject,base_school_erp.group_school_admin,1,1,1,1
-access_class_rooms_admin,access_class_rooms admin,base_school_erp.model_class_rooms,base_school_erp.group_school_admin,1,1,1,1
-access_exams_admin,access_exams admin,base_school_erp.model_exams,base_school_erp.group_school_admin,1,1,1,1
-access_res_users_user_admin,access_res_users_user admin ,base.model_res_users,base_school_erp.group_school_admin,1,1,1,1
+access.holiday.holiday.admin,access.holiday.holiday admin,base_school_erp.model_holiday_holiday,base_school_erp.group_school_admin,1,1,1,1
+access.subject.subject.admin,access.subject.subject admin,base_school_erp.model_subject_subject,base_school_erp.group_school_admin,1,1,1,1
+access.class.rooms.admin,access.class.rooms admin,base_school_erp.model_class_rooms,base_school_erp.group_school_admin,1,1,1,1
+access.exams.admin,access.exams admin,base_school_erp.model_exams,base_school_erp.group_school_admin,1,1,1,1
+access.res.users.user.admin,access.res.users.user admin ,base.model_res_users,base_school_erp.group_school_admin,1,1,1,1
+access.semester.semester.admin,access.semester.semester admin,base_school_erp.model_semester_semester,base_school_erp.group_school_admin,1,1,1,1
+access.faculty.faculty.admin,access.faculty.faculty admin,base_school_erp.model_faculty_faculty,base_school_erp.group_school_admin,1,1,1,1
+access.year.year.admin,access.year.year admin,base_school_erp.model_year_year,base_school_erp.group_school_admin,1,1,1,1
 
-access_holiday_holiday_administration,access_holiday_holiday administration,base_school_erp.model_holiday_holiday,base_school_erp.group_school_administration,1,1,1,1
-access_subject_subject_administration,access_subject_subject administration,base_school_erp.model_subject_subject,base_school_erp.group_school_administration,1,1,1,1
-access_class_rooms_administration,access_class_rooms administration,base_school_erp.model_class_rooms,base_school_erp.group_school_administration,1,1,1,1
-access_exams_administration,access_exams administration,base_school_erp.model_exams,base_school_erp.group_school_administration,1,1,1,1
-access_res_users_user_administration,access_res_users_user administraton ,base.model_res_users,base_school_erp.group_school_administration,1,1,1,1
 
-access_holiday_holiday_student,access_holiday_holiday student,base_school_erp.model_holiday_holiday,base_school_erp.group_school_student,1,0,0,0
-access_subject_subject_student,access_subject_subject student,base_school_erp.model_subject_subject,base_school_erp.group_school_student,1,0,0,0
-access_class_rooms_student,access_class_rooms student,base_school_erp.model_class_rooms,base_school_erp.group_school_student,1,0,0,0
-access_exams_student,access_exams student,base_school_erp.model_exams,base_school_erp.group_school_student,1,0,0,0
 
-access_holiday_holiday_teacher,access_holiday_holiday teacher,base_school_erp.model_holiday_holiday,base_school_erp.group_school_teacher,1,0,0,0
-access_subject_subject_teacher,access_subject_subject teacher,base_school_erp.model_subject_subject,base_school_erp.group_school_teacher,1,0,0,0
-access_class_rooms_teacher,access_class_rooms teacher,base_school_erp.model_class_rooms,base_school_erp.group_school_teacher,1,0,0,0
-access_exams_teacher,access_exams teacher,base_school_erp.model_exams,base_school_erp.group_school_teacher,1,0,0,0
+access.holiday.holiday.administration,access.holiday.holiday administration,base_school_erp.model_holiday_holiday,base_school_erp.group_school_administration,1,1,1,1
+access.subject.subject.administration,access.subject.subject administration,base_school_erp.model_subject_subject,base_school_erp.group_school_administration,1,1,1,1
+access.class.rooms.administration,access.class.rooms administration,base_school_erp.model_class_rooms,base_school_erp.group_school_administration,1,1,1,1
+access.exams.administration,access.exams administration,base_school_erp.model_exams,base_school_erp.group_school_administration,1,1,1,1
+access.res.users.user.administration,access.res.users.user administraton ,base.model_res_users,base_school_erp.group_school_administration,1,1,1,1
+access.semester.semester.administration,access.semester.semester administration,base_school_erp.model_semester_semester,base_school_erp.group_school_administration,1,1,1,1
+access.faculty.faculty.administration,access.faculty.faculty administration,base_school_erp.model_faculty_faculty,base_school_erp.group_school_administration,1,1,1,1
+access.year.year.administration,access.year.year administration,base_school_erp.model_year_year,base_school_erp.group_school_administration,1,1,1,1
+
+
+
+access.holiday.holiday.student,access.holiday.holiday student,model_holiday_holiday,base_school_erp.group_school_student,1,0,0,0
+access.subject.subject.student,access.subject.subject student,model_subject_subject,base_school_erp.group_school_student,1,0,0,0
+access.class.rooms.student,access.class.rooms student,model_class_rooms,base_school_erp.group_school_student,1,0,0,0
+access.exams.student,access.exams student,model_exams,base_school_erp.group_school_student,1,0,0,0
+access.semester.semester.student,access.semester.semester student,model_semester_semester,base_school_erp.group_school_student,1,0,0,0
+access.faculty.faculty.student,access.faculty.faculty student,model_faculty_faculty,base_school_erp.group_school_student,1,0,0,0
+access.year.year.student,access.year.year student,model_year_year,base_school_erp.group_school_student,1,0,0,0
+
+
+access.holiday.holiday.teacher,access.holiday.holiday teacher,model_holiday_holiday,base_school_erp.group_school_teacher,1,0,0,0
+access.subject.subject.teacher,access.subject.subject teacher,model_subject_subject,base_school_erp.group_school_teacher,1,0,0,0
+access.class.rooms.teacher,access.class.rooms teacher,model_class_rooms,base_school_erp.group_school_teacher,1,0,0,0
+access.exams.teacher,access.exams teacher,model_exams,base_school_erp.group_school_teacher,1,0,0,0
+access.semester.semester.teacher,access.semester.semester teacher,model_semester_semester,base_school_erp.group_school_teacher,1,0,0,0
+access.faculty.faculty.teacher,access.faculty.faculty teacher,model_faculty_faculty,base_school_erp.group_school_teacher,1,0,0,0
+access.year.year.teacher,access.year.year teacher,model_year_year,base_school_erp.group_school_teacher,1,0,0,0

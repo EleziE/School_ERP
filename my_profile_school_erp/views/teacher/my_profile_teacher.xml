@@ -56,7 +56,7 @@
                             <div class="d-flex align-items-center gap-4">
                                 <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm"
                                      style="width: 100px; height: 100px;">
-                                    <i class="fa fa-user-circle text-muted" style="font-size: 60px;"/>
+                                    <i class="fa fa-user-circle text-muted" style="font-size: 60px;" title="Teacher Icon"/>
                                 </div>
                                 <div>
                                     <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">
@@ -106,7 +106,7 @@
                                         <div class="mb-3">
                                             <label for="phone" class="text-muted small fw-bold d-block mb-1">Contact
                                                 Number</label>
-                                            <div class="h6"><i class="fa fa-phone text-primary me-2"/><field
+                                            <div class="h6"><i class="fa fa-phone text-primary me-2" title="Phone"/><field
                                                     name="phone" nolabel="1"/></div>
                                         </div>
                                         <div class="mb-0">

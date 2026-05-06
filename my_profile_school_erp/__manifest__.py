@@ -1,5 +1,7 @@
 {
     'name': 'My Profile',
+    'license': 'LGPL-3',
+    'description': """My Profile""",
     'depends': [
         'base_school_erp',
         'students_school_erp',

@@ -57,7 +57,7 @@
                                  style="background: #f8f9fa; border-radius: 50px; border: 1px solid #e9ecef; min-height: 60px;">
 
                                 <div class="ms-3 d-flex align-items-center gap-3">
-                                    <i class="fa fa-tasks text-primary" style="font-size: 1.2rem;"/>
+                                    <i class="fa fa-tasks text-primary" style="font-size: 1.2rem;" title="Task"/>
 
                                     <button name="action_finish_task"
                                             string="✅ Finish Task"

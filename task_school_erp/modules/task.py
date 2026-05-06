@@ -48,12 +48,15 @@ class Task(models.Model):
 
     ######################### CREATE & WRITE ################################
 
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self._generate_unique_sequence()
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        # This loop ensures every record in the batch gets a sequence
+        for vals in vals_list:
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self._generate_unique_sequence()
+
+        # We pass the WHOLE list to super() so the ORM can do a batch insert
+        return super().create(vals_list)
 
     def write(self, vals):
         """
@@ -141,7 +144,6 @@ class Task(models.Model):
             existing = self.search([('sequence', '=', sequence)], limit=1)
             if not existing:
                 return sequence
-
 
     ######################### Constraints ################################
     @api.constrains('finish_date')
