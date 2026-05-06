@@ -1,5 +1,9 @@
 <odoo>
-    <data noupdate="1">
+
+    <!--
+    The commented parts re if some schools have 3 semester or summer school depending on the situation
+    -->
+    <data noupdate="0">
         <record id="semester_1_y1" model="semester.semester">
             <field name="name">First Semester (Year 1)</field>
             <field name="code">Y1-S1</field>
@@ -12,12 +16,12 @@
             <field name="order">2</field>
             <field name="year_id" ref="year_1st"/>
         </record>
-        <record id="semester_3_y1" model="semester.semester">
-            <field name="name">Third Semester (Year 1)</field>
-            <field name="code">Y1-S3</field>
-            <field name="order">3</field>
-            <field name="year_id" ref="year_1st"/>
-        </record>
+        <!--        <record id="semester_3_y1" model="semester.semester">-->
+        <!--            <field name="name">Third Semester (Year 1)</field>-->
+        <!--            <field name="code">Y1-S3</field>-->
+        <!--            <field name="order">3</field>-->
+        <!--            <field name="year_id" ref="year_1st"/>-->
+        <!--        </record>-->
 
         <record id="semester_1_y2" model="semester.semester">
             <field name="name">First Semester (Year 2)</field>
@@ -31,12 +35,12 @@
             <field name="order">5</field>
             <field name="year_id" ref="year_2nd"/>
         </record>
-        <record id="semester_3_y2" model="semester.semester">
-            <field name="name">Third Semester (Year 2)</field>
-            <field name="code">Y2-S3</field>
-            <field name="order">6</field>
-            <field name="year_id" ref="year_2nd"/>
-        </record>
+        <!--        <record id="semester_3_y2" model="semester.semester">-->
+        <!--            <field name="name">Third Semester (Year 2)</field>-->
+        <!--            <field name="code">Y2-S3</field>-->
+        <!--            <field name="order">6</field>-->
+        <!--            <field name="year_id" ref="year_2nd"/>-->
+        <!--        </record>-->
 
         <record id="semester_1_y3" model="semester.semester">
             <field name="name">First Semester (Year 3)</field>
@@ -50,12 +54,12 @@
             <field name="order">8</field>
             <field name="year_id" ref="year_3rd"/>
         </record>
-        <record id="semester_3_y3" model="semester.semester">
-            <field name="name">Third Semester (Year 3)</field>
-            <field name="code">Y3-S3</field>
-            <field name="order">9</field>
-            <field name="year_id" ref="year_3rd"/>
-        </record>
+        <!--        <record id="semester_3_y3" model="semester.semester">-->
+        <!--            <field name="name">Third Semester (Year 3)</field>-->
+        <!--            <field name="code">Y3-S3</field>-->
+        <!--            <field name="order">9</field>-->
+        <!--            <field name="year_id" ref="year_3rd"/>-->
+        <!--        </record>-->
 
         <record id="semester_1_y4" model="semester.semester">
             <field name="name">First Semester (Year 4)</field>
@@ -69,12 +73,12 @@
             <field name="order">11</field>
             <field name="year_id" ref="year_4th"/>
         </record>
-        <record id="semester_3_y4" model="semester.semester">
-            <field name="name">Third Semester (Year 4)</field>
-            <field name="code">Y4-S3</field>
-            <field name="order">12</field>
-            <field name="year_id" ref="year_4th"/>
-        </record>
+        <!--        <record id="semester_3_y4" model="semester.semester">-->
+        <!--            <field name="name">Third Semester (Year 4)</field>-->
+        <!--            <field name="code">Y4-S3</field>-->
+        <!--            <field name="order">12</field>-->
+        <!--            <field name="year_id" ref="year_4th"/>-->
+        <!--        </record>-->
 
         <record id="semester_1_y5" model="semester.semester">
             <field name="name">First Semester (Year 5)</field>
@@ -88,11 +92,11 @@
             <field name="order">14</field>
             <field name="year_id" ref="year_5th"/>
         </record>
-        <record id="semester_3_y5" model="semester.semester">
-            <field name="name">Third Semester (Year 5)</field>
-            <field name="code">Y5-S3</field>
-            <field name="order">15</field>
-            <field name="year_id" ref="year_5th"/>
-        </record>
+        <!--        <record id="semester_3_y5" model="semester.semester">-->
+        <!--            <field name="name">Third Semester (Year 5)</field>-->
+        <!--            <field name="code">Y5-S3</field>-->
+        <!--            <field name="order">15</field>-->
+        <!--            <field name="year_id" ref="year_5th"/>-->
+        <!--        </record>-->
     </data>
 </odoo>
