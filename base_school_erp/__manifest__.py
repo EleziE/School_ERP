@@ -12,7 +12,6 @@
         # Inherited
         'views/Inherited/costume_base_modifications.xml',
         # Sequences
-        'data/subject_seq.xml',
         'data/classroom_seq.xml',
         # Views
         'views/holidays.xml',

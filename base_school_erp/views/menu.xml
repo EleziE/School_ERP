@@ -25,6 +25,11 @@
               name="Faculty"
               sequence="40"
               action="action_faculty"/>
+    <menuitem id="subject"
+              parent="school_erp"
+              name="Subject"
+              sequence="50"
+              action="action_subject"/>
 
 
 </odoo>

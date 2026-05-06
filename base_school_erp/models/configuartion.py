@@ -147,28 +147,48 @@ class Subject(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        codes = {
-            'cs': 'subject.cs',
-            'medicine': 'subject.med',
-            'engineering': 'subject.engineering',
-            'social': 'subject.social',
-            'laws': 'subject.laws',
-            'economic': 'subject.economic',
-            'architecture': 'subject.architecture',
-            'arts': 'subject.arts',
-            'education': 'subject.education',
-            'pharmacy': 'subject.pharmacy',
-            'foreign_language': 'subject.foreign_language',
-            'dentist': 'subject.dentist',
-        }
         for vals in vals_list:
             if vals.get('sequence', _('New')) == _('New'):
                 faculty_id = vals.get('faculty_id')
                 faculty_code = self.env['faculty.faculty'].browse(faculty_id).code if faculty_id else None
-                code = codes.get(faculty_code, 'subject.subject')
-                vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
+
+                if faculty_code:
+                    seq_code = f'subject.{faculty_code}'
+                    sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
+
+                    if not sequence:
+                        sequence = self.env['ir.sequence'].create({
+                            'name': f'Sequence for {faculty_code} subjects',
+                            'code': seq_code,
+                            'prefix': f'{faculty_code.upper()}-',
+                            'padding': 3,
+                        })
+
+                    vals['sequence'] = sequence.next_by_id()
+                else:
+                    vals['sequence'] = self.env['ir.sequence'].next_by_code('subject.subject') or _('New')
+
         return super().create(vals_list)
 
-    _sql_constraints = [
-        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
-    ]
+    # _sql_constraints = [
+    #     ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
+    # ]
+    def load(self, fields, data):
+        result = super().load(fields, data)
+        # After load, fix sequences for records that got 'New'
+        records = self.search([('sequence', '=', False)])
+        for rec in records:
+            if rec.faculty_id:
+                seq_code = f'subject.{rec.faculty_id.code}'
+                sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
+                if not sequence:
+                    sequence = self.env['ir.sequence'].create({
+                        'name': f'Sequence for {rec.faculty_id.code} subjects',
+                        'code': seq_code,
+                        'prefix': f'{rec.faculty_id.code.upper()}-',
+                        'padding': 3,
+                    })
+                rec.sequence = sequence.next_by_id()
+            else:
+                rec.sequence = self.env['ir.sequence'].next_by_code('subject.subject') or _('New')
+        return result
