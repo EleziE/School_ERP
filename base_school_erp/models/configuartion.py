@@ -48,24 +48,33 @@ class Faculty(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        codes = {
-            'cs': 'faculty.cs',
-            'medicine': 'faculty.med',
-            'engineering': 'faculty.engineering',
-            'social': 'faculty.social',
-            'laws': 'faculty.laws',
-            'economic': 'faculty.economic',
-            'architecture': 'faculty.architecture',
-            'arts': 'faculty.arts',
-            'education': 'faculty.education',
-            'pharmacy': 'faculty.pharmacy',
-            'foreign_language': 'faculty.foreign_language',
-            'dentist': 'faculty.dentist',
-        }
         for vals in vals_list:
             if vals.get('sequence', _('New')) == _('New'):
-                code = codes.get(vals.get('code'), 'faculty.faculty')
-                vals['sequence'] = self.env['ir.sequence'].next_by_code(code) or _('New')
+                # Get the code entered by the user or API (e.g., 'cs', 'med')
+                faculty_code = vals.get('code')
+
+                if faculty_code:
+                    # Dynamically construct the sequence code
+                    # e.g. 'faculty.cs' or 'faculty.medicine'
+                    seq_code = f'faculty.{faculty_code}'
+
+                    # Check if this sequence exists
+                    sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
+
+                    if not sequence:
+                        # OPTIONAL: Automatically create the sequence if it's missing
+                        sequence = self.env['ir.sequence'].create({
+                            'name': f'Sequence for {vals.get("name")}',
+                            'code': seq_code,
+                            'prefix': f'{faculty_code.upper()}-',
+                            'padding': 3,
+                        })
+
+                    vals['sequence'] = sequence.next_by_id()
+                else:
+                    # Fallback to a generic sequence if no code is provided
+                    vals['sequence'] = self.env['ir.sequence'].next_by_code('faculty.faculty') or _('New')
+
         return super().create(vals_list)
 
 

@@ -3,7 +3,7 @@
     <!--
     The commented parts re if some schools have 3 semester or summer school depending on the situation
     -->
-    <data noupdate="0">
+    <data noupdate="1">
         <record id="semester_1_y1" model="semester.semester">
             <field name="name">First Semester (Year 1)</field>
             <field name="code">Y1-S1</field>

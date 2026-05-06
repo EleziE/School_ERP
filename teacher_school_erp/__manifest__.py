@@ -1,14 +1,12 @@
 {
     'name': 'Teacher',
     'license': 'LGPL-3',
-    'description':"""Teacher""",
+    'description': """Teacher""",
     'data': [
         # Security
         'security/ir.model.access.csv',
-        # Data
-        'data/teacher_seq.xml',
+        #  Views
         'views/teacher_notebook.xml',
-        # Views
         'views/teacher_view.xml',
         'views/menu.xml',
     ],
