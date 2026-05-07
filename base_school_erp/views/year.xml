@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Tree-->
+    <record id="year_tree_view" model="ir.ui.view">
+        <field name="model">year.year</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form-->
+    <record id="year_form_view" model="ir.ui.view">
+        <field name="model">year.year</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="code"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_year" model="ir.actions.act_window">
+        <field name="name">Year</field>
+        <field name="res_model">year.year</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--Only the groups that are added are allowed to see the icon of the  module-->
+    <record id="year" model="ir.ui.menu">
+        <field name="name">year</field>
+        <field name="groups_id" eval="[(6,0,[
+                ref('base_school_erp.group_school_admin'),
+                ref('base_school_erp.group_school_administration')]
+                )]"/>
+
+    </record>
+</odoo>

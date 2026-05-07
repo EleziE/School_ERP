@@ -7,10 +7,9 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="sequence"/>
                         <field name="name"/>
-                        <field name="max_year"/>
                         <field name="code"/>
+                        <field name="year"/>
                     </group>
                 </sheet>
             </form>
@@ -21,10 +20,9 @@
         <field name="model">faculty.faculty</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="sequence" optional="hide"/>
                 <field name="name"/>
-                <field name="max_year"/>
                 <field name="code"/>
+                <field name="year"/>
             </tree>
         </field>
     </record>

@@ -12,13 +12,14 @@
         # Inherited
         'views/Inherited/costume_base_modifications.xml',
         # Sequences
-        'data/classroom_seq.xml',
         # Views
         'views/holidays.xml',
         'views/classroom.xml',
         'views/subjects.xml',
         'views/exam.xml',
         'views/faculty.xml',
+        'views/year.xml',
+        'views/semester.xml',
         'views/menu.xml', ],
     'icon': 'base_school_erp/static/description/icon.png',
     'assets': {

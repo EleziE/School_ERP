@@ -26,5 +26,10 @@
             <field name="code">5th</field>
             <field name="order">5</field>
         </record>
+        <record id="year_6th" model="year.year">
+            <field name="name">Sixth Year</field>
+            <field name="code">6th</field>
+            <field name="order">6</field>
+        </record>
     </data>
 </odoo>

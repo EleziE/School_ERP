@@ -13,69 +13,28 @@ class ResUsersInheritance(models.Model):
                                    store=True)
 
 
-class Exams(models.Model):
-    _name = 'exams'
-    _description = 'Exams'
-
-    name = fields.Char(string='Exam')
-    date_of_exam = fields.Date(string='Date of exam')
-
-    @api.constrains('date_of_exam')
-    def _check_exam_holiday(self):
-        for rec in self:
-            holiday = self.env['holiday.holiday'].search([('date', '=', rec.date_of_exam)])
-            if holiday:
-                raise ValidationError(f"{holiday.name}, so please chose another date for the exam.")
-
-
-class Holidays(models.Model):
-    _name = 'holiday.holiday'
-    _description = 'Holiday'
-
-    name = fields.Char(string='Holidays name')
-    date = fields.Date(string='Holidays date')
-
-
 class Faculty(models.Model):
     _name = 'faculty.faculty'
     _description = 'Faculty'
     _rec_name = 'name'
 
-    name = fields.Char(string='Faculty Name', required=True)
-    code = fields.Char(string='Code', required=True)
-    max_year = fields.Integer(string='Max Years')
-    sequence = fields.Char(string='Sequence', readonly=True)
+    year_id = fields.Many2one(comodel_name='year.year')
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                # Get the code entered by the user or API (e.g., 'cs', 'med')
-                faculty_code = vals.get('code')
+    name = fields.Char(string='Faculty Name',)
+    code = fields.Char(string='Code',
+                       required=True,
+                       help="It will be used like prefix latter for subject (e.g 'cs','med','arch')")
+    year = fields.Integer(string='Years',
+                          related='year_id.order',
+                          help = 'How long the faculty will be normally ',
+                          readonly=True,
+                          store=True)
 
-                if faculty_code:
-                    # Dynamically construct the sequence code
-                    # e.g. 'faculty.cs' or 'faculty.medicine'
-                    seq_code = f'faculty.{faculty_code}'
-
-                    # Check if this sequence exists
-                    sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
-
-                    if not sequence:
-                        # OPTIONAL: Automatically create the sequence if it's missing
-                        sequence = self.env['ir.sequence'].create({
-                            'name': f'Sequence for {vals.get("name")}',
-                            'code': seq_code,
-                            'prefix': f'{faculty_code.upper()}-',
-                            'padding': 3,
-                        })
-
-                    vals['sequence'] = sequence.next_by_id()
-                else:
-                    # Fallback to a generic sequence if no code is provided
-                    vals['sequence'] = self.env['ir.sequence'].next_by_code('faculty.faculty') or _('New')
-
-        return super().create(vals_list)
+    @api.constrains('year')
+    def _check_year(self):
+        for rec in self :
+            if not (2 <= rec.year <= 6) :
+                raise ValidationError('Year must be between 2 and 6')
 
 
 class Year(models.Model):
@@ -83,10 +42,11 @@ class Year(models.Model):
     _description = 'Year'
     _rec_name = 'name'
     _order = 'order asc'
+    faculty_id = fields.Many2one(comodel_name='faculty.faculty')
 
     name = fields.Char(string='Year', required=True)
+    order = fields.Integer(help="Number of years, will be used by the other modules (e.g faculty)")
     code = fields.Char(string='Code', required=True)
-    order = fields.Integer(string='Order')
 
 
 class Semester(models.Model):
@@ -99,6 +59,83 @@ class Semester(models.Model):
     name = fields.Char(string='Semester', required=True)
     code = fields.Char(string='Code', required=True)
     order = fields.Integer(string='Order')
+
+
+class Subject(models.Model):
+        _name = 'subject.subject'
+        _description = 'Subject'
+
+        faculty_id = fields.Many2one(comodel_name='faculty.faculty', string='Faculty')
+        year_id = fields.Many2one(comodel_name='year.year', string='Year')
+        semester_id = fields.Many2one(comodel_name='semester.semester', string='Semester')
+
+        sequence = fields.Char(string='Sequence', readonly=True)
+        name = fields.Char(string='Name')
+        type = fields.Selection(selection=[('mandatory', 'Mandatory'),
+                                           ('selective', 'Selective'),
+                                           ('faculty_elective', 'Faculty Elective'),
+                                           ('university_elective', 'University Elective'), ],
+                                string='Type', required=True)
+        credits = fields.Integer(string='Credits')
+        description = fields.Html(string='Description')
+
+        @api.model_create_multi
+        def create(self, vals_list):
+            for vals in vals_list:
+                if vals.get('sequence', 'New') == 'New':
+                    # 1. Get the faculty code from the database
+                    faculty = self.env['faculty.faculty'].browse(vals.get('faculty_id'))
+                    # Fallback to 'GEN' if no faculty is linked
+                    f_code = faculty.code.upper() if faculty else 'GEN'
+
+                    # 2. Define the unique code for the ir.sequence record
+                    seq_key = f'subject.seq.{f_code.lower()}'
+
+                    # 3. Get the next number (creating the sequence if it doesn't exist)
+                    existing_seq = self.env['ir.sequence'].search([('code', '=', seq_key)], limit=1)
+
+                    if not existing_seq:
+                        existing_seq = self.env['ir.sequence'].create({
+                            'name': f'Subject Sequence for {f_code}',
+                            'code': seq_key,
+                            'prefix': f'{f_code}-',
+                            'padding': 3,
+                        })
+
+                    vals['sequence'] = existing_seq.next_by_id()
+
+            return super().create(vals_list)
+        _sql_constraints = [
+            ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
+        ]
+
+
+class Exams(models.Model):
+        _name = 'exams'
+        _description = 'Exams'
+
+        faculty_id = fields.Many2one('faculty.faculty')
+        semester_id = fields.Many2one('semester.semester')
+        subject_id = fields.Many2one('subject.subject')
+        year_id = fields.Many2one('year.year')
+
+        name = fields.Char(string='Exam')
+        date_of_exam = fields.Date(string='Date of exam')
+
+        @api.constrains('date_of_exam')
+        def _check_exam_holiday(self):
+            for rec in self:
+                holiday = self.env['holiday.holiday'].search([('date', '=', rec.date_of_exam)])
+                if holiday:
+                    raise ValidationError(f"{holiday.name}, so please chose another date for the exam.")
+
+
+class Holidays(models.Model):
+        _name = 'holiday.holiday'
+        _description = 'Holiday'
+
+        name = fields.Char(string='Holidays name')
+        date = fields.Date(string='Holidays date')
 
 
 class ClassRooms(models.Model):
@@ -119,76 +156,3 @@ class ClassRooms(models.Model):
     _sql_constraints = [
         ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
     ]
-
-
-class Subject(models.Model):
-    _name = 'subject.subject'
-    _description = 'Subject'
-
-    sequence = fields.Char(string='Sequence', readonly=True)
-    name = fields.Char(string='Subject name')
-    faculty_id = fields.Many2one(comodel_name='faculty.faculty', string='Faculty')
-    year_id = fields.Many2one(comodel_name='year.year', string='Year')
-    semester_id = fields.Many2one(comodel_name='semester.semester', string='Semester')
-    type = fields.Selection(selection=[('mandatory', 'Mandatory'),
-                                       ('selective', 'Selective'),
-                                       ('faculty_elective', 'Faculty Elective'),
-                                       ('university_elective', 'University Elective'), ],
-                            string='Type', required=True)
-    credits = fields.Integer(string='Credits')
-    description = fields.Html(string='Description')
-
-    @api.onchange('faculty_id')
-    def _onchange_faculty_id(self):
-        if self.year_id and self.faculty_id:
-            if self.year_id.order > self.faculty_id.max_year:
-                self.year_id = False
-        return {'domain': {'year_id': [('order', '<=', self.faculty_id.max_year or 5)]}}
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                faculty_id = vals.get('faculty_id')
-                faculty_code = self.env['faculty.faculty'].browse(faculty_id).code if faculty_id else None
-
-                if faculty_code:
-                    seq_code = f'subject.{faculty_code}'
-                    sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
-
-                    if not sequence:
-                        sequence = self.env['ir.sequence'].create({
-                            'name': f'Sequence for {faculty_code} subjects',
-                            'code': seq_code,
-                            'prefix': f'{faculty_code.upper()}-',
-                            'padding': 3,
-                        })
-
-                    vals['sequence'] = sequence.next_by_id()
-                else:
-                    vals['sequence'] = self.env['ir.sequence'].next_by_code('subject.subject') or _('New')
-
-        return super().create(vals_list)
-
-    # _sql_constraints = [
-    #     ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
-    # ]
-    def load(self, fields, data):
-        result = super().load(fields, data)
-        # After load, fix sequences for records that got 'New'
-        records = self.search([('sequence', '=', False)])
-        for rec in records:
-            if rec.faculty_id:
-                seq_code = f'subject.{rec.faculty_id.code}'
-                sequence = self.env['ir.sequence'].search([('code', '=', seq_code)], limit=1)
-                if not sequence:
-                    sequence = self.env['ir.sequence'].create({
-                        'name': f'Sequence for {rec.faculty_id.code} subjects',
-                        'code': seq_code,
-                        'prefix': f'{rec.faculty_id.code.upper()}-',
-                        'padding': 3,
-                    })
-                rec.sequence = sequence.next_by_id()
-            else:
-                rec.sequence = self.env['ir.sequence'].next_by_code('subject.subject') or _('New')
-        return result

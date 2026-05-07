@@ -61,5 +61,17 @@
             <field name="order">10</field>
             <field name="year_id" ref="year_5th"/>
         </record>
+        <record id="semester_1_y6" model="semester.semester">
+            <field name="name">First Semester (Year 6)</field>
+            <field name="code">Y6-S1</field>
+            <field name="order">11</field>
+            <field name="year_id" ref="year_6th"/>
+        </record>
+        <record id="semester_2_y6" model="semester.semester">
+            <field name="name">Second Semester (Year 6)</field>
+            <field name="code">Y6-S2</field>
+            <field name="order">12</field>
+            <field name="year_id" ref="year_6th"/>
+        </record>
     </data>
 </odoo>

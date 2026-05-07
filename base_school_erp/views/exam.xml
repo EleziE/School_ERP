@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--Form-->
+    <record id="exam_form_view" model="ir.ui.view">
+        <field name="model">exams</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="faculty_id"/>
+                    <field name="year_id" />
+                    <field name="semester_id" domain="[('year_id.id','=',year_id)]"/>
+                    <field name="date_of_exam"/>
+                </group>
+            </form>
+        </field>
+    </record>
     <!--Tree-->
     <record id="exam_tree_view" model="ir.ui.view">
         <field name="model">exams</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="faculty_id"/>
+                <field name="year_id"/>
+                <field name="semester_id"/>
                 <field name="date_of_exam"/>
             </tree>
         </field>
     </record>
-
-
     <!--Action-->
     <record id="action_exam" model="ir.actions.act_window">
         <field name="name">Exam</field>
