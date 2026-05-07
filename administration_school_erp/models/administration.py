@@ -42,33 +42,39 @@ class Administration(models.Model):
                                              ],
                                   string='Blood Type')
     phone = fields.Char(string='Phone no: ',
-                        related='user_id.phone',
-                        placeholder="+355XX XXX XXXX")
+                        related='user_id.phone')
     member_type = fields.Selection(related='user_id.member_type',
-                                   string='Type' )
+                                   string='Type')
 
-    @api.model
-    def create(self, vals):
-        # =================== For Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('administration.administration')
-
-        # =================== For Access Rights Generator ===================
+    @api.model_create_multi
+    def create(self, vals_list):
+        # 1. Fetch references ONCE outside the loop for better performance
         access_rights = self.env.ref('base_school_erp.group_school_administration')
         internal_user = self.env.ref('base.group_user')
 
-        user = self.env['res.users'].create({
-            'name': vals.get('name'),
-            'login': vals.get('login'),
-            'member_type': 'administration',
-            'groups_id': [
-                (4, access_rights.id),
-                (4, internal_user.id), ]
-        })
-        vals['user_id'] = user.id
-        print('A administration worker was created')
+        for vals in vals_list:
+            # 2. Handle Sequence
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self.env['ir.sequence'].next_by_code('administration.administration')
 
-        return super().create(vals)
+            # 3. Create the User
+            # We still create users one by one because they are separate records
+            user = self.env['res.users'].create({
+                'name': vals.get('name'),
+                'login': vals.get('login'),
+                'member_type': 'administration',
+                'groups_id': [
+                    (4, access_rights.id),
+                    (4, internal_user.id),
+                ]
+            })
+
+            # Link the newly created user to the administration record
+            vals['user_id'] = user.id
+            print(f"An administration worker was created: {vals.get('name')}")
+
+        # 4. Pass the entire list to the parent create method
+        return super(Administration, self).create(vals_list)
 
     @api.model
     def write(self, vals):

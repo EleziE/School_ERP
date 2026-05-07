@@ -1,18 +1,21 @@
 {
     'name': 'Finance',
+    'license': 'LGPL-3',
+    'description':"""Finance""",
     'data': [
         # security
         'security/ir.model.access.csv',
         'security/rules.xml',
-        # Data
-        'data/finance_seq.xml',
+
         # Wizards
         'wizards/finances_print_wizard.xml',
+
         # Views
         'views/finance.xml',
 
         # Inherited
         'views/Inherited/student_notebook.xml',
+
         # All menus (should be at the end before the actions)
         'views/menu.xml',
     ],

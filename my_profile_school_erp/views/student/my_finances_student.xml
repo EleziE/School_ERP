@@ -1,13 +1,190 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+        <!-- Form-->
+        <record id="my_finance_student_form" model="ir.ui.view">
+            <field name="name">my.finance.student.form</field>
+            <field name="model">finance.finance</field>
+            <field name="arch" type="xml">
+                <form string="Student Finance" edit="False" create="False" delete="False"
+                      class="o_student_finance_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            /* Custom Warm Theme Overrides */
+                            .o_form_view.o_student_finance_view {
+                                background-color: #fdfbf7 !important;
+                            }
 
+                            .o_warm_header {
+                                background: #ffffff;
+                                border-bottom: 2px solid #f3eada;
+                            }
+
+                            .o_balance_card_warm {
+                                background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+                                color: white !important;
+                                border-radius: 16px;
+                                padding: 24px;
+                                min-width: 220px;
+                                box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.2);
+                            }
+
+                            .o_card_warm {
+                                border: 1px solid #f3eada;
+                                border-radius: 16px;
+                                background: #ffffff;
+                                padding: 24px;
+                                height: 100%;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+                            }
+
+                            .o_paper_note {
+                                background: #fffdfa;
+                                border-left: 4px solid #f59e0b;
+                                padding: 15px;
+                                border-radius: 4px;
+                            }
+
+                            .o_sequence_text {
+                                color: #92400e;
+                                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                                font-weight: bold;
+                            }
+                        </style>
+                    </xpath>
+
+                    <header invisible="1">
+                        <field name="state"/>
+                    </header>
+
+                    <sheet class="p-0">
+                        <div class="p-4 d-flex justify-content-between align-items-center o_warm_header">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="rounded-circle p-3 text-warning" style="background: #fffbeb;">
+                                    <i class="fa fa-university fa-2x" title="University"/>
+                                </div>
+                                <div>
+                                    <label for="student_id" string="Student Payer"
+                                           class="text-muted small fw-bold text-uppercase d-block mb-1"/>
+                                    <h2 class="fw-bold mb-0 text-dark">
+                                        <field name="student_id" readonly="1" options="{'no_open': True}"/>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="o_balance_card_warm text-center">
+                                    <label for="amount" string="Total Amount"
+                                           class="text-white-50 small fw-bold text-uppercase d-block mb-1"/>
+                                    <div class="h2 fw-bold mb-0 text-white">
+                                        <field name="amount" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <span class="ms-1">€</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4" style="background-color: #fdfbf7;">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="o_card_warm">
+                                        <h5 class="fw-bold mb-4" style="color: #92400e;">
+                                            <i class="fa fa-calendar-check-o me-2"/> Payment Timeline
+                                        </h5>
+                                        <div class="mb-4">
+                                            <label for="create_date" string="Billing Issued"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6"><field name="create_date" readonly="1"/></div>
+                                        </div>
+
+                                        <div class="mb-3 border-top pt-3" invisible="state != 'paid'">
+                                            <label for="paid_date" string="Date of Settlement"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6 text-success fw-bold">
+                                                <field name="paid_date" readonly="1"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 pt-3 border-top" invisible="state != 'paid'">
+                                            <label for="confirmed_by" class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="d-flex align-items-center text-muted">
+                                                <i class="fa fa-shield me-2 text-success" title="Confirmed by"/>
+                                                <field name="confirmed_by" readonly="1"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="o_card_warm">
+                                        <h5 class="fw-bold mb-4" style="color: #92400e;">
+                                            <i class="fa fa-file-text-o me-2"/> Billing Details
+                                        </h5>
+
+                                        <div class="mb-4">
+                                            <label for="sequence" string="Record ID"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="h6 o_sequence_text">
+                                                <field name="sequence" readonly="1"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="reason" string="Description"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="o_paper_note">
+                                                <field name="reason" readonly="1"/>
+                                            </div>
+                                        </div>
+
+                                        <div invisible="not reason_extra" class="mb-4">
+                                            <label for="reason_extra" string="Additional Notes"
+                                                   class="text-muted small fw-bold d-block mb-1"/>
+                                            <div class="small p-3 border rounded bg-light fst-italic">
+                                                <field name="reason_extra" readonly="1"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-2" invisible="state == 'paid'">
+                                            <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center mb-0"
+                                                 role="status">
+
+                                                <i class="fa fa-hourglass-half me-3 fa-lg" title="Pending"/>
+
+                                                <span class="small">
+                                                    <strong>Notice:</strong> This payment is currently under review by
+                                                    the finance department.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="rounded-3 p-3 d-flex align-items-center gap-3 border shadow-sm"
+                                 style="background: #ffffff; border: 1px solid #f3eada !important;">
+                                <div class="h3 mb-0">📜</div>
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-0 text-dark">Official Digital Receipt</h6>
+                                    <p class="text-muted small mb-0">
+                                        This record is verified and stored in the University Student Portal.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <!--Tree -->
         <record id="my_finance_student_tree" model="ir.ui.view">
             <field name="model">finance.finance</field>
             <field name="name">my.finance.student.tree</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="sequence" optional="show"/>
                     <field name="student_id" optional="hide"/>
                     <field name="create_date"/>
                     <field name="paid_date" optional="hide"/>
@@ -18,61 +195,6 @@
                     <field name="reason_extra" optional="hide"/>
                     <field name="amount" optional="hide"/>
                 </tree>
-            </field>
-        </record>
-        <!-- Form-->
-
-
-        <record id="my_finance_student_form" model="ir.ui.view">
-            <field name="name">my.finance.student.form</field>
-            <field name="model">finance.finance</field>
-            <field name="arch" type="xml">
-                <form string="Student Finance">
-
-                    <header>
-                        <field name="state" widget="badge"
-                               class="fa-5 px-3 py-2"
-                               decoration-success="state == 'paid'"
-                               decoration-warning="state == 'draft'"
-                               decoration-danger="state == 'unpaid'"/>
-                    </header>
-
-                    <sheet>
-
-                        <div class="oe_title">
-                            <h1>
-                                <field name="student_id"
-                                       options="{'no_open':True, 'no_create':True}"
-                                       domain="[('member_type','=','student')]"/>
-                            </h1>
-                        </div>
-
-
-                        <group string="General Information" col="2">
-                            <group>
-                                <field name="amount" widget="monetary"/>
-                                <field name="create_date" readonly="1"/>
-                            </group>
-                            <group>
-                                <field name="paid_date"/>
-                                <field name="confirmed_by"
-                                       invisible="state != 'paid'"/>
-                            </group>
-                        </group>
-
-                        <!-- REASON SECTION -->
-                        <group string="Details">
-                            <field name="reason"
-                                   placeholder="Write the reason..."
-                                   options="{'no_open':True,'no_create':True,'no_delete':True}"/>
-
-                            <field name="reason_extra"
-                                   placeholder="Additional details..."
-                                   invisible="reason != 'extra_credits'"/>
-                        </group>
-
-                    </sheet>
-                </form>
             </field>
         </record>
         <!--Action -->

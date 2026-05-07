@@ -1,46 +1,40 @@
-                                                                                        ######################## 4/8/2026 #########################
----
-
-View Form of Task (make that the finished date to be editable only if the uid is the same as the id of the person that
-the task is created),
-and the statusbar to be editable to compleat only if the uid is the same as the created for id
-
-
-
                                                                                             ######################## 4/21/2026 #########################
-
-These are all unfinished work. After work don't forget to delete the ones done
-
 
 - CP-Commit #3 (04/21/2026)
 
-Wizard + Report 
+Wizard + Report
 
 Trying to make the button that select the state of finance than based on that the PDF report ot be created ...
 the majority of the files created and added in this commit don't work
 
-- CP-Commit #4 (04/21/2026)
-
-Small changes, recheck the previous unsolved problems
-
 - CP-Commit #5 (04/21/2026)
 
-How to make a button that if the state of a student is graduated to not allow to sign in ... or the moment that he signs in to show only a page that tells e message as I want 
-
-I have created a graduated_fella() boolean type function in the student model but how to connect it with the res_users... or to add it there 
-
-In TASK module why the create_by is not filled by the uid ... learn the logic (form view ... creating a new task)
-
-Recheck the sequence if it changes as it should after saving the autofilled version (the previous error)
+How to make a button that if the state of a student is graduated to not allow to sign in ... or the moment that he signs
+in to show only a page that tells e message as I want
 
                                                                                             ######################## 4/22/2026 #########################
 
-- Pse tek moduli my profile teacher ... edhe pse admini nuk asht teacher prap i del emri tek fieldi name kurse te kte tjerat S edhe A nuk i del  
+- Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta
+
+                                                                                            ######################## 04/05/2026 #########################
+
+1. Mso si me cu email me odoo ... konfiguroje (edhe bane prov me firgu jackun)
+2. Populate the subjects with the new classes and corrct the credits (at the end of 3 years there should be 180 credits
+   earned)
+3. How to make a constraint-like functions that check if the user has all the mandatory classes passed , no more
+   finances to pay and has a credit of 180 (i have started to make it in student.py)
+   but the finances is depended on student so i cant inherit the finance module.
+4. Correct the filter so that at the faculty field in teachers form view to show the faculties name not the subjects.
+
+                                                                                            ######################## 05/05/2026 #########################
 
 
-- Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta 
+1. How to see the same records of student tree view in the subject tree view(the have the same module ref,
+   studenet.student)
+2. How to make it so the moment i click in the student in tree to open the student information and see the subject that
+   the student will have to pass and has passed
+   so i can get an idea how many left are there for this student
 
-                                                                                            ######################## 4/28/2026 #########################
 
-1. How to make it that the subjects to be shown in the module students(not my profile) to show only the subject of while filtering the faculty, year and semester
-2. 
+                                                                                            ######################## 05/05/2026 #########################
+1. Recheck the new create function in faculty how it works and why that way 

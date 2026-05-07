@@ -6,87 +6,133 @@
             <field name="name">My Task (Teacher Form)</field>
             <field name="model">task</field>
             <field name="arch" type="xml">
-                <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]">
-                    <sheet>
-                        <group>
-                            <field name="check_user_finish_date" invisible="True"/>
-                            <field name="starting_date"/>
-                            <field name="planned_finish_date"/>
-                            <field name="finish_date"/>
-                            <field name="status" widget="badge"
-                                   decoration-success="status in ('completed','completed_early')"
-                                   decoration-warning="status == 'in_progress'"
-                                   decoration-danger="status == 'completed_delayed'"/>
+                <form edit="[('status','not in',['completed','completed_delayed','completed_early'])]"
+                      class="task_form_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            /* Base Card Styling */
+                            .o_card_box {
+                                border: 1px solid #e9ecef;
+                                border-radius: 15px;
+                                padding: 25px;
+                                background: white;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                            }
 
-                            <field name="description"
-                                   placeholder="Information about the task..."/>
-                        </group>
+                            .task_label {
+                                color: #6c757d;
+                                font-size: 0.85rem;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                            }
+
+                            /* --- THE MAGIC SWEEP BUTTON --- */
+                            .btn-finish-warm {
+                                /* We create a background 2x the width of the button */
+                                /* Left half: Cyan (Idle) | Right half: Teal (Active) */
+                                background-image: linear-gradient(to right, #e0f7fa 50%, #00838f 50%) !important;
+                                background-size: 200% 100% !important;
+                                background-position: left bottom !important;
+
+                                color: #006064 !important;
+                                border-color: #b2ebf2 !important;
+                                transition: background-position 0.5s ease, color 0.5s ease, transform 0.2s ease !important;
+                            }
+
+                            .btn-finish-warm:hover {
+                                /* Slides the background from left to right over 1s */
+                                background-position: right bottom !important;
+                                color: white !important;
+                                border-color: #006064 !important;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(0, 131, 143, 0.2) !important;
+                            }
+                        </style>
+                    </xpath>
+
+                    <sheet class="p-0">
+                        <div class="p-3 pb-0">
+                            <div class="o_status_box d-flex align-items-center justify-content-between w-100 mb-3 p-2"
+                                 style="background: #f8f9fa; border-radius: 50px; border: 1px solid #e9ecef; min-height: 60px;">
+
+                                <div class="ms-3 d-flex align-items-center gap-3">
+                                    <i class="fa fa-tasks text-primary" style="font-size: 1.2rem;" title="Task"/>
+
+                                    <button name="action_finish_task"
+                                            string="✅ Finish Task"
+                                            type="object"
+                                            confirm="Confirm task completion? This will lock the record."
+                                            class="btn rounded-pill px-4 shadow-sm fw-bold btn-finish-warm"
+                                            invisible="status in ('completed','completed_delayed','completed_early')"/>
+
+                                    <span class="fw-bold text-muted"
+                                          style="font-size: 0.9rem; letter-spacing: 0.5px;">TASK DETAILS</span>
+                                </div>
+
+                                <div class="me-3 d-flex align-items-center gap-3">
+                                    <span class="text-muted small fw-bold">STATUS:</span>
+                                    <field name="status" widget="badge"
+                                           class="fs-6 px-4 py-2 shadow-sm"
+                                           style="border-radius: 50px !important;"
+                                           decoration-success="status in ('completed','completed_early')"
+                                           decoration-warning="status == 'in_progress'"
+                                           decoration-danger="status == 'completed_delayed'"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="o_card_box">
+                                <div class="row g-4">
+                                    <div class="col-md-6 border-end">
+                                        <h5 class="text-primary fw-bold mb-4">📅 Schedule</h5>
+                                        <field name="check_user_finish_date" invisible="True"/>
+                                        <field name="task_from" invisible="True"></field>
+                                        <field name="check_user_planned_finish_date" invisible="True"></field>
+
+                                        <div class="mb-3">
+                                            <label for="starting_date" class="task_label d-block mb-1">Assigned
+                                                Date</label>
+                                            <div class="h6"><field name="starting_date" nolabel="1"/></div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="planned_finish_date" class="task_label d-block mb-1">
+                                                Planned Deadline</label>
+                                            <div class="h6 text-info"><field name="planned_finish_date"
+                                                                             readonly="not check_user_planned_finish_date"
+                                                                             nolabel="1"/></div>
+                                        </div>
+
+                                        <div class="mb-0">
+                                            <label for="finish_date" class="task_label d-block mb-1">Actual
+                                                Finish Date</label>
+                                            <div class="h6 fw-bold"><field name="finish_date"
+                                                                           nolabel="1"/></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h5 class="text-success fw-bold mb-4">📝 Task Description</h5>
+                                        <div class="p-3 rounded bg-light border-start border-4 border-success"
+                                             style="min-height: 120px;">
+                                            <field name="description" nolabel="1"
+                                                   placeholder="Describe the work to be done..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 pt-0 text-center">
+                            <div class="small text-muted italic">
+                                <i class="fa fa-info-circle me-1"/> Completed tasks cannot be edited. Please
+                                contact admin for changes.
+                            </div>
+                        </div>
                     </sheet>
                 </form>
-            </field>
-        </record>
-        <!--Teacher Task Kanban-->
-        <record id="my_tasks_teacher_kanban" model="ir.ui.view">
-            <field name="name">My Task (Teacher Kanban)</field>
-            <field name="model">task</field>
-            <field name="arch" type="xml">
-                <kanban default_group_by="status">
-                    <field name="starting_date"/>
-                    <field name="planned_finish_date"/>
-                    <field name="finish_date"/>
-                    <field name="status"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <t t-if="record.status.raw_value != 'in_progress' and
-                             record.status.raw_value != 'new'">
-                                <div class="oe_kanban_global_click o_kanban_record">
-
-                                    <!-- Status Badge -->
-                                    <div class="o_kanban_record_top mb-2">
-                                        <div class="o_kanban_record_headings">
-                                            <strong class="o_kanban_record_title">
-                                            </strong>
-                                        </div>
-                                        <div>
-                                            <span t-att-class="'badge rounded-pill ' + (
-                                                    record.status.raw_value === 'completed' and 'text-bg-success' or
-                                                    record.status.raw_value === 'completed_early' and 'text-bg-success' or
-                                                    record.status.raw_value === 'completed_delayed' and 'text-bg-danger' or
-                                                    'text-bg-secondary')"/>
-                                        </div>
-                                    </div>
-
-                                    <!-- Card Body -->
-                                    <div class="o_kanban_record_body">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted">
-                                                <i class="fa fa-user me-1"/>
-                                            </span>
-                                        </div>
-                                        <div class="mt-1">
-                                            <i class="fa fa-calendar me-1 text-muted"/>
-                                            <span class="text-muted">Start: </span>
-                                            <field name="starting_date"/>
-                                        </div>
-                                        <div class="mt-1">
-                                            <i class="fa fa-calendar-check-o me-1 text-muted"/>
-                                            <span class="text-muted">Planned: </span>
-                                            <field name="planned_finish_date"/>
-                                        </div>
-                                        <t t-if="record.finish_date.raw_value">
-                                            <div class="mt-1">
-                                                <i class="fa fa-flag-checkered me-1 text-muted"/>
-                                                <span class="text-muted">Finished: </span>
-                                                <field name="finish_date"/>
-                                            </div>
-                                        </t>
-                                    </div>
-
-                                </div>
-                            </t>
-                        </t>
-                    </templates>
-                </kanban>
             </field>
         </record>
         <!--Teacher Task Tree-->
@@ -94,11 +140,12 @@
             <field name="name">My Task (Teacher Tree)</field>
             <field name="model">task</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree duplicate="0">
+                    <field name="sequence" optional="hide"/>
                     <field name="task_for" optional="hide"/>
                     <field name="task_from" optional="hide"/>
-                    <field name="starting_date" />
-                    <field name="planned_finish_date"/>
+                    <field name="starting_date"/>
+                    <field name="planned_finish_date"  />
                     <field name="finish_date"/>
                     <field name="status" widget="badge"
                            decoration-success="status in ('completed','completed_early')"
@@ -112,12 +159,11 @@
         <record id="action_my_task_teacher" model="ir.actions.act_window">
             <field name="name">Task</field>
             <field name="res_model">task</field>
-            <field name="domain">[('task_for.user_id','=',uid)]</field>
-            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('task_for.user_id', '=', uid)]</field>
+            <field name="view_mode">tree,form</field>
             <field name="view_ids"
                    eval="[(5, 0, 0),
                           (0, 0, {'view_mode': 'tree', 'view_id': ref('my_tasks_teacher_tree')}),
-                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('my_tasks_teacher_kanban')}),
                           (0, 0, {'view_mode': 'form', 'view_id': ref('my_tasks_teacher_form')}),]"/>
         </record>
     </data>

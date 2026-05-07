@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1" >
         <!--Sequence of the Finance Records-->
         <record id="seq_administration" model="ir.sequence">
             <field name="name">Administration Sequence</field>

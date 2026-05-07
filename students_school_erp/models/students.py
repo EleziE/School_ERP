@@ -1,6 +1,7 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
 from datetime import datetime
+import secrets
 
 
 class Student(models.Model):
@@ -12,8 +13,8 @@ class Student(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
 
-    user_id = fields.Many2one(comodel_name='res.users',
-                              invisible=True, )
+    user_id = fields.Many2one(comodel_name='res.users',)
+
     name = fields.Char(string='Name',
                        store=True,
                        tracking=True)
@@ -50,18 +51,16 @@ class Student(models.Model):
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
-                                        ('suspended', 'Suspended'),
-                                        ('graduated', 'Graduated'),
-                                        ('rejected', 'Rejected'), ],
+                                        ('graduated', 'Graduated'), ],
                              string='State',
                              default='new',
                              tracking=True,
                              required=True)
     suspend_reason = fields.Text(string='Suspension Reason',
-                                 tracking=True)
+                                 tracking=True,
+                                 readonly=True)
     phone = fields.Char(string='Phone no ',
-                        related='user_id.phone',
-                        placeholder="+355XX XXX XXXX")
+                        related='user_id.phone',)
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
     graduation_date = fields.Date(string='Graduation Date',
@@ -73,45 +72,58 @@ class Student(models.Model):
                                    readonly=True, )
     user_password = fields.Char(string='Password',
                                 related='user_id.new_password', )
-    birthday_certificate = fields.Binary(string='Birthday Certificate')
-    birthday_certificate_name = fields.Char(string='File name',
-                                            default="Document",
-                                            accept="application/pdf,"
-                                                   "image/png,"
-                                                   "image/jpeg")
-    year = fields.Selection(string='Year',
-                            related='subject_id.year',
-                            readonly=False,
-                            store=True)
-    semester = fields.Selection(related='subject_id.semester')
-    faculty = fields.Selection(string='Faculty',
-                               related='subject_id.faculty',
-                               readonly=False,
-                               store=True)
-    image_128 = fields.Image(string='Image 128',)
-    # =================== Main Functions (CREATE & WRITE) ====================
-    @api.model
-    def create(self, vals):
-        # =================== Per Sequence Generator ====================
-        if vals.get('sequence', _('New')) == _('New'):
-            vals['sequence'] = self.env['ir.sequence'].next_by_code('students.students')
 
-        # =================== Per Access Rights Generator ===================
+    year = fields.Selection(selection=[('1st', 'First Year'),
+                                       ('2nd', 'Second Year'),
+                                       ('3rd', 'Third Year'), ],
+                            string='Year')
+    semester = fields.Selection(string='Semester',
+                                selection=[('semester-1', 'First Semester'),
+                                           ('semester-2', 'Second Semester'), ])
+
+    faculty = fields.Selection(selection=[('cs', 'Computer Science'),
+                                          ('medicine', 'Medicine'),
+                                          ('engineering', 'Engineering'),
+                                          ('social', 'Social'),
+                                          ('laws', 'Laws'),
+                                          ('economic', 'Economic'),
+                                          ('architecture', 'Architecture'),
+                                          ('arts', 'Arts'),
+                                          ('education', 'Education'),
+                                          ('pharmacy', 'Pharmacy'),
+                                          ('foreign_language', 'Foreign_language'),
+                                          ('dentist', 'Dentist'), ],
+                               string='Faculty',
+                               required=True)
+    image_128 = fields.Image(string='Image 128', )
+
+    # =================== Main Functions (CREATE & WRITE) ====================
+    @api.model_create_multi
+    def create(self, vals_list):
+        # 1. Prepare references once (efficient)
         access_rights = self.env.ref('base_school_erp.group_school_student')
         internal_user = self.env.ref('base.group_user')
 
-        user = self.env['res.users'].create({
-            'name': vals.get('name'),
-            'login': vals.get('email'),
-            'member_type': 'student',
-            'groups_id': [
-                (4, access_rights.id),
-                (4, internal_user.id), ]
-        })
-        vals['user_id'] = user.id
+        for vals in vals_list:
+            # 2. Sequence Logic
+            if vals.get('sequence', _('New')) == _('New'):
+                vals['sequence'] = self._generate_unique_sequence()
 
+            # 3. Create the User for this specific student
+            # Note: We create users inside the loop because each student needs their own
+            user = self.env['res.users'].create({
+                'name': vals.get('name'),
+                'login': vals.get('email'),
+                'member_type': 'student',
+                'groups_id': [
+                    (4, access_rights.id),
+                    (4, internal_user.id),
+                ]
+            })
+            vals['user_id'] = user.id
 
-        return super().create(vals)
+        # 4. Pass the whole list to super
+        return super(Student, self).create(vals_list)
 
     @api.model
     def write(self, vals):
@@ -122,8 +134,6 @@ class Student(models.Model):
         if self.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
             raise AccessError('You are not allowed to change records of a Graduated student ! ')
         return super().write(vals)
-
-
 
     ############################ Wizards ###########################################
 
@@ -152,7 +162,6 @@ class Student(models.Model):
             else:
                 rec.graduation_date = False
 
-
     def action_graduated(self):
         self.state = 'graduated'
 
@@ -161,9 +170,6 @@ class Student(models.Model):
 
     def action_active(self):
         self.state = 'active'
-
-    def action_inactive(self):
-        self.state = 'inactive'
 
     ############################ Constraints ############################
     _sql_constraints = [
@@ -209,14 +215,58 @@ class Student(models.Model):
             'target': 'new',
         }
 
-
     def action_print_report(self):
         """Button action to generate PDF to express the Information of a Student """
-        self.ensure_one()
-        pdf_file = self.env['report.students_module.student_report_pdf'].generate_pdf(self)
 
+        report = self.env['report.students_module.student_report_pdf']
+        pdf_base64 = report.generate(self)
+
+        attachment = self.env['ir.attachment'].create({
+            'name': f'Student_Profile_{self.name}.pdf',
+            'type': 'binary',
+            'datas': pdf_base64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/pdf',
+        })
         return {
             'type': 'ir.actions.act_url',
-            'url': '/web/content/?model=students.students&id=%s&field=birthday_certificate&download=true' % self.id,
+            'url': f'/web/content/{attachment.id}?download=true',
             'target': 'new',
         }
+
+    ############################ Sequence Generator ############################
+
+    def _generate_unique_sequence(self):
+        while True:
+            number = str(secrets.randbelow(9000000) + 1000000)
+            sequence = f'S-{number}'
+            existing = self.search([('sequence', '=', sequence)], limit=1)
+            if not existing:
+                return sequence
+
+    ############################ Graduation Checker ############################
+    def check_credits(self):
+        """
+        If the student hase 180 credits, no more finances to pay (all are paid), and all the mandatory subjects are passed, then he can graduate !
+        this makes sure that the conditions are filled (In construction , not done yet !)
+        """
+        for rec in self:
+            if rec.subject_id.credits < 180:
+                raise ValidationError(f'Student cannot graduate since he is missing {rec.subject_id.credits} credits.')
+
+    ############################ Cron's ############################
+    @api.model
+    def _cron_clear_suspension_reasons(self):
+        """
+        Finds students who are 'active' but still have a lingering
+        suspension reason in the database and clears it.
+        """
+
+        students_to_fix = self.search([
+            ('state', 'in', ['active', 'new', 'graduated']),
+            ('suspend_reason', '!=', False)
+        ])
+
+        if students_to_fix:
+            students_to_fix.write({'suspend_reason': False})

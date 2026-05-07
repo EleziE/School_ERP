@@ -5,4 +5,49 @@
               sequence="0"
               web_icon='base_school_erp,static/description/icon.png'
               groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+
+    <menuitem id="faculty"
+              parent="school_erp"
+              name="Faculty"
+              sequence="10"
+              action="action_faculty"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="year"
+              parent="school_erp"
+              name="Year"
+              sequence="20"
+              action="action_year"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="semester"
+              parent="school_erp"
+              name="Semester"
+              sequence="30"
+              action="action_semester"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="subject"
+              parent="school_erp"
+              name="Subject"
+              sequence="40"
+              action="action_subject"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="class_room"
+              name="Classroom"
+              sequence="50"
+              parent='school_erp'
+              action="action_class_room"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="exam"
+              name="Exam"
+              sequence="60"
+              parent='school_erp'
+              action="action_exam"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+    <menuitem id="holidays"
+              name="Holidays"
+              sequence="70"
+              parent='school_erp'
+              action="action_holidays"
+              groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
+
+
 </odoo>

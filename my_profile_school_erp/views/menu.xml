@@ -20,7 +20,6 @@
                   sequence="1"
                   parent="student"
                   groups="base_school_erp.group_school_student,base_school_erp.group_school_admin"/>
-
         <!--Teacher-->
         <menuitem id="teacher"
                   name="T"

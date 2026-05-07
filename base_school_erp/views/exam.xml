@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--Form-->
+    <record id="exam_form_view" model="ir.ui.view">
+        <field name="model">exams</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="faculty_id"/>
+                    <field name="faculty_years" invisible="1"/>
+                    <field name="year_id" domain="[('order','&lt;=',faculty_years)]" />
+                    <field name="semester_id" domain="[('year_id','=',year_id)]"/>
+                    <field name="date_of_exam"/>
+                </group>
+            </form>
+        </field>
+    </record>
     <!--Tree-->
     <record id="exam_tree_view" model="ir.ui.view">
         <field name="model">exams</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="faculty_id"/>
+                <field name="year_id"/>
+                <field name="semester_id"/>
                 <field name="date_of_exam"/>
             </tree>
         </field>
     </record>
-
-
     <!--Action-->
     <record id="action_exam" model="ir.actions.act_window">
         <field name="name">Exam</field>
         <field name="res_model">exams</field>
         <field name="view_mode">tree,form</field>
     </record>
-   <!--Only the groups that are added are allowed to see the icon of Finance module-->
+    <!--Only the groups that are added are allowed to see the icon of Finance module-->
     <record id="exam" model="ir.ui.menu">
-        <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
+        <field name="name">exam</field>
+        <field name="groups_id" eval="[(6,0,[
+                ref('base_school_erp.group_school_admin'),
+                ref('base_school_erp.group_school_administration')]
+                )]"/>
+
     </record>
-    <!--menuitem-->
-    <menuitem id="exam"
-              name="Exam"
-              parent='school_erp'
-              action="action_exam"/>
 </odoo>

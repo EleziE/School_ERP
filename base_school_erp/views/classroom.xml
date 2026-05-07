@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!--Tree-->
-    <record id="class_tree_view" model="ir.ui.view">
-        <field name="model">class.rooms</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="sequence" optional="hide"/>
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
-    <!--Form-->
-    <record id="class_form_view" model="ir.ui.view">
-        <field name="model">class.rooms</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="sequence"/>
-                        <field name="name"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+    <data>
+        <!--Tree-->
+        <record id="class_tree_view" model="ir.ui.view">
+            <field name="model">class.rooms</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" optional="hide"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!--Form-->
+        <record id="class_form_view" model="ir.ui.view">
+            <field name="model">class.rooms</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
 
-    <!--Action-->
-    <record id="action_class_room" model="ir.actions.act_window">
-        <field name="name">Classrooms</field>
-        <field name="res_model">class.rooms</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <!--Only the groups that are added are allowed to see the icon of Finance module-->
-    <record id="class_room" model="ir.ui.menu">
-        <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
-    </record>
-    <!--menuitem-->
-    <menuitem id="class_room"
-              name="Classroom"
-              parent='school_erp'
-              action="action_class_room"/>
+        <!--Action-->
+        <record id="action_class_room" model="ir.actions.act_window">
+            <field name="name">Classrooms</field>
+            <field name="res_model">class.rooms</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Only the groups that are added are allowed to see the icon of Finance module-->
+        <record id="class_room" model="ir.ui.menu">
+            <field name="name">Class Room</field>
+            <field name="groups_id" eval="[(6,0,[
+                ref('base_school_erp.group_school_admin'),
+                ref('base_school_erp.group_school_administration')]
+                )]"/>
+        </record>
+    </data>
 </odoo>

@@ -1,20 +1,26 @@
 {
     'name': 'Base School ERP',
+    'description': """Base School ERP""",
+    'license': 'LGPL-3',
     'data': [
         # Security
         'security/security_groups.xml',
         'security/ir.model.access.csv',
+        # Data
+        'data/year_data.xml',
+        'data/semester_data.xml',
         # Inherited
         'views/Inherited/costume_base_modifications.xml',
         # Sequences
-        'views/Sequence/subject_seq.xml',
-        'views/Sequence/classroom_seq.xml',
         # Views
-        'views/menu.xml',
         'views/holidays.xml',
         'views/classroom.xml',
         'views/subjects.xml',
-        'views/exam.xml', ],
+        'views/exam.xml',
+        'views/faculty.xml',
+        'views/year.xml',
+        'views/semester.xml',
+        'views/menu.xml', ],
     'icon': 'base_school_erp/static/description/icon.png',
     'assets': {
         'web.assets_backend': [

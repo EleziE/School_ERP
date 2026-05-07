@@ -1,74 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!--Tree-->
-    <record id="subject_tree_view" model="ir.ui.view">
-        <field name="model">subject.subject</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="sequence" optional="hide"/>
-                <field name="name"/>
-                <field name="faculty"/>
-                <field name="semester"/>
-                <field name="year"/>
-                <field name="type"/>
-                <field name="credits"/>
-            </tree>
-        </field>
-    </record>
-    <!--Form-->
-    <record id="subject_form_view" model="ir.ui.view">
-        <field name="model">subject.subject</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
-                    <field name="sequence"/>
+    <data>
+        <!--Tree-->
+        <record id="subject_tree_view" model="ir.ui.view">
+            <field name="model">subject.subject</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" optional="hide"/>
                     <field name="name"/>
-                    <field name="year"/>
-                    <field name="semester"/>
-                    <field name="faculty"/>
+                    <field name="faculty_id"/>
+                    <field name="semester_id"/>
+                    <field name="year_id"/>
                     <field name="type"/>
                     <field name="credits"/>
-                </group>
-            </form>
-        </field>
-    </record>
-    <!--Search-->
-    <record id="subject_view_search" model="ir.ui.view">
-        <field name="name">subject.view.search</field>
-        <field name="model">subject.subject</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="sequence"/>
-                <field name="name"/>
-                <filter name="first-year" string="First Year" domain="[('year','=','1st')]"/>
-                <filter name="second-year" string="Second Year" domain="[('year','=','2nd')]"/>
-                <filter name="third-year" string="Third Year" domain="[('year','=','3rd')]"/>
-                <separator/>
-                <filter name="semester-1" string="First Semester" domain="[('semester','=','semester-1')]"/>
-                <filter name="semester-2" string="Second Semester" domain="[('semester','=','semester-2')]"/>
-                <separator/>
-                <group expand="0" string="Group By">
-                    <filter name="year" string="Year" context="{'group_by':'year'}"/>
-                    <filter name="semester" string="Semester" context="{'group_by':'semester'}"/>
-                    <filter name="faculty" string="Faculty" context="{'group_by':'faculty'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <!--Action-->
-    <record id="action_subject" model="ir.actions.act_window">
-        <field name="name">Subject</field>
-        <field name="res_model">subject.subject</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-    <!--Only the groups that are added are allowed to see the icon of this module-->
-    <record id="subject" model="ir.ui.menu">
-        <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
-    </record>
-    <!--menuitem-->
-    <menuitem id="subject"
-              name="Subject"
-              parent='school_erp'
-              action="action_subject"/>
+                </tree>
+            </field>
+        </record>
+        <!--Form-->
+        <record id="subject_form_view" model="ir.ui.view">
+            <field name="model">subject.subject</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="e.g. Advanced Mathematics"/>
+                                <field name="sequence"/>
+                                <field name="faculty_id"/>
+                            </group>
+                            <group>
+                                <field name="year_id"/>
+                                <field name="semester_id" domain="[('year_id','=',year_id)]"/>
+                                <field name="type"/>
+                                <field name="credits"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description" name="description_page">
+                                <field name="description"
+                                       placeholder="Describe what students will learn in this subject..."
+                                       widget="html"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Search-->
+        <record id="subject_view_search" model="ir.ui.view">
+            <field name="name">subject.view.search</field>
+            <field name="model">subject.subject</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter name="first-year" string="First Year" domain="[('year_id.code','=','1st')]"/>
+                    <filter name="second-year" string="Second Year" domain="[('year_id.code','=','2nd')]"/>
+                    <filter name="third-year" string="Third Year" domain="[('year_id.code','=','3rd')]"/>
+                    <filter name="fourth-year" string="Fourth Year" domain="[('year_id.code','=','4th')]"/>
+                    <separator/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="faculty" string="Faculty" context="{'group_by':'faculty_id'}"/>
+                        <filter name="year" string="Year" context="{'group_by':'year_id'}"/>
+                        <filter name="semester" string="Semester" context="{'group_by':'semester_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!--Action-->
+        <record id="action_subject" model="ir.actions.act_window">
+            <field name="name">Subject</field>
+            <field name="res_model">subject.subject</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Only the groups that are added are allowed to see the icon of this module-->
+        <record id="subject" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('base_school_erp.group_school_admin'),
+                                            ref('base_school_erp.group_school_administration')])]"/>
+        </record>
+    </data>
 </odoo>

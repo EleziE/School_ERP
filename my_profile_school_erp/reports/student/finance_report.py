@@ -7,6 +7,7 @@ import base64
 
 class FinanceSelection(models.AbstractModel):
     _name = 'finance.selection.report'
+    _description = 'Finance Selection Report'
 
     def generate_fiance_report(self, record):
         buffer = BytesIO()

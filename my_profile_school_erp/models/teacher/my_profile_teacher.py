@@ -2,6 +2,7 @@ from odoo import api, fields, models
 
 class MyProfileTeacher(models.Model):
     _name = 'my.profile.teacher'
+    _description = 'Teacher'
 
     user_id = fields.Many2one(comodel_name='res.users',readonly=True)
     teacher_id = fields.Many2one(comodel_name='teacher.teacher', compute='_compute_teacher_id',store=True)
