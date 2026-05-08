@@ -15,7 +15,7 @@
                 <field name="state" widget="badge"
                        decoration-success="state == 'paid'"
                        decoration-danger="state == 'unpaid'"/>
-                <field name="amount"/>
+                <field name="amount" sum="Total"/>
             </tree>
         </field>
     </record>
