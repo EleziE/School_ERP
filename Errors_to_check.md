@@ -38,3 +38,9 @@ in to show only a page that tells e message as I want
 
                                                                                             ######################## 05/05/2026 #########################
 1. Recheck the new create function in faculty how it works and why that way 
+
+
+                                                                                            ######################## 05/05/2026 #########################
+
+
+1. Update the faculty, subject csv file to have the same data in the CP and HM
