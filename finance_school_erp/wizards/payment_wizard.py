@@ -2,7 +2,7 @@ from odoo import fields, models
 import base64
 from odoo.exceptions import UserError
 # Import the function we created in the other file
-from ..reports.payment import generate_student_finance_pdf
+from ..reports.payment_report import generate_student_finance_pdf
 
 
 class PrintFinancesWizard(models.TransientModel):

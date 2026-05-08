@@ -1,1 +1,1 @@
-from . import finances_print_wizard
+from . import payment_wizard
