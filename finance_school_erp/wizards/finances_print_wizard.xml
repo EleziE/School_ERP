@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="demo_failures_dialog">
+        <record model="ir.ui.view" id="finance_print_wizard">
             <field name="name">Print Finances</field>
             <field name="model">print.finances.wizard</field>
             <field name="arch" type="xml">
