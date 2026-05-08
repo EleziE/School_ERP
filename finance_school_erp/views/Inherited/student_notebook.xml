@@ -17,7 +17,7 @@
                         <field name="state" widget="badge" readonly="True"
                                decoration-success="state == 'paid'"
                                decoration-danger="state == 'unpaid'"/>
-                        <field name="amount" options="{'no_open':True, 'no_create':True}" readonly="True"/>
+                        <field name="amount" options="{'no_open':True, 'no_create':True}" readonly="True" sum="Total"/>
                     </tree>
                 </field>
             </xpath>
