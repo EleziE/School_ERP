@@ -38,5 +38,3 @@ in to show only a page that tells e message as I want
 
                                                                                             ######################## 05/05/2026 #########################
 1. Recheck the new create function in faculty how it works and why that way 
-2. You will need to delete the subject_seq because in reality it should be faculty 
-3. Recheck the logic of creating new facultys and they prefix , becaus the yshould be connected as precis for the subject that will be related to these faculties
