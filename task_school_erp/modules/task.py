@@ -45,7 +45,7 @@ class Task(models.Model):
     days_report = fields.Integer(string='Days Report',
                                  help='From task to finish time',
                                  compute='_compute_time_between')
-
+    delay_description=fields.Text(tracking=True,string='Delay Description',help='Optional explanation (no required)')
     ######################### CREATE & WRITE ################################
 
     @api.model_create_multi

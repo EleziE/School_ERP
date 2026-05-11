@@ -6,7 +6,6 @@
             <field name="model">class.rooms</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="sequence" optional="hide"/>
                     <field name="name"/>
                 </tree>
             </field>
@@ -18,7 +17,6 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="sequence"/>
                             <field name="name"/>
                         </group>
                     </sheet>

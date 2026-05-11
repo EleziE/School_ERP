@@ -269,4 +269,4 @@ class Student(models.Model):
         ])
 
         if students_to_fix:
-            students_to_fix.write({'suspend_reason': False})
+            students_to_fix.sudo().write({'suspend_reason': False})

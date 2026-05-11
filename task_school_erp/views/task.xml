@@ -20,6 +20,7 @@
                        decoration-danger="days_report &lt; 0"
                        decoration-success="days_report &gt; 0"
                        class="fw-bold" optional="hide"/>
+                <field name="delay_description" invisible="status != 'completed_delayed'"/>
             </tree>
         </field>
     </record>

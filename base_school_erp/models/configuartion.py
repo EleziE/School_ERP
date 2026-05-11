@@ -154,16 +154,4 @@ class ClassRooms(models.Model):
     _description = 'Class Room'
     _rec_name = 'name'
 
-    sequence = fields.Char(string='Sequence', readonly=True)
     name = fields.Char(string='Class name')
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
-        return super().create(vals_list)
-
-    _sql_constraints = [
-        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
-    ]
