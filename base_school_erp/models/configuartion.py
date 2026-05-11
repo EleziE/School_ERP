@@ -43,10 +43,9 @@ class Year(models.Model):
     _rec_name = 'name'
     _order = 'order asc'
 
-
     name = fields.Char(string='Year',
                        readonly=True)
-    order = fields.Integer(string= 'Order',
+    order = fields.Integer(string='Order',
                            help="Number of years, will be used by the other modules (e.g faculty)",
                            readonly=True, )
     code = fields.Char(string='Code',
@@ -60,8 +59,10 @@ class Semester(models.Model):
     _rec_name = 'name'
     _order = 'order asc'
 
-    year_id = fields.Many2one(comodel_name='year.year')
-    year = fields.Char(related='year_id.name', string='Year',store=True)
+    year_id = fields.Many2one(comodel_name='year.year', string='Year ID')
+    year = fields.Char(related='year_id.name',
+                       string='Year',
+                       store=True)
     name = fields.Char(string='Semester',
                        required=True)
     code = fields.Char(string='Code',
@@ -128,7 +129,7 @@ class Exams(models.Model):
     subject_id = fields.Many2one('subject.subject')
     year_id = fields.Many2one('year.year')
 
-    faculty_years = fields.Integer(related='faculty_id.year',string='Faculty Years',store=True)
+    faculty_years = fields.Integer(related='faculty_id.year', string='Faculty Years', store=True)
     name = fields.Char(string='Exam')
     date_of_exam = fields.Date(string='Date of exam')
 
@@ -153,16 +154,4 @@ class ClassRooms(models.Model):
     _description = 'Class Room'
     _rec_name = 'name'
 
-    sequence = fields.Char(string='Sequence', readonly=True)
     name = fields.Char(string='Class name')
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('sequence', _('New')) == _('New'):
-                vals['sequence'] = self.env['ir.sequence'].next_by_code('class.rooms') or _('New')
-        return super().create(vals_list)
-
-    _sql_constraints = [
-        ('seq_uq', 'UNIQUE(sequence)', "Sequence already exists !"),
-    ]

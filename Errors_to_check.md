@@ -38,3 +38,18 @@ in to show only a page that tells e message as I want
 
                                                                                             ######################## 05/05/2026 #########################
 1. Recheck the new create function in faculty how it works and why that way 
+
+
+                                                                                            ######################## 05/05/2026 #########################
+
+
+1. Update the faculty, subject csv file to have the same data in the CP and HM
+
+
+                                                                                             ######################## 11/05/2026 ########################
+
+1. Connect remotely and fix the crack in Py-charm.
+2. Make use of the new field in the finance all so it returns all the finances regarding of status
+3. delay_description field in task and view not yet as i want to be used
+4. Mso me nis email me odoo ... bane configurations per me e nis 
+5. Per me msu Sales hap db te re edhe shiko ca instalohet kur instalohet aja

@@ -43,7 +43,8 @@ class Finance(models.Model):
     state = fields.Selection(string='State',
                              selection=[('draft', 'Draft'),
                                         ('unpaid', 'Unpaid'),
-                                        ('paid', 'Paid')],
+                                        ('paid', 'Paid'),
+                                        ('all','All')],
                              default='draft',
                              tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
@@ -51,7 +52,7 @@ class Finance(models.Model):
                                  required=True)
     student_seq = fields.Char(string='Student Sequence',
                               related='student_id.sequence')
-    paid_date = fields.Datetime(string='Paid Date',
+    paid_date = fields.Date(string='Paid Date',
                                 compute='_compute_paid_date',
                                 readonly=True,
                                 store=True)
@@ -65,7 +66,6 @@ class Finance(models.Model):
             if vals.get('sequence', _('New')) == _('New'):
                 vals['sequence'] = self._generate_unique_sequence()
 
-        # Always pass the entire list to super()
         return super().create(vals_list)
 
     def _generate_unique_sequence(self):

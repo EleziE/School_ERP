@@ -8,8 +8,7 @@
         'security/rules.xml',
 
         # Wizards
-        'wizards/finances_print_wizard.xml',
-
+        'wizards/payment_wizard.xml',
         # Views
         'views/finance.xml',
 
