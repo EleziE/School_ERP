@@ -1,0 +1,2 @@
+If in the future you want to migrate the project, this is the first file to migrate because the modules inside are independent of other models.
+Basically all the other modules are depended on this one . The base or `configurations`.

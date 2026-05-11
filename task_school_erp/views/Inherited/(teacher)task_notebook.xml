@@ -5,7 +5,6 @@
         <field name="model">teacher.teacher</field>
         <field name="inherit_id" ref="teacher_school_erp.teacher_form_view"/>
         <field name="arch" type="xml">
-
             <xpath expr="//page[@name='tasks']" position="inside">
                 <div class="p-3">
                     <h6 class="fw-bold mb-3 text-muted border-bottom pb-2">
@@ -27,7 +26,6 @@
                     </field>
                 </div>
             </xpath>
-
         </field>
     </record>
 </odoo>

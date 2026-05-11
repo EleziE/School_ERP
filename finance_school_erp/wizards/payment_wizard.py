@@ -31,8 +31,7 @@ class PrintFinancesWizard(models.TransientModel):
 
         if not payments:
             # Using a user-friendly message
-            state_label = dict(self._fields['state'].selection).get(self.state)
-            raise UserError(f"No records found for this student with status: {state_label}")
+            raise UserError(f"No records found ")
 
         # 2. Call the separated ReportLab function
         pdf_content = generate_student_finance_pdf(self.student_id, payments)
