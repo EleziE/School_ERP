@@ -44,3 +44,11 @@ in to show only a page that tells e message as I want
 
 
 1. Update the faculty, subject csv file to have the same data in the CP and HM
+
+
+                                                                                             ######################## 11/05/2026 ########################
+
+1. Connect remotely and fix the crack in Py-charm.
+2. Make use of the new field in the finance all so it returns all the finances regarding of status
+3. delay_description field in task and view not yet as i want to be used
+4. Mso me nis email me odoo ... bane configurations per me e nis 
