@@ -2,8 +2,10 @@ import io
 import base64
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
+from datetime import datetime
 
 
 def generate_student_finance_pdf(student, payments):
@@ -15,8 +17,28 @@ def generate_student_finance_pdf(student, payments):
     elements = []
     styles = getSampleStyleSheet()
 
+    def add_footer_header(c, _doc):
+        c.saveState()
+
+        created_date = datetime.now().strftime("%d/%m/%Y")
+        c.setFont('Times-Roman', 12)
+        c.setFillColor(colors.grey)
+        c.drawRightString(
+            A4[0] - 1 * cm,
+            A4[1] - 1 * cm,
+            f'Created: {created_date}',
+        )
+        c.setFont('Times-Roman', 12)
+        c.setFillColor(colors.grey)
+        c.drawCentredString(
+            A4[0] / 2,
+            1 * cm,
+            "This document is valid 6 month after the released date!"
+        )
+        c.restoreState()
+
     # Title
-    elements.append(Paragraph(f"Payment History: {student.name}", styles['Title']))
+    elements.append(Paragraph(f"Payment History: {student.sequence}", styles['Title']))
     elements.append(Spacer(1, 20))
 
     # Table Data
@@ -47,7 +69,9 @@ def generate_student_finance_pdf(student, payments):
     ]))
 
     elements.append(table)
-    doc.build(elements)
+    doc.build(elements,
+              onFirstPage=add_footer_header,
+              onLaterPages=add_footer_header)
 
     pdf_content = buffer.getvalue()
     buffer.close()

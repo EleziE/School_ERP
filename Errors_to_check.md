@@ -35,21 +35,30 @@ in to show only a page that tells e message as I want
    the student will have to pass and has passed
    so i can get an idea how many left are there for this student
 
-
-                                                                                            ######################## 05/05/2026 #########################
-1. Recheck the new create function in faculty how it works and why that way 
+                                                                                             ######################## 05/05/2026 #########################
 
 
-                                                                                            ######################## 05/05/2026 #########################
+1. Recheck the new create function in faculty how it works and why that way
+
+                                                                                             ######################## 05/05/2026 #########################
 
 
 1. Update the faculty, subject csv file to have the same data in the CP and HM
 
-
                                                                                              ######################## 11/05/2026 ########################
+
 
 1. Connect remotely and fix the crack in Py-charm.
 2. Make use of the new field in the finance all so it returns all the finances regarding of status
 3. delay_description field in task and view not yet as i want to be used
-4. Mso me nis email me odoo ... bane configurations per me e nis 
+4. Mso me nis email me odoo ... bane configurations per me e nis
 5. Per me msu Sales hap db te re edhe shiko ca instalohet kur instalohet aja
+
+                                                                                          ######################## 11/05/2026 ########################
+
+
+1. Recheck the previous topics to make the needed changes
+2. Make the required modifications for the project and the testing part  (the answer is in the deepseek chat history),
+   so you can add the id's of the persons created and the tasks and for every function you have made.
+3. Make the UI of A module better like the others (S and T)
+4. See the sc and correct it
