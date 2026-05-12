@@ -101,7 +101,7 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="faculty" string="Primary Faculty / Department"
+                                            <label for="faculty" string="Faculty"
                                                    class="text-muted small fw-bold d-block mb-1 text-uppercase"/>
                                             <div class="h6 fw-bold text-dark mb-0"><field name="faculty"
                                                                                           nolabel="1"/></div>
@@ -179,8 +179,8 @@
                                         please submit an amendment request.</p>
                                     <div class="d-flex flex-wrap gap-4 mt-2">
                                         <span class="small fw-bold"><i class="fa fa-envelope-o me-1"/>
-                                            support@school.com</span>
-                                        <span class="small fw-bold"><i class="fa fa-phone me-1"/> +355 4 2XXX XXX</span>
+                                            administration@school.com</span>
+                                        <span class="small fw-bold"><i class="fa fa-phone me-1"/> +355 XXX XXXX</span>
                                     </div>
                                 </div>
                             </div>
