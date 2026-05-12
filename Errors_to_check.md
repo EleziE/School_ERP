@@ -61,3 +61,4 @@ in to show only a page that tells e message as I want
 2. Make the required modifications for the project and the testing part  (the answer is in the deepseek chat history),
    so you can add the id's of the persons created and the tasks and for every function you have made.
 3. Make the UI of A module better like the others (S and T)
+4. See the sc and correct it 
