@@ -52,7 +52,7 @@ class Administration(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         # 1. Fetch references ONCE outside the loop for better performance
-        access_rights = self.env.ref('base_school_erp.group_school_administration')
+        access_rights = self.env.ref('configurations_school_erp.group_school_administration')
         internal_user = self.env.ref('base.group_user')
 
         for vals in vals_list:
@@ -82,7 +82,7 @@ class Administration(models.Model):
     @api.model
     def write(self, vals):
 
-        if not self.env.user.has_group('base_school_erp.group_school_admin'):
+        if not self.env.user.has_group('configurations_school_erp.group_school_admin'):
             raise AccessError('You are do not have the right to modify records')
 
         secure_fields = {'name', 'login', 'member_type', 'external_email', 'blood_type', 'father_name', 'mother_name',

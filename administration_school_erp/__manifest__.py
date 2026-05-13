@@ -9,8 +9,7 @@
         'views/menu.xml',
     ],
     'depends': [
-        'base_school_erp',
-        'base',
+        'configurations_school_erp',
         'mail',
     ],
     'icon': 'administration_school_erp/static/description/icon.png',

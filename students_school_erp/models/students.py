@@ -107,7 +107,7 @@ class Student(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         # 1. Prepare references once (efficient)
-        access_rights = self.env.ref('base_school_erp.group_school_student')
+        access_rights = self.env.ref('configurations_school_erp.group_school_student')
         internal_user = self.env.ref('base.group_user')
 
         for vals in vals_list:
@@ -136,12 +136,12 @@ class Student(models.Model):
         if self.env.su or self._context.get('skip_checker'):
             return super().write(vals)
 
-        if not (self.env.user.has_group('base_school_erp.group_school_administration') or
-                self.env.user.has_group('base_school_erp.group_school_admin')):
+        if not (self.env.user.has_group('configurations_school_erp.group_school_administration') or
+                self.env.user.has_group('configurations_school_erp.group_school_admin')):
             raise AccessError('You do not have the right to change records ! ')
 
         for rec in self:
-            if rec.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
+            if rec.state == 'graduated' and not self.env.user.has_group('configurations_school_erp.group_school_admin'):
                 raise AccessError('You are not allowed to change records of a Graduated student ! ')
 
         return super().write(vals)

@@ -1,6 +1,6 @@
 {
-    'name': 'Base School ERP',
-    'description': """Base School ERP""",
+    'name': 'Configurations',
+    'description': """Configurations School ERP""",
     'license': 'LGPL-3',
     'data': [
         # Security
@@ -10,7 +10,7 @@
         'data/year_data.xml',
         'data/semester_data.xml',
         # Inherited
-        'views/Inherited/costume_base_modifications.xml',
+        # 'views/Inherited/costume_base_modifications.xml', #doesnt work because the modules that are hidden should also be inside the 'depends'
         # Sequences
         # Views
         'views/holidays.xml',
@@ -21,11 +21,10 @@
         'views/year.xml',
         'views/semester.xml',
         'views/menu.xml', ],
-    'icon': 'base_school_erp/static/description/icon.png',
+    'icon': 'configurations_school_erp/static/description/icon.png',
     'assets': {
         'web.assets_backend': [
-            'base_school_erp/static/src/css/app_center.css',
+            'configurations_school_erp/static/src/css/app_center.css',
         ],
     }
-
 }

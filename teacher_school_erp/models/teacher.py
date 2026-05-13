@@ -55,7 +55,7 @@ class Teacher(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         # Fetch these once outside the loop to save database queries
-        access_rights = self.env.ref('base_school_erp.group_school_teacher')
+        access_rights = self.env.ref('configurations_school_erp.group_school_teacher')
         internal_user = self.env.ref('base.group_user')
 
         for vals in vals_list:
@@ -92,8 +92,8 @@ class Teacher(models.Model):
             'sequence', 'member_type'
         ]
         if any(f in vals for f in restricted_fields):
-            if not (self.env.user.has_group('base_school_erp.group_school_admin')
-                    or self.env.user.has_group('base_school_erp.group_school_administration')):
+            if not (self.env.user.has_group('configurations_school_erp.group_school_admin')
+                    or self.env.user.has_group('configurations_school_erp.group_school_administration')):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
 
