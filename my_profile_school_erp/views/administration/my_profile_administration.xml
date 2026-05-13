@@ -6,23 +6,146 @@
             <field name="name">my.profile.administration</field>
             <field name="model">my.profile.administration</field>
             <field name="arch" type="xml">
-                <form create="False" edit="False" duplicate="False" delete="False">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="member_type" invisible="True"/>
-                                <field name="user_id" invisible="True"/>
-                                <field name="name"/>
-                                <field name="surname"/>
-                                <field name="email" />
-                                <field name="external_email" />
-                            </group>
-                            <group>
-                                <field name="gender" />
-                                <field name="dob"/>
-                                <field name="blood_type"/>
-                            </group>
-                        </group>
+                <form create="False" edit="False" duplicate="False" delete="False" class="admin_profile_view">
+                    <xpath expr="." position="inside">
+                        <style>
+                            .pill-btn-admin {
+                                transition: all 0.3s ease !important;
+                                background-color: #37474f !important;
+                                color: #eceff1 !important;
+                                border: 1px solid #263238 !important;
+                            }
+
+                            .pill-btn-admin:hover {
+                                background-color: #263238 !important;
+                                color: #ffffff !important;
+                                transform: translateY(-1px);
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+                            }
+
+                            .o_admin_card {
+                                border: 1px solid #f1f3f5;
+                                border-radius: 20px;
+                                padding: 25px;
+                                background: #ffffff;
+                                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+                                height: 100%;
+                            }
+
+                            .o_admin_avatar img {
+                                border-radius: 50% !important;
+                                object-fit: cover !important;
+                                border: 3px solid #ffffff !important;
+                                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+                                background-color: #f8f9fa;
+                            }
+
+                            .admin-data-row {
+                                display: flex;
+                                justify-content: space-between;
+                                padding: 12px 0;
+                                border-bottom: 1px solid #f8f9fa;
+                            }
+
+                            .admin-data-row:last-child {
+                                border-bottom: none;
+                            }
+                        </style>
+                    </xpath>
+
+                    <sheet class="p-0">
+                        <div class="p-5 d-flex justify-content-between align-items-center bg-white">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="o_admin_avatar">
+                                    <field name="image_128" widget="image" class="oe_avatar"
+                                           options="{'size': [90, 90]}"/>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <span class="badge rounded-pill px-3 py-1"
+                                              style="background: #f8f9fa; color: #37474f; border: 1px solid #dee2e6; font-size: 10px; letter-spacing: 0.5px;">
+                                            OFFICIAL STAFF RECORD
+                                        </span>
+                                    </div>
+                                    <h1 class="fw-bold mb-0 text-dark"
+                                        style="letter-spacing: -0.5px; font-size: 2.2rem;">
+                                        <field name="name" readonly="1"/> <field name="surname" readonly="1"/>
+                                    </h1>
+                                    <div class="text-muted mt-1">
+                                        <i class="fa fa-shield me-1 text-primary"/>
+                                        <field name="member_type" readonly="1"/> • Management
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-5 pb-5">
+                            <div class="row g-4">
+                                <div class="col-md-7">
+                                    <div class="o_admin_card">
+                                        <h5 class="fw-bold mb-4 d-flex align-items-center text-dark">
+                                            <i class="fa fa-list-alt me-2 text-muted"/> Identity Specifications
+                                        </h5>
+
+                                        <div class="admin-data-row">
+                                            <label for="gender" class="text-muted small text-uppercase fw-bold mb-0">
+                                                Gender</label>
+                                            <span class="fw-bold"><field name="gender" nolabel="1"/></span>
+                                        </div>
+                                        <div class="admin-data-row">
+                                            <label for="dob" class="text-muted small text-uppercase fw-bold mb-0">Date
+                                                of Birth</label>
+                                            <span class="fw-bold"><field name="dob" nolabel="1"/></span>
+                                        </div>
+                                        <div class="admin-data-row">
+                                            <label for="blood_type"
+                                                   class="text-muted small text-uppercase fw-bold mb-0">Blood
+                                                Group</label>
+                                            <span class="fw-bold text-dark"><field name="blood_type"
+                                                                                   nolabel="1"/></span>
+                                        </div>
+
+                                        <field name="user_id" invisible="1"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="o_admin_card">
+                                        <h5 class="fw-bold mb-4 d-flex align-items-center text-dark">
+                                            <i class="fa fa-lock me-2 text-muted"/> Access Credentials
+                                        </h5>
+
+                                        <div class="mb-4">
+                                            <label for="email"
+                                                   class="text-muted small fw-bold d-block mb-1 text-uppercase">Primary
+                                                Email</label>
+                                            <div class="h6 mb-0 fw-bold text-dark"><field name="email"
+                                                                                          nolabel="1"/></div>
+                                        </div>
+
+                                        <div>
+                                            <label for="external_email"
+                                                   class="text-muted small fw-bold d-block mb-1 text-uppercase">
+                                                Secondary Email</label>
+                                            <div class="h6 mb-0 text-muted"><field name="external_email"
+                                                                                   nolabel="1"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-5 mb-5">
+                            <div class="p-3 border-top d-flex align-items-center justify-content-between text-muted small"
+                                 style="opacity: 0.7;">
+                                <div>
+                                    <i class="fa fa-database me-1"/> Record Ref: <field name="id" readonly="1"/>
+                                </div>
+                                <div class="fw-bold text-uppercase" style="letter-spacing: 1px;">
+                                    Administration Unit
+                                </div>
+                            </div>
+                        </div>
                     </sheet>
                 </form>
             </field>
