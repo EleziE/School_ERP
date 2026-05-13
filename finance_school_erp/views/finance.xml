@@ -51,7 +51,7 @@
                             type="object"
                             class="btn rounded-pill px-4 shadow-sm fw-bold btn-pay-sweep"
                             confirm="Confirm payment?&#10;&#10;Please verify: Amount and Student are correct.&#10;&#10;This will lock the record and it cannot be changed."
-                            invisible="state == 'paid'"
+                            invisible="state !='unpaid'"
                             groups="configurations_school_erp.group_school_admin,configurations_school_erp.group_school_administration"/>
 
                     <button name="unpaid_finance"
