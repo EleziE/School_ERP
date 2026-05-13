@@ -2,6 +2,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
 from datetime import datetime
 import secrets
+import json
 
 
 class Student(models.Model):
@@ -13,7 +14,7 @@ class Student(models.Model):
                            readonly=True,
                            default=lambda self: _('New'))
 
-    user_id = fields.Many2one(comodel_name='res.users',)
+    user_id = fields.Many2one(comodel_name='res.users', )
 
     name = fields.Char(string='Name',
                        store=True,
@@ -60,7 +61,7 @@ class Student(models.Model):
                                  tracking=True,
                                  readonly=True)
     phone = fields.Char(string='Phone no ',
-                        related='user_id.phone',)
+                        related='user_id.phone', )
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
     graduation_date = fields.Date(string='Graduation Date',
@@ -75,7 +76,11 @@ class Student(models.Model):
 
     year = fields.Selection(selection=[('1st', 'First Year'),
                                        ('2nd', 'Second Year'),
-                                       ('3rd', 'Third Year'), ],
+                                       ('3rd', 'Third Year'),
+                                       ('4th', 'Fourth Year'),
+                                       ('5th', 'Fifth Year'),
+                                       ('6th', 'Sixth Year'),
+                                       ('transfer', 'Transfer'), ],
                             string='Year')
     semester = fields.Selection(string='Semester',
                                 selection=[('semester-1', 'First Semester'),
@@ -96,6 +101,7 @@ class Student(models.Model):
                                string='Faculty',
                                required=True)
     image_128 = fields.Image(string='Image 128', )
+    subject_domain = fields.Char(string='Subject Domain', compute='_compute_subject_domain')
 
     # =================== Main Functions (CREATE & WRITE) ====================
     @api.model_create_multi
@@ -126,12 +132,13 @@ class Student(models.Model):
         return super(Student, self).create(vals_list)
 
     def write(self, vals):
-        if not (self.env.user.has_group('base_school_erp.group_school_administration') or
-                self.env.user.has_group('base_school_erp.group_school_admin')):
-            raise AccessError('You do not have the right to change records ! ')
 
         if self.env.su or self._context.get('skip_checker'):
             return super().write(vals)
+
+        if not (self.env.user.has_group('base_school_erp.group_school_administration') or
+                self.env.user.has_group('base_school_erp.group_school_admin')):
+            raise AccessError('You do not have the right to change records ! ')
 
         for rec in self:
             if rec.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
@@ -165,6 +172,17 @@ class Student(models.Model):
                 rec.graduation_date = fields.Date.today()
             else:
                 rec.graduation_date = False
+
+    @api.depends('year', 'faculty', 'semester')
+    def _compute_subject_domain(self):
+        for rec in self:
+            domain = [
+                ('faculty_id', '=', rec.faculty),
+                ('semester_id', '=', rec.semester),
+            ]
+            if rec.year != 'transfer':
+                domain.append(('year_id.code', '=', rec.year), )
+            rec.subject_domain = json.dumps(domain)
 
     def action_graduated(self):
         self.state = 'graduated'
@@ -226,7 +244,7 @@ class Student(models.Model):
         pdf_base64 = report.generate(self)
 
         attachment = self.env['ir.attachment'].create({
-            'name': f'Student_Profile_{self.name}.pdf',
+            'name': f'Student_Information_{self.name}.pdf',
             'type': 'binary',
             'datas': pdf_base64,
             'res_model': self._name,
@@ -252,7 +270,10 @@ class Student(models.Model):
     ############################ Graduation Checker ############################
     def check_credits(self):
         """
-        If the student hase 180 credits, no more finances to pay (all are paid), and all the mandatory subjects are passed, then he can graduate !
+        IN-PROGRES , doesn't work yet !!!
+
+
+        If the student has 180 credits, no more finances to pay (all are paid), and all the mandatory subjects are passed, then he can graduate !
         this makes sure that the conditions are filled (In construction , not done yet !)
         """
         for rec in self:
