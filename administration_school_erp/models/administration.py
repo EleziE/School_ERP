@@ -13,6 +13,7 @@ class Administration(models.Model):
                        tracking=True)
     login = fields.Char(string='Email',
                         related='user_id.login',
+                        tracking=True,
                         readonly=False,
                         store=True)
     sequence = fields.Char(string='Administration ID: ',
@@ -25,6 +26,7 @@ class Administration(models.Model):
     mother_name = fields.Char(string='Mother ',
                               tracking=True)
     external_email = fields.Char(string='External Email',
+                                 tracking=True,
                                  help='Email to communicate with the user, not from the schools email')
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
@@ -45,6 +47,7 @@ class Administration(models.Model):
                         related='user_id.phone')
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Type')
+    image_128=fields.Image(string='Image 128',related='user_id.image_128')
 
     @api.model_create_multi
     def create(self, vals_list):

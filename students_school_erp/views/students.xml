@@ -135,10 +135,10 @@
                                 <div class="o_card_box p-3 border rounded shadow-sm mb-4">
                                     <h5 class="fw-bold mb-3 border-bottom pb-2">👤 Personal Information</h5>
                                     <group>
-                                        <field name="name"/>
-                                        <field name="surname"/>
-                                        <field name="gender"/>
-                                        <field name="dob"/>
+                                        <field name="name" readonly="state == 'graduated'"/>
+                                        <field name="surname" readonly="state == 'graduated'"/>
+                                        <field name="gender" readonly="state == 'graduated'"/>
+                                        <field name="dob" readonly="state == 'graduated'"/>
                                     </group>
                                 </div>
 
@@ -150,7 +150,7 @@
                                         <field name="semester" invisible="state == 'graduated'"/>
                                         <field name="graduation_date" invisible="state != 'graduated'"
                                                class="text-warning fw-bold"/>
-                                        <field name="enrollment_date"/>
+                                        <field name="enrollment_date"  readonly="state == 'graduated'"/>
                                         <field name="suspend_reason" invisible="state != 'inactive'"
                                         class="text-danger"/>
                                     </group>
@@ -161,17 +161,17 @@
                                 <div class="o_card_box p-3 border rounded shadow-sm mb-4">
                                     <h5 class="fw-bold mb-3 border-bottom pb-2">🧾 Family Details</h5>
                                     <group>
-                                        <field name="father_name"/>
-                                        <field name="mother_name"/>
-                                        <field name="blood_type"/>
+                                        <field name="father_name" readonly="state == 'graduated'"/>
+                                        <field name="mother_name" readonly="state == 'graduated'"/>
+                                        <field name="blood_type" readonly="state == 'graduated'"/>
                                     </group>
                                 </div>
 
                                 <div class="o_card_box p-3 border rounded shadow-sm">
                                     <h5 class="fw-bold mb-3 text-info border-bottom pb-2">📧 Contact</h5>
                                     <group>
-                                        <field name="email" widget="email"/>
-                                        <field name="external_email" widget="email"/>
+                                        <field name="email" widget="email" readonly="state == 'graduated'"/>
+                                        <field name="external_email" widget="email" readonly="state == 'graduated'"/>
                                     </group>
                                 </div>
                             </div>
@@ -179,23 +179,27 @@
 
                         <notebook class="mt-5" invisible="state in ['inactive','graduated','new'] ">
                             <page string="Subjects" name="subject">
+                                <field name="subject_domain" invisible="1"/>
                                 <field name="subject_id"
                                        context="{'default_year': year, 'default_faculty': faculty, 'default_semester': semester}"
-                                       domain="[('year_id', '=', year), ('faculty_id', '=', faculty), ('semester_id', '=', semester)]"/>
+                                       domain="subject_domain"/>
                             </page>
                             <page string="Teacher" name="teacher"/>
                             <page string="Finance" name="finance"/>
                         </notebook>
 
-                        <div class="p-3 border-top mt-5 bg-light rounded text-center">
+                        <div class="p-3 border-top mt-5 bg-light rounded text-center" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin">
                             <span class="text-muted small">
-                                <i class="fa fa-info-circle text-primary me-1"/> For admin support: <b>
-                                admin@admin.com</b> | +355 XXX XXXX
+                                <i class="fa fa-info-circle text-primary me-1" title="Information"/> There are features that only admin can see and do so, for admin support:
+                                <br/>
+                                <i class="fa fa-envelope" title="Email"/> <b>admin@admin.com</b>
+                                <br/>
+                                <i class="fa fa-phone" title="Phone Number"/> +355 XXX XXXX
                             </span>
                         </div>
                     </sheet>
 
-                    <div class="oe_chatter">
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
