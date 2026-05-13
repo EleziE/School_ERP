@@ -41,11 +41,9 @@ class Finance(models.Model):
                                  related='student_id.sequence')
 
     state = fields.Selection(string='State',
-                             selection=[('draft', 'Draft'),
-                                        ('unpaid', 'Unpaid'),
+                             selection=[('unpaid', 'Unpaid'),
                                         ('paid', 'Paid'),
                                         ('all','All')],
-                             default='draft',
                              tracking=True)
     student_id = fields.Many2one(comodel_name='students.students',
                                  string='Student',
@@ -59,7 +57,7 @@ class Finance(models.Model):
     confirmed_by = fields.Char(string='Confirmed By',
                                compute='_compute_confirmed_by',
                                store=True)
-
+    login = fields.Char(string='Login',related='user_id.login',)
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -85,11 +83,12 @@ class Finance(models.Model):
 
         return super().write(vals)
 
-    @api.depends('user_id', 'state')
+    @api.depends('user_id', 'state','login')
     def _compute_confirmed_by(self):
         for rec in self:
             if rec.state == 'paid' and rec.user_id:
                 rec.confirmed_by = rec.user_id.name
+                rec.login = rec.user_id.login
             else:
                 rec.confirmed_by = False
 

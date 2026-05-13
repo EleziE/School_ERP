@@ -51,7 +51,7 @@
                             type="object"
                             class="btn rounded-pill px-4 shadow-sm fw-bold btn-pay-sweep"
                             confirm="Confirm payment?&#10;&#10;Please verify: Amount and Student are correct.&#10;&#10;This will lock the record and it cannot be changed."
-                            invisible="state in ('paid','draft')"
+                            invisible="state == 'paid'"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
 
                     <button name="unpaid_finance"
@@ -61,7 +61,7 @@
                             invisible="state in ('unpaid','paid')"
                             groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration"/>
 
-                    <field name="state" widget="statusbar" statusbar_visible="draft,unpaid,paid"/>
+                    <field name="state" widget="statusbar" statusbar_visible="unpaid,paid"/>
                 </header>
 
                 <sheet class="p-0">
@@ -94,7 +94,8 @@
                                                options="{'no_open': True, 'no_create': True}"/>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="student_seq" class="text-muted small fw-bold d-block mb-1" invisible="not student_id"/>
+                                        <label for="student_seq" class="text-muted small fw-bold d-block mb-1"
+                                               invisible="not student_id"/>
                                         <field name="student_seq" nolabel="1" class="fw-bold h5 d-block"
                                                invisible="not student_id"/>
                                     </div>
@@ -135,7 +136,6 @@
                                                class="text-muted small fw-bold d-block mb-1"/>
                                         <field name="state" widget="badge"
                                                decoration-success="state == 'paid'"
-                                               decoration-warning="state == 'draft'"
                                                decoration-danger="state == 'unpaid'"/>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
         </field>
     </record>
     <!--Search-->
-    <record id="finaance_view_search" model="ir.ui.view">
+    <record id="finance_view_search" model="ir.ui.view">
         <field name="name">Finance Search</field>
         <field name="model">finance.finance</field>
         <field name="arch" type="xml">
@@ -165,9 +165,9 @@
                 <separator/>
                 <filter name="unpaid" string="Unpaid" domain="[('state','=','unpaid')]"/>
 
-                <group expand="0" string="Group By">
+                <group expand="0" string="Group By"
+                       groups="base_school_erp.group_school_admin,base_school_erp.group_school_administration">
                     <filter name="state_of_payment" string="Status" context="{'group_by':'state'}"/>
-                    <separator/>
                     <filter name="students_name" string="Student" context="{'group_by':'student_id'}"/>
                 </group>
             </search>

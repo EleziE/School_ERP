@@ -26,8 +26,8 @@ class Faculty(models.Model):
                        help="It will be used like prefix latter for subject (e.g 'cs','med','arch')")
     year = fields.Integer(string='Years',
                           related='year_id.order',
+                          readonly=False,
                           help='How long the faculty will be normally ',
-                          readonly=True,
                           store=True)
 
     @api.constrains('year')
@@ -46,8 +46,7 @@ class Year(models.Model):
     name = fields.Char(string='Year',
                        readonly=True)
     order = fields.Integer(string='Order',
-                           help="Number of years, will be used by the other modules (e.g faculty)",
-                           readonly=True, )
+                           help="Number of years, will be used by the other modules (e.g faculty)" )
     code = fields.Char(string='Code',
                        readonly=True,
                        help="Pre-generated with the year_data")

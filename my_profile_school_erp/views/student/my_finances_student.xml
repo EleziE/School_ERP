@@ -107,9 +107,15 @@
 
                                         <div class="mb-0 pt-3 border-top" invisible="state != 'paid'">
                                             <label for="confirmed_by" class="text-muted small fw-bold d-block mb-1"/>
-                                            <div class="d-flex align-items-center text-muted">
-                                                <i class="fa fa-shield me-2 text-success" title="Confirmed by"/>
-                                                <field name="confirmed_by" readonly="1"/>
+                                            <div class="d-flex align-items-center text-muted gap-4">
+                                                <span>
+                                                    <i class="fa fa-shield me-2 text-success" title="Confirmed by"/>
+                                                    <field name="confirmed_by" readonly="1"/>
+                                                </span>
+                                                <span>
+                                                    <i class="fa fa-envelope m-2 text-success" title="Confirmed by email"/>
+                                                    <field name="login" readonly="1" widget="email"/>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

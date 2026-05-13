@@ -3,27 +3,116 @@
     <data>
         <!--Form-->
         <record id="administration_form_view" model="ir.ui.view">
-            <field name="name">Administration Form</field>
+            <field name="name">administration.administration.form</field>
             <field name="model">administration.administration</field>
             <field name="arch" type="xml">
-                <form>
+                <form class="admin_form_view">
                     <sheet>
-                        <group>
-                            <group name="Required information">
-                                <field name="name"></field>
-                                <field name="surname"></field>
-                                <field name="login"></field>
-                                <field name="dob"></field>
-                                <field name="external_email"></field>
-                            </group>
-                            <group name="Optional Information">
-                                <field name="father_name"></field>
-                                <field name="mother_name"></field>
-                                <field name="gender"></field>
-                                <field name="blood_type"></field>
-                            </group>
-                        </group>
+                        <style>
+                            /* Custom Button Styles to match your theme */
+                            .pill-btn-warm {
+                                transition: all 0.3s ease !important;
+                                border: 1px solid transparent !important;
+                            }
+
+                            .btn-act-warm {
+                                background-color: #cce5ff !important;
+                                color: #004085 !important;
+                            }
+
+                            .btn-act-warm:hover {
+                                background-color: #2E86C1 !important;
+                                color: white !important;
+                            }
+
+                            .btn-susp-warm {
+                                background-color: #fff3cd !important;
+                                color: #856404 !important;
+                            }
+
+                            .btn-susp-warm:hover {
+                                background-color: #D35400 !important;
+                                color: white !important;
+                            }
+
+                            /* Layout Enhancements */
+                            .o_admin_id_bar {
+                                background: #ffffff;
+                                border-bottom: 2px solid #f0f2f5;
+                                margin-bottom: 25px !important;
+                                padding-bottom: 15px;
+                            }
+
+                            .o_card_box {
+                                background: white;
+                                transition: transform 0.2s;
+                                min-height: 200px;
+                            }
+                        </style>
+
+                        <div class="o_admin_id_bar d-flex align-items-center gap-3">
+                            <div class="flex-grow-1">
+                                <label for="name" string="Name" class="text-muted small fw-bold"
+                                       style="letter-spacing: 1px;"/>
+                                <h1 class="m-0">
+                                    <field name="name" placeholder="e.g. admin.01"/>
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="o_card_box p-3 border rounded shadow-sm mb-4">
+                                    <h5 class="fw-bold mb-3 border-bottom pb-2">👤 Identity</h5>
+                                    <group>
+                                        <field name="surname" placeholder="Last Name"/>
+                                        <field name="login" placeholder="Log-in"/>
+                                        <field name="gender"/>
+                                        <field name="dob"/>
+                                    </group>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="o_card_box p-3 border rounded shadow-sm mb-4">
+                                    <h5 class="fw-bold mb-3 border-bottom pb-2">🧾 Background &amp; Health</h5>
+                                    <group>
+                                        <field name="father_name"/>
+                                        <field name="mother_name"/>
+                                        <field name="blood_type"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="o_card_box p-3 border rounded shadow-sm">
+                                    <h5 class="fw-bold mb-3 text-info border-bottom pb-2">📧 Communication</h5>
+                                    <group>
+                                        <field name="external_email" widget="email" placeholder="example@gmail.com"
+                                        />
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3 border-top mt-5 bg-light rounded text-center">
+                            <span class="text-muted small">
+                                <i class="fa fa-shield text-primary me-1"/>
+                                System Administration Portal - Strictly for Authorized Personnel
+                                <br/>
+                                <i class="fa fa-envelope me-1"/> admin@example.com
+                                <br/>
+                                <i class="fa fa-phone"/> +355 XX XXX XXX
+                            </span>
+                        </div>
                     </sheet>
+
+                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>

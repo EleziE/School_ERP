@@ -1,25 +1,18 @@
                                                                                             ######################## 4/21/2026 #########################
 
-- CP-Commit #3 (04/21/2026)
-
-Wizard + Report
-
-Trying to make the button that select the state of finance than based on that the PDF report ot be created ...
-the majority of the files created and added in this commit don't work
-
 - CP-Commit #5 (04/21/2026)
 
-How to make a button that if the state of a student is graduated to not allow to sign in ... or the moment that he signs
+How to make a function or constraint that if the state of a student is graduated to not allow to sign in ... or the moment that he signs
 in to show only a page that tells e message as I want
 
                                                                                             ######################## 4/22/2026 #########################
 
-- Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta
+- **Meso mir reporte + wizarda si krijohen edhe gjenerohen ... ban ushtrime me ta**
 
                                                                                             ######################## 04/05/2026 #########################
 
 1. Mso si me cu email me odoo ... konfiguroje (edhe bane prov me firgu jackun)
-2. Populate the subjects with the new classes and corrct the credits (at the end of 3 years there should be 180 credits
+2. Populate the subjects with the new classes and correct the credits (at the end of 3 years there should be 180 credits
    earned)
 3. How to make a constraint-like functions that check if the user has all the mandatory classes passed , no more
    finances to pay and has a credit of 180 (i have started to make it in student.py)
@@ -35,30 +28,25 @@ in to show only a page that tells e message as I want
    the student will have to pass and has passed
    so i can get an idea how many left are there for this student
 
-                                                                                             ######################## 05/05/2026 #########################
-
-
-1. Recheck the new create function in faculty how it works and why that way
-
-                                                                                             ######################## 05/05/2026 #########################
-
-
-1. Update the faculty, subject csv file to have the same data in the CP and HM
 
                                                                                              ######################## 11/05/2026 ########################
 
 
-1. Connect remotely and fix the crack in Py-charm.
-2. Make use of the new field in the finance all so it returns all the finances regarding of status
-3. delay_description field in task and view not yet as i want to be used
-4. Mso me nis email me odoo ... bane configurations per me e nis
-5. Per me msu Sales hap db te re edhe shiko ca instalohet kur instalohet aja
+1. delay_description field in task and view not yet as i want to be used
+
 
                                                                                           ######################## 11/05/2026 ########################
 
+### For HW 
 
-1. Recheck the previous topics to make the needed changes
+1. Correct the Faculty, Year, Semester for the base_school_erp from home (new because they will be part of the testing in project school).
+   don't forget the conditions like 180 credits, 
 2. Make the required modifications for the project and the testing part  (the answer is in the deepseek chat history),
    so you can add the id's of the persons created and the tasks and for every function you have made.
-3. Make the UI of A module better like the others (S and T)
-4. See the sc and correct it
+3. Transfer student can select subject from different years since he is irregular (new but make it as a field or however it works)
+4. Connect remotely and fix the crack in Py-charm.
+5. When logged as a student how to disable the add costume field in search and the add group in the same place (how to achieve it)
+
+
+- C.P-5 (31/5/2026), added transfer student and domain in form view :
+- Don't know if it works yet because i dont have the faculty, year,semester records to make the domain work as it should (RECHECK IT !!!)
