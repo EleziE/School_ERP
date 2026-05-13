@@ -189,11 +189,11 @@
 
                         <div class="p-3 border-top mt-5 bg-light rounded text-center" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin">
                             <span class="text-muted small">
-                                <i class="fa fa-info-circle text-primary me-1"/> There are features that only admin can see and do so, for admin support:
+                                <i class="fa fa-info-circle text-primary me-1" title="Information"/> There are features that only admin can see and do so, for admin support:
                                 <br/>
-                                <i class="fa fa-envelope"/> <b>admin@admin.com</b>
+                                <i class="fa fa-envelope" title="Email"/> <b>admin@admin.com</b>
                                 <br/>
-                                <i class="fa fa-phone"/> +355 XXX XXXX
+                                <i class="fa fa-phone" title="Phone Number"/> +355 XXX XXXX
                             </span>
                         </div>
                     </sheet>

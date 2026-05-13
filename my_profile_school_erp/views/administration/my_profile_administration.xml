@@ -72,7 +72,7 @@
                                         <field name="name" readonly="1"/> <field name="surname" readonly="1"/>
                                     </h1>
                                     <div class="text-muted mt-1">
-                                        <i class="fa fa-shield me-1 text-primary"/>
+                                        <i class="fa fa-shield me-1 text-primary" title="Staff Role"/>
                                         <field name="member_type" readonly="1"/> • Management
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                 <div class="col-md-7">
                                     <div class="o_admin_card">
                                         <h5 class="fw-bold mb-4 d-flex align-items-center text-dark">
-                                            <i class="fa fa-list-alt me-2 text-muted"/> Identity Specifications
+                                            <i class="fa fa-list-alt me-2 text-muted" title="Details Icon"/> Identity Specifications
                                         </h5>
 
                                         <div class="admin-data-row">
@@ -112,7 +112,7 @@
                                 <div class="col-md-5">
                                     <div class="o_admin_card">
                                         <h5 class="fw-bold mb-4 d-flex align-items-center text-dark">
-                                            <i class="fa fa-lock me-2 text-muted"/> Access Credentials
+                                            <i class="fa fa-lock me-2 text-muted" title="Security Icon"/> Access Credentials
                                         </h5>
 
                                         <div class="mb-4">
@@ -139,7 +139,7 @@
                             <div class="p-3 border-top d-flex align-items-center justify-content-between text-muted small"
                                  style="opacity: 0.7;">
                                 <div>
-                                    <i class="fa fa-database me-1"/> Record Ref: <field name="id" readonly="1"/>
+                                    <i class="fa fa-database me-1" title="Database Icon"/> Record Ref: <field name="id" readonly="1"/>
                                 </div>
                                 <div class="fw-bold text-uppercase" style="letter-spacing: 1px;">
                                     Administration Unit
