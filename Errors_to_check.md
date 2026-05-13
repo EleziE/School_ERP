@@ -50,3 +50,7 @@ in to show only a page that tells e message as I want
    so you can add the id's of the persons created and the tasks and for every function you have made.
 3. Transfer student can select subject from different years since hi is irregular (new but make it as a field or however it works)
 4. Connect remotely and fix the crack in Py-charm.
+
+
+- C.P-5 (31/5/2026), added transfer student and domain i form view :
+- Dont know if it works yet because i dont have the faculty, year,semester records to make the domain work as it should 
