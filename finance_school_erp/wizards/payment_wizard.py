@@ -8,10 +8,15 @@ from ..reports.payment_report import generate_student_finance_pdf
 class PrintFinancesWizard(models.TransientModel):
     _name = 'print.paid.finances.wizard'
     _description = 'Print Finances Wizard'
+    """
+    We select the status of the payment and based on that we retrive a pdf with payments.
+    "All" - retrives all the types of payments .
+    If the state you have selected doesnt exist , an 'No record found' will be displayed .
+    """
 
     student_id = fields.Many2one('students.students', string="Student", readonly=True)
     finance_id = fields.Many2one('finance.finance', string="Finance Reference")
-    start_date = fields.Datetime(string="Start Date",related='finance_id.create_date')
+    start_date = fields.Datetime(string="Start Date", related='finance_id.create_date')
 
     state = fields.Selection(
         selection=lambda self: self.env['finance.finance']._fields['state'].selection,
@@ -23,22 +28,20 @@ class PrintFinancesWizard(models.TransientModel):
     def action_print_report(self):
         self.ensure_one()
 
-        # 1. Gather data based on the chosen status
-        payments = self.env['finance.finance'].search([
-            ('student_id', '=', self.student_id.id),
-            ('state', '=', self.state),
-        ])
+        domain = [('student_id', '=', self.student_id.id)]
 
-        if not payments:
-            # Using a user-friendly message
-            raise UserError(f"No records found ")
+        if self.state != 'all':
+            domain.append(('state', '=', self.state))
 
-        # 2. Call the separated ReportLab function
-        pdf_content = generate_student_finance_pdf(self.student_id, payments)
+        payment = self.env['finance.finance'].search(domain)
 
-        # 3. Create attachment and return download
+        if not payment:
+            raise UserError('No records found')
+
+        pdf_content = generate_student_finance_pdf(self.student_id, payment)
+
         attachment = self.env['ir.attachment'].create({
-            'name': f'Report_{self.student_id.name}_{self.state}.pdf',
+            'name': f'Payment_of_{self.student_id.name}_{self.state}.pdf',
             'type': 'binary',
             'datas': base64.b64encode(pdf_content),
             'mimetype': 'application/pdf',
