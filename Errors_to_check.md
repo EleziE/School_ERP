@@ -28,11 +28,6 @@ in to show only a page that tells e message as I want
    the student will have to pass and has passed
    so i can get an idea how many left are there for this student
 
-                                                                                             ######################## 05/05/2026 #########################
-
-
-1. Recheck the new create function in faculty how it works and why that way
-
 
                                                                                              ######################## 11/05/2026 ########################
 
@@ -48,9 +43,10 @@ in to show only a page that tells e message as I want
    don't forget the conditions like 180 credits, 
 2. Make the required modifications for the project and the testing part  (the answer is in the deepseek chat history),
    so you can add the id's of the persons created and the tasks and for every function you have made.
-3. Transfer student can select subject from different years since hi is irregular (new but make it as a field or however it works)
+3. Transfer student can select subject from different years since he is irregular (new but make it as a field or however it works)
 4. Connect remotely and fix the crack in Py-charm.
+5. When logged as a student how to disable the add costume field in search and the add group in the same place (how to achieve it)
 
 
-- C.P-5 (31/5/2026), added transfer student and domain i form view :
-- Dont know if it works yet because i dont have the faculty, year,semester records to make the domain work as it should 
+- C.P-5 (31/5/2026), added transfer student and domain in form view :
+- Don't know if it works yet because i dont have the faculty, year,semester records to make the domain work as it should (RECHECK IT !!!)
