@@ -45,6 +45,7 @@ class Administration(models.Model):
                         related='user_id.phone')
     member_type = fields.Selection(related='user_id.member_type',
                                    string='Type')
+    image_128=fields.Image(string='Image 128',related='user_id.image_128')
 
     @api.model_create_multi
     def create(self, vals_list):

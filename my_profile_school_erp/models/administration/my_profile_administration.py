@@ -20,6 +20,7 @@ class MyProfileAdministration(models.Model):
     blood_type = fields.Selection(related='administration_id.blood_type')
     phone = fields.Char(related='administration_id.phone')
     member_type = fields.Selection(related='administration_id.member_type')
+    image_128 = fields.Image(related='administration_id.image_128')
 
     @api.depends('user_id')
     def _compute_info(self):
