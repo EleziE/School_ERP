@@ -1,6 +1,5 @@
 from odoo import api, fields, models
 
-
 class MyProfileStudent(models.Model):
     _name = 'my.profile.student'
     _description = 'Student'
@@ -12,6 +11,8 @@ class MyProfileStudent(models.Model):
 
     name = fields.Char(related='student_id.name')
     surname = fields.Char(related='student_id.surname')
+    father_name = fields.Char(related='student_id.father_name')
+    mother_name = fields.Char(related='student_id.mother_name')
     phone = fields.Char(related='student_id.phone')
     dob = fields.Date(related='student_id.dob')
     state = fields.Selection(related='student_id.state')
@@ -29,21 +30,20 @@ class MyProfileStudent(models.Model):
     enrollment_date = fields.Date(related='student_id.enrollment_date')
     graduation_date = fields.Date(related='student_id.graduation_date')
     finance_ids = fields.One2many(related='student_id.finance_ids')
-    faculty = fields.Selection(related='student_id.faculty')
-    year = fields.Selection(related='student_id.year')
-    semester = fields.Selection(related='student_id.semester')
+    faculty = fields.Many2one(comodel_name='faculty.faculty',related='student_id.faculty')
+    year = fields.Many2one(comodel_name='year.year',related='student_id.year')
+    semester = fields.Many2one(comodel_name='semester.semester',related='student_id.semester')
     image_128 = fields.Image(string='Image 128',
                              related='student_id.image_128',
                              tracking=True)
 
     @api.depends('user_id')
     def _compute_student_id(self):
-        """
-        Autofill the fields
-        """
         logged_user = self.env.user.id
         for rec in self:
-            rec.student_id = self.env['students.students'].search([('user_id', '=', logged_user)], limit=1).id
+            student = self.env['students.students'].search([('user_id', '=', logged_user)], limit=1)
+            rec.student_id = student.id
+            rec.user_id = logged_user
 
     def action_print_report(self):
         """
@@ -81,9 +81,9 @@ class StudentSubject(models.Model):
     student_sequence = fields.Char(string='Student ID', related='student_id.sequence')
     subject_sequence = fields.Char(string='Subject ID', related='subject_id.sequence')
 
-    faculty = fields.Selection(string='Faculty', related='student_id.faculty')
-    year = fields.Selection(string='Year', related='student_id.year')
-    semester = fields.Selection(string='Semester', related='student_id.semester')
+    faculty = fields.Many2one(comodel_name='faculty.faculty', string='Faculty', related='student_id.faculty')
+    year = fields.Many2one(comodel_name='year.year', string='Year', related='student_id.year')
+    semester = fields.Many2one(comodel_name='semester.semester', string='Semester', related='student_id.semester')
 
     student_name = fields.Char(string='Student Name', related='student_id.name')
     subject_name = fields.Char(string='Subject Name', related='subject_id.name')
@@ -103,7 +103,7 @@ class StudentSubject(models.Model):
                 continue
 
             # 1. Get all subjects assigned to this student's faculty
-            all_curriculum = self.env['subject.subject'].search([('faculty', '=', rec.faculty)])
+            all_curriculum = self.env['subject.subject'].search([('faculty_id', '=', rec.faculty)])
 
             # 2. Get Student's Current Level
             current_year_num = year_map.get(rec.year, 0)

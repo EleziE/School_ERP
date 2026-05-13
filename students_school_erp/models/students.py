@@ -10,30 +10,18 @@ class Student(models.Model):
     _description = 'Students'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    sequence = fields.Char(string='Student ID: ',
-                           readonly=True,
-                           default=lambda self: _('New'))
+    sequence = fields.Char(string='Student ID: ', readonly=True, default=lambda self: _('New'))
 
     user_id = fields.Many2one(comodel_name='res.users', )
-
-    name = fields.Char(string='Name',
-                       store=True,
-                       tracking=True)
-    surname = fields.Char(string='Surname',
-                          tracking=True)
-    father_name = fields.Char(string='Father ',
-                              tracking=True)
-    mother_name = fields.Char(string='Mother ',
-                              tracking=True)
-    email = fields.Char(string='Email',
-                        related='user_id.login',
-                        readonly=False,
-                        tracking=True)
+    name = fields.Char(string='Name', store=True, tracking=True)
+    surname = fields.Char(string='Surname', tracking=True)
+    father_name = fields.Char(string='Father ', tracking=True)
+    mother_name = fields.Char(string='Mother ', tracking=True)
+    email = fields.Char(string='Email', related='user_id.login', readonly=False, tracking=True)
     external_email = fields.Char(string='External Email',
                                  help='Email to communicate with the user, not from the schools email')
-    gender = fields.Selection(string='Gender',
-                              selection=[('female', 'Female'),
-                                         ('male', 'Male')], )
+    gender = fields.Selection(string='Gender', selection=[('female', 'Female'),
+                                                          ('male', 'Male')], )
     dob = fields.Date(string='Date of birth',
                       tracking=True)
     blood_type = fields.Selection(selection=[('a+', 'A+'),
@@ -46,62 +34,27 @@ class Student(models.Model):
                                              ('o-', 'O-'),
                                              ],
                                   string='Blood Type')
-    classroom_id = fields.Many2one(comodel_name='class.rooms',
-                                   string='Class')
+    classroom_id = fields.Many2one(comodel_name='class.rooms', string='Class')
     subject_id = fields.Many2many(comodel_name='subject.subject')
     state = fields.Selection(selection=[('new', 'New'),
                                         ('active', 'Active'),
                                         ('inactive', 'Not Active'),
                                         ('graduated', 'Graduated'), ],
-                             string='State',
-                             default='new',
-                             tracking=True,
-                             required=True)
-    suspend_reason = fields.Text(string='Suspension Reason',
-                                 tracking=True,
-                                 readonly=True)
-    phone = fields.Char(string='Phone no ',
-                        related='user_id.phone', )
+                             string='State', default='new', tracking=True, required=True)
+    suspend_reason = fields.Text(string='Suspension Reason', tracking=True, readonly=True)
+    phone = fields.Char(string='Phone no ', related='user_id.phone', )
     enrollment_date = fields.Date(string='Enrollment Date',
                                   default=fields.Date.today, )
-    graduation_date = fields.Date(string='Graduation Date',
-                                  store=True,
-                                  readonly=True,
+    graduation_date = fields.Date(string='Graduation Date', store=True, readonly=True,
                                   compute='_compute_graduation_date', )
-    member_type = fields.Selection(related='user_id.member_type',
-                                   string='Type',
-                                   readonly=True, )
-    user_password = fields.Char(string='Password',
-                                related='user_id.new_password', )
-
-    year = fields.Selection(selection=[('1st', 'First Year'),
-                                       ('2nd', 'Second Year'),
-                                       ('3rd', 'Third Year'),
-                                       ('4th', 'Fourth Year'),
-                                       ('5th', 'Fifth Year'),
-                                       ('6th', 'Sixth Year'),
-                                       ('transfer', 'Transfer'), ],
-                            string='Year')
-    semester = fields.Selection(string='Semester',
-                                selection=[('semester-1', 'First Semester'),
-                                           ('semester-2', 'Second Semester'), ])
-
-    faculty = fields.Selection(selection=[('cs', 'Computer Science'),
-                                          ('medicine', 'Medicine'),
-                                          ('engineering', 'Engineering'),
-                                          ('social', 'Social'),
-                                          ('laws', 'Laws'),
-                                          ('economic', 'Economic'),
-                                          ('architecture', 'Architecture'),
-                                          ('arts', 'Arts'),
-                                          ('education', 'Education'),
-                                          ('pharmacy', 'Pharmacy'),
-                                          ('foreign_language', 'Foreign_language'),
-                                          ('dentist', 'Dentist'), ],
-                               string='Faculty',
-                               required=True)
+    member_type = fields.Selection(related='user_id.member_type', string='Type', readonly=True, )
+    user_password = fields.Char(string='Password', related='user_id.new_password', )
+    year = fields.Many2one(comodel_name='year.year', string='Year')
+    faculty_years = fields.Integer(string='Faculty Years', related='faculty.year', store=False)
+    semester = fields.Many2one(comodel_name='semester.semester', string='Semester', )
+    faculty = fields.Many2one(comodel_name='faculty.faculty', string='Faculty', required=True)
     image_128 = fields.Image(string='Image 128', )
-    subject_domain = fields.Char(string='Subject Domain', compute='_compute_subject_domain')
+    subject_domain = fields.Json(string='Subject Domain', compute='_compute_subject_domain')
 
     # =================== Main Functions (CREATE & WRITE) ====================
     @api.model_create_multi
@@ -176,13 +129,46 @@ class Student(models.Model):
     @api.depends('year', 'faculty', 'semester')
     def _compute_subject_domain(self):
         for rec in self:
-            domain = [
-                ('faculty_id', '=', rec.faculty),
-                ('semester_id', '=', rec.semester),
-            ]
-            if rec.year != 'transfer':
-                domain.append(('year_id.code', '=', rec.year), )
-            rec.subject_domain = json.dumps(domain)
+
+            domain = []
+
+            # Always filter by faculty
+            if rec.faculty:
+                domain.append(('faculty_id', '=', rec.faculty.id))
+
+            # ================= TRANSFER =================
+            if rec.year and rec.year.code == 'tr':
+
+                if rec.semester:
+
+                    # If S1 → all Yx-S1 semesters
+                    if rec.semester.code == 'S1':
+
+                        semesters = self.env['semester.semester'].search([
+                            ('code', 'like', '%-S1')
+                        ])
+
+                        domain.append(('semester_id', 'in', semesters.ids))
+
+                    # If S2 → all Yx-S2 semesters
+                    elif rec.semester.code == 'S2':
+
+                        semesters = self.env['semester.semester'].search([
+                            ('code', 'like', '%-S2')
+                        ])
+
+                        domain.append(('semester_id', 'in', semesters.ids))
+
+            # ================= REGULAR =================
+            else:
+
+                if rec.year:
+                    domain.append(('year_id', '=', rec.year.id))
+
+                if rec.semester:
+                    domain.append(('semester_id', '=', rec.semester.id))
+
+            rec.subject_domain = domain
 
     def action_graduated(self):
         self.state = 'graduated'
