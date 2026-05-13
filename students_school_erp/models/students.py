@@ -125,14 +125,18 @@ class Student(models.Model):
         # 4. Pass the whole list to super
         return super(Student, self).create(vals_list)
 
-    @api.model
     def write(self, vals):
         if not (self.env.user.has_group('base_school_erp.group_school_administration') or
                 self.env.user.has_group('base_school_erp.group_school_admin')):
             raise AccessError('You do not have the right to change records ! ')
 
-        if self.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
-            raise AccessError('You are not allowed to change records of a Graduated student ! ')
+        if self.env.su or self._context.get('skip_checker'):
+            return super().write(vals)
+
+        for rec in self:
+            if rec.state == 'graduated' and not self.env.user.has_group('base_school_erp.group_school_admin'):
+                raise AccessError('You are not allowed to change records of a Graduated student ! ')
+
         return super().write(vals)
 
     ############################ Wizards ###########################################
@@ -256,17 +260,11 @@ class Student(models.Model):
                 raise ValidationError(f'Student cannot graduate since he is missing {rec.subject_id.credits} credits.')
 
     ############################ Cron's ############################
-    @api.model
-    def _cron_clear_suspension_reasons(self):
-        """
-        Finds students who are 'active' but still have a lingering
-        suspension reason in the database and clears it.
-        """
-
-        students_to_fix = self.search([
+    def cron_clear_suspension_reasons(self):
+        students_to_fix = self.env['students.students'].search([
             ('state', 'in', ['active', 'new', 'graduated']),
             ('suspend_reason', '!=', False)
         ])
 
         if students_to_fix:
-            students_to_fix.sudo().write({'suspend_reason': False})
+            students_to_fix.sudo().with_context(skip_checker=True).write({'suspend_reason': False})
