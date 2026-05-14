@@ -55,7 +55,7 @@
                                 <label for="name" string="Name" class="text-muted small fw-bold"
                                        style="letter-spacing: 1px;"/>
                                 <h1 class="m-0">
-                                    <field name="name" placeholder="e.g. admin.01"/>
+                                    <field name="name"/>
                                 </h1>
                             </div>
                         </div>

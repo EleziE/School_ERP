@@ -74,11 +74,16 @@
                             </div>
 
                             <notebook class="mt-3">
-                                <page string="Subjects" name="subjects">
-                                    <field name="subject_id"/>
+                                <page string="Faculties" name="faculty">
+                                    <field name="faculty"/>
                                 </page>
-                                <page string="Classrooms" name="classrooms">
-                                    <field name="class_room_id"/>
+                                <page string="Subjects" name="subjects">
+                                    <field name="subject_id"
+                                           domain="[('faculty_id', '=', faculty)]"
+                                           options="{'no_quick_create': True,
+                                                     'no_create_edit': True,
+                                                     'no_create': True,
+                                                     'no_open': True}"/>
                                 </page>
                                 <page string="Tasks" name="tasks">
                                 </page>

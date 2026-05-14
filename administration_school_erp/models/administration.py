@@ -73,17 +73,16 @@ class Administration(models.Model):
 
         return super(Administration, self).create(vals_list)
 
-    @api.model
     def write(self, vals):
 
-        if not self.env.user.has_group('configurations_school_erp.group_school_admin'):
+        if not (self.env.user.has_group('configurations_school_erp.group_school_admin')
+                or self.env.user.has_group('configurations_school_erp.group_school_administration')):
             raise AccessError('You are do not have the right to modify records')
 
         secure_fields = {'name', 'login', 'member_type', 'external_email', 'blood_type', 'father_name', 'mother_name',
                          'gender', 'dob', 'phone'}
 
         return super().write(vals)
-
 
     def unlink(self):
         to_be_deleted = self.mapped('user_id')
@@ -94,17 +93,6 @@ class Administration(models.Model):
             to_be_deleted.sudo().unlink()
 
         return result
-
-
-
-
-
-
-
-
-
-
-
 
     @api.constrains('dob')
     def check_dob(self):
