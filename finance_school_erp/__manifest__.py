@@ -22,7 +22,6 @@
         'configurations_school_erp',
         'students_school_erp',
         'teacher_school_erp',
-        'mail',
         'administration_school_erp',
     ],
     'icon': 'finance_school_erp/static/description/icon.png',

@@ -10,7 +10,7 @@
         'data/year_data.xml',
         'data/semester_data.xml',
         # Inherited
-        # 'views/Inherited/costume_base_modifications.xml', #doesnt work because the modules that are hidden should also be inside the 'depends'
+        'views/Inherited/costume_base_modifications.xml', #doesnt work because the modules that are hidden should also be inside the 'depends'
         # Sequences
         # Views
         'views/holidays.xml',
@@ -26,5 +26,21 @@
         'web.assets_backend': [
             'configurations_school_erp/static/src/css/app_center.css',
         ],
-    }
+    },
+    'depends': [
+        'base',
+        'mail',
+        'hr',
+        'project',
+        'project_todo',
+        'planning',
+        'sign',
+        'survey',
+        'mass_mailing',
+        'appointment',
+        'knowledge',
+        'contacts',
+        'utm',
+        'calendar',
+    ],
 }

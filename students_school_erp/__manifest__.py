@@ -16,7 +16,6 @@
     ],
     'depends': [
         'configurations_school_erp',
-        'mail',
     ],
     'icon': 'students_school_erp/static/description/icon.png',
     'web_icon': 'students_school_erp,static/description/icon.png',
