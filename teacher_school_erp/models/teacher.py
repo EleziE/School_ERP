@@ -97,6 +97,17 @@ class Teacher(models.Model):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
 
+
+    def unlink(self):
+        to_be_deleted = self.mapped('user_id')
+
+        result = super(Teacher, self).unlink()
+
+        if to_be_deleted:
+            to_be_deleted.sudo().unlink()
+        return result
+
+
     @api.constrains('user_id')
     def _check_user_not_student(self):
         for rec in self:

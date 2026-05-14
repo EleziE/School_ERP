@@ -1,8 +1,6 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessError
-from datetime import datetime
 import secrets
-import json
 
 
 class Student(models.Model):
@@ -17,7 +15,7 @@ class Student(models.Model):
     surname = fields.Char(string='Surname', tracking=True)
     father_name = fields.Char(string='Father ', tracking=True)
     mother_name = fields.Char(string='Mother ', tracking=True)
-    email = fields.Char(string='Email', related='user_id.login', readonly=False, tracking=True)
+    email = fields.Char(string='Email', related='user_id.login', readonly=False, tracking=True,required=True)
     external_email = fields.Char(string='External Email',
                                  help='Email to communicate with the user, not from the schools email')
     gender = fields.Selection(string='Gender', selection=[('female', 'Female'),
@@ -56,7 +54,7 @@ class Student(models.Model):
     image_128 = fields.Image(string='Image 128', )
     subject_domain = fields.Json(string='Subject Domain', compute='_compute_subject_domain')
 
-    # =================== Main Functions (CREATE & WRITE) ====================
+    # =================== Main Functions (CREATE & WRITE & UNLINK) ====================
     @api.model_create_multi
     def create(self, vals_list):
         # 1. Prepare references once (efficient)
@@ -99,6 +97,29 @@ class Student(models.Model):
 
         return super().write(vals)
 
+    def unlink(self):
+        """
+        Cascade delete with safety checks.
+        Prevents deletion of graduated students and their users.
+        """
+        # Prevent deleting graduated students
+        graduated_students = self.filtered(lambda s: s.state == 'graduated')
+        if graduated_students:
+            raise ValidationError(
+                f"Cannot delete graduated students: {', '.join(graduated_students.mapped('name'))}"
+            )
+
+        # Get users before deletion
+        users_to_delete = self.mapped('user_id')
+
+        # Delete students
+        result = super(Student, self).unlink()
+
+        # Cascade delete users
+        if users_to_delete:
+            users_to_delete.sudo().unlink()
+
+        return result
     ############################ Wizards ###########################################
 
     def action_open_suspend_wizard(self):
