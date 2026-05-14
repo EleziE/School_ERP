@@ -36,12 +36,11 @@ class Teacher(models.Model):
     class_room_id = fields.Many2many(comodel_name='class.rooms')
     member_type = fields.Selection(related='user_id.member_type',
                                    readonly=True)
-    # TO-DO: make it happen as it should
-    # faculty = fields.Many2many(comodel_name='subject.subject',
-    #                            column1='teacher_id',column2='faculty_id',
-    #                            relation='teacher_faculty_relationship',
-    #                            readonly=False,
-    #                            help='Faculty that the professor gives lesson')
+    faculty = fields.Many2many(comodel_name='faculty.faculty',
+                               column1='teacher_id',column2='faculty_id',
+                               relation='teacher_faculty_relationship',
+                               readonly=False,
+                               help='Faculty that the professor gives lesson')
 
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),

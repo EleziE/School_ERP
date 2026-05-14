@@ -50,3 +50,9 @@ in to show only a page that tells e message as I want
 
 - C.P-5 (31/5/2026), added transfer student and domain in form view :
 - Don't know if it works yet because i dont have the faculty, year,semester records to make the domain work as it should (RECHECK IT !!!)
+
+                                                                                          ######################## 11/05/2026 ########################
+1. Transfer option and filter not working yet.
+2. I can still create new faculties from the m2m field in teacher notebook (i dont want to create new faculties from there )
+3. The same for subjects
+4. In Students notebook, in teacher to be shown the name of the teacher and the subject that he gives after the student selects the subjects
