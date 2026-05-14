@@ -51,7 +51,6 @@ class Administration(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        # 1. Fetch references ONCE outside the loop for better performance
         access_rights = self.env.ref('configurations_school_erp.group_school_administration')
         internal_user = self.env.ref('base.group_user')
 
