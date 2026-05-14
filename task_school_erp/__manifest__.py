@@ -5,7 +5,7 @@
     'data': [
         # Security
         'security/ir.model.access.csv',
-        # 'security/rules.xml',
+        'security/rules.xml',
         # Data
         # Views
         'views/task.xml',
@@ -15,7 +15,7 @@
     'application': True,
     'installable': True,
     "depends": [
-        'base_school_erp',
+        'configurations_school_erp',
         'teacher_school_erp',
         'administration_school_erp',
     ],

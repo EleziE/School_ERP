@@ -158,7 +158,7 @@
             <field name="view_mode">form</field>
             <field name="views"
                    eval="[(ref('my_profile_teacher_form')),'form']"/>
-            <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_teacher'))]"/>
+            <field name="groups_id" eval="[(4,ref('configurations_school_erp.group_school_teacher'))]"/>
         </record>
     </data>
 </odoo>

@@ -36,12 +36,11 @@ class Teacher(models.Model):
     class_room_id = fields.Many2many(comodel_name='class.rooms')
     member_type = fields.Selection(related='user_id.member_type',
                                    readonly=True)
-    # TO-DO: make it happen as it should
-    # faculty = fields.Many2many(comodel_name='subject.subject',
-    #                            column1='teacher_id',column2='faculty_id',
-    #                            relation='teacher_faculty_relationship',
-    #                            readonly=False,
-    #                            help='Faculty that the professor gives lesson')
+    faculty = fields.Many2many(comodel_name='faculty.faculty',
+                               column1='teacher_id',column2='faculty_id',
+                               relation='teacher_faculty_relationship',
+                               readonly=False,
+                               help='Faculty that the professor gives lesson')
 
     gender = fields.Selection(string='Gender',
                               selection=[('female', 'Female'),
@@ -55,7 +54,7 @@ class Teacher(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         # Fetch these once outside the loop to save database queries
-        access_rights = self.env.ref('base_school_erp.group_school_teacher')
+        access_rights = self.env.ref('configurations_school_erp.group_school_teacher')
         internal_user = self.env.ref('base.group_user')
 
         for vals in vals_list:
@@ -92,10 +91,21 @@ class Teacher(models.Model):
             'sequence', 'member_type'
         ]
         if any(f in vals for f in restricted_fields):
-            if not (self.env.user.has_group('base_school_erp.group_school_admin')
-                    or self.env.user.has_group('base_school_erp.group_school_administration')):
+            if not (self.env.user.has_group('configurations_school_erp.group_school_admin')
+                    or self.env.user.has_group('configurations_school_erp.group_school_administration')):
                 raise AccessError("You can't edit these fields.")
         return super().write(vals)
+
+
+    def unlink(self):
+        to_be_deleted = self.mapped('user_id')
+
+        result = super(Teacher, self).unlink()
+
+        if to_be_deleted:
+            to_be_deleted.sudo().unlink()
+        return result
+
 
     @api.constrains('user_id')
     def _check_user_not_student(self):

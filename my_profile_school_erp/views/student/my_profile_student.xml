@@ -187,7 +187,7 @@
                         </div>
                     </sheet>
 
-                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                    <div class="oe_chatter" groups="configurations_school_erp.group_school_admin">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
@@ -203,7 +203,7 @@
             <field name="view_ids"
                    eval="[(5, 0, 0),
                           (0, 0, {'view_mode': 'form', 'view_id': ref('my_profile_student_form')})]"/>
-            <field name="groups_id" eval="[(4,ref('base_school_erp.group_school_student'))]"/>
+            <field name="groups_id" eval="[(4,ref('configurations_school_erp.group_school_student'))]"/>
         </record>
     </data>
 </odoo>

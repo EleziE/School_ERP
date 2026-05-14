@@ -1,0 +1,445 @@
+,Name,Faculty,Semester,Year,Type,Credits
+,Introduction to Programming,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Mathematics for CS I,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Computer Architecture,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Discrete Mathematics,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Digital Logic Design,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Mathematics for CS II,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Algorithms,Computer Science,First Semester (Year 1),First Year,Mandatory,5
+,Object-Oriented Programming,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Linear Algebra,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Technical Writing for CS,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Web Technologies Fundamentals,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Systems Thinking,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Data Structures,Computer Science,Second Semester (Year 1),First Year,Mandatory,5
+,Database Systems,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Operating Systems,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Software Engineering,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Computer Networks I,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Theory of Computation,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Probability & Statistics,Computer Science,First Semester (Year 2),Second Year,Mandatory,5
+,Human-Computer Interaction,Computer Science,Second Semester (Year 2),Second Year,Mandatory,5
+,Programming Languages,Computer Science,Second Semester (Year 2),Second Year,Mandatory,5
+,Computer Graphics,Computer Science,Second Semester (Year 2),Second Year,Mandatory,5
+,Web Development,Computer Science,Second Semester (Year 2),Second Year,Selective,4
+,Mobile Application Development,Computer Science,Second Semester (Year 2),Second Year,Selective,4
+,Artificial Intelligence,Computer Science,Second Semester (Year 2),Second Year,Mandatory,5
+,Computer Networks II,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Compiler Design,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Distributed Systems,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Information Security,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Cloud Computing,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Machine Learning,Computer Science,First Semester (Year 3),Third Year,Mandatory,5
+,Software Testing & QA,Computer Science,Second Semester (Year 3),Third Year,Mandatory,5
+,Capstone Project,Computer Science,Second Semester (Year 3),Third Year,Mandatory,5
+,Advanced Algorithms,Computer Science,Second Semester (Year 3),Third Year,Mandatory,5
+,Blockchain Technology,Computer Science,Second Semester (Year 3),Third Year,Selective,4
+,Data Science Applications,Computer Science,Second Semester (Year 3),Third Year,Selective,3
+,Research Methods & Innovation,Computer Science,Second Semester (Year 3),Third Year,Selective,5
+,Human Anatomy I,Medicine,First Semester (Year 1),First Year,Mandatory,5
+,Medical Biochemistry,Medicine,First Semester (Year 1),First Year,Mandatory,5
+,Histology & Embryology,Medicine,First Semester (Year 1),First Year,Mandatory,5
+,Medical Physics & Biophysics,Medicine,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Medicine,Medicine,Second Semester (Year 1),First Year,Mandatory,5
+,Human Anatomy II,Medicine,Second Semester (Year 1),First Year,Mandatory,5
+,Medical Physiology I,Medicine,Second Semester (Year 1),First Year,Mandatory,5
+,Medical Physiology II,Medicine,First Semester (Year 2),Second Year,Mandatory,5
+,Medical Genetics,Medicine,First Semester (Year 2),Second Year,Mandatory,5
+,Medical Statistics & Informatics,Medicine,First Semester (Year 2),Second Year,Mandatory,5
+,Bioethics & Medical Humanities,Medicine,Second Semester (Year 2),Second Year,Mandatory,5
+,First Aid & Emergency Basics,Medicine,Second Semester (Year 2),Second Year,Mandatory,5
+,Pathology I,Medicine,Second Semester (Year 2),Second Year,Mandatory,5
+,Pharmacology I,Medicine,First Semester (Year 3),Third Year,Mandatory,5
+,Microbiology & Virology,Medicine,First Semester (Year 3),Third Year,Mandatory,5
+,Immunology,Medicine,First Semester (Year 3),Third Year,Mandatory,5
+,Pathological Physiology,Medicine,Second Semester (Year 3),Third Year,Mandatory,5
+,Pathology II,Medicine,Second Semester (Year 3),Third Year,Mandatory,5
+,Pharmacology II,Medicine,Second Semester (Year 3),Third Year,Mandatory,5
+,Clinical Biochemistry,Medicine,First Semester (Year 4),Fourth Year,Mandatory,5
+,Medical Parasitology,Medicine,First Semester (Year 4),Fourth Year,Mandatory,5
+,Epidemiology,Medicine,First Semester (Year 4),Fourth Year,Mandatory,5
+,Clinical Nutrition,Medicine,Second Semester (Year 4),Fourth Year,Selective,4
+,Medical Psychology,Medicine,Second Semester (Year 4),Fourth Year,Selective,4
+,Internal Medicine I,Medicine,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Surgery Fundamentals I,Medicine,First Semester (Year 5),Fifth Year,Mandatory,5
+,Neurology,Medicine,First Semester (Year 5),Fifth Year,Mandatory,5
+,Pediatrics I,Medicine,First Semester (Year 5),Fifth Year,Mandatory,5
+,Obstetrics & Gynecology I,Medicine,Second Semester (Year 5),Fifth Year,Mandatory,5
+,Internal Medicine II,Medicine,Second Semester (Year 5),Fifth Year,Mandatory,5
+,Surgery Fundamentals II,Medicine,Second Semester (Year 5),Fifth Year,Mandatory,5
+,Psychiatry,Medicine,First Semester (Year 6),Sixth Year,Mandatory,5
+,Radiology & Medical Imaging,Medicine,First Semester (Year 6),Sixth Year,Mandatory,5
+,Family Medicine,Medicine,First Semester (Year 6),Sixth Year,Mandatory,5
+,Dermatology,Medicine,Second Semester (Year 6),Sixth Year,Selective,4
+,Ophthalmology,Medicine,Second Semester (Year 6),Sixth Year,Selective,3
+,Public Health & Society,Medicine,Second Semester (Year 6),Sixth Year,Selective,5
+,Engineering Mathematics I,Engineering,First Semester (Year 1),First Year,Mandatory,5
+,Physics for Engineers I,Engineering,First Semester (Year 1),First Year,Mandatory,5
+,Technical Drawing & CAD,Engineering,First Semester (Year 1),First Year,Mandatory,5
+,Engineering Chemistry,Engineering,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Engineering,Engineering,First Semester (Year 1),First Year,Mandatory,5
+,Engineering Mathematics II,Engineering,Second Semester (Year 1),First Year,Mandatory,5
+,Physics for Engineers II,Engineering,Second Semester (Year 1),First Year,Mandatory,5
+,Programming for Engineers,Engineering,Second Semester (Year 1),First Year,Mandatory,5
+,Statics,Engineering,Second Semester (Year 1),First Year,Mandatory,5
+,Materials Science,Engineering,Second Semester (Year 1),First Year,Mandatory,5
+,Engineering Economics,Engineering,First Semester (Year 2),Second Year,Mandatory,5
+,Technical Communication,Engineering,First Semester (Year 2),Second Year,Mandatory,5
+,Mechanics of Materials,Engineering,First Semester (Year 2),Second Year,Mandatory,5
+,Fluid Mechanics,Engineering,First Semester (Year 2),Second Year,Mandatory,5
+,Thermodynamics,Engineering,First Semester (Year 2),Second Year,Mandatory,5
+,Electrical Engineering Basics,Engineering,Second Semester (Year 2),Second Year,Mandatory,5
+,Dynamics,Engineering,Second Semester (Year 2),Second Year,Mandatory,5
+,Heat & Mass Transfer,Engineering,Second Semester (Year 2),Second Year,Mandatory,5
+,Manufacturing Processes,Engineering,Second Semester (Year 2),Second Year,Mandatory,5
+,Numerical Methods,Engineering,Second Semester (Year 2),Second Year,Mandatory,5
+,Engineering Design,Engineering,First Semester (Year 3),Third Year,Mandatory,5
+,Probability & Statistics for Engineers,Engineering,First Semester (Year 3),Third Year,Mandatory,5
+,Engineering Management,Engineering,First Semester (Year 3),Third Year,Selective,4
+,Environmental Engineering,Engineering,First Semester (Year 3),Third Year,Selective,4
+,Structural Analysis,Engineering,First Semester (Year 3),Third Year,Mandatory,5
+,Control Systems,Engineering,Second Semester (Year 3),Third Year,Mandatory,5
+,Machine Design,Engineering,Second Semester (Year 3),Third Year,Mandatory,5
+,Power Systems,Engineering,Second Semester (Year 3),Third Year,Mandatory,5
+,Finite Element Methods,Engineering,Second Semester (Year 3),Third Year,Mandatory,5
+,Advanced Engineering Design,Engineering,First Semester (Year 4),Fourth Year,Mandatory,5
+,Industrial Automation,Engineering,First Semester (Year 4),Fourth Year,Mandatory,5
+,Project Management,Engineering,First Semester (Year 4),Fourth Year,Mandatory,5
+,Capstone Engineering Project,Engineering,First Semester (Year 4),Fourth Year,Mandatory,5
+,Quality Control & Reliability,Engineering,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Renewable Energy Systems,Engineering,Second Semester (Year 4),Fourth Year,Selective,4
+,Smart Manufacturing,Engineering,Second Semester (Year 4),Fourth Year,Selective,3
+,Innovation & Entrepreneurship,Engineering,Second Semester (Year 4),Fourth Year,Selective,5
+,Introduction to Sociology,Social,First Semester (Year 1),First Year,Mandatory,5
+,Social Psychology,Social,First Semester (Year 1),First Year,Mandatory,5
+,Cultural Anthropology,Social,First Semester (Year 1),First Year,Mandatory,5
+,History of Social Thought,Social,First Semester (Year 1),First Year,Mandatory,5
+,Political Science Basics,Social,First Semester (Year 1),First Year,Mandatory,5
+,Statistics for Social Sciences,Social,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Economics,Social,First Semester (Year 1),First Year,Mandatory,5
+,Communication Theory,Social,First Semester (Year 1),First Year,Mandatory,5
+,Social Research Fundamentals,Social,First Semester (Year 1),First Year,Mandatory,5
+,Philosophy of Social Sciences,Social,First Semester (Year 1),First Year,Mandatory,5
+,Human Geography,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Academic Writing,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Social Research Methods,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Political Sociology,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Urban Sociology,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Community Development,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Demography,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Social Stratification,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Media & Society,Social,Second Semester (Year 1),First Year,Mandatory,5
+,Economic Sociology,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Social Policy,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Qualitative Research Methods,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Gender Studies,Social,First Semester (Year 2),Second Year,Selective,4
+,Youth & Social Change,Social,First Semester (Year 2),Second Year,Selective,4
+,Globalization & Society,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Social Policy Analysis,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Applied Social Research,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Migration & Multiculturalism,Social,First Semester (Year 2),Second Year,Mandatory,5
+,Environmental Sociology,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Social Movements & Activism,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Digital Society,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Criminology,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Capstone Social Research Project,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Global Social Issues,Social,Second Semester (Year 2),Second Year,Mandatory,5
+,Conflict Resolution,Social,Second Semester (Year 2),Second Year,Selective,4
+,Nonprofit Management,Social,Second Semester (Year 2),Second Year,Selective,3
+,Critical Thinking & Ethics,Social,Second Semester (Year 2),Second Year,Selective,5
+,Introduction to Law,Laws,First Semester (Year 1),First Year,Mandatory,5
+,Constitutional Law I,Laws,First Semester (Year 1),First Year,Mandatory,5
+,Legal Writing & Research,Laws,First Semester (Year 1),First Year,Mandatory,5
+,Roman Law,Laws,First Semester (Year 1),First Year,Mandatory,5
+,History of Legal Systems,Laws,Second Semester (Year 1),First Year,Mandatory,5
+,Constitutional Law II,Laws,Second Semester (Year 1),First Year,Mandatory,5
+,Civil Law I,Laws,Second Semester (Year 1),First Year,Mandatory,5
+,Criminal Law I,Laws,Second Semester (Year 1),First Year,Mandatory,5
+,Legal Philosophy & Ethics,Laws,First Semester (Year 2),Second Year,Mandatory,5
+,Political Science for Lawyers,Laws,First Semester (Year 2),Second Year,Mandatory,5
+,Economics for Lawyers,Laws,First Semester (Year 2),Second Year,Mandatory,5
+,Logic & Legal Argumentation,Laws,First Semester (Year 2),Second Year,Mandatory,5
+,Civil Law II,Laws,Second Semester (Year 2),Second Year,Mandatory,5
+,Criminal Law II,Laws,Second Semester (Year 2),Second Year,Mandatory,5
+,Administrative Law,Laws,Second Semester (Year 2),Second Year,Mandatory,5
+,Commercial Law,Laws,Second Semester (Year 2),Second Year,Mandatory,5
+,Procedural Civil Law,Laws,First Semester (Year 3),Third Year,Mandatory,5
+,International Law,Laws,First Semester (Year 3),Third Year,Mandatory,5
+,Labor Law,Laws,First Semester (Year 3),Third Year,Mandatory,5
+,Tax Law,Laws,First Semester (Year 3),Third Year,Mandatory,5
+,Criminal Procedure,Laws,Second Semester (Year 3),Third Year,Mandatory,5
+,Property Law,Laws,Second Semester (Year 3),Third Year,Mandatory,5
+,Family Law,Laws,Second Semester (Year 3),Third Year,Selective,4
+,Environmental Law,Laws,Second Semester (Year 3),Third Year,Selective,4
+,Human Rights Law,Laws,First Semester (Year 4),Fourth Year,Mandatory,5
+,European Union Law,Laws,First Semester (Year 4),Fourth Year,Mandatory,5
+,Corporate Law,Laws,First Semester (Year 4),Fourth Year,Mandatory,5
+,International Private Law,Laws,First Semester (Year 4),Fourth Year,Mandatory,5
+,Criminology,Laws,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Legal Clinic Practice,Laws,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Alternative Dispute Resolution,Laws,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Cybercrime & Digital Law,Laws,First Semester (Year 5),Fifth Year,Mandatory,5
+,Capstone Legal Research,Laws,First Semester (Year 5),Fifth Year,Mandatory,5
+,Public International Law,Laws,First Semester (Year 5),Fifth Year,Mandatory,5
+,Intellectual Property Law,Laws,Second Semester (Year 5),Fifth Year,Selective,4
+,Banking & Finance Law,Laws,Second Semester (Year 5),Fifth Year,Selective,3
+,"Ethics, Society & Professional Responsibility",Laws,Second Semester (Year 5),Fifth Year,Selective,5
+,Microeconomics I,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Macroeconomics I,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Mathematics for Economics I,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Accounting,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Economic History,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Microeconomics II,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Macroeconomics II,Economic,First Semester (Year 1),First Year,Mandatory,5
+,Mathematics for Economics II,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Statistics for Economics,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Introduction to Business,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Political Economy,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Economic Geography,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Econometrics,Economic,Second Semester (Year 1),First Year,Mandatory,5
+,Public Finance,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,International Economics,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,Financial Markets & Institutions,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,Intermediate Microeconomics,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,Intermediate Macroeconomics,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,Industrial Organization,Economic,First Semester (Year 2),Second Year,Mandatory,5
+,Financial Accounting,Economic,Second Semester (Year 2),Second Year,Mandatory,5
+,Development Economics,Economic,Second Semester (Year 2),Second Year,Mandatory,5
+,Labour Economics,Economic,Second Semester (Year 2),Second Year,Mandatory,5
+,Behavioral Economics,Economic,Second Semester (Year 2),Second Year,Selective,4
+,Environmental Economics,Economic,Second Semester (Year 2),Second Year,Selective,4
+,Monetary Economics,Economic,Second Semester (Year 2),Second Year,Mandatory,5
+,Advanced Econometrics,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,Economic Policy Analysis,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,International Finance,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,Game Theory,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,Economic Forecasting,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,Investment Analysis,Economic,First Semester (Year 3),Third Year,Mandatory,5
+,Public Policy Evaluation,Economic,Second Semester (Year 3),Third Year,Mandatory,5
+,Capstone Economic Research,Economic,Second Semester (Year 3),Third Year,Mandatory,5
+,Advanced Development Economics,Economic,Second Semester (Year 3),Third Year,Mandatory,5
+,Health Economics,Economic,Second Semester (Year 3),Third Year,Selective,4
+,Digital Economy,Economic,Second Semester (Year 3),Third Year,Selective,3
+,Research Ethics & Society,Economic,Second Semester (Year 3),Third Year,Selective,5
+,Architectural Design I,Architecture,First Semester (Year 1),First Year,Mandatory,5
+,History of Architecture I,Architecture,First Semester (Year 1),First Year,Mandatory,5
+,Architectural Drawing I,Architecture,First Semester (Year 1),First Year,Mandatory,5
+,Building Materials & Technology,Architecture,First Semester (Year 1),First Year,Mandatory,5
+,Mathematics for Architecture,Architecture,First Semester (Year 1),First Year,Mandatory,5
+,Architectural Design II,Architecture,Second Semester (Year 1),First Year,Mandatory,5
+,History of Architecture II,Architecture,Second Semester (Year 1),First Year,Mandatory,5
+,Architectural Drawing II,Architecture,Second Semester (Year 1),First Year,Mandatory,5
+,Environmental Studies,Architecture,Second Semester (Year 1),First Year,Mandatory,5
+,Physics for Architects,Architecture,Second Semester (Year 1),First Year,Mandatory,5
+,Introduction to Urban Studies,Architecture,First Semester (Year 2),Second Year,Mandatory,5
+,Descriptive Geometry,Architecture,First Semester (Year 2),Second Year,Mandatory,5
+,Architectural Design III,Architecture,First Semester (Year 2),Second Year,Mandatory,5
+,Structural Systems I,Architecture,First Semester (Year 2),Second Year,Mandatory,5
+,Environmental Design,Architecture,First Semester (Year 2),Second Year,Mandatory,5
+,Urban Planning I,Architecture,Second Semester (Year 2),Second Year,Mandatory,5
+,Architectural Theory,Architecture,Second Semester (Year 2),Second Year,Mandatory,5
+,Architectural Design IV,Architecture,Second Semester (Year 2),Second Year,Mandatory,5
+,Structural Systems II,Architecture,Second Semester (Year 2),Second Year,Mandatory,5
+,Building Services & Systems,Architecture,Second Semester (Year 2),Second Year,Mandatory,5
+,Digital Design & BIM,Architecture,First Semester (Year 3),Third Year,Mandatory,5
+,Construction Law & Economy,Architecture,First Semester (Year 3),Third Year,Mandatory,5
+,Interior Design,Architecture,First Semester (Year 3),Third Year,Selective,4
+,Landscape Architecture,Architecture,First Semester (Year 3),Third Year,Selective,4
+,Advanced Architectural Design,Architecture,First Semester (Year 3),Third Year,Mandatory,5
+,Sustainable Architecture,Architecture,Second Semester (Year 3),Third Year,Mandatory,5
+,Construction Management,Architecture,Second Semester (Year 3),Third Year,Mandatory,5
+,Urban Design,Architecture,Second Semester (Year 3),Third Year,Mandatory,5
+,Advanced Structural Design,Architecture,Second Semester (Year 3),Third Year,Mandatory,5
+,Architectural Design Studio,Architecture,First Semester (Year 4),Fourth Year,Mandatory,5
+,Heritage Conservation,Architecture,First Semester (Year 4),Fourth Year,Mandatory,5
+,Real Estate & Project Development,Architecture,First Semester (Year 4),Fourth Year,Mandatory,5
+,Capstone Design Project,Architecture,First Semester (Year 4),Fourth Year,Mandatory,5
+,Professional Practice,Architecture,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Parametric Design,Architecture,Second Semester (Year 4),Fourth Year,Selective,4
+,Smart Cities,Architecture,Second Semester (Year 4),Fourth Year,Selective,3
+,Cultural Heritage & Society,Architecture,Second Semester (Year 4),Fourth Year,Selective,5
+,Art History I,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Drawing & Composition I,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Color Theory & Practice,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Sculpture,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Aesthetics & Philosophy of Art,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Art History II,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Drawing & Composition II,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Printmaking,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Art Materials & Techniques,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Cultural Studies,Arts,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Photography,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Visual Communication,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Art History III - Modern,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Painting Techniques I,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Digital Arts & Media,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Contemporary Art Movements,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Ceramic Arts,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Painting Techniques II,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Art Criticism & Theory,Arts,Second Semester (Year 1),First Year,Mandatory,5
+,Video & Performance Art,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Studio Practice I,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Typography & Graphic Design,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Textile Arts,Arts,First Semester (Year 2),Second Year,Selective,4
+,Street Art & Public Spaces,Arts,First Semester (Year 2),Second Year,Selective,4
+,Studio Practice II,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Exhibition & Curatorship,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Advanced Painting,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Art Management & Entrepreneurship,Arts,First Semester (Year 2),Second Year,Mandatory,5
+,Advanced Digital Arts,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Final Studio Project,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Art Market & Collecting,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Public Art & Community,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Capstone Exhibition,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Contemporary Critical Theory,Arts,Second Semester (Year 2),Second Year,Mandatory,5
+,Animation & Motion Graphics,Arts,Second Semester (Year 2),Second Year,Selective,4
+,Illustration & Publishing,Arts,Second Semester (Year 2),Second Year,Selective,3
+,Interdisciplinary Arts & Society,Arts,Second Semester (Year 2),Second Year,Selective,5
+,Introduction to Education,Education,First Semester (Year 1),First Year,Mandatory,5
+,Educational Psychology I,Education,First Semester (Year 1),First Year,Mandatory,5
+,Philosophy of Education,Education,First Semester (Year 1),First Year,Mandatory,5
+,Child Development,Education,First Semester (Year 1),First Year,Mandatory,5
+,Sociology of Education,Education,First Semester (Year 1),First Year,Mandatory,5
+,Educational Psychology II,Education,First Semester (Year 1),First Year,Mandatory,5
+,Curriculum Theory,Education,First Semester (Year 1),First Year,Mandatory,5
+,Communication Skills for Teachers,Education,Second Semester (Year 1),First Year,Mandatory,5
+,History of Education,Education,Second Semester (Year 1),First Year,Mandatory,5
+,Introduction to Research in Education,Education,Second Semester (Year 1),First Year,Mandatory,5
+,Inclusive Education Foundations,Education,Second Semester (Year 1),First Year,Mandatory,5
+,Learning Theories,Education,Second Semester (Year 1),First Year,Mandatory,5
+,Educational Research Methods,Education,Second Semester (Year 1),First Year,Mandatory,5
+,Classroom Management,Education,First Semester (Year 2),Second Year,Mandatory,5
+,Instructional Design,Education,First Semester (Year 2),Second Year,Mandatory,5
+,Assessment & Evaluation I,Education,First Semester (Year 2),Second Year,Mandatory,5
+,Special Education,Education,First Semester (Year 2),Second Year,Mandatory,5
+,Assessment & Evaluation II,Education,First Semester (Year 2),Second Year,Mandatory,5
+,Multicultural Education,Education,First Semester (Year 2),Second Year,Mandatory,5
+,School Administration & Leadership,Education,Second Semester (Year 2),Second Year,Mandatory,5
+,Language & Literacy Development,Education,Second Semester (Year 2),Second Year,Mandatory,5
+,Educational Statistics,Education,Second Semester (Year 2),Second Year,Mandatory,5
+,Educational Technology,Education,Second Semester (Year 2),Second Year,Selective,4
+,Gifted Education,Education,Second Semester (Year 2),Second Year,Selective,4
+,Advanced Educational Research,Education,Second Semester (Year 2),Second Year,Mandatory,5
+,Inclusive Education Practice,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Teaching Practicum I,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Curriculum Development,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Educational Leadership,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Teaching Practicum II,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Policy & Reform in Education,Education,First Semester (Year 3),Third Year,Mandatory,5
+,Digital Learning Environments,Education,Second Semester (Year 3),Third Year,Mandatory,5
+,Capstone Education Project,Education,Second Semester (Year 3),Third Year,Mandatory,5
+,Global Perspectives in Education,Education,Second Semester (Year 3),Third Year,Mandatory,5
+,Early Childhood Education,Education,Second Semester (Year 3),Third Year,Selective,4
+,STEM Education,Education,Second Semester (Year 3),Third Year,Selective,3
+,"Ethics, Society & Critical Thinking",Education,Second Semester (Year 3),Third Year,Selective,5
+,General & Inorganic Chemistry,Pharmacy,First Semester (Year 1),First Year,Mandatory,5
+,Human Biology & Anatomy,Pharmacy,First Semester (Year 1),First Year,Mandatory,5
+,Pharmaceutical Mathematics,Pharmacy,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Pharmacy,Pharmacy,First Semester (Year 1),First Year,Mandatory,5
+,Organic Chemistry I,Pharmacy,Second Semester (Year 1),First Year,Mandatory,5
+,Organic Chemistry II,Pharmacy,Second Semester (Year 1),First Year,Mandatory,5
+,Medical Biochemistry,Pharmacy,Second Semester (Year 1),First Year,Mandatory,5
+,Botanical Sciences,Pharmacy,Second Semester (Year 1),First Year,Mandatory,5
+,Medical Physiology,Pharmacy,First Semester (Year 2),Second Year,Mandatory,5
+,Pharmaceutical Calculations,Pharmacy,First Semester (Year 2),Second Year,Mandatory,5
+,Analytical Chemistry,Pharmacy,First Semester (Year 2),Second Year,Mandatory,5
+,Laboratory Skills,Pharmacy,First Semester (Year 2),Second Year,Mandatory,5
+,Pharmacognosy I,Pharmacy,Second Semester (Year 2),Second Year,Mandatory,5
+,Pharmacology I,Pharmacy,Second Semester (Year 2),Second Year,Mandatory,5
+,Pharmaceutical Chemistry I,Pharmacy,Second Semester (Year 2),Second Year,Mandatory,5
+,Microbiology & Immunology,Pharmacy,Second Semester (Year 2),Second Year,Mandatory,5
+,Pharmaceutics I,Pharmacy,First Semester (Year 3),Third Year,Mandatory,5
+,Pharmacognosy II,Pharmacy,First Semester (Year 3),Third Year,Mandatory,5
+,Pharmacology II,Pharmacy,First Semester (Year 3),Third Year,Mandatory,5
+,Pharmaceutical Chemistry II,Pharmacy,First Semester (Year 3),Third Year,Mandatory,5
+,Pharmaceutics II,Pharmacy,Second Semester (Year 3),Third Year,Mandatory,5
+,Pharmaceutical Analysis,Pharmacy,Second Semester (Year 3),Third Year,Mandatory,5
+,Phytotherapy,Pharmacy,Second Semester (Year 3),Third Year,Selective,4
+,Cosmetic Science,Pharmacy,Second Semester (Year 3),Third Year,Selective,4
+,Clinical Pharmacy I,Pharmacy,First Semester (Year 4),Fourth Year,Mandatory,5
+,Pharmacokinetics,Pharmacy,First Semester (Year 4),Fourth Year,Mandatory,5
+,Drug Delivery Systems,Pharmacy,First Semester (Year 4),Fourth Year,Mandatory,5
+,Toxicology,Pharmacy,First Semester (Year 4),Fourth Year,Mandatory,5
+,Pharmaceutical Biotechnology,Pharmacy,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Clinical Pharmacy II,Pharmacy,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Biopharmaceutics,Pharmacy,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Pharmaceutical Legislation & Ethics,Pharmacy,First Semester (Year 5),Fifth Year,Mandatory,5
+,Capstone Pharmacy Research,Pharmacy,First Semester (Year 5),Fifth Year,Mandatory,5
+,Hospital & Community Pharmacy Practice,Pharmacy,First Semester (Year 5),Fifth Year,Mandatory,5
+,Herbal Medicine,Pharmacy,Second Semester (Year 5),Fifth Year,Selective,4
+,Pharmaceutical Marketing,Pharmacy,Second Semester (Year 5),Fifth Year,Selective,3
+,Public Health & Epidemiology,Pharmacy,Second Semester (Year 5),Fifth Year,Selective,5
+,Language Foundations I,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Phonetics & Pronunciation,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Grammar & Syntax I,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Linguistics,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Reading & Comprehension Skills,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Language Foundations II,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Grammar & Syntax II,Foreign Language,First Semester (Year 1),First Year,Mandatory,5
+,Writing Skills I,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,Oral Communication I,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,Cultural Studies I,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,History of Language,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,Vocabulary & Lexicology,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,Advanced Language Skills I,Foreign Language,Second Semester (Year 1),First Year,Mandatory,5
+,Translation Theory & Practice I,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Literature of the Target Language I,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Cultural Studies II,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Sociolinguistics,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Advanced Language Skills II,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Translation Theory & Practice II,Foreign Language,First Semester (Year 2),Second Year,Mandatory,5
+,Literature of the Target Language II,Foreign Language,Second Semester (Year 2),Second Year,Mandatory,5
+,Applied Linguistics,Foreign Language,Second Semester (Year 2),Second Year,Mandatory,5
+,Language Testing & Assessment,Foreign Language,Second Semester (Year 2),Second Year,Mandatory,5
+,Business Language,Foreign Language,Second Semester (Year 2),Second Year,Selective,4
+,Language Teaching Methodology,Foreign Language,Second Semester (Year 2),Second Year,Selective,4
+,Interpretation & Conference Skills,Foreign Language,Second Semester (Year 2),Second Year,Mandatory,5
+,Comparative Linguistics,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Advanced Literary Analysis,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Specialized Translation,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Discourse Analysis,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Simultaneous Interpretation,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Language & Media,Foreign Language,First Semester (Year 3),Third Year,Mandatory,5
+,Lexicography & Terminology,Foreign Language,Second Semester (Year 3),Third Year,Mandatory,5
+,Capstone Language Research,Foreign Language,Second Semester (Year 3),Third Year,Mandatory,5
+,Contrastive Grammar,Foreign Language,Second Semester (Year 3),Third Year,Mandatory,5
+,Second Foreign Language,Foreign Language,Second Semester (Year 3),Third Year,Selective,4
+,Creative Writing in Target Language,Foreign Language,Second Semester (Year 3),Third Year,Selective,3
+,Intercultural Communication & Society,Foreign Language,Second Semester (Year 3),Third Year,Selective,5
+,Dental Anatomy I,Dentist,First Semester (Year 1),First Year,Mandatory,5
+,Oral Biology,Dentist,First Semester (Year 1),First Year,Mandatory,5
+,Dental Histology & Embryology,Dentist,First Semester (Year 1),First Year,Mandatory,5
+,Medical Biochemistry,Dentist,First Semester (Year 1),First Year,Mandatory,5
+,Introduction to Dental Sciences,Dentist,Second Semester (Year 1),First Year,Mandatory,5
+,Dental Anatomy II,Dentist,Second Semester (Year 1),First Year,Mandatory,5
+,Human Physiology,Dentist,Second Semester (Year 1),First Year,Mandatory,5
+,Medical Genetics,Dentist,Second Semester (Year 1),First Year,Mandatory,5
+,Dental Materials I,Dentist,First Semester (Year 2),Second Year,Mandatory,5
+,Microbiology for Dentists,Dentist,First Semester (Year 2),Second Year,Mandatory,5
+,First Aid & Medical Emergencies,Dentist,First Semester (Year 2),Second Year,Mandatory,5
+,Statistics & Research Basics,Dentist,First Semester (Year 2),Second Year,Mandatory,5
+,Oral Pathology I,Dentist,Second Semester (Year 2),Second Year,Mandatory,5
+,Dental Pharmacology,Dentist,Second Semester (Year 2),Second Year,Mandatory,5
+,Operative Dentistry I,Dentist,Second Semester (Year 2),Second Year,Mandatory,5
+,Periodontology I,Dentist,Second Semester (Year 2),Second Year,Mandatory,5
+,Dental Radiology,Dentist,First Semester (Year 3),Third Year,Mandatory,5
+,Oral Pathology II,Dentist,First Semester (Year 3),Third Year,Mandatory,5
+,Operative Dentistry II,Dentist,First Semester (Year 3),Third Year,Mandatory,5
+,Periodontology II,Dentist,First Semester (Year 3),Third Year,Mandatory,5
+,Dental Materials II,Dentist,Second Semester (Year 3),Third Year,Mandatory,5
+,Oral Microbiology,Dentist,Second Semester (Year 3),Third Year,Mandatory,5
+,Pediatric Dentistry Fundamentals,Dentist,Second Semester (Year 3),Third Year,Selective,4
+,Dental Aesthetics,Dentist,Second Semester (Year 3),Third Year,Selective,4
+,Endodontics I,Dentist,First Semester (Year 4),Fourth Year,Mandatory,5
+,Prosthodontics I,Dentist,First Semester (Year 4),Fourth Year,Mandatory,5
+,Oral & Maxillofacial Surgery I,Dentist,First Semester (Year 4),Fourth Year,Mandatory,5
+,Orthodontics I,Dentist,First Semester (Year 4),Fourth Year,Mandatory,5
+,Oral Medicine,Dentist,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Endodontics II,Dentist,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Prosthodontics II,Dentist,Second Semester (Year 4),Fourth Year,Mandatory,5
+,Oral & Maxillofacial Surgery II,Dentist,First Semester (Year 5),Fifth Year,Mandatory,5
+,Capstone Clinical Dentistry,Dentist,First Semester (Year 5),Fifth Year,Mandatory,5
+,Dental Public Health,Dentist,First Semester (Year 5),Fifth Year,Mandatory,5
+,Implantology Basics,Dentist,Second Semester (Year 5),Fifth Year,Selective,4
+,Digital Dentistry,Dentist,Second Semester (Year 5),Fifth Year,Selective,3
+,Community Health & Society,Dentist,Second Semester (Year 5),Fifth Year,Selective,5

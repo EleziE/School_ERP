@@ -7,7 +7,7 @@
             <tree duplicate="0">
                 <field name="sequence" optional="hide"/>
                 <field name="task_from" options="{'no_open':True}" optional="show"
-                       groups="base_school_erp.group_school_admin"/>
+                       groups="configurations_school_erp.group_school_admin"/>
                 <field name="task_for"/>
                 <field name="starting_date"/>
                 <field name="planned_finish_date"/>
@@ -107,7 +107,7 @@
                     </div>
                 </sheet>
 
-                <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                <div class="oe_chatter" groups="configurations_school_erp.group_school_admin">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
@@ -130,9 +130,9 @@
                 <group expand="0" string="Group By">
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
                     <filter name="task_for" string="Task for" context="{'group_by':'task_for'}"
-                            groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"/>
+                            groups="configurations_school_erp.group_school_administration,configurations_school_erp.group_school_admin"/>
                     <filter name="task_from" string="Task from" context="{'group_by':'task_from'}"
-                            groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin"/>
+                            groups="configurations_school_erp.group_school_administration,configurations_school_erp.group_school_admin"/>
                 </group>
             </search>
         </field>
@@ -145,11 +145,5 @@
         <field name="view_ids" eval="[(6,0,0),
                                 (0,0,{'view_mode': 'tree','view_id':ref('task_tree_view')}),
                                 (0,0,{'view_mode': 'form','view_id':ref('task_form_view')}),]"/>
-    </record>
-    <!--Only Admins are allowed to see the icon of Task module-->
-    <record id="task" model="ir.ui.menu">
-        <field name="name">Tasks</field>
-        <field name="groups_id"
-               eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
     </record>
 </odoo>
