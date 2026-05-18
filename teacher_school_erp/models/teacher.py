@@ -143,7 +143,7 @@ class Student(models.Model):
 
     @api.onchange('classroom_id')
     def _compute_teacher(self):
-        teachers = self.env['teacher.teacher'].search([('class_room_id', 'in', self.classroom_id.id)])
+        teachers = self.env['teacher.teacher'].search([('subject_id', 'in', self.subject_id.id)])
         self.teacher_ids = teachers
 
     @api.constrains('member_type')
