@@ -10,9 +10,6 @@
                 <field name="teacher_ids" domain="[('subject_id','in',subject_id)]">
                     <tree>
                         <field name="name"/>
-                        <field name="year"/>
-                        <field name="semester"/>
-                        <field name="faculty"/>
                     </tree>
                 </field>
             </xpath>
