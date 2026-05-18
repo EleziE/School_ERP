@@ -52,6 +52,7 @@ class Student(models.Model):
     semester = fields.Many2one(comodel_name='semester.semester', string='Semester', )
     faculty = fields.Many2one(comodel_name='faculty.faculty', string='Faculty', required=True)
     image_128 = fields.Image(string='Image 128', )
+    subject_state = fields.Boolean(string='Subject State',related='subject_id.passed_subject',store=True)
     subject_domain = fields.Json(string='Subject Domain', compute='_compute_subject_domain')
 
     # =================== Main Functions (CREATE & WRITE & UNLINK) ====================
