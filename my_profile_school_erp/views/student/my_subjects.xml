@@ -23,7 +23,6 @@
                 <tree>
                     <field name="subject_name"/>
                     <field name="passed_subject_ids" optional="hide"/>
-                    <field name="upcoming_subject_ids" optional="hide"/>
                     <field name="semester" optional="hide"/>
                     <field name="year" optional="hide"/>
                     <field name="faculty" optional="hide"/>

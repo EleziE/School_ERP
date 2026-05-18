@@ -141,10 +141,11 @@ class Student(models.Model):
                                    compute='_compute_teacher',
                                    readonly=True)
 
-    @api.onchange('classroom_id')
+    @api.onchange('subject_id')
     def _compute_teacher(self):
         teachers = self.env['teacher.teacher'].search([('subject_id', 'in', self.subject_id.id)])
-        self.teacher_ids = teachers
+        for rec in self:
+            rec.teacher_ids = teachers
 
     @api.constrains('member_type')
     def _check_role_not_duplicate(self):
