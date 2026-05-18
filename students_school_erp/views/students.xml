@@ -145,14 +145,27 @@
                                 <div class="o_card_box p-3 border rounded shadow-sm">
                                     <h5 class="fw-bold mb-3 text-primary border-bottom pb-2">🎓 Academic Info</h5>
                                     <group>
-                                        <field name="faculty" invisible="state == 'graduated'"/>
-                                        <field name="year" invisible="state == 'graduated'"/>
-                                        <field name="semester" invisible="state == 'graduated'"/>
-                                        <field name="graduation_date" invisible="state != 'graduated'"
+                                        <field name="faculty_years" invisible="1"/>
+                                        <field name="faculty"
+                                               invisible="state == 'graduated'"
+                                               options="{'no_create': True, 'no_quick_create': True}"/>
+                                        <field name="year"
+                                               invisible="state == 'graduated'"
+                                               domain="['|', ('code', '=', 'tr'), ('order', '&lt;=', faculty_years)]"
+                                               options="{'no_create': True, 'no_quick_create': True}"/>
+                                        <field name="semester"
+                                               invisible="state == 'graduated'"
+                                               domain="year and year.code == 'tr'
+                                                            and [('code', 'in', ['S1', 'S2'])]
+                                                            or [('year_id', '=', year)]"
+                                               options="{'no_create': True, 'no_quick_create': True}"/>
+                                        <field name="graduation_date"
+                                               invisible="state != 'graduated'"
                                                class="text-warning fw-bold"/>
-                                        <field name="enrollment_date"  readonly="state == 'graduated'"/>
-                                        <field name="suspend_reason" invisible="state != 'inactive'"
-                                        class="text-danger"/>
+                                        <field name="enrollment_date" readonly="state == 'graduated'"/>
+                                        <field name="suspend_reason"
+                                               invisible="state != 'inactive'"
+                                               class="text-danger"/>
                                     </group>
                                 </div>
                             </div>
@@ -188,9 +201,11 @@
                             <page string="Finance" name="finance"/>
                         </notebook>
 
-                        <div class="p-3 border-top mt-5 bg-light rounded text-center" groups="base_school_erp.group_school_administration,base_school_erp.group_school_admin">
+                        <div class="p-3 border-top mt-5 bg-light rounded text-center"
+                             groups="configurations_school_erp.group_school_administration,configurations_school_erp.group_school_admin">
                             <span class="text-muted small">
-                                <i class="fa fa-info-circle text-primary me-1" title="Information"/> There are features that only admin can see and do so, for admin support:
+                                <i class="fa fa-info-circle text-primary me-1" title="Information"/> There are features
+                                that only admin can see and do so, for admin support:
                                 <br/>
                                 <i class="fa fa-envelope" title="Email"/> <b>admin@admin.com</b>
                                 <br/>
@@ -199,7 +214,7 @@
                         </div>
                     </sheet>
 
-                    <div class="oe_chatter" groups="base_school_erp.group_school_admin">
+                    <div class="oe_chatter" groups="configurations_school_erp.group_school_admin">
                         <field name="message_follower_ids"/>
                         <field name="activity_ids"/>
                         <field name="message_ids"/>
@@ -225,7 +240,7 @@
                 </tree>
             </field>
             <field name="groups_id"
-                   eval="[(4,ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration'))]"/>
+                   eval="[(4,ref('configurations_school_erp.group_school_admin','configurations_school_erp.group_school_administration'))]"/>
         </record>
         <!--Kanban-->
         <record id="students_kanban_view" model="ir.ui.view">
@@ -340,11 +355,6 @@
                    (0, 0, {'view_mode': 'kanban', 'view_id': ref('students_kanban_view')}),
                    (0, 0, {'view_mode': 'tree', 'view_id': ref('students_tree_view')}),
                    (0, 0, {'view_mode': 'form', 'view_id': ref('students_form_view')}),]"/>
-        </record>
-        <!--Only the groups that are added are allowed to see the icon of this module-->
-        <record id="students" model="ir.ui.menu">
-            <field name="groups_id"
-                   eval="[(6,0,[ref('base_school_erp.group_school_admin','base_school_erp.group_school_administration')])]"/>
         </record>
     </data>
 </odoo>

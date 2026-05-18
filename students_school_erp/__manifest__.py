@@ -15,8 +15,7 @@
         'views/menu.xml',
     ],
     'depends': [
-        'base_school_erp',
-        'mail',
+        'configurations_school_erp',
     ],
     'icon': 'students_school_erp/static/description/icon.png',
     'web_icon': 'students_school_erp,static/description/icon.png',

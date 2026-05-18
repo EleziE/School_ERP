@@ -63,9 +63,9 @@ class Task(models.Model):
         Who has the rights to modify the records
         """
 
-        is_admin = (self.env.user.has_group('base_school_erp.group_school_administration') or
-                    self.env.user.has_group('base_school_erp.group_school_admin') or
-                    self.env.user.has_group('base_school_erp.group_school_teacher'))
+        is_admin = (self.env.user.has_group('configurations_school_erp.group_school_administration') or
+                    self.env.user.has_group('configurations_school_erp.group_school_admin') or
+                    self.env.user.has_group('configurations_school_erp.group_school_teacher'))
 
         if not is_admin:
             raise AccessError('You are not allowed to perform this task!')

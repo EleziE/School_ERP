@@ -1,8 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-access.finance.finance.admin,access.finance.finance.admin,model_finance_finance,base_school_erp.group_school_admin,1,1,1,1
-access.finance.finance.administration,access.finance.finance.administration,model_finance_finance,base_school_erp.group_school_administration,1,1,1,1
-access.finance.finance.teacher,access.finance.finance.teacher,model_finance_finance,base_school_erp.group_school_teacher,1,0,0,0
-access.finance.finance.student,access.finance.finance.student,model_finance_finance,base_school_erp.group_school_student,1,0,0,0
+access_finance_finance_admin,access.finance.finance.admin,model_finance_finance,configurations_school_erp.group_school_admin,1,1,1,1
+access_finance_finance_administration,access.finance.finance.administration,model_finance_finance,configurations_school_erp.group_school_administration,1,1,1,1
+access_finance_finance_teacher,access.finance.finance.teacher,model_finance_finance,configurations_school_erp.group_school_teacher,1,0,0,0
+access_finance_finance_student,access.finance.finance.student,model_finance_finance,configurations_school_erp.group_school_student,1,0,0,0
 
 access_print_paid_finances_wizard,access_print_paid_finances_wizard,model_print_paid_finances_wizard,base.group_user,1,1,1,1

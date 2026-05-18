@@ -3,7 +3,7 @@
     'license': 'LGPL-3',
     'description': """My Profile""",
     'depends': [
-        'base_school_erp',
+        'configurations_school_erp',
         'students_school_erp',
         'teacher_school_erp',
         'task_school_erp',

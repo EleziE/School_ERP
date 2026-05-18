@@ -31,5 +31,10 @@
             <field name="code">6th</field>
             <field name="order">6</field>
         </record>
+        <record id="transfer" model="year.year">
+            <field name="name">Transfer</field>
+            <field name="code">tr</field>
+            <field name="order">7</field>
+        </record>
     </data>
 </odoo>
