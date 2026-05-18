@@ -20,11 +20,14 @@ class StudentReport(models.AbstractModel):
         styles = getSampleStyleSheet()
         elements = []
 
+        # ── Safe field helpers ──────────────────────────────────────
         dob_formatted = record.dob.strftime("%d/%m/%Y") if record.dob else ''
+        faculty_name = record.faculty.name if record.faculty else ''
+        year_name = record.year.name if record.year else ''
+        semester_name = record.semester.name if record.semester else ''
 
         def add_footer_header(c, _doc):
             c.saveState()
-
             created_date = datetime.now().strftime("%d/%m/%Y")
             c.setFont('Times-Roman', 12)
             c.setFillColor(colors.grey)
@@ -38,7 +41,7 @@ class StudentReport(models.AbstractModel):
             c.drawCentredString(
                 A4[0] / 2,
                 1 * cm,
-                "This document is valid 6 month after the released date!"
+                "This document is valid 6 months after the released date!"
             )
             c.restoreState()
 
@@ -60,12 +63,18 @@ class StudentReport(models.AbstractModel):
         elements.append(Spacer(1, 6))
         elements.append(Paragraph(f"Email : {record.email or ''}", styles['Normal']))
         elements.append(Spacer(1, 6))
-        elements.append(Paragraph(f"External email : {record.external_email or ''}", styles['Normal']))
+        elements.append(Paragraph(f"External Email : {record.external_email or ''}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Faculty : {faculty_name}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Year : {year_name}", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        elements.append(Paragraph(f"Semester : {semester_name}", styles['Normal']))
 
         doc.build(elements,
                   onFirstPage=add_footer_header,
                   onLaterPages=add_footer_header)
+
         pdf = buffer.getvalue()
         buffer.close()
-
         return base64.b64encode(pdf)

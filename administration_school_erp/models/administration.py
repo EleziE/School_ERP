@@ -51,17 +51,13 @@ class Administration(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        # 1. Fetch references ONCE outside the loop for better performance
-        access_rights = self.env.ref('base_school_erp.group_school_administration')
+        access_rights = self.env.ref('configurations_school_erp.group_school_administration')
         internal_user = self.env.ref('base.group_user')
 
         for vals in vals_list:
-            # 2. Handle Sequence
             if vals.get('sequence', _('New')) == _('New'):
                 vals['sequence'] = self.env['ir.sequence'].next_by_code('administration.administration')
 
-            # 3. Create the User
-            # We still create users one by one because they are separate records
             user = self.env['res.users'].create({
                 'name': vals.get('name'),
                 'login': vals.get('login'),
@@ -72,24 +68,30 @@ class Administration(models.Model):
                 ]
             })
 
-            # Link the newly created user to the administration record
             vals['user_id'] = user.id
-            print(f"An administration worker was created: {vals.get('name')}")
 
-        # 4. Pass the entire list to the parent create method
         return super(Administration, self).create(vals_list)
 
-    @api.model
     def write(self, vals):
 
-        if not self.env.user.has_group('base_school_erp.group_school_admin'):
+        if not (self.env.user.has_group('configurations_school_erp.group_school_admin')
+                or self.env.user.has_group('configurations_school_erp.group_school_administration')):
             raise AccessError('You are do not have the right to modify records')
 
         secure_fields = {'name', 'login', 'member_type', 'external_email', 'blood_type', 'father_name', 'mother_name',
                          'gender', 'dob', 'phone'}
-        if any(field in vals for field in secure_fields):
-            pass
+
         return super().write(vals)
+
+    def unlink(self):
+        to_be_deleted = self.mapped('user_id')
+
+        result = super(Administration, self).unlink()
+
+        if to_be_deleted:
+            to_be_deleted.sudo().unlink()
+
+        return result
 
     @api.constrains('dob')
     def check_dob(self):
