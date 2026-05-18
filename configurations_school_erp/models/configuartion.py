@@ -86,6 +86,7 @@ class Subject(models.Model):
                             string='Type', required=True)
     credits = fields.Integer(string='Credits')
     description = fields.Html(string='Description')
+    passed_subject = fields.Boolean(string='Passed Subject',default=False)
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -12,6 +12,7 @@
                     <field name="semester_id"/>
                     <field name="year_id"/>
                     <field name="type"/>
+                    <field name="passed_subject"/>
                     <field name="credits" sum="Total"/>
                 </tree>
             </field>
@@ -27,6 +28,7 @@
                                 <field name="name" placeholder="e.g. Advanced Mathematics"/>
                                 <field name="sequence"/>
                                 <field name="faculty_id"/>
+                                <field name="passed_subject"/>
                             </group>
                             <group>
                                 <field name="year_id"/>

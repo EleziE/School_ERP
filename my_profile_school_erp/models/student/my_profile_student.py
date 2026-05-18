@@ -73,9 +73,7 @@ class StudentSubject(models.Model):
     _description = 'Student Subjects'
 
     user_id = fields.Many2one(comodel_name='res.users')
-    student_id = fields.Many2one(comodel_name='students.students',
-                                 default=lambda self: self.env['students.students'].search(
-                                     [('user_id', '=', self.env.user.id)], limit=1))
+    student_id = fields.Many2one(comodel_name='students.students',compute='_compute_student_id')
     subject_id = fields.Many2one(comodel_name='subject.subject')
 
     student_sequence = fields.Char(string='Student ID', related='student_id.sequence')
@@ -88,31 +86,12 @@ class StudentSubject(models.Model):
     student_name = fields.Char(string='Student Name', related='student_id.name')
     subject_name = fields.Char(string='Subject Name', related='subject_id.name')
 
-    passed_subject_ids = fields.Many2many('subject.subject', compute='_compute_subject_status', string="Completed")
-    upcoming_subject_ids = fields.Many2many('subject.subject', compute='_compute_subject_status', string="Remaining")
+    passed_subject_ids = fields.Boolean(string="Completed")
 
-    @api.depends('student_id', 'student_id.year', 'student_id.semester')
-    def _compute_subject_status(self):
-        # Mapping years to numbers for easier comparison
-        year_map = {'1st': 1, '2nd': 2, '3rd': 3}
-
+    @api.depends('user_id')
+    def _compute_student_id(self):
+        logged_user = self.env.user.id
         for rec in self:
-            if not rec.student_id:
-                rec.passed_subject_ids = False
-                rec.upcoming_subject_ids = False
-                continue
-
-            # 1. Get all subjects assigned to this student's faculty
-            all_curriculum = self.env['subject.subject'].search([('faculty_id', '=', rec.faculty)])
-
-            # 2. Get Student's Current Level
-            current_year_num = year_map.get(rec.year, 0)
-
-            # 3. Filter Passed: Subjects from previous years
-            passed = all_curriculum.filtered(lambda s: year_map.get(s.year, 0) < current_year_num)
-
-            # 4. Filter Upcoming: Subjects for current or future years
-            upcoming = all_curriculum.filtered(lambda s: year_map.get(s.year, 0) >= current_year_num)
-
-            rec.passed_subject_ids = passed
-            rec.upcoming_subject_ids = upcoming
+            student = rec.env['students.students'].search([('user_id', '=', logged_user)], limit=1)
+            rec.student_id = student.id
+            rec.user_id = logged_user

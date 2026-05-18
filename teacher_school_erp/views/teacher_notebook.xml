@@ -7,7 +7,14 @@
         <field name="inherit_id" ref="students_school_erp.students_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='teacher']" position="inside">
-                <field name="teacher_ids" domain="[('subject_id','in',subject_id)]"></field>
+                <field name="teacher_ids" domain="[('subject_id','in',subject_id)]">
+                    <tree>
+                        <field name="name"/>
+                        <field name="year"/>
+                        <field name="semester"/>
+                        <field name="faculty"/>
+                    </tree>
+                </field>
             </xpath>
         </field>
     </record>
